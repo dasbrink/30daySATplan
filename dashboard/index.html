@@ -811,13 +811,20 @@ function updateTodayCTA(todayInfo) {
     openSession(todayInfo.day, todayInfo.type, false);
 }
 
+function domainForType(type) {
+  if (type === 'Diagnostic Test' || type === 'Full Test' || type === 'Final Test') return 'diagnostic';
+  if (type === 'Algebra') return 'algebra';
+  if (type === 'Advanced Math' || type === 'Mixed Review') return 'advanced';
+  if (type === 'Data Analysis') return 'data';
+  if (type === 'Geometry') return 'geometry';
+  if (type === 'Weak Areas') return 'algebra'; // default; will improve with weakness tracking
+  return 'algebra';
+}
+
 function openSession(day, type, completed) {
-  // Placeholder — practice session engine comes next
-  if (completed) {
-    alert(`Day ${day} is already complete. Practice session review coming soon.`);
-  } else {
-    alert(`Day ${day}: ${type}\n\nPractice session engine coming soon.`);
-  }
+  const domain = domainForType(type);
+  const encodedType = encodeURIComponent(type);
+  window.location.href = `/session/?day=${day}&domain=${domain}&type=${encodedType}`;
 }
 
 async function loadDashboard(user) {
