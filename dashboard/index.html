@@ -3,663 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your 30-Day SAT Math Plan</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>My 30-Day SAT Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #1a3a5c;
-    --navy-dark: #0f2540;
-    --navy-light: #254d7a;
-    --gold: #c9902a;
-    --gold-light: #e0a83a;
-    --gold-pale: #f5e6c8;
-    --cream: #faf8f4;
-    --white: #ffffff;
-    --text: #1a1a1a;
-    --text-muted: #5a6a7a;
-    --border: #ddd8ce;
-    --success: #2e7d52;
-    --success-light: #e8f5ee;
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
+  nav{background:#1a3a5c;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.15rem;text-decoration:none}
+  .nav-logout{background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;padding:6px 14px;border-radius:6px;font-size:0.82rem;cursor:pointer}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* AUTH SCREEN */
+  #screen-auth{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px);background:#f5f5f0}
+  .auth-card{background:#fff;border-radius:12px;padding:40px;max-width:420px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.09);text-align:center}
+  .auth-card h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:8px}
+  .auth-card p{color:#666;font-size:0.9rem;margin-bottom:24px}
+  .auth-card input{width:100%;padding:12px 14px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.95rem;margin-bottom:12px;outline:none;transition:border 0.15s}
+  .auth-card input:focus{border-color:#1a3a5c}
+  .auth-btn{background:#1a3a5c;color:#fff;border:none;padding:13px;width:100%;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:background 0.2s}
+  .auth-btn:hover{background:#0f2540}
+  .auth-msg{font-size:0.85rem;margin-top:12px;min-height:20px}
 
-  body {
-    font-family: 'Source Serif 4', Georgia, serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-  }
+  /* DASHBOARD */
+  #screen-dash{display:none;padding:28px 20px;max-width:860px;margin:0 auto}
+  .dash-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+  .dash-welcome h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a3a5c;margin-bottom:4px}
+  .dash-welcome p{color:#666;font-size:0.9rem}
+  .countdown-box{background:#1a3a5c;color:#fff;border-radius:10px;padding:14px 22px;text-align:center}
+  .countdown-box .days{font-family:'Playfair Display',serif;font-size:2rem;color:#d4a04a}
+  .countdown-box .lbl{font-size:0.75rem;color:rgba(255,255,255,0.7);margin-top:2px}
 
-  /* ── AUTH SCREEN ── */
-  #screen-auth {
-    min-height: 100vh;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
+  /* Progress bar */
+  .progress-section{margin-bottom:24px}
+  .progress-label{display:flex;justify-content:space-between;font-size:0.85rem;color:#666;margin-bottom:6px}
+  .progress-track{background:#e0e0e0;border-radius:6px;height:10px}
+  .progress-fill{background:#1a3a5c;height:10px;border-radius:6px;transition:width 0.4s}
 
-  .auth-card {
-    background: white;
-    border-radius: 12px;
-    padding: 3rem 2.5rem;
-    max-width: 420px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-  }
+  /* Diagnostic score cards */
+  .score-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+  @media(max-width:540px){.score-cards{grid-template-columns:repeat(3,1fr);gap:8px}}
+  .score-card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.07)}
+  .score-card .s-num{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c}
+  .score-card .s-lbl{font-size:0.75rem;color:#888;margin-top:3px}
+  .score-card.locked .s-num{color:#ccc}
 
-  .auth-logo {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.02em;
-  }
+  /* Calendar */
+  .calendar-section h2{font-family:'Playfair Display',serif;font-size:1.2rem;color:#1a3a5c;margin-bottom:14px}
+  .calendar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:32px}
+  @media(max-width:580px){.calendar-grid{grid-template-columns:repeat(5,1fr)}}
+  @media(max-width:420px){.calendar-grid{grid-template-columns:repeat(4,1fr)}}
 
-  .auth-logo span { color: var(--gold); }
-  .auth-divider { width: 40px; height: 3px; background: var(--gold); margin: 1rem auto 1.5rem; }
+  .day-btn{border-radius:10px;padding:8px 4px;text-align:center;font-size:0.78rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:all 0.15s;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;position:relative}
+  .day-num{font-size:0.72rem;opacity:0.7;font-weight:400}
+  .day-type{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em}
+  .day-icon{font-size:1rem}
 
-  .auth-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.6rem;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-  }
+  /* Day states */
+  .day-btn.done-diagnostic  {background:#e3f2fd;border-color:#1565c0;color:#0d47a1}
+  .day-btn.done-review      {background:#f3e5f5;border-color:#6a1b9a;color:#4a148c}
+  .day-btn.done-practice    {background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
+  .day-btn.done-weakness    {background:#fff3e0;border-color:#e65100;color:#bf360c}
+  .day-btn.done-fulltest    {background:#fce4ec;border-color:#880e4f;color:#4a0030}
 
-  .auth-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    line-height: 1.5;
-  }
+  .day-btn.today-diagnostic {background:#1565c0;border-color:#0d47a1;color:#fff}
+  .day-btn.today-review     {background:#6a1b9a;border-color:#4a148c;color:#fff}
+  .day-btn.today-practice   {background:#2e7d32;border-color:#1b5e20;color:#fff}
+  .day-btn.today-weakness   {background:#e65100;border-color:#bf360c;color:#fff}
+  .day-btn.today-fulltest   {background:#880e4f;border-color:#4a0030;color:#fff}
 
-  .auth-input {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    color: var(--text);
-    background: white;
-    margin-bottom: 1rem;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .auth-input:focus { border-color: var(--navy); }
+  .day-btn.locked{background:#f0f0ee;border-color:#e0e0e0;color:#bbb;cursor:default}
 
-  .auth-btn {
-    width: 100%;
-    padding: 0.9rem;
-    background: var(--gold);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .auth-btn:hover { background: var(--gold-light); }
+  .today-pulse::after{content:'TODAY';position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#d4a04a;color:#fff;font-size:0.58rem;font-weight:700;padding:1px 7px;border-radius:8px;white-space:nowrap}
 
-  .auth-error { color: #c0392b; font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+  /* Legend */
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:0.78rem;color:#555}
+  .legend-dot{width:10px;height:10px;border-radius:50%}
 
-  .auth-magic-sent {
-    background: var(--success-light);
-    border: 1px solid #b7dfc8;
-    border-radius: 8px;
-    padding: 1rem;
-    color: var(--success);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    display: none;
-    margin-top: 1rem;
-  }
-
-  /* ── MAIN DASHBOARD ── */
-  #screen-dashboard { display: none; }
-
-  .topbar {
-    background: var(--navy);
-    padding: 0 2rem;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-  }
-
-  .topbar-logo {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: white;
-    letter-spacing: 0.02em;
-  }
-  .topbar-logo span { color: var(--gold); }
-
-  .topbar-right { display: flex; align-items: center; gap: 1.5rem; }
-  .topbar-email { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
-  .topbar-signout {
-    font-size: 0.82rem; color: var(--gold); cursor: pointer;
-    background: none; border: none; font-family: inherit; text-decoration: underline;
-  }
-
-  .dashboard-body { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
-
-  /* ── HEADER ── */
-  .dash-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    margin-bottom: 2.5rem; gap: 1rem; flex-wrap: wrap;
-  }
-
-  .dash-greeting {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 2rem; color: var(--navy); font-weight: 900; line-height: 1.1;
-  }
-
-  .dash-subheading { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.4rem; }
-
-  .dash-countdown {
-    background: var(--navy); color: white; border-radius: 10px;
-    padding: 1rem 1.5rem; text-align: center; min-width: 130px;
-  }
-  .dash-countdown-num {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 2.4rem; font-weight: 900; color: var(--gold); line-height: 1;
-  }
-  .dash-countdown-label {
-    font-size: 0.72rem; color: rgba(255,255,255,0.7);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.25rem;
-  }
-
-  /* ── PROGRESS BAR ── */
-  .progress-section {
-    background: white; border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
-  }
-  .progress-label {
-    display: flex; justify-content: space-between;
-    font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.6rem;
-  }
-  .progress-label strong { color: var(--navy); }
-  .progress-track { height: 10px; background: #eee; border-radius: 99px; overflow: hidden; }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--navy), var(--gold));
-    border-radius: 99px; transition: width 0.8s ease;
-  }
-
-  /* ── TODAY CTA ── */
-  .today-cta {
-    background: var(--navy); border-radius: 12px; padding: 1.75rem 2rem;
-    margin-bottom: 2rem; display: flex; align-items: center;
-    justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  }
-  .today-cta-left h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    color: white; font-size: 1.25rem; margin-bottom: 0.3rem;
-  }
-  .today-cta-left p { color: rgba(255,255,255,0.65); font-size: 0.88rem; }
-  .today-cta-btn {
-    background: var(--gold); color: white; border: none; border-radius: 8px;
-    padding: 0.85rem 1.75rem; font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem; font-weight: 700; cursor: pointer; white-space: nowrap;
-    transition: background 0.2s;
-  }
-  .today-cta-btn:hover { background: var(--gold-light); }
-
-  /* ── LEGEND ── */
-  .legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
-  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
-  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ── CALENDAR GRID ── */
-  .calendar-section { margin-bottom: 2rem; }
-
-  .section-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.25rem; color: var(--navy); font-weight: 700;
-    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem;
-  }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
-    gap: 0.6rem;
-  }
-
-  .day-card {
-    border-radius: 10px; padding: 0.7rem 0.4rem; text-align: center;
-    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
-    border: 2px solid var(--border); position: relative; background: white;
-  }
-  .day-card:hover:not(.locked) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-
-  .day-num {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.3rem; font-weight: 900; line-height: 1; margin-bottom: 0.25rem;
-  }
-  .day-type { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; }
-
-  .day-card.completed { background: var(--success-light); border-color: #b7dfc8; }
-  .day-card.completed .day-num { color: var(--success); }
-  .day-card.completed .day-type { color: var(--success); }
-  .day-card.completed::after {
-    content: '✓'; position: absolute; top: 4px; right: 6px;
-    font-size: 0.7rem; color: var(--success); font-weight: bold;
-  }
-
-  .day-card.today {
-    background: var(--navy); border-color: var(--navy);
-    box-shadow: 0 4px 16px rgba(26,58,92,0.3);
-  }
-  .day-card.today .day-num { color: var(--gold); }
-  .day-card.today .day-type { color: rgba(255,255,255,0.75); }
-  .day-card.today::before {
-    content: 'TODAY'; position: absolute; top: -10px; left: 50%;
-    transform: translateX(-50%); background: var(--gold); color: white;
-    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
-    padding: 2px 6px; border-radius: 99px; white-space: nowrap;
-  }
-
-  .day-card.locked { opacity: 0.4; cursor: default; background: #f5f5f5; }
-  .day-card.unlocked .day-num { color: var(--navy); }
-  .day-card.unlocked .day-type { color: var(--text-muted); }
-
-  .day-card[data-domain="diagnostic"] { border-top: 3px solid #7c3aed; }
-  .day-card[data-domain="review"]     { border-top: 3px solid #7c3aed; }
-  .day-card[data-domain="algebra"]    { border-top: 3px solid #1a3a5c; }
-  .day-card[data-domain="advanced"]   { border-top: 3px solid #c9902a; }
-  .day-card[data-domain="data"]       { border-top: 3px solid #0891b2; }
-  .day-card[data-domain="geometry"]   { border-top: 3px solid #2e7d52; }
-  .day-card[data-domain="weakness"]   { border-top: 3px solid #e53e3e; }
-  .day-card[data-domain="fulltest"]   { border-top: 3px solid #7c3aed; }
-
-  /* ── DIAGNOSTIC SCORES ── */
-  .score-section { margin-bottom: 2rem; }
-  .score-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-  .score-card {
-    background: white; border: 1px solid var(--border);
-    border-radius: 10px; padding: 1.25rem; text-align: center;
-  }
-  .score-card-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 0.4rem; }
-  .score-card-num { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 900; color: var(--navy); line-height: 1; }
-  .score-card-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; }
-  .score-card.pending .score-card-num { font-size: 1.1rem; color: var(--text-muted); font-weight: 400; font-family: inherit; }
-  .score-card.has-score { border-top: 3px solid var(--gold); }
-  .score-card.has-score .score-card-num { color: var(--navy); }
-
-  /* ── LOADING ── */
-  #screen-loading {
-    min-height: 100vh; background: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 1.5rem;
-  }
-  .spinner {
-    width: 40px; height: 40px; border: 3px solid rgba(201,144,42,0.3);
-    border-top-color: var(--gold); border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .loading-text { font-family: 'Playfair Display', Georgia, serif; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
-
-  @media (max-width: 600px) {
-    .dash-header { flex-direction: column; }
-    .dash-greeting { font-size: 1.6rem; }
-    .calendar-grid { grid-template-columns: repeat(5, 1fr); gap: 0.4rem; }
-    .today-cta { flex-direction: column; }
-    .topbar-email { display: none; }
-    .dashboard-body { padding: 1.5rem 1rem 3rem; }
-  }
+  /* Loading */
+  #loading-overlay{display:none;position:fixed;inset:0;background:rgba(245,245,240,0.85);z-index:100;align-items:center;justify-content:center}
+  #loading-overlay.show{display:flex}
+  .spinner{width:32px;height:32px;border:3px solid #e0e0e0;border-top-color:#1a3a5c;border-radius:50%;animation:spin 0.7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
+<nav>
+  <a class="nav-logo" href="/dashboard/">30-Day SAT Plan</a>
+  <button class="nav-logout" id="btn-logout">Sign Out</button>
+</nav>
 
-<div id="screen-loading">
-  <div class="spinner"></div>
-  <div class="loading-text">Loading your plan…</div>
-</div>
+<div id="loading-overlay" class="show"><div class="spinner"></div></div>
 
-<div id="screen-auth" style="display:none;">
+<!-- AUTH SCREEN -->
+<div id="screen-auth">
   <div class="auth-card">
-    <div class="auth-logo">30-Day <span>SAT</span> Math Plan</div>
-    <div class="auth-divider"></div>
-    <div class="auth-title">Student Sign In</div>
-    <div class="auth-subtitle">Enter your email and we'll send you a login link — no password needed.</div>
-    <input type="email" id="auth-email" class="auth-input" placeholder="your@email.com" />
-    <button class="auth-btn" onclick="sendMagicLink()">Send Login Link</button>
-    <div class="auth-error" id="auth-error"></div>
-    <div class="auth-magic-sent" id="auth-magic-sent">
-      ✉️ Check your email — a login link is on its way. Click it to access your dashboard.
-    </div>
+    <h2>Sign In</h2>
+    <p>Enter your email address and we'll send you a sign-in link.</p>
+    <input type="email" id="auth-email" placeholder="your@email.com">
+    <button class="auth-btn" id="btn-signin">Send Sign-In Link</button>
+    <div class="auth-msg" id="auth-msg"></div>
   </div>
 </div>
 
-<div id="screen-dashboard" style="display:none;">
-  <nav class="topbar">
-    <div class="topbar-logo">30-Day <span>SAT</span> Math Plan</div>
-    <div class="topbar-right">
-      <span class="topbar-email" id="topbar-email"></span>
-      <button class="topbar-signout" onclick="signOut()">Sign out</button>
+<!-- DASHBOARD -->
+<div id="screen-dash">
+  <div class="dash-top">
+    <div class="dash-welcome">
+      <h1>Your 30-Day Plan</h1>
+      <p id="dash-subtitle">Loading your progress…</p>
     </div>
-  </nav>
-
-  <div class="dashboard-body">
-
-    <div class="dash-header">
-      <div>
-        <div class="dash-greeting" id="dash-greeting">Welcome back.</div>
-        <div class="dash-subheading" id="dash-subheading">Here's where you are in your 30-day plan.</div>
-      </div>
-      <div class="dash-countdown">
-        <div class="dash-countdown-num" id="countdown-num">—</div>
-        <div class="dash-countdown-label">days until<br>Aug 22 SAT</div>
-      </div>
+    <div class="countdown-box">
+      <div class="days" id="countdown-days">—</div>
+      <div class="lbl">days to Aug 22</div>
     </div>
+  </div>
 
-    <div class="progress-section">
-      <div class="progress-label">
-        <span>Overall progress</span>
-        <strong id="progress-text">0 of 30 days complete</strong>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-      </div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progress-text">0 of 30 days complete</span>
     </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
 
-    <div class="today-cta" id="today-cta" style="display:none;">
-      <div class="today-cta-left">
-        <h3 id="today-cta-title">Day — · Ready to go</h3>
-        <p id="today-cta-desc">Your session is waiting.</p>
-      </div>
-      <button class="today-cta-btn" id="today-cta-btn">Start today's session</button>
-    </div>
+  <div class="score-cards">
+    <div class="score-card" id="card-d1"><div class="s-num" id="score-d1">—</div><div class="s-lbl">Day 1 Score</div></div>
+    <div class="score-card locked" id="card-d11"><div class="s-num" id="score-d11">—</div><div class="s-lbl">Day 11 Score</div></div>
+    <div class="score-card locked" id="card-d23"><div class="s-num" id="score-d23">—</div><div class="s-lbl">Day 23 Score</div></div>
+  </div>
 
-    <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Diagnostic / Review</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div> Algebra</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#c9902a"></div> Advanced Math</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div> Data Analysis</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#2e7d52"></div> Geometry</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#e53e3e"></div> Weakness Focus</div>
-    </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div>Diagnostic</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6a1b9a"></div>Review</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2e7d32"></div>Domain Practice</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e65100"></div>Weakness Focus</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#880e4f"></div>Full Test</div>
+  </div>
 
-    <div class="calendar-section">
-      <div class="section-title">Your 30-Day Calendar</div>
-      <div class="calendar-grid" id="calendar-grid"></div>
-    </div>
-
-    <div class="score-section">
-      <div class="section-title">Diagnostic Scores</div>
-      <div class="score-cards">
-        <div class="score-card pending" id="score-day1">
-          <div class="score-card-label">Day 1 · Baseline</div>
-          <div class="score-card-num" id="score-day1-num">Not yet taken</div>
-          <div class="score-card-sub">Full diagnostic test</div>
-        </div>
-        <div class="score-card pending" id="score-day11">
-          <div class="score-card-label">Day 11 · Mid-check</div>
-          <div class="score-card-num" id="score-day11-num">Not yet taken</div>
-          <div class="score-card-sub">Full diagnostic test</div>
-        </div>
-        <div class="score-card pending" id="score-day23">
-          <div class="score-card-label">Day 23 · Progress</div>
-          <div class="score-card-num" id="score-day23-num">Not yet taken</div>
-          <div class="score-card-sub">Full diagnostic test</div>
-        </div>
-        <div class="score-card pending" id="score-day30">
-          <div class="score-card-label">Day 30 · Final</div>
-          <div class="score-card-num" id="score-day30-num">Not yet taken</div>
-          <div class="score-card-sub">Full diagnostic test</div>
-        </div>
-      </div>
-    </div>
-
+  <div class="calendar-section">
+    <h2>Your 30-Day Calendar</h2>
+    <div class="calendar-grid" id="calendar-grid"></div>
   </div>
 </div>
 
 <script>
 const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZnJ3d3N3emZ5cnRtZWVrdGRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4OTA5OTYsImV4cCI6MjA5NjQ2Njk5Nn0.3s4fQluNeXuWgI5ILfjzgWhExPZpj53ssIkoelO81p4';
+const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
 
-const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
-
-// ── Correct 30-day schedule ──
-const PROGRAM = [
-  { day: 1,  type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day1/' },
-  { day: 2,  type: 'Review Day 1',     domain: 'review',     url: '/day2/' },
-  { day: 3,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=3&domain=algebra' },
-  { day: 4,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=4&domain=algebra' },
-  { day: 5,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=5&domain=algebra' },
-  { day: 6,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=6&domain=advanced' },
-  { day: 7,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=7&domain=advanced' },
-  { day: 8,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=8&domain=advanced' },
-  { day: 9,  type: 'Data Analysis',    domain: 'data',       url: '/session/?day=9&domain=data' },
-  { day: 10, type: 'Geometry',         domain: 'geometry',   url: '/session/?day=10&domain=geometry' },
-  { day: 11, type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day11/' },
-  { day: 12, type: 'Review Day 11',    domain: 'review',     url: '/day12/' },
-  { day: 13, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=13&domain=weakness' },
-  { day: 14, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=14&domain=weakness' },
-  { day: 15, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=15&domain=algebra' },
-  { day: 16, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=16&domain=algebra' },
-  { day: 17, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=17&domain=algebra' },
-  { day: 18, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=18&domain=advanced' },
-  { day: 19, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=19&domain=advanced' },
-  { day: 20, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=20&domain=advanced' },
-  { day: 21, type: 'Data Analysis',    domain: 'data',       url: '/session/?day=21&domain=data' },
-  { day: 22, type: 'Geometry',         domain: 'geometry',   url: '/session/?day=22&domain=geometry' },
-  { day: 23, type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day23/' },
-  { day: 24, type: 'Review Day 23',    domain: 'review',     url: '/day24/' },
-  { day: 25, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=25&domain=weakness' },
-  { day: 26, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=26&domain=weakness' },
-  { day: 27, type: 'Full Test',        domain: 'fulltest',   url: '/day27/' },
-  { day: 28, type: 'Full Test',        domain: 'fulltest',   url: '/day28/' },
-  { day: 29, type: 'Full Test',        domain: 'fulltest',   url: '/day29/' },
-  { day: 30, type: 'Full Test',        domain: 'fulltest',   url: '/day30/' },
+// 30-day schedule definition
+const SCHEDULE = [
+  {day:1,  label:'Diagnostic',       type:'diagnostic', url:'/day1/'},
+  {day:2,  label:'Review',           type:'review',     url:'/day2/'},
+  {day:3,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=3'},
+  {day:4,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=4'},
+  {day:5,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=5'},
+  {day:6,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=6'},
+  {day:7,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=7'},
+  {day:8,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=8'},
+  {day:9,  label:'Data Analysis',    type:'practice',   url:'/practice/?domain=data-analysis&day=9'},
+  {day:10, label:'Geometry',         type:'practice',   url:'/practice/?domain=geometry&day=10'},
+  {day:11, label:'Diagnostic',       type:'diagnostic', url:'/day11/'},
+  {day:12, label:'Review',           type:'review',     url:'/day12/'},
+  {day:13, label:'Weakness',         type:'weakness',   url:'/weakness/?day=13'},
+  {day:14, label:'Weakness',         type:'weakness',   url:'/weakness/?day=14'},
+  {day:15, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=15'},
+  {day:16, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=16'},
+  {day:17, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=17'},
+  {day:18, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=18'},
+  {day:19, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=19'},
+  {day:20, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=20'},
+  {day:21, label:'Data Analysis',    type:'practice',   url:'/practice/?domain=data-analysis&day=21'},
+  {day:22, label:'Geometry',         type:'practice',   url:'/practice/?domain=geometry&day=22'},
+  {day:23, label:'Diagnostic',       type:'diagnostic', url:'/day23/'},
+  {day:24, label:'Review',           type:'review',     url:'/day24/'},
+  {day:25, label:'Weakness',         type:'weakness',   url:'/weakness/?day=25'},
+  {day:26, label:'Weakness',         type:'weakness',   url:'/weakness/?day=26'},
+  {day:27, label:'Full Test',        type:'fulltest',   url:'/day27/'},
+  {day:28, label:'Full Test',        type:'fulltest',   url:'/day28/'},
+  {day:29, label:'Full Test',        type:'fulltest',   url:'/day29/'},
+  {day:30, label:'Full Test',        type:'fulltest',   url:'/day30/'},
 ];
 
-// Which program days are diagnostic tests (for score display)
-const DIAGNOSTIC_DAYS = { 1: 'score-day1', 11: 'score-day11', 23: 'score-day23', 30: 'score-day30' };
-const DIAGNOSTIC_NUM_IDS = { 1: 'score-day1-num', 11: 'score-day11-num', 23: 'score-day23-num', 30: 'score-day30-num' };
+const TYPE_ICONS = {
+  diagnostic: '🎯',
+  review:     '📖',
+  practice:   '✏️',
+  weakness:   '🔥',
+  fulltest:   '📝'
+};
 
-function daysUntilAug22() {
-  const today = new Date();
-  const aug22 = new Date(2026, 7, 22);
-  return Math.max(0, Math.ceil((aug22 - today) / (1000 * 60 * 60 * 24)));
-}
+// Pages not yet built — show "coming soon" instead of navigating
+const BUILT_PAGES = new Set([1,2,3,4,5,6,7,8,9,10,11,15,16,17,18,19,20,21,22,23]);
 
-function show(id) {
-  ['screen-loading','screen-auth','screen-dashboard'].forEach(s => {
-    document.getElementById(s).style.display = 'none';
+let currentUser = null;
+let completedDays = new Set();
+let enrollmentDate = null;
+
+// ── SUPABASE HELPERS ──────────────────────────────────────────────────────────
+async function sbGet(path) {
+  const r = await fetch(SUPABASE_URL + path, {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
   });
-  document.getElementById(id).style.display = 'block';
+  return r.json();
 }
 
-async function sendMagicLink() {
+async function sbPost(path, body) {
+  const r = await fetch(SUPABASE_URL + path, {
+    method: 'POST',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  return r.json();
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+document.getElementById('btn-signin').onclick = async () => {
   const email = document.getElementById('auth-email').value.trim();
-  const errEl = document.getElementById('auth-error');
-  const sentEl = document.getElementById('auth-magic-sent');
-  errEl.style.display = 'none'; sentEl.style.display = 'none';
-  if (!email) { errEl.textContent = 'Please enter your email.'; errEl.style.display = 'block'; return; }
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; }
-  else sentEl.style.display = 'block';
-}
+  if (!email) return;
+  document.getElementById('btn-signin').disabled = true;
+  const res = await sbPost('/auth/v1/magiclink', { email, options: { emailRedirectTo: window.location.origin + '/dashboard/' } });
+  const msg = document.getElementById('auth-msg');
+  if (res.error) {
+    msg.style.color = '#c62828';
+    msg.textContent = res.error.message || 'Something went wrong.';
+  } else {
+    msg.style.color = '#2e7d32';
+    msg.textContent = 'Check your email for a sign-in link!';
+  }
+  document.getElementById('btn-signin').disabled = false;
+};
 
-async function signOut() { await sb.auth.signOut(); show('screen-auth'); }
+document.getElementById('btn-logout').onclick = async () => {
+  await sbPost('/auth/v1/logout', {});
+  currentUser = null;
+  document.getElementById('screen-dash').style.display = 'none';
+  document.getElementById('screen-auth').style.display = 'flex';
+};
 
-function buildCalendar(enrollDate, completedDays) {
-  const grid = document.getElementById('calendar-grid');
-  grid.innerHTML = '';
-  const today = new Date();
-  const start = new Date(enrollDate);
-  const msPerDay = 1000 * 60 * 60 * 24;
-  const daysSinceEnroll = Math.floor((today - start) / msPerDay);
-  const currentDay = Math.max(1, daysSinceEnroll + 1);
-  let todayInfo = null;
-
-  PROGRAM.forEach(({ day, type, domain, url }) => {
-    const card = document.createElement('div');
-    card.className = 'day-card';
-    card.dataset.domain = domain;
-    card.dataset.day = day;
-
-    const isCompleted = completedDays.includes(day);
-    const isToday = day === currentDay;
-    const isLocked = day > currentDay;
-
-    if (isCompleted) card.classList.add('completed');
-    else if (isToday) { card.classList.add('today'); todayInfo = { day, type, domain, url }; }
-    else if (isLocked) card.classList.add('locked');
-    else card.classList.add('unlocked');
-
-    const shortType = {
-      'Diagnostic Test': 'Diagnostic',
-      'Review Day 1': 'Review',
-      'Review Day 11': 'Review',
-      'Review Day 23': 'Review',
-      'Full Test': 'Full Test',
-      'Weakness Focus': 'Weakness',
-      'Data Analysis': 'Data',
-      'Advanced Math': 'Adv Math',
-    }[type] || type;
-
-    card.innerHTML = `<div class="day-num">${day}</div><div class="day-type">${shortType}</div>`;
-    if (!isLocked) card.addEventListener('click', () => { window.location.href = url; });
-    grid.appendChild(card);
-  });
-
-  return { currentDay, todayInfo };
-}
-
-function updateProgress(completedDays) {
-  const pct = Math.round((completedDays.length / 30) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = `${completedDays.length} of 30 days complete`;
-}
-
-function updateTodayCTA(todayInfo) {
-  if (!todayInfo) return;
-  const cta = document.getElementById('today-cta');
-  cta.style.display = 'flex';
-  document.getElementById('today-cta-title').textContent = `Day ${todayInfo.day} · ${todayInfo.type}`;
-  document.getElementById('today-cta-desc').textContent =
-    todayInfo.domain === 'diagnostic' ? 'Take your full diagnostic test now.' :
-    todayInfo.domain === 'review' ? 'Work through your missed questions and weak areas.' :
-    todayInfo.domain === 'weakness' ? 'Targeted practice on your weakest skills.' :
-    todayInfo.domain === 'fulltest' ? 'Take a full practice test.' :
-    `Domain practice — ${todayInfo.type}. About 15 questions.`;
-  document.getElementById('today-cta-btn').onclick = () => { window.location.href = todayInfo.url; };
-}
-
-function updateDiagnosticScores(scores) {
-  // scores = { 1: 650, 11: null, 23: null, 30: null }
-  Object.entries(scores).forEach(([day, score]) => {
-    const cardId = DIAGNOSTIC_DAYS[day];
-    const numId = DIAGNOSTIC_NUM_IDS[day];
-    if (!cardId || !numId) return;
-    const card = document.getElementById(cardId);
-    const numEl = document.getElementById(numId);
-    if (score !== null && score !== undefined) {
-      card.classList.remove('pending');
-      card.classList.add('has-score');
-      numEl.textContent = score;
-    }
-  });
-}
-
-async function loadDashboard(user) {
-  document.getElementById('topbar-email').textContent = user.email;
-
-  const hour = new Date().getHours();
-  document.getElementById('dash-greeting').textContent =
-    hour < 12 ? 'Good morning.' : hour < 17 ? 'Good afternoon.' : 'Good evening.';
-
-  document.getElementById('countdown-num').textContent = daysUntilAug22();
-
-  let enrollDate = new Date();
-  let completedDays = [];
-  const diagnosticScores = { 1: null, 11: null, 23: null, 30: null };
-
-  // Load enrollment date
-  try {
-    const { data: enroll } = await sb
-      .from('enrollments').select('created_at').eq('user_id', user.id).single();
-    if (enroll?.created_at) enrollDate = new Date(enroll.created_at);
-  } catch (e) {}
-
-  // Load completed days
-  try {
-    const { data: progress } = await sb
-      .from('day_progress').select('day_number').eq('user_id', user.id);
-    if (progress) completedDays = progress.map(r => r.day_number);
-  } catch (e) {}
-
-  // Load test results for diagnostic scores
-  // Day 1 test saves as test_number=1 in test_results
-  try {
-    const { data: results } = await sb
-      .from('test_results').select('score, test_number').eq('user_id', user.id);
-    if (results && results.length > 0) {
-      // test_number 1 = Day 1 diagnostic
-      const r1 = results.find(r => r.test_number === 1);
-      if (r1) diagnosticScores[1] = r1.score;
-      // Future: test_number 2 = Day 11, test_number 3 = Day 23
-      const r2 = results.find(r => r.test_number === 2);
-      if (r2) diagnosticScores[11] = r2.score;
-      const r3 = results.find(r => r.test_number === 3);
-      if (r3) diagnosticScores[23] = r3.score;
-      const r4 = results.find(r => r.test_number === 4);
-      if (r4) diagnosticScores[30] = r4.score;
-
-      // If Day 1 test result exists, mark Day 1 as completed
-      if (r1 && !completedDays.includes(1)) completedDays.push(1);
-    }
-  } catch (e) {}
-
-  const { currentDay, todayInfo } = buildCalendar(enrollDate, completedDays);
-  updateProgress(completedDays);
-  updateTodayCTA(todayInfo);
-  updateDiagnosticScores(diagnosticScores);
-
-  show('screen-dashboard');
-}
-
-(async () => {
+// ── INIT ──────────────────────────────────────────────────────────────────────
+(async function init() {
+  // Handle magic link token in URL
   const hash = window.location.hash;
   if (hash.includes('access_token')) {
-    const { data } = await sb.auth.getSession();
-    if (data?.session) {
-      window.history.replaceState({}, '', window.location.pathname);
-      await loadDashboard(data.session.user);
-      return;
+    const params = new URLSearchParams(hash.substring(1));
+    const token = params.get('access_token');
+    if (token) {
+      await sbPost('/auth/v1/token?grant_type=magiclink', {});
+      window.location.hash = '';
     }
   }
 
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    await loadDashboard(session.user);
-  } else {
-    show('screen-auth');
+  // Try to get current user
+  try {
+    const session = await sbGet('/auth/v1/user');
+    if (session && session.id) {
+      currentUser = session;
+      await loadDashboard();
+    } else {
+      hideLoading();
+      showAuth();
+    }
+  } catch(e) {
+    hideLoading();
+    showAuth();
+  }
+})();
+
+function showAuth() {
+  document.getElementById('screen-auth').style.display = 'flex';
+  document.getElementById('screen-dash').style.display = 'none';
+}
+
+function hideLoading() {
+  document.getElementById('loading-overlay').classList.remove('show');
+}
+
+// ── LOAD DASHBOARD ────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  // Fetch completed days
+  const progress = await sbGet('/rest/v1/day_progress?user_id=eq.' + currentUser.id + '&completed=eq.true&select=day_number');
+  if (Array.isArray(progress)) {
+    progress.forEach(r => completedDays.add(r.day_number));
   }
 
-  sb.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) await loadDashboard(session.user);
-    else if (event === 'SIGNED_OUT') show('screen-auth');
+  // Fetch test scores
+  const results = await sbGet('/rest/v1/test_results?user_id=eq.' + currentUser.id + '&select=score,test_number&order=test_number.asc');
+
+  // Auto-mark Day 1 complete if test result exists
+  if (Array.isArray(results)) {
+    results.forEach(r => {
+      if (r.test_number === 1) { completedDays.add(1); }
+      if (r.test_number === 2) { completedDays.add(11); }
+      if (r.test_number === 3) { completedDays.add(23); }
+    });
+
+    // Score cards
+    const d1 = results.find(r => r.test_number === 1);
+    const d2 = results.find(r => r.test_number === 2);
+    const d3 = results.find(r => r.test_number === 3);
+    if (d1) {
+      document.getElementById('score-d1').textContent = d1.score;
+      document.getElementById('card-d1').classList.remove('locked');
+    }
+    if (d2) {
+      document.getElementById('score-d11').textContent = d2.score;
+      document.getElementById('card-d11').classList.remove('locked');
+    }
+    if (d3) {
+      document.getElementById('score-d23').textContent = d3.score;
+      document.getElementById('card-d23').classList.remove('locked');
+    }
+  }
+
+  // Fetch enrollment date
+  const enrollment = await sbGet('/rest/v1/enrollments?user_id=eq.' + currentUser.id + '&select=enrolled_at&limit=1');
+  if (Array.isArray(enrollment) && enrollment.length > 0) {
+    enrollmentDate = new Date(enrollment[0].enrolled_at);
+  } else {
+    enrollmentDate = new Date(); // fallback to today
+  }
+
+  // Calculate current program day
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  enrollmentDate.setHours(0,0,0,0);
+  const diffMs = today - enrollmentDate;
+  const programDay = Math.max(1, Math.min(30, Math.floor(diffMs / 86400000) + 1));
+
+  // Subtitle
+  document.getElementById('dash-subtitle').textContent = 'Day ' + programDay + ' of 30 · Keep going!';
+
+  // Progress
+  const pct = Math.round((completedDays.size / 30) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = completedDays.size + ' of 30 days complete';
+
+  // Countdown to Aug 22
+  const target = new Date('2026-08-22');
+  const daysLeft = Math.max(0, Math.ceil((target - today) / 86400000));
+  document.getElementById('countdown-days').textContent = daysLeft;
+
+  // Build calendar
+  buildCalendar(programDay);
+
+  // Show dashboard
+  hideLoading();
+  document.getElementById('screen-auth').style.display = 'none';
+  document.getElementById('screen-dash').style.display = 'block';
+}
+
+// ── BUILD CALENDAR ─────────────────────────────────────────────────────────────
+function buildCalendar(programDay) {
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+
+  SCHEDULE.forEach(item => {
+    const isDone    = completedDays.has(item.day);
+    const isToday   = item.day === programDay;
+    const isLocked  = item.day > programDay && !isDone;
+    const isBuilt   = BUILT_PAGES.has(item.day);
+
+    const btn = document.createElement(isLocked ? 'div' : 'a');
+    btn.className = 'day-btn';
+
+    if (isDone) {
+      btn.classList.add('done-' + item.type);
+    } else if (isToday) {
+      btn.classList.add('today-' + item.type, 'today-pulse');
+    } else if (isLocked) {
+      btn.classList.add('locked');
+    } else {
+      // Unlocked past/current days not yet done
+      btn.classList.add('done-' + item.type);
+      btn.style.opacity = '0.7';
+    }
+
+    if (!isLocked) {
+      if (isBuilt) {
+        btn.href = item.url;
+      } else {
+        btn.href = '#';
+        btn.onclick = (e) => {
+          e.preventDefault();
+          alert('Day ' + item.day + ' is coming soon! Check back after completing the earlier days.');
+        };
+      }
+    }
+
+    btn.innerHTML = `
+      <span class="day-num">Day ${item.day}</span>
+      <span class="day-icon">${TYPE_ICONS[item.type]}</span>
+      <span class="day-type">${item.label}</span>
+      ${isDone ? '<span style="font-size:0.7rem;margin-top:1px">✓ Done</span>' : ''}
+    `;
+    grid.appendChild(btn);
   });
-})();
+}
 </script>
 </body>
 </html>
