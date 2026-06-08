@@ -406,10 +406,10 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 #calculator-panel.open { right: 0; }
 
 #calculator-resize-handle {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
-  cursor: ew-resize; background: transparent;
+  position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+  cursor: ew-resize; background: transparent; z-index: 10;
 }
-#calculator-resize-handle:hover { background: rgba(26,58,92,0.15); }
+#calculator-resize-handle:hover { background: rgba(26,58,92,0.25); }
 
 #calculator-header { background: #1a3a5c; color: #fff; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
 #calculator-close { background: none; border: none; color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0 4px; }
@@ -903,18 +903,40 @@ function initCalculator() {
     expressionsTopbar: true, border: false, lockViewport: false, images: false,
     folders: false, notes: false, sliders: true, links: false, qwertyKeyboard: true, distributions: false
   });
-  const handle = document.getElementById('calculator-resize-handle');
-  if (handle) {
-    let dragging = false;
-    const panel = document.getElementById('calculator-panel');
-    const layout = document.getElementById('test-layout');
-    const onMove = (e) => { if (!dragging) return; const x = e.touches ? e.touches[0].clientX : e.clientX; setCalculatorWidth(window.innerWidth - x); };
-    const onUp = () => { if (!dragging) return; dragging = false; if (panel) panel.classList.remove('resizing'); if (layout) layout.classList.remove('resizing'); document.body.style.userSelect = ''; document.body.style.cursor = ''; document.removeEventListener('mousemove', onMove); document.removeEventListener('touchmove', onMove); document.removeEventListener('mouseup', onUp); document.removeEventListener('touchend', onUp); };
-    const onDown = (e) => { e.preventDefault(); dragging = true; if (panel) panel.classList.add('resizing'); if (layout) layout.classList.add('resizing'); document.body.style.userSelect = 'none'; document.body.style.cursor = 'ew-resize'; document.addEventListener('mousemove', onMove); document.addEventListener('touchmove', onMove, { passive: false }); document.addEventListener('mouseup', onUp); document.addEventListener('touchend', onUp); };
-    handle.addEventListener('mousedown', onDown);
-    handle.addEventListener('touchstart', onDown, { passive: false });
-  }
   window.addEventListener('resize', () => { if (calculatorOpen) setCalculatorWidth(calculatorWidth); });
+}
+
+function initCalculatorResize() {
+  const handle = document.getElementById('calculator-resize-handle');
+  if (!handle) return;
+  let dragging = false;
+  const onMove = (e) => {
+    if (!dragging) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    setCalculatorWidth(window.innerWidth - x);
+  };
+  const onUp = () => {
+    if (!dragging) return;
+    dragging = false;
+    document.body.style.userSelect = '';
+    document.body.style.cursor = '';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchend', onUp);
+  };
+  const onDown = (e) => {
+    e.preventDefault();
+    dragging = true;
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'ew-resize';
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchend', onUp);
+  };
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, { passive: false });
 }
 
 function toggleCalculator() {
@@ -984,7 +1006,7 @@ function initFormulaSheetDragging() {
   resizeHandle.addEventListener('touchstart', onResizeStart, { passive: false });
 }
 
-document.addEventListener('DOMContentLoaded', () => { initFormulaSheetDragging(); });
+// formula sheet dragging initialized in main DOMContentLoaded below
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && formulaSheetOpen) toggleFormulaSheet(); });
 
 // ── INLINE DESMOS ──────────────────────────────────────────────
@@ -1971,6 +1993,8 @@ async function openSpecificReport() {
 
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  initFormulaSheetDragging();
+  initCalculatorResize();
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
     currentUser = session.user;
