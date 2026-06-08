@@ -349,5 +349,88 @@
   <p style="margin-top: 8px;">Questions? Email <a href="mailto:dasbrink@gmail.com">dasbrink@gmail.com</a></p>
 </footer>
 
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#fff; border-radius:10px; padding:40px; max-width:480px; width:100%; position:relative;">
+    <button onclick="closeModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:22px; cursor:pointer; color:#666;">&times;</button>
+    <h2 style="font-family:'Playfair Display',serif; font-size:24px; color:#1a3a5c; margin-bottom:8px;">Enroll for $99</h2>
+    <p style="font-family:'DM Sans',sans-serif; font-size:14px; color:#666; margin-bottom:24px;">Your child will receive a separate email with login instructions.</p>
+    <div style="margin-bottom:16px;">
+      <label style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:#1a3a5c; display:block; margin-bottom:6px;">Your email (parent)</label>
+      <input type="email" id="parent-email" placeholder="your@email.com" style="width:100%; padding:12px 14px; border:1px solid #ddd8ce; border-radius:4px; font-size:15px; font-family:'DM Sans',sans-serif; outline:none;">
+    </div>
+    <div style="margin-bottom:28px;">
+      <label style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:#1a3a5c; display:block; margin-bottom:6px;">Your child's email (they will use this to log in)</label>
+      <input type="email" id="student-email" placeholder="child@email.com" style="width:100%; padding:12px 14px; border:1px solid #ddd8ce; border-radius:4px; font-size:15px; font-family:'DM Sans',sans-serif; outline:none;">
+    </div>
+    <button onclick="startCheckout()" id="checkout-btn" style="width:100%; background:#c9902a; color:#fff; font-family:'DM Sans',sans-serif; font-size:17px; font-weight:500; padding:16px; border-radius:4px; border:none; cursor:pointer;">Continue to payment</button>
+    <p id="checkout-error" style="display:none; margin-top:12px; font-family:'DM Sans',sans-serif; font-size:13px; color:#c0392b; text-align:center;"></p>
+    <p style="margin-top:14px; font-family:'DM Sans',sans-serif; font-size:12px; color:#999; text-align:center;">Secure checkout via Stripe · Money-back guarantee</p>
+  </div>
+</div>
+
+<script>
+const CHECKOUT_FN = 'https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/create-checkout';
+
+function openModal() {
+  document.getElementById('checkout-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('checkout-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('checkout-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+async function startCheckout() {
+  const parentEmail = document.getElementById('parent-email').value.trim();
+  const studentEmail = document.getElementById('student-email').value.trim();
+  const errorEl = document.getElementById('checkout-error');
+  const btn = document.getElementById('checkout-btn');
+  errorEl.style.display = 'none';
+  if (!parentEmail || !parentEmail.includes('@')) {
+    errorEl.textContent = 'Please enter a valid parent email.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!studentEmail || !studentEmail.includes('@')) {
+    errorEl.textContent = 'Please enter a valid student email.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  btn.textContent = 'Redirecting to checkout...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(CHECKOUT_FN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ parent_email: parentEmail, student_email: studentEmail })
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Something went wrong.');
+    }
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+    btn.textContent = 'Continue to payment';
+    btn.disabled = false;
+  }
+}
+
+document.querySelectorAll('.hero-cta, .buy-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal();
+  });
+});
+</script>
+
 </body>
 </html>
