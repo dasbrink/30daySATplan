@@ -62,13 +62,7 @@
   }
 
   .auth-logo span { color: var(--gold); }
-
-  .auth-divider {
-    width: 40px;
-    height: 3px;
-    background: var(--gold);
-    margin: 1rem auto 1.5rem;
-  }
+  .auth-divider { width: 40px; height: 3px; background: var(--gold); margin: 1rem auto 1.5rem; }
 
   .auth-title {
     font-family: 'Playfair Display', Georgia, serif;
@@ -97,7 +91,6 @@
     transition: border-color 0.2s;
     outline: none;
   }
-
   .auth-input:focus { border-color: var(--navy); }
 
   .auth-btn {
@@ -112,17 +105,10 @@
     font-weight: 700;
     cursor: pointer;
     transition: background 0.2s;
-    letter-spacing: 0.02em;
   }
-
   .auth-btn:hover { background: var(--gold-light); }
 
-  .auth-error {
-    color: #c0392b;
-    font-size: 0.85rem;
-    margin-top: 0.75rem;
-    display: none;
-  }
+  .auth-error { color: #c0392b; font-size: 0.85rem; margin-top: 0.75rem; display: none; }
 
   .auth-magic-sent {
     background: var(--success-light);
@@ -159,138 +145,93 @@
     color: white;
     letter-spacing: 0.02em;
   }
-
   .topbar-logo span { color: var(--gold); }
 
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .topbar-email {
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.6);
-  }
-
+  .topbar-right { display: flex; align-items: center; gap: 1.5rem; }
+  .topbar-email { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
   .topbar-signout {
-    font-size: 0.82rem;
-    color: var(--gold);
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: inherit;
-    text-decoration: underline;
+    font-size: 0.82rem; color: var(--gold); cursor: pointer;
+    background: none; border: none; font-family: inherit; text-decoration: underline;
   }
 
-  .dashboard-body {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
+  .dashboard-body { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
   /* ── HEADER ── */
   .dash-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 2.5rem;
-    gap: 1rem;
-    flex-wrap: wrap;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 2.5rem; gap: 1rem; flex-wrap: wrap;
   }
 
   .dash-greeting {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 2rem;
-    color: var(--navy);
-    font-weight: 900;
-    line-height: 1.1;
+    font-size: 2rem; color: var(--navy); font-weight: 900; line-height: 1.1;
   }
 
-  .dash-subheading {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-top: 0.4rem;
-  }
+  .dash-subheading { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.4rem; }
 
   .dash-countdown {
-    background: var(--navy);
-    color: white;
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    min-width: 130px;
+    background: var(--navy); color: white; border-radius: 10px;
+    padding: 1rem 1.5rem; text-align: center; min-width: 130px;
   }
-
   .dash-countdown-num {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--gold);
-    line-height: 1;
+    font-size: 2.4rem; font-weight: 900; color: var(--gold); line-height: 1;
   }
-
   .dash-countdown-label {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.7);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 0.25rem;
+    font-size: 0.72rem; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.25rem;
   }
 
   /* ── PROGRESS BAR ── */
   .progress-section {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
   }
-
   .progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 0.6rem;
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.6rem;
   }
-
   .progress-label strong { color: var(--navy); }
-
-  .progress-track {
-    height: 10px;
-    background: #eee;
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
+  .progress-track { height: 10px; background: #eee; border-radius: 99px; overflow: hidden; }
   .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--navy), var(--gold));
-    border-radius: 99px;
-    transition: width 0.8s ease;
+    border-radius: 99px; transition: width 0.8s ease;
   }
+
+  /* ── TODAY CTA ── */
+  .today-cta {
+    background: var(--navy); border-radius: 12px; padding: 1.75rem 2rem;
+    margin-bottom: 2rem; display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .today-cta-left h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: white; font-size: 1.25rem; margin-bottom: 0.3rem;
+  }
+  .today-cta-left p { color: rgba(255,255,255,0.65); font-size: 0.88rem; }
+  .today-cta-btn {
+    background: var(--gold); color: white; border: none; border-radius: 8px;
+    padding: 0.85rem 1.75rem; font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .today-cta-btn:hover { background: var(--gold-light); }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
   /* ── CALENDAR GRID ── */
   .calendar-section { margin-bottom: 2rem; }
 
   .section-title {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.25rem;
-    color: var(--navy);
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
+    font-size: 1.25rem; color: var(--navy); font-weight: 700;
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem;
   }
-
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .calendar-grid {
     display: grid;
@@ -299,239 +240,80 @@
   }
 
   .day-card {
-    border-radius: 10px;
-    padding: 0.7rem 0.4rem;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    border: 2px solid transparent;
-    position: relative;
-    background: white;
-    border-color: var(--border);
+    border-radius: 10px; padding: 0.7rem 0.4rem; text-align: center;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    border: 2px solid var(--border); position: relative; background: white;
   }
-
-  .day-card:hover:not(.locked) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  }
+  .day-card:hover:not(.locked) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
 
   .day-num {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.3rem;
-    font-weight: 900;
-    line-height: 1;
-    margin-bottom: 0.25rem;
+    font-size: 1.3rem; font-weight: 900; line-height: 1; margin-bottom: 0.25rem;
   }
+  .day-type { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; }
 
-  .day-type {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    line-height: 1.2;
-  }
-
-  /* States */
-  .day-card.completed {
-    background: var(--success-light);
-    border-color: #b7dfc8;
-  }
-
+  .day-card.completed { background: var(--success-light); border-color: #b7dfc8; }
   .day-card.completed .day-num { color: var(--success); }
   .day-card.completed .day-type { color: var(--success); }
-
   .day-card.completed::after {
-    content: '✓';
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    font-size: 0.7rem;
-    color: var(--success);
-    font-weight: bold;
+    content: '✓'; position: absolute; top: 4px; right: 6px;
+    font-size: 0.7rem; color: var(--success); font-weight: bold;
   }
 
   .day-card.today {
-    background: var(--navy);
-    border-color: var(--navy);
+    background: var(--navy); border-color: var(--navy);
     box-shadow: 0 4px 16px rgba(26,58,92,0.3);
   }
-
   .day-card.today .day-num { color: var(--gold); }
   .day-card.today .day-type { color: rgba(255,255,255,0.75); }
-
   .day-card.today::before {
-    content: 'TODAY';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gold);
-    color: white;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 2px 6px;
-    border-radius: 99px;
-    white-space: nowrap;
+    content: 'TODAY'; position: absolute; top: -10px; left: 50%;
+    transform: translateX(-50%); background: var(--gold); color: white;
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 2px 6px; border-radius: 99px; white-space: nowrap;
   }
 
-  .day-card.locked {
-    opacity: 0.4;
-    cursor: default;
-    background: #f5f5f5;
-  }
-
+  .day-card.locked { opacity: 0.4; cursor: default; background: #f5f5f5; }
   .day-card.unlocked .day-num { color: var(--navy); }
   .day-card.unlocked .day-type { color: var(--text-muted); }
 
-  /* ── DOMAIN LEGEND ── */
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Domain accent stripes on day cards */
   .day-card[data-domain="diagnostic"] { border-top: 3px solid #7c3aed; }
-  .day-card[data-domain="algebra"] { border-top: 3px solid #1a3a5c; }
-  .day-card[data-domain="advanced"] { border-top: 3px solid #c9902a; }
-  .day-card[data-domain="data"] { border-top: 3px solid #0891b2; }
-  .day-card[data-domain="geometry"] { border-top: 3px solid #2e7d52; }
+  .day-card[data-domain="review"]     { border-top: 3px solid #7c3aed; }
+  .day-card[data-domain="algebra"]    { border-top: 3px solid #1a3a5c; }
+  .day-card[data-domain="advanced"]   { border-top: 3px solid #c9902a; }
+  .day-card[data-domain="data"]       { border-top: 3px solid #0891b2; }
+  .day-card[data-domain="geometry"]   { border-top: 3px solid #2e7d52; }
+  .day-card[data-domain="weakness"]   { border-top: 3px solid #e53e3e; }
+  .day-card[data-domain="fulltest"]   { border-top: 3px solid #7c3aed; }
 
-  /* Override top border color for today/completed so stripe shows */
-  .day-card.today[data-domain] { border-top-width: 3px; }
-
-  /* ── TODAY'S CARD CTA ── */
-  .today-cta {
-    background: var(--navy);
-    border-radius: 12px;
-    padding: 1.75rem 2rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .today-cta-left h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    color: white;
-    font-size: 1.25rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .today-cta-left p {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.88rem;
-  }
-
-  .today-cta-btn {
-    background: var(--gold);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.85rem 1.75rem;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
-  }
-
-  .today-cta-btn:hover { background: var(--gold-light); }
-
-  /* ── SCORE HISTORY ── */
+  /* ── DIAGNOSTIC SCORES ── */
   .score-section { margin-bottom: 2rem; }
-
-  .score-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-  }
-
+  .score-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
   .score-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem;
-    text-align: center;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem; text-align: center;
   }
-
-  .score-card-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-  }
-
-  .score-card-num {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--navy);
-    line-height: 1;
-  }
-
-  .score-card-sub {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-  }
-
-  .score-card.pending .score-card-num {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    font-family: inherit;
-  }
+  .score-card-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .score-card-num { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 900; color: var(--navy); line-height: 1; }
+  .score-card-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .score-card.pending .score-card-num { font-size: 1.1rem; color: var(--text-muted); font-weight: 400; font-family: inherit; }
+  .score-card.has-score { border-top: 3px solid var(--gold); }
+  .score-card.has-score .score-card-num { color: var(--navy); }
 
   /* ── LOADING ── */
   #screen-loading {
-    min-height: 100vh;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1.5rem;
+    min-height: 100vh; background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1.5rem;
   }
-
   .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(201,144,42,0.3);
-    border-top-color: var(--gold);
-    border-radius: 50%;
+    width: 40px; height: 40px; border: 3px solid rgba(201,144,42,0.3);
+    border-top-color: var(--gold); border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'Playfair Display', Georgia, serif; color: rgba(255,255,255,0.6); font-size: 0.9rem; }
 
-  .loading-text {
-    font-family: 'Playfair Display', Georgia, serif;
-    color: rgba(255,255,255,0.6);
-    font-size: 0.9rem;
-  }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .dash-header { flex-direction: column; }
     .dash-greeting { font-size: 1.6rem; }
@@ -544,13 +326,11 @@
 </head>
 <body>
 
-<!-- Loading -->
 <div id="screen-loading">
   <div class="spinner"></div>
   <div class="loading-text">Loading your plan…</div>
 </div>
 
-<!-- Auth -->
 <div id="screen-auth" style="display:none;">
   <div class="auth-card">
     <div class="auth-logo">30-Day <span>SAT</span> Math Plan</div>
@@ -566,7 +346,6 @@
   </div>
 </div>
 
-<!-- Dashboard -->
 <div id="screen-dashboard" style="display:none;">
   <nav class="topbar">
     <div class="topbar-logo">30-Day <span>SAT</span> Math Plan</div>
@@ -578,7 +357,6 @@
 
   <div class="dashboard-body">
 
-    <!-- Header -->
     <div class="dash-header">
       <div>
         <div class="dash-greeting" id="dash-greeting">Welcome back.</div>
@@ -590,7 +368,6 @@
       </div>
     </div>
 
-    <!-- Progress -->
     <div class="progress-section">
       <div class="progress-label">
         <span>Overall progress</span>
@@ -601,52 +378,49 @@
       </div>
     </div>
 
-    <!-- Today's CTA -->
     <div class="today-cta" id="today-cta" style="display:none;">
       <div class="today-cta-left">
         <h3 id="today-cta-title">Day — · Ready to go</h3>
-        <p id="today-cta-desc">Your practice session is waiting.</p>
+        <p id="today-cta-desc">Your session is waiting.</p>
       </div>
       <button class="today-cta-btn" id="today-cta-btn">Start today's session</button>
     </div>
 
-    <!-- Domain legend -->
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Diagnostic test</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Diagnostic / Review</div>
       <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c"></div> Algebra</div>
       <div class="legend-item"><div class="legend-dot" style="background:#c9902a"></div> Advanced Math</div>
       <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div> Data Analysis</div>
       <div class="legend-item"><div class="legend-dot" style="background:#2e7d52"></div> Geometry</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e53e3e"></div> Weakness Focus</div>
     </div>
 
-    <!-- 30-Day Calendar -->
     <div class="calendar-section">
       <div class="section-title">Your 30-Day Calendar</div>
       <div class="calendar-grid" id="calendar-grid"></div>
     </div>
 
-    <!-- Diagnostic Scores -->
     <div class="score-section">
       <div class="section-title">Diagnostic Scores</div>
       <div class="score-cards">
         <div class="score-card pending" id="score-day1">
           <div class="score-card-label">Day 1 · Baseline</div>
-          <div class="score-card-num">Not yet taken</div>
+          <div class="score-card-num" id="score-day1-num">Not yet taken</div>
           <div class="score-card-sub">Full diagnostic test</div>
         </div>
-        <div class="score-card pending" id="score-day12">
-          <div class="score-card-label">Day 12 · Mid-check</div>
-          <div class="score-card-num">Not yet taken</div>
+        <div class="score-card pending" id="score-day11">
+          <div class="score-card-label">Day 11 · Mid-check</div>
+          <div class="score-card-num" id="score-day11-num">Not yet taken</div>
           <div class="score-card-sub">Full diagnostic test</div>
         </div>
-        <div class="score-card pending" id="score-day21">
-          <div class="score-card-label">Day 21 · Progress</div>
-          <div class="score-card-num">Not yet taken</div>
+        <div class="score-card pending" id="score-day23">
+          <div class="score-card-label">Day 23 · Progress</div>
+          <div class="score-card-num" id="score-day23-num">Not yet taken</div>
           <div class="score-card-sub">Full diagnostic test</div>
         </div>
         <div class="score-card pending" id="score-day30">
           <div class="score-card-label">Day 30 · Final</div>
-          <div class="score-card-num">Not yet taken</div>
+          <div class="score-card-num" id="score-day30-num">Not yet taken</div>
           <div class="score-card-sub">Full diagnostic test</div>
         </div>
       </div>
@@ -662,45 +436,48 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// ── 30-day program structure ──
+// ── Correct 30-day schedule ──
 const PROGRAM = [
-  { day: 1,  type: 'Diagnostic Test',  domain: 'diagnostic' },
-  { day: 2,  type: 'Algebra',          domain: 'algebra' },
-  { day: 3,  type: 'Algebra',          domain: 'algebra' },
-  { day: 4,  type: 'Algebra',          domain: 'algebra' },
-  { day: 5,  type: 'Advanced Math',    domain: 'advanced' },
-  { day: 6,  type: 'Advanced Math',    domain: 'advanced' },
-  { day: 7,  type: 'Advanced Math',    domain: 'advanced' },
-  { day: 8,  type: 'Data Analysis',    domain: 'data' },
-  { day: 9,  type: 'Data Analysis',    domain: 'data' },
-  { day: 10, type: 'Geometry',         domain: 'geometry' },
-  { day: 11, type: 'Geometry',         domain: 'geometry' },
-  { day: 12, type: 'Diagnostic Test',  domain: 'diagnostic' },
-  { day: 13, type: 'Weak Areas',       domain: 'algebra' },
-  { day: 14, type: 'Weak Areas',       domain: 'algebra' },
-  { day: 15, type: 'Weak Areas',       domain: 'algebra' },
-  { day: 16, type: 'Algebra',          domain: 'algebra' },
-  { day: 17, type: 'Advanced Math',    domain: 'advanced' },
-  { day: 18, type: 'Data Analysis',    domain: 'data' },
-  { day: 19, type: 'Geometry',         domain: 'geometry' },
-  { day: 20, type: 'Mixed Review',     domain: 'advanced' },
-  { day: 21, type: 'Diagnostic Test',  domain: 'diagnostic' },
-  { day: 22, type: 'Weak Areas',       domain: 'algebra' },
-  { day: 23, type: 'Weak Areas',       domain: 'algebra' },
-  { day: 24, type: 'Weak Areas',       domain: 'advanced' },
-  { day: 25, type: 'Weak Areas',       domain: 'advanced' },
-  { day: 26, type: 'Weak Areas',       domain: 'data' },
-  { day: 27, type: 'Weak Areas',       domain: 'geometry' },
-  { day: 28, type: 'Full Test',        domain: 'diagnostic' },
-  { day: 29, type: 'Full Test',        domain: 'diagnostic' },
-  { day: 30, type: 'Final Test',       domain: 'diagnostic' },
+  { day: 1,  type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day1/' },
+  { day: 2,  type: 'Review Day 1',     domain: 'review',     url: '/day2/' },
+  { day: 3,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=3&domain=algebra' },
+  { day: 4,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=4&domain=algebra' },
+  { day: 5,  type: 'Algebra',          domain: 'algebra',    url: '/session/?day=5&domain=algebra' },
+  { day: 6,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=6&domain=advanced' },
+  { day: 7,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=7&domain=advanced' },
+  { day: 8,  type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=8&domain=advanced' },
+  { day: 9,  type: 'Data Analysis',    domain: 'data',       url: '/session/?day=9&domain=data' },
+  { day: 10, type: 'Geometry',         domain: 'geometry',   url: '/session/?day=10&domain=geometry' },
+  { day: 11, type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day11/' },
+  { day: 12, type: 'Review Day 11',    domain: 'review',     url: '/day12/' },
+  { day: 13, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=13&domain=weakness' },
+  { day: 14, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=14&domain=weakness' },
+  { day: 15, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=15&domain=algebra' },
+  { day: 16, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=16&domain=algebra' },
+  { day: 17, type: 'Algebra',          domain: 'algebra',    url: '/session/?day=17&domain=algebra' },
+  { day: 18, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=18&domain=advanced' },
+  { day: 19, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=19&domain=advanced' },
+  { day: 20, type: 'Advanced Math',    domain: 'advanced',   url: '/session/?day=20&domain=advanced' },
+  { day: 21, type: 'Data Analysis',    domain: 'data',       url: '/session/?day=21&domain=data' },
+  { day: 22, type: 'Geometry',         domain: 'geometry',   url: '/session/?day=22&domain=geometry' },
+  { day: 23, type: 'Diagnostic Test',  domain: 'diagnostic', url: '/day23/' },
+  { day: 24, type: 'Review Day 23',    domain: 'review',     url: '/day24/' },
+  { day: 25, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=25&domain=weakness' },
+  { day: 26, type: 'Weakness Focus',   domain: 'weakness',   url: '/session/?day=26&domain=weakness' },
+  { day: 27, type: 'Full Test',        domain: 'fulltest',   url: '/day27/' },
+  { day: 28, type: 'Full Test',        domain: 'fulltest',   url: '/day28/' },
+  { day: 29, type: 'Full Test',        domain: 'fulltest',   url: '/day29/' },
+  { day: 30, type: 'Full Test',        domain: 'fulltest',   url: '/day30/' },
 ];
+
+// Which program days are diagnostic tests (for score display)
+const DIAGNOSTIC_DAYS = { 1: 'score-day1', 11: 'score-day11', 23: 'score-day23', 30: 'score-day30' };
+const DIAGNOSTIC_NUM_IDS = { 1: 'score-day1-num', 11: 'score-day11-num', 23: 'score-day23-num', 30: 'score-day30-num' };
 
 function daysUntilAug22() {
   const today = new Date();
-  const aug22 = new Date(2026, 7, 22); // month is 0-indexed
-  const diff = Math.ceil((aug22 - today) / (1000 * 60 * 60 * 24));
-  return Math.max(0, diff);
+  const aug22 = new Date(2026, 7, 22);
+  return Math.max(0, Math.ceil((aug22 - today) / (1000 * 60 * 60 * 24)));
 }
 
 function show(id) {
@@ -714,48 +491,26 @@ async function sendMagicLink() {
   const email = document.getElementById('auth-email').value.trim();
   const errEl = document.getElementById('auth-error');
   const sentEl = document.getElementById('auth-magic-sent');
-  errEl.style.display = 'none';
-  sentEl.style.display = 'none';
-
-  if (!email) {
-    errEl.textContent = 'Please enter your email address.';
-    errEl.style.display = 'block';
-    return;
-  }
-
-  const { error } = await sb.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: window.location.href }
-  });
-
-  if (error) {
-    errEl.textContent = error.message;
-    errEl.style.display = 'block';
-  } else {
-    sentEl.style.display = 'block';
-  }
+  errEl.style.display = 'none'; sentEl.style.display = 'none';
+  if (!email) { errEl.textContent = 'Please enter your email.'; errEl.style.display = 'block'; return; }
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; }
+  else sentEl.style.display = 'block';
 }
 
-async function signOut() {
-  await sb.auth.signOut();
-  show('screen-auth');
-}
+async function signOut() { await sb.auth.signOut(); show('screen-auth'); }
 
 function buildCalendar(enrollDate, completedDays) {
   const grid = document.getElementById('calendar-grid');
   grid.innerHTML = '';
-
   const today = new Date();
   const start = new Date(enrollDate);
-
-  // Which program day is today?
   const msPerDay = 1000 * 60 * 60 * 24;
   const daysSinceEnroll = Math.floor((today - start) / msPerDay);
-  const currentDay = daysSinceEnroll + 1; // 1-indexed
-
+  const currentDay = Math.max(1, daysSinceEnroll + 1);
   let todayInfo = null;
 
-  PROGRAM.forEach(({ day, type, domain }) => {
+  PROGRAM.forEach(({ day, type, domain, url }) => {
     const card = document.createElement('div');
     card.className = 'day-card';
     card.dataset.domain = domain;
@@ -766,24 +521,23 @@ function buildCalendar(enrollDate, completedDays) {
     const isLocked = day > currentDay;
 
     if (isCompleted) card.classList.add('completed');
-    else if (isToday) { card.classList.add('today'); todayInfo = { day, type, domain }; }
+    else if (isToday) { card.classList.add('today'); todayInfo = { day, type, domain, url }; }
     else if (isLocked) card.classList.add('locked');
     else card.classList.add('unlocked');
 
-    // Short label
-    const shortType = type === 'Diagnostic Test' ? 'Diagnostic'
-                    : type === 'Full Test' ? 'Full Test'
-                    : type === 'Final Test' ? 'Final Test'
-                    : type === 'Weak Areas' ? 'Weak Areas'
-                    : type === 'Mixed Review' ? 'Mixed'
-                    : type;
+    const shortType = {
+      'Diagnostic Test': 'Diagnostic',
+      'Review Day 1': 'Review',
+      'Review Day 11': 'Review',
+      'Review Day 23': 'Review',
+      'Full Test': 'Full Test',
+      'Weakness Focus': 'Weakness',
+      'Data Analysis': 'Data',
+      'Advanced Math': 'Adv Math',
+    }[type] || type;
 
     card.innerHTML = `<div class="day-num">${day}</div><div class="day-type">${shortType}</div>`;
-
-    if (!isLocked) {
-      card.addEventListener('click', () => openSession(day, type, isCompleted));
-    }
-
+    if (!isLocked) card.addEventListener('click', () => { window.location.href = url; });
     grid.appendChild(card);
   });
 
@@ -793,94 +547,100 @@ function buildCalendar(enrollDate, completedDays) {
 function updateProgress(completedDays) {
   const pct = Math.round((completedDays.length / 30) * 100);
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent =
-    `${completedDays.length} of 30 days complete`;
+  document.getElementById('progress-text').textContent = `${completedDays.length} of 30 days complete`;
 }
 
 function updateTodayCTA(todayInfo) {
   if (!todayInfo) return;
   const cta = document.getElementById('today-cta');
   cta.style.display = 'flex';
-  document.getElementById('today-cta-title').textContent =
-    `Day ${todayInfo.day} · ${todayInfo.type}`;
+  document.getElementById('today-cta-title').textContent = `Day ${todayInfo.day} · ${todayInfo.type}`;
   document.getElementById('today-cta-desc').textContent =
-    todayInfo.domain === 'diagnostic'
-      ? 'Take your full diagnostic test now.'
-      : `Practice session — ${todayInfo.type}. ~15 questions.`;
-  document.getElementById('today-cta-btn').onclick = () =>
-    openSession(todayInfo.day, todayInfo.type, false);
+    todayInfo.domain === 'diagnostic' ? 'Take your full diagnostic test now.' :
+    todayInfo.domain === 'review' ? 'Work through your missed questions and weak areas.' :
+    todayInfo.domain === 'weakness' ? 'Targeted practice on your weakest skills.' :
+    todayInfo.domain === 'fulltest' ? 'Take a full practice test.' :
+    `Domain practice — ${todayInfo.type}. About 15 questions.`;
+  document.getElementById('today-cta-btn').onclick = () => { window.location.href = todayInfo.url; };
 }
 
-function domainForType(type) {
-  if (type === 'Diagnostic Test' || type === 'Full Test' || type === 'Final Test') return 'diagnostic';
-  if (type === 'Algebra') return 'algebra';
-  if (type === 'Advanced Math' || type === 'Mixed Review') return 'advanced';
-  if (type === 'Data Analysis') return 'data';
-  if (type === 'Geometry') return 'geometry';
-  if (type === 'Weak Areas') return 'algebra'; // default; will improve with weakness tracking
-  return 'algebra';
-}
-
-function openSession(day, type, completed) {
-  const domain = domainForType(type);
-  const encodedType = encodeURIComponent(type);
-  window.location.href = `/session/?day=${day}&domain=${domain}&type=${encodedType}`;
+function updateDiagnosticScores(scores) {
+  // scores = { 1: 650, 11: null, 23: null, 30: null }
+  Object.entries(scores).forEach(([day, score]) => {
+    const cardId = DIAGNOSTIC_DAYS[day];
+    const numId = DIAGNOSTIC_NUM_IDS[day];
+    if (!cardId || !numId) return;
+    const card = document.getElementById(cardId);
+    const numEl = document.getElementById(numId);
+    if (score !== null && score !== undefined) {
+      card.classList.remove('pending');
+      card.classList.add('has-score');
+      numEl.textContent = score;
+    }
+  });
 }
 
 async function loadDashboard(user) {
   document.getElementById('topbar-email').textContent = user.email;
 
-  // Greeting
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning.' : hour < 17 ? 'Good afternoon.' : 'Good evening.';
-  document.getElementById('dash-greeting').textContent = greeting;
+  document.getElementById('dash-greeting').textContent =
+    hour < 12 ? 'Good morning.' : hour < 17 ? 'Good afternoon.' : 'Good evening.';
 
-  // Countdown
   document.getElementById('countdown-num').textContent = daysUntilAug22();
 
-  // Try to load enrollment + progress from Supabase
-  let enrollDate = new Date(); // fallback: today
+  let enrollDate = new Date();
   let completedDays = [];
+  const diagnosticScores = { 1: null, 11: null, 23: null, 30: null };
 
+  // Load enrollment date
   try {
-    // Load enrollment date from enrollments table (if it exists)
     const { data: enroll } = await sb
-      .from('enrollments')
-      .select('created_at')
-      .eq('user_id', user.id)
-      .single();
+      .from('enrollments').select('created_at').eq('user_id', user.id).single();
+    if (enroll?.created_at) enrollDate = new Date(enroll.created_at);
+  } catch (e) {}
 
-    if (enroll?.created_at) {
-      enrollDate = new Date(enroll.created_at);
-    }
-
-    // Load completed days
+  // Load completed days
+  try {
     const { data: progress } = await sb
-      .from('day_progress')
-      .select('day_number')
-      .eq('user_id', user.id);
+      .from('day_progress').select('day_number').eq('user_id', user.id);
+    if (progress) completedDays = progress.map(r => r.day_number);
+  } catch (e) {}
 
-    if (progress) {
-      completedDays = progress.map(r => r.day_number);
+  // Load test results for diagnostic scores
+  // Day 1 test saves as test_number=1 in test_results
+  try {
+    const { data: results } = await sb
+      .from('test_results').select('score, test_number').eq('user_id', user.id);
+    if (results && results.length > 0) {
+      // test_number 1 = Day 1 diagnostic
+      const r1 = results.find(r => r.test_number === 1);
+      if (r1) diagnosticScores[1] = r1.score;
+      // Future: test_number 2 = Day 11, test_number 3 = Day 23
+      const r2 = results.find(r => r.test_number === 2);
+      if (r2) diagnosticScores[11] = r2.score;
+      const r3 = results.find(r => r.test_number === 3);
+      if (r3) diagnosticScores[23] = r3.score;
+      const r4 = results.find(r => r.test_number === 4);
+      if (r4) diagnosticScores[30] = r4.score;
+
+      // If Day 1 test result exists, mark Day 1 as completed
+      if (r1 && !completedDays.includes(1)) completedDays.push(1);
     }
-  } catch (e) {
-    // Tables may not exist yet — that's fine, show empty state
-    console.log('Progress tables not set up yet:', e.message);
-  }
+  } catch (e) {}
 
   const { currentDay, todayInfo } = buildCalendar(enrollDate, completedDays);
   updateProgress(completedDays);
   updateTodayCTA(todayInfo);
+  updateDiagnosticScores(diagnosticScores);
 
   show('screen-dashboard');
 }
 
-// ── Boot ──
 (async () => {
-  // Handle magic link token in URL
   const hash = window.location.hash;
   if (hash.includes('access_token')) {
-    const { data, error } = await sb.auth.getSession();
+    const { data } = await sb.auth.getSession();
     if (data?.session) {
       window.history.replaceState({}, '', window.location.pathname);
       await loadDashboard(data.session.user);
@@ -888,7 +648,6 @@ async function loadDashboard(user) {
     }
   }
 
-  // Check existing session
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
     await loadDashboard(session.user);
@@ -896,13 +655,9 @@ async function loadDashboard(user) {
     show('screen-auth');
   }
 
-  // Listen for auth changes (e.g. magic link callback)
   sb.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) {
-      await loadDashboard(session.user);
-    } else if (event === 'SIGNED_OUT') {
-      show('screen-auth');
-    }
+    if (event === 'SIGNED_IN' && session) await loadDashboard(session.user);
+    else if (event === 'SIGNED_OUT') show('screen-auth');
   });
 })();
 </script>
