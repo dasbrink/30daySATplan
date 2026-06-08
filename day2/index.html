@@ -803,10 +803,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   banner.style.display = 'flex';
   document.getElementById('banner-score').textContent = score;
   document.getElementById('banner-correct').textContent = totalCorrect !== undefined ? totalCorrect : (total - missedCount);
+  const realMissedCount = total - (totalCorrect !== undefined ? totalCorrect : (total - missedCount));
   document.getElementById('banner-missed-line').textContent =
-    missedCount === 0 ? 'No questions missed' :
-    missedCount === 1 ? '1 question missed' :
-    `${missedCount} questions missed`;
+    realMissedCount === 0 ? 'No questions missed' :
+    realMissedCount === 1 ? '1 question missed' :
+    `${realMissedCount} questions missed`;
 
   const missedIds = snapshot.missedIds || missed.map(m => m.q && m.q.id).filter(Boolean);
 
