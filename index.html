@@ -6,6 +6,17 @@
 <title>30-Day SAT Math Plan — Fix Your Child's Weak Spots Before August 22</title>
 <meta name="description" content="A 30-day SAT Math program targeting August 22. $99 one-time. Money-back guarantee if your child completes the program.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Redirect to dashboard if magic link lands here -->
+<script>
+  (function() {
+    var hash = window.location.hash;
+    if (hash && hash.indexOf('access_token') !== -1) {
+      window.location.replace('/dashboard/' + hash);
+    }
+  })();
+</script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -25,23 +36,18 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Source Serif 4', Georgia, serif; background: var(--warm-white); color: var(--text); line-height: 1.7; font-size: 18px; }
 
-  /* NAV */
   .top-bar { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .top-bar .logo { font-family: 'Playfair Display', serif; color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; }
   .top-bar .logo span { color: var(--gold-light); }
   .top-bar .nav-cta { background: var(--gold); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 8px 20px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
   .top-bar .nav-cta:hover { background: var(--gold-light); }
 
-  /* HERO */
   .hero { background: var(--navy); padding: 72px 24px 64px; text-align: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px); pointer-events: none; }
-
-  /* HERO BADGE ROW */
   .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
   .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 7px 16px; border-radius: 100px; }
   .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
   .hero-badge.gold { background: rgba(201,144,42,0.18); border-color: rgba(201,144,42,0.45); color: var(--gold-light); }
-
   .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5.5vw, 58px); font-weight: 900; color: #fff; line-height: 1.13; max-width: 1000px; margin: 0 auto 20px; letter-spacing: -0.01em; }
   .hero h1 em { color: var(--gold-light); font-style: italic; }
   .hero-sub { font-size: 19px; color: rgba(255,255,255,0.72); max-width: 720px; margin: 0 auto 36px; line-height: 1.65; }
@@ -49,7 +55,6 @@
   .hero-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
   .hero-guarantee { margin-top: 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.45); }
 
-  /* SECTIONS */
   .section { padding: 64px 24px; }
   .section.alt { background: var(--cream); }
   .inner { max-width: 960px; margin: 0 auto; }
@@ -61,25 +66,21 @@
   .lead { font-size: 18px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
   .body-text { font-size: 16px; color: var(--text-mid); line-height: 1.75; margin-bottom: 14px; }
 
-  /* QUOTE */
   .quote-block { border-left: 3px solid var(--gold); padding: 18px 24px; background: var(--gold-pale); border-radius: 0 4px 4px 0; margin: 28px 0; }
   .quote-block blockquote { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; color: var(--navy); line-height: 1.5; margin-bottom: 8px; }
   .quote-block .attrib { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-muted); }
 
-  /* STATS */
   .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 36px 0 0; }
   .stat-cell { background: var(--warm-white); padding: 24px 20px; text-align: center; }
   .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 5px; }
   .stat-label { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-  /* PROCESS */
   .process-list { margin: 28px 0 0; counter-reset: proc; }
   .process-item { counter-increment: proc; display: flex; gap: 18px; margin-bottom: 16px; padding: 18px 20px; background: var(--warm-white); border: 1px solid var(--border); border-radius: 8px; align-items: flex-start; }
   .process-item::before { content: counter(proc); flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--gold-pale); border: 1px solid var(--gold); color: var(--gold); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
   .process-item-body h4 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: var(--navy); margin-bottom: 3px; }
   .process-item-body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-  /* PROGRAM GRID */
   .program-grid { margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
   .phase-card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
   .phase-header { background: var(--navy); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 10px 14px; }
@@ -87,7 +88,6 @@
   .phase-body { padding: 12px 14px; background: var(--warm-white); }
   .phase-body p { font-size: 14px; color: var(--text-mid); line-height: 1.55; }
 
-  /* AUTHOR */
   .author-card { display: flex; gap: 28px; align-items: flex-start; padding: 28px 32px; background: var(--navy); border-radius: 8px; margin-top: 28px; }
   .author-avatar { flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 2px solid rgba(201,144,42,0.45); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold-light); }
   .author-card h3 { font-family: 'Playfair Display', serif; font-size: 19px; color: #fff; margin-bottom: 3px; }
@@ -95,12 +95,10 @@
   .author-card p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.7); }
   @media (max-width: 520px) { .author-card { flex-direction: column; padding: 20px; } }
 
-  /* GUARANTEE */
   .guarantee-box { border: 2px solid var(--gold); border-radius: 8px; padding: 28px 32px; margin: 24px 0; background: var(--gold-pale); text-align: center; }
   .guarantee-box h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 12px; }
   .guarantee-box p { font-size: 15px; color: var(--text-mid); line-height: 1.7; max-width: 520px; margin: 0 auto; }
 
-  /* PRICING */
   .pricing-card { background: var(--navy); border-radius: 10px; padding: 44px 40px; text-align: center; margin: 0 auto; max-width: 680px; }
   .pricing-card .price-label { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
   .pricing-card .price { font-family: 'Playfair Display', serif; font-size: 68px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 5px; }
@@ -113,7 +111,6 @@
   .buy-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
   .pricing-guarantee-note { margin-top: 14px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; }
 
-  /* FAQ */
   .faq { margin: 24px 0; }
   details { border-bottom: 1px solid var(--border); padding: 18px 0; }
   details:first-of-type { border-top: 1px solid var(--border); }
@@ -123,7 +120,6 @@
   details[open] summary::after { transform: rotate(45deg); }
   details .answer { padding-top: 12px; font-size: 15px; color: var(--text-mid); line-height: 1.7; }
 
-  /* FOOTER */
   footer { background: var(--navy-dark); color: rgba(255,255,255,0.45); text-align: center; padding: 28px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; }
   footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
   footer a:hover { color: var(--gold-light); }
@@ -138,7 +134,6 @@
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="hero-badges">
     <div class="hero-badge gold"><span class="dot"></span>30-Day SAT Math Plan</div>
@@ -152,95 +147,49 @@
   <p class="hero-guarantee">Money back if your child completes all 30 days and reports their August 22 score.</p>
 </header>
 
-<!-- THE PROBLEM -->
 <section class="section">
   <div class="inner">
     <p class="section-label">The problem with most SAT prep</p>
     <h2 class="section-heading">Weighing the pig doesn't fatten it.</h2>
     <div class="gold-rule"></div>
-
     <div class="quote-block">
       <blockquote>"If you want to fatten a pig, it does not help to weigh it all the time."</blockquote>
       <p class="attrib">Taking test after test without changing anything in between is not preparation.</p>
     </div>
-
     <p class="lead">Most SAT prep sites give your child more problems. This one finds out <em>which</em> problems to work on — and then works on them.</p>
     <p class="body-text">Every one of the 4,736 questions in our database is linked to the exact underlying skill it tests. When your child takes a practice test, the program identifies precisely where their knowledge is breaking down — then does something about it.</p>
   </div>
 </section>
 
-<!-- HOW IT FIXES GAPS -->
 <section class="section alt">
   <div class="inner">
     <p class="section-label">When a gap is found</p>
     <h2 class="section-heading">Four steps to <em>actually fix</em> a weak spot</h2>
     <div class="gold-rule"></div>
     <p class="lead">After each diagnostic test, your child gets a targeted remediation sequence for every weak topic.</p>
-
     <div class="process-list">
-      <div class="process-item">
-        <div class="process-item-body">
-          <h4>A focused tutorial on the topic</h4>
-          <p>Targeted instruction on the specific skill costing them points — not a generic review.</p>
-        </div>
-      </div>
-      <div class="process-item">
-        <div class="process-item-body">
-          <h4>The typical errors students make</h4>
-          <p>The predictable mistakes for that topic, explained clearly so your child recognizes the trap next time.</p>
-        </div>
-      </div>
-      <div class="process-item">
-        <div class="process-item-body">
-          <h4>Three worked problems — Easy, Medium, Hard</h4>
-          <p>Step-by-step solutions at each difficulty level. Not just the answer — the method.</p>
-        </div>
-      </div>
-      <div class="process-item">
-        <div class="process-item-body">
-          <h4>More practice on the same concept</h4>
-          <p>Additional problems available on demand, all targeting the same underlying skill.</p>
-        </div>
-      </div>
+      <div class="process-item"><div class="process-item-body"><h4>A focused tutorial on the topic</h4><p>Targeted instruction on the specific skill costing them points — not a generic review.</p></div></div>
+      <div class="process-item"><div class="process-item-body"><h4>The typical errors students make</h4><p>The predictable mistakes for that topic, explained clearly so your child recognizes the trap next time.</p></div></div>
+      <div class="process-item"><div class="process-item-body"><h4>Three worked problems — Easy, Medium, Hard</h4><p>Step-by-step solutions at each difficulty level. Not just the answer — the method.</p></div></div>
+      <div class="process-item"><div class="process-item-body"><h4>More practice on the same concept</h4><p>Additional problems available on demand, all targeting the same underlying skill.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- 30-DAY STRUCTURE -->
 <section class="section">
   <div class="inner wide">
     <p class="section-label">The program</p>
     <h2 class="section-heading">30 days. Three diagnostics. Four domains.</h2>
     <div class="gold-rule"></div>
     <p class="lead">Three full diagnostic tests at key checkpoints measure progress and redirect the remaining days toward what matters most.</p>
-
     <div class="program-grid">
-      <div class="phase-card">
-        <div class="phase-header"><span>Day 1</span>Baseline diagnostic</div>
-        <div class="phase-body"><p>Full practice test. Establishes your child's starting point and identifies the first round of weak spots.</p></div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-header"><span>Days 2 – 11</span>Domain practice</div>
-        <div class="phase-body"><p>10 days across all four SAT Math domains, weighted toward the topics that carry the most points.</p></div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-header"><span>Day 12</span>Second diagnostic</div>
-        <div class="phase-body"><p>Full test. Measures progress. Redirects the next phase toward remaining weaknesses.</p></div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-header"><span>Days 13 – 20</span>Weakness focus</div>
-        <div class="phase-body"><p>Targeted work on gaps from the second diagnostic, plus a second round of domain practice.</p></div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-header"><span>Day 21</span>Third diagnostic</div>
-        <div class="phase-body"><p>Full test. The final nine days are shaped entirely by these results.</p></div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-header"><span>Days 22 – 30</span>Final push</div>
-        <div class="phase-body"><p>Six days of targeted weakness work, then three full tests for confidence and timing.</p></div>
-      </div>
+      <div class="phase-card"><div class="phase-header"><span>Day 1</span>Baseline diagnostic</div><div class="phase-body"><p>Full practice test. Establishes your child's starting point and identifies the first round of weak spots.</p></div></div>
+      <div class="phase-card"><div class="phase-header"><span>Days 2 – 11</span>Domain practice</div><div class="phase-body"><p>10 days across all four SAT Math domains, weighted toward the topics that carry the most points.</p></div></div>
+      <div class="phase-card"><div class="phase-header"><span>Day 12</span>Second diagnostic</div><div class="phase-body"><p>Full test. Measures progress. Redirects the next phase toward remaining weaknesses.</p></div></div>
+      <div class="phase-card"><div class="phase-header"><span>Days 13 – 20</span>Weakness focus</div><div class="phase-body"><p>Targeted work on gaps from the second diagnostic, plus a second round of domain practice.</p></div></div>
+      <div class="phase-card"><div class="phase-header"><span>Day 21</span>Third diagnostic</div><div class="phase-body"><p>Full test. The final nine days are shaped entirely by these results.</p></div></div>
+      <div class="phase-card"><div class="phase-header"><span>Days 22 – 30</span>Final push</div><div class="phase-body"><p>Six days of targeted weakness work, then three full tests for confidence and timing.</p></div></div>
     </div>
-
     <div class="stats-row">
       <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">Full diagnostic tests</div></div>
       <div class="stat-cell"><div class="stat-num">4</div><div class="stat-label">SAT Math domains</div></div>
@@ -250,14 +199,12 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="section alt">
   <div class="inner">
     <p class="section-label">Who built this</p>
     <h2 class="section-heading">A mathematician, <em>not a test-prep company</em></h2>
     <div class="gold-rule"></div>
     <p class="body-text">This program uses the same diagnostic engine and question bank already live and free at <a href="https://freepracticesat.com" style="color:var(--navy);">freepracticesat.com</a>. The 30-day plan is a structured way to use that engine systematically — so your child works on the right things, not just more things.</p>
-
     <div class="author-card">
       <div class="author-avatar">DB</div>
       <div>
@@ -269,13 +216,11 @@
   </div>
 </section>
 
-<!-- GUARANTEE -->
 <section class="section">
   <div class="inner">
     <p class="section-label">The guarantee</p>
     <h2 class="section-heading">Do the work. Get your money back.</h2>
     <div class="gold-rule"></div>
-
     <div class="guarantee-box">
       <h3>Complete all 30 days. Report your August 22 score. Full refund.</h3>
       <p>No score-improvement requirement. No conditions. We ask for the score because we want to know whether the program works — and we're confident enough to back it with your money.</p>
@@ -283,18 +228,15 @@
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="section alt" id="enroll">
   <div class="inner">
     <p class="section-label" style="text-align:center;">Enroll now</p>
     <h2 class="section-heading" style="text-align:center;">One price. Everything included.</h2>
     <div class="gold-rule" style="margin: 18px auto 32px;"></div>
-
     <div class="pricing-card">
       <p class="price-label">30-Day SAT Math Plan</p>
       <div class="price"><sup>$</sup>99</div>
       <p class="price-sub">One-time · August 22, 2026 SAT · Money-back guarantee</p>
-
       <ul class="pricing-includes">
         <li>30-day structured daily study calendar</li>
         <li>Three full-length SAT Math diagnostic tests</li>
@@ -304,46 +246,27 @@
         <li>Personal dashboard tracking all 30 days</li>
         <li>Full refund if you complete the program and report your score</li>
       </ul>
-
       <a href="#" class="buy-btn">Enroll for $99</a>
       <p class="pricing-guarantee-note">Secure checkout · Instant access · Money-back guarantee</p>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="section">
   <div class="inner">
     <p class="section-label">Questions</p>
     <h2 class="section-heading">Frequently asked</h2>
     <div class="gold-rule"></div>
-
     <div class="faq">
-      <details>
-        <summary>Who is this for?</summary>
-        <div class="answer">Any student sitting the August 22, 2026 SAT who wants a structured, diagnostic approach to math prep. No prior preparation needed — Day 1 is a diagnostic test that calibrates the program to wherever your child is right now.</div>
-      </details>
-      <details>
-        <summary>How much time does each day take?</summary>
-        <div class="answer">Daily sessions are 10–20 questions, typically 20–40 minutes. Diagnostic test days take 60–90 minutes.</div>
-      </details>
-      <details>
-        <summary>What exactly is the money-back guarantee?</summary>
-        <div class="answer">Complete all 30 days and send us your child's official August 22 SAT Math section score — we refund your $99 in full. No score-improvement requirement. We want the data to measure how well the program works.</div>
-      </details>
-      <details>
-        <summary>What if my child misses a day?</summary>
-        <div class="answer">Missing a day or two won't derail the program. But completing all 30 days is required for the money-back guarantee.</div>
-      </details>
-      <details>
-        <summary>Is this connected to freepracticesat.com?</summary>
-        <div class="answer">Yes — same creator, same diagnostic engine, same question bank. If your child has used freepracticesat.com, this is the structured 30-day version of that experience.</div>
-      </details>
+      <details><summary>Who is this for?</summary><div class="answer">Any student sitting the August 22, 2026 SAT who wants a structured, diagnostic approach to math prep. No prior preparation needed — Day 1 is a diagnostic test that calibrates the program to wherever your child is right now.</div></details>
+      <details><summary>How much time does each day take?</summary><div class="answer">Daily sessions are 10–20 questions, typically 20–40 minutes. Diagnostic test days take 60–90 minutes.</div></details>
+      <details><summary>What exactly is the money-back guarantee?</summary><div class="answer">Complete all 30 days and send us your child's official August 22 SAT Math section score — we refund your $99 in full. No score-improvement requirement. We want the data to measure how well the program works.</div></details>
+      <details><summary>What if my child misses a day?</summary><div class="answer">Missing a day or two won't derail the program. But completing all 30 days is required for the money-back guarantee.</div></details>
+      <details><summary>Is this connected to freepracticesat.com?</summary><div class="answer">Yes — same creator, same diagnostic engine, same question bank. If your child has used freepracticesat.com, this is the structured 30-day version of that experience.</div></details>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>30-Day SAT Math Plan &nbsp;·&nbsp; Created by <a href="https://freepracticesat.com/about/">Daniel Brink, Ph.D.</a> &nbsp;·&nbsp; <a href="https://freepracticesat.com">freepracticesat.com</a></p>
   <p style="margin-top: 8px;">Questions? Email <a href="mailto:dasbrink@gmail.com">dasbrink@gmail.com</a></p>
@@ -376,46 +299,27 @@ function openModal() {
   document.getElementById('checkout-modal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   document.getElementById('checkout-modal').style.display = 'none';
   document.body.style.overflow = '';
 }
-
 document.getElementById('checkout-modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
-
 async function startCheckout() {
   const parentEmail = document.getElementById('parent-email').value.trim();
   const studentEmail = document.getElementById('student-email').value.trim();
   const errorEl = document.getElementById('checkout-error');
   const btn = document.getElementById('checkout-btn');
   errorEl.style.display = 'none';
-  if (!parentEmail || !parentEmail.includes('@')) {
-    errorEl.textContent = 'Please enter a valid parent email.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!studentEmail || !studentEmail.includes('@')) {
-    errorEl.textContent = 'Please enter a valid student email.';
-    errorEl.style.display = 'block';
-    return;
-  }
+  if (!parentEmail || !parentEmail.includes('@')) { errorEl.textContent = 'Please enter a valid parent email.'; errorEl.style.display = 'block'; return; }
+  if (!studentEmail || !studentEmail.includes('@')) { errorEl.textContent = 'Please enter a valid student email.'; errorEl.style.display = 'block'; return; }
   btn.textContent = 'Redirecting to checkout...';
   btn.disabled = true;
   try {
-    const res = await fetch(CHECKOUT_FN, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ parent_email: parentEmail, student_email: studentEmail })
-    });
+    const res = await fetch(CHECKOUT_FN, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ parent_email: parentEmail, student_email: studentEmail }) });
     const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Something went wrong.');
-    }
+    if (data.url) { window.location.href = data.url; } else { throw new Error(data.error || 'Something went wrong.'); }
   } catch (err) {
     errorEl.textContent = err.message;
     errorEl.style.display = 'block';
@@ -423,14 +327,9 @@ async function startCheckout() {
     btn.disabled = false;
   }
 }
-
 document.querySelectorAll('.hero-cta, .buy-btn').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    openModal();
-  });
+  btn.addEventListener('click', function(e) { e.preventDefault(); openModal(); });
 });
 </script>
-
 </body>
 </html>
