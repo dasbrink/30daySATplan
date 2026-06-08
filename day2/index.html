@@ -9,7 +9,7 @@
     tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
     svg: { fontCache: 'global' }
   };
-</script> 
+</script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -206,9 +206,36 @@ body {
 .study-misc {
   border: 1px solid #e2e2dc;
   border-radius: 10px;
-  padding: 16px 18px;
-  margin-top: 12px;
+  margin-top: 20px;
   background: white;
+  overflow: hidden;
+}
+
+.study-misc-header {
+  background: var(--navy);
+  color: white;
+  padding: 8px 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: -apple-system, Segoe UI, sans-serif;
+}
+
+.study-misc-body {
+  padding: 16px 18px;
+}
+
+.study-practice-header {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  font-family: -apple-system, Segoe UI, sans-serif;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px solid #e8f5ee;
 }
 
 .study-q {
@@ -513,16 +540,19 @@ function renderPracticeProblemHTML(rec, idx) {
   </div>`;
 }
 
-function reportQuestionBlockHTML(qn, uid) {
+function reportQuestionBlockHTML(qn, uid, questionNumber) {
   const solId = 'sol-' + uid, mountId = 'qm-' + uid;
   const sol = stripComments(qn.solution || '').replace(/\n/g,'<br>');
-  let html = `<div class="study-q"><div class="study-q-mount" id="${mountId}"></div>`;
+  let html = `<div class="study-misc">
+    <div class="study-misc-header">Question ${questionNumber} — You got this wrong</div>
+    <div class="study-misc-body">
+      <div class="study-q"><div class="study-q-mount" id="${mountId}"></div>`;
   if (sol) {
     html += `<button class="study-reveal-btn" onclick="toggleStudyReveal('${solId}',this,'sol')">Show worked solution</button>`;
     html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${escHTML(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`;
   }
   html += `</div>`;
-  return { html, mountId };
+  return { html, mountId, open: true };
 }
 
 function reportTutorialHTML(tutRec) {
@@ -584,8 +614,7 @@ async function renderSpecificMistakes(missed) {
     </div>`;
 
     missed.forEach((m, i) => {
-      html += `<div class="study-misc">`;
-      const block = reportQuestionBlockHTML(m.q, uid++);
+      const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
       mountJobs.push({ mountId: block.mountId, qn: m.q });
       html += block.html;
       const mId = qToMisc.get(i);
@@ -596,9 +625,12 @@ async function renderSpecificMistakes(missed) {
         const ppList = (teaching.miscToPp.get(mId) || [])
           .map(id => teaching.ppById.get(id)).filter(Boolean)
           .sort((a, b) => (STUDY_DIFF_ORDER[a.fields['Difficulty']] ?? 9) - (STUDY_DIFF_ORDER[b.fields['Difficulty']] ?? 9));
-        for (const pp of ppList) html += renderPracticeProblemHTML(pp, uid++);
+        if (ppList.length > 0) {
+          html += `<div class="study-practice-header">Practice Problems — Same Concept</div>`;
+          for (const pp of ppList) html += renderPracticeProblemHTML(pp, uid++);
+        }
       }
-      html += `</div>`;
+      html += `</div></div>`; // close study-misc-body and study-misc
     });
 
     panel.innerHTML = html;
