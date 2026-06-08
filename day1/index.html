@@ -368,10 +368,10 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 .choice-btn.struck { text-decoration: line-through; color: #aaa; border-color: #ddd; background: #fafafa; }
 
 .choice-strike {
-  width: 32px; min-width: 32px; border: 1.5px solid var(--border);
+  width: 36px; min-width: 36px; min-height: 44px; border: 1.5px solid var(--border);
   border-radius: 6px; background: var(--white); color: #aaa;
-  font-size: 0.75rem; font-weight: 700; font-family: -apple-system, Segoe UI, sans-serif;
-  transition: all 0.15s; flex-shrink: 0;
+  font-size: 0.85rem; font-weight: 700; font-family: -apple-system, Segoe UI, sans-serif;
+  transition: all 0.15s; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
 }
 .choice-strike:hover { border-color: var(--red); color: var(--red); background: #fdf0ee; }
 .choice-strike.active { border-color: var(--red); color: var(--red); background: #fdf0ee; }
@@ -411,6 +411,8 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 }
 #calculator-resize-handle:hover { background: rgba(26,58,92,0.15); }
 
+#calculator-header { background: #1a3a5c; color: #fff; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+#calculator-close { background: none; border: none; color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0 4px; }
 #calculator-mount { flex: 1; }
 
 /* ── FORMULA SHEET ────────────────────────────────────────── */
@@ -677,6 +679,10 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
     <!-- Calculator panel -->
     <div id="calculator-panel">
       <div id="calculator-resize-handle"></div>
+      <div id="calculator-header">
+        <span>Graphing Calculator</span>
+        <button id="calculator-close" onclick="toggleCalculator()" aria-label="Close calculator">&times;</button>
+      </div>
       <div id="calculator-mount"></div>
     </div>
   </div>
@@ -689,7 +695,7 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
     <button class="formula-sheet-close" onclick="toggleFormulaSheet()" aria-label="Close">&times;</button>
   </div>
   <div id="formula-sheet-body">
-    <img src="/formula_sheet.png" alt="SAT Math Formula Sheet">
+    <img src="https://30daysatplan.com/formula_sheet.png" alt="SAT Math Formula Sheet">
   </div>
   <div id="formula-sheet-resize"></div>
 </div>
@@ -760,7 +766,7 @@ const AIRTABLE_API = 'https://api.airtable.com/v0';
 
 const FULL_TEST_QUESTIONS = 44;
 const MODULE_SECONDS = 35 * 60;
-const BREAK_SECONDS = 10 * 60;
+const BREAK_SECONDS = 3; // Break bypassed — Module 2 unlocks immediately
 
 // ── AUTH ───────────────────────────────────────────────────────
 let currentUser = null;
@@ -1402,10 +1408,10 @@ function startBreak() {
     if (breakNote) breakNote.textContent = 'Click the button below to start Module 2.';
     btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.textContent = 'Start Module 2';
   } else {
-    document.getElementById('break-title').textContent = 'Mandatory Break';
-    document.getElementById('break-text').textContent = 'Great work on Module 1! You must take a 10-minute break before starting Module 2.';
-    if (breakTimerBox) breakTimerBox.classList.remove('timer-hidden');
-    if (breakNote) breakNote.textContent = 'Module 2 will unlock automatically when the break ends.';
+    document.getElementById('break-title').textContent = 'Module 1 Complete';
+    document.getElementById('break-text').textContent = 'Great work on Module 1! Take a short breather, then continue when you are ready.';
+    if (breakTimerBox) breakTimerBox.classList.add('timer-hidden');
+    if (breakNote) breakNote.textContent = 'Click the button below to start Module 2.';
     btn.disabled = true; btn.style.opacity = '0.4'; btn.style.cursor = 'not-allowed'; btn.textContent = 'Start Module 2';
     startTimer(BREAK_SECONDS, 'break-timer-display', () => {
       btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.textContent = 'Start Module 2';
