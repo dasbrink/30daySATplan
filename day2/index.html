@@ -175,7 +175,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* ── STUDY CONTENT (reused from day1) ── */
+/* ── STUDY CONTENT ── */
 .study-intro {
   background: var(--navy);
   color: white;
@@ -290,6 +290,101 @@ body {
 .study-answer .ans-correct { color: var(--green); font-weight: 700; }
 .study-empty { color: #666; font-style: italic; }
 
+/* ── FOUNDATIONAL GAP CARD ── */
+.gap-card {
+  border: 1px solid #e2e2dc;
+  border-radius: 10px;
+  margin-top: 20px;
+  background: white;
+  overflow: hidden;
+}
+.gap-card-header {
+  background: var(--navy);
+  color: white;
+  padding: 12px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.gap-card-title {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.gap-card-count {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.gap-card-body {
+  padding: 16px 18px;
+}
+.gap-section-label {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  margin: 14px 0 6px;
+}
+.gap-section-label:first-child { margin-top: 0; }
+.gap-content {
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: #333;
+}
+.gap-content br { display: block; margin-bottom: 4px; }
+.gap-example-box {
+  background: #f5f5f0;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+}
+.gap-practice-label {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  margin: 16px 0 8px;
+  padding-top: 14px;
+  border-top: 2px solid #e8f5ee;
+}
+.gap-pp {
+  background: #fafafa;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+.gap-pp-difficulty {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.gap-pp-difficulty.easy   { background: #e8f5e9; color: #1b5e20; }
+.gap-pp-difficulty.medium { background: #fff8e1; color: #8a6515; }
+.gap-pp-difficulty.hard   { background: #fce4ec; color: #880e4f; }
+
 /* ── DONE BUTTON ── */
 .done-section {
   margin-top: 36px;
@@ -383,6 +478,7 @@ const AIRTABLE_API = 'https://api.airtable.com/v0';
 
 let currentUser = null;
 let inlineGraphInstances = [];
+let revealCounter = 0;
 
 // ── TAB SWITCHING ──
 function switchTab(tab) {
@@ -501,7 +597,7 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
-// ── STUDY RENDERING ──
+// ── STUDY RENDERING (Specific Mistakes tab) ──
 function renderTutorialField(raw) {
   if (!raw) return '';
   return stripComments(raw).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\n/g,'<br>');
@@ -630,7 +726,7 @@ async function renderSpecificMistakes(missed) {
           for (const pp of ppList) html += renderPracticeProblemHTML(pp, uid++);
         }
       }
-      html += `</div></div>`; // close study-misc-body and study-misc
+      html += `</div></div>`;
     });
 
     panel.innerHTML = html;
@@ -648,25 +744,76 @@ async function renderSpecificMistakes(missed) {
 // ── RENDER FOUNDATIONAL GAPS ──
 async function renderFoundationalGaps(missedIds) {
   const panel = document.getElementById('tab-foundational');
-
-  // Foundational requires 2+ tests — after Day 1 they only have 1
-  // So we show a clear explanation and the CRIT data from Day 1 as a preview
   try {
     const { count } = await supabaseClient.from('test_sessions')
       .select('id', { count: 'exact', head: true })
       .eq('user_id', currentUser.id).not('completed_at', 'is', null);
 
     if (!count || count < 2) {
-      // Show what we CAN show from Day 1 — the CRIT nodes from missed questions
       await renderDay1CritPreview(missedIds, panel);
       return;
     }
-
-    // If 2+ tests, run full foundational analysis
     await renderFullFoundational(panel);
   } catch (e) {
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Please refresh and try again.</p></div>`;
   }
+}
+
+// ── FOUNDATIONAL GAP CARD RENDERING ──
+function renderGapCard(rec, count, cardIndex) {
+  const f = rec.fields || {};
+  const name = f['Name'] || '(unnamed)';
+  const concept = (f['Concept Explanation'] || '').replace(/\n/g, '<br>');
+  const worked  = (f['Worked Example'] || '').replace(/\n/g, '<br>');
+  const easy    = (f['Practice Easy'] || '').replace(/\n/g, '<br>');
+  const medium  = (f['Practice Medium'] || '').replace(/\n/g, '<br>');
+  const hard    = (f['Practice Hard'] || '').replace(/\n/g, '<br>');
+
+  const cid = 'gap-' + cardIndex;
+  const eid = cid + '-easy', mid = cid + '-med', hid = cid + '-hard';
+
+  let html = `<div class="gap-card" id="${cid}">
+    <div class="gap-card-header">
+      <div class="gap-card-title">${escHTML(name)}</div>
+      <div class="gap-card-count">appeared in ${count} missed question${count > 1 ? 's' : ''}</div>
+    </div>
+    <div class="gap-card-body">`;
+
+  if (concept) {
+    html += `<div class="gap-section-label">The Concept</div>
+             <div class="gap-content">${concept}</div>`;
+  }
+
+  if (worked) {
+    html += `<div class="gap-section-label">Worked Example</div>
+             <div class="gap-example-box gap-content">${worked}</div>`;
+  }
+
+  if (easy || medium || hard) {
+    html += `<div class="gap-practice-label">Practice Problems</div>`;
+
+    if (easy) {
+      html += `<div class="gap-pp">
+        <span class="gap-pp-difficulty easy">Easy</span>
+        <div style="margin-top:8px;" class="gap-content">${easy}</div>
+      </div>`;
+    }
+    if (medium) {
+      html += `<div class="gap-pp">
+        <span class="gap-pp-difficulty medium">Medium</span>
+        <div style="margin-top:8px;" class="gap-content">${medium}</div>
+      </div>`;
+    }
+    if (hard) {
+      html += `<div class="gap-pp">
+        <span class="gap-pp-difficulty hard">Hard</span>
+        <div style="margin-top:8px;" class="gap-content">${hard}</div>
+      </div>`;
+    }
+  }
+
+  html += `</div></div>`;
+  return html;
 }
 
 async function renderDay1CritPreview(missedIds, panel) {
@@ -698,27 +845,22 @@ async function renderDay1CritPreview(missedIds, panel) {
       return;
     }
 
+    // Top 8 nodes by frequency
     const topIds = [...tally.entries()].sort((a,b) => b[1]-a[1]).slice(0, 8).map(([nid]) => nid);
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
 
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 1 preview</div>
-      <p>These are the foundational concepts that came up most in your Day 1 missed questions. They are the building blocks behind the errors you made.</p>
-      <p>A full cross-test foundational analysis unlocks after your Day 11 diagnostic. For now, study these concepts — fixing them will help across multiple skill areas.</p>
+      <p>These are the foundational concepts that appeared most often in your Day 1 missed questions. They are the building blocks behind the errors you made.</p>
+      <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after your Day 11 diagnostic.</p>
     </div>`;
 
-    for (const nid of topIds) {
+    topIds.forEach((nid, i) => {
       const rec = nodeMap.get(nid);
-      if (!rec) continue;
-      const name = rec.fields['Name'] || '(unnamed)';
-      const desc = rec.fields['Description'] || '';
-      const count = tally.get(nid);
-      html += `<div class="study-misc">
-        <div class="study-section-title">${escHTML(name)} <span style="font-size:0.75rem;color:#888;font-family:-apple-system,sans-serif;font-weight:400;">(appeared in ${count} missed question${count>1?'s':''})</span></div>
-        ${desc ? `<p class="study-sec-desc">${escHTML(desc)}</p>` : ''}
-      </div>`;
-    }
+      if (!rec) return;
+      html += renderGapCard(rec, tally.get(nid), i);
+    });
 
     panel.innerHTML = html;
     renderMathInDiv(panel);
@@ -730,7 +872,6 @@ async function renderDay1CritPreview(missedIds, panel) {
 
 async function renderFullFoundational(panel) {
   panel.innerHTML = `<div class="state-box"><h3>Building foundational analysis…</h3></div>`;
-  // Full foundational analysis — same logic as freepracticesat.com
   try {
     const missed = new Set();
     let from = 0;
@@ -765,11 +906,18 @@ async function renderFullFoundational(panel) {
     }
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
-    let html = `<div class="study-intro"><div class="study-intro-head">Your foundational gaps</div><p>These concepts keep appearing in your missed questions across multiple tests. Fixing them will unlock improvement across many skill areas at once.</p></div>`;
-    for (const nid of topIds) {
-      const rec = nodeMap.get(nid); if (!rec) continue;
-      html += `<div class="study-misc"><div class="study-section-title">${escHTML(rec.fields['Name'] || '')}</div>${rec.fields['Description'] ? `<p class="study-sec-desc">${escHTML(rec.fields['Description'])}</p>` : ''}</div>`;
-    }
+
+    let html = `<div class="study-intro">
+      <div class="study-intro-head">Your foundational gaps</div>
+      <p>These concepts keep appearing in your missed questions across multiple tests. Fixing them will unlock improvement across many skill areas at once.</p>
+    </div>`;
+
+    topIds.forEach((nid, i) => {
+      const rec = nodeMap.get(nid);
+      if (!rec) return;
+      html += renderGapCard(rec, tally.get(nid), i + 100);
+    });
+
     panel.innerHTML = html;
     renderMathInDiv(panel);
   } catch (e) {
@@ -805,7 +953,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!session) { window.location.href = '/dashboard/'; return; }
   currentUser = session.user;
 
-  // Load Day 1 test result
   let snapshot = null, score = null;
   try {
     const { data } = await supabaseClient.from('test_results')
@@ -826,7 +973,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // Show score banner
   const missed = snapshot.missed || [];
   const totalCorrect = snapshot.totalCorrect;
   const total = snapshot.total || 44;
@@ -843,7 +989,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const missedIds = snapshot.missedIds || missed.map(m => m.q && m.q.id).filter(Boolean);
 
-  // Render both panels
   await renderSpecificMistakes(missed);
   await renderFoundationalGaps(missedIds);
 });
