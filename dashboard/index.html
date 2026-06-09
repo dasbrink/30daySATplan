@@ -399,10 +399,16 @@ function buildCalendar(programDay) {
   const grid = document.getElementById('calendar-grid');
   grid.innerHTML = '';
 
+  // A day is unlocked if: it's completed, it's today, or it's the immediate
+  // next day after any completed day (so finishing Day X unlocks Day X+1).
+  const unlockedByProgress = new Set();
+  completedDays.forEach(d => unlockedByProgress.add(d + 1));
+
   SCHEDULE.forEach(item => {
     const isDone    = completedDays.has(item.day);
     const isToday   = item.day === programDay;
-    const isLocked  = item.day > programDay && !isDone;
+    const isUnlocked = isDone || isToday || unlockedByProgress.has(item.day) || item.day <= programDay;
+    const isLocked  = !isUnlocked;
     const isBuilt   = BUILT_PAGES.has(item.day);
 
     const btn = document.createElement(isLocked ? 'div' : 'a');
