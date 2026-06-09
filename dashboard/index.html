@@ -198,19 +198,30 @@ const BUILT_PAGES = new Set([1,2,3,4,5,6,7,8,9,10,11,15,16,17,18,19,20,21,22,23]
 let currentUser = null;
 let completedDays = new Set();
 let enrollmentDate = null;
+let accessToken = null;
 
 // ── SUPABASE HELPERS ──────────────────────────────────────────────────────────
 async function sbGet(path) {
-  const r = await fetch(SUPABASE_URL + path, {
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-  });
+  const headers = { 'apikey': SUPABASE_KEY };
+  if (accessToken) {
+    headers['Authorization'] = 'Bearer ' + accessToken;
+  } else {
+    headers['Authorization'] = 'Bearer ' + SUPABASE_KEY;
+  }
+  const r = await fetch(SUPABASE_URL + path, { headers });
   return r.json();
 }
 
-async function sbPost(path, body) {
+async function sbPost(path, body, useToken) {
+  const headers = { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' };
+  if (useToken && accessToken) {
+    headers['Authorization'] = 'Bearer ' + accessToken;
+  } else {
+    headers['Authorization'] = 'Bearer ' + SUPABASE_KEY;
+  }
   const r = await fetch(SUPABASE_URL + path, {
     method: 'POST',
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify(body)
   });
   return r.json();
@@ -221,7 +232,10 @@ document.getElementById('btn-signin').onclick = async () => {
   const email = document.getElementById('auth-email').value.trim();
   if (!email) return;
   document.getElementById('btn-signin').disabled = true;
-  const res = await sbPost('/auth/v1/magiclink', { email, options: { emailRedirectTo: window.location.origin + '/dashboard/' } });
+  const res = await sbPost('/auth/v1/magiclink', {
+    email,
+    options: { emailRedirectTo: 'https://30daysatplan.com/dashboard/' }
+  });
   const msg = document.getElementById('auth-msg');
   if (res.error) {
     msg.style.color = '#c62828';
@@ -234,7 +248,8 @@ document.getElementById('btn-signin').onclick = async () => {
 };
 
 document.getElementById('btn-logout').onclick = async () => {
-  await sbPost('/auth/v1/logout', {});
+  await sbPost('/auth/v1/logout', {}, true);
+  accessToken = null;
   currentUser = null;
   document.getElementById('screen-dash').style.display = 'none';
   document.getElementById('screen-auth').style.display = 'flex';
@@ -242,31 +257,58 @@ document.getElementById('btn-logout').onclick = async () => {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 (async function init() {
-  // Handle magic link token in URL
-  const hash = window.location.hash;
-  if (hash.includes('access_token')) {
-    const params = new URLSearchParams(hash.substring(1));
-    const token = params.get('access_token');
-    if (token) {
-      await sbPost('/auth/v1/token?grant_type=magiclink', {});
-      window.location.hash = '';
+
+  // 1. Check for magic link token in URL query params (?token=...&type=magiclink)
+  const urlParams = new URLSearchParams(window.location.search);
+  const tokenParam = urlParams.get('token');
+  const typeParam  = urlParams.get('type');
+
+  if (tokenParam && typeParam === 'magiclink') {
+    // Exchange the OTP token for a session
+    try {
+      const res = await sbPost('/auth/v1/verify', {
+        token: tokenParam,
+        type: 'magiclink',
+        redirect_to: 'https://30daysatplan.com/dashboard/'
+      });
+      if (res.access_token) {
+        accessToken = res.access_token;
+        // Clean the URL so the token isn't visible / reused
+        window.history.replaceState({}, document.title, '/dashboard/');
+      }
+    } catch(e) {
+      // verification failed — fall through to show auth screen
     }
   }
 
-  // Try to get current user
-  try {
-    const session = await sbGet('/auth/v1/user');
-    if (session && session.id) {
-      currentUser = session;
-      await loadDashboard();
-    } else {
-      hideLoading();
-      showAuth();
+  // 2. Also check hash-based tokens (fallback for some Supabase flows)
+  if (!accessToken) {
+    const hash = window.location.hash;
+    if (hash.includes('access_token')) {
+      const hashParams = new URLSearchParams(hash.substring(1));
+      const token = hashParams.get('access_token');
+      if (token) {
+        accessToken = token;
+        window.history.replaceState({}, document.title, '/dashboard/');
+      }
     }
-  } catch(e) {
-    hideLoading();
-    showAuth();
   }
+
+  // 3. Try to load the user
+  if (accessToken) {
+    try {
+      const session = await sbGet('/auth/v1/user');
+      if (session && session.id) {
+        currentUser = session;
+        await loadDashboard();
+        return;
+      }
+    } catch(e) {}
+  }
+
+  // 4. No valid session — show sign-in
+  hideLoading();
+  showAuth();
 })();
 
 function showAuth() {
@@ -289,7 +331,7 @@ async function loadDashboard() {
   // Fetch test scores
   const results = await sbGet('/rest/v1/test_results?user_id=eq.' + currentUser.id + '&select=score,test_number&order=test_number.asc');
 
-  // Auto-mark Day 1 complete if test result exists
+  // Auto-mark diagnostic days complete if test result exists
   if (Array.isArray(results)) {
     results.forEach(r => {
       if (r.test_number === 1) { completedDays.add(1); }
@@ -373,7 +415,6 @@ function buildCalendar(programDay) {
     } else if (isLocked) {
       btn.classList.add('locked');
     } else {
-      // Unlocked past/current days not yet done
       btn.classList.add('done-' + item.type);
       btn.style.opacity = '0.7';
     }
