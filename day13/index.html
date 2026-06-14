@@ -98,10 +98,13 @@
   .tool-btn:hover{background:#1a3a5c;color:#fff}
   #desmos-wrap{position:fixed;bottom:0;right:-480px;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:flex;flex-direction:column;transition:right 0.25s ease}
   #desmos-wrap.open{right:0}
-  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
+  #desmos-wrap.dragged{transition:none}
+  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0;cursor:grab;user-select:none}
+  .desmos-header.grabbing{cursor:grabbing}
   .desmos-header span{font-size:0.85rem;font-weight:600}
   .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
   #desmos-container{flex:1;width:100%;min-height:330px}
+  #desmos-resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:se-resize;background:linear-gradient(135deg,transparent 50%,#9bb0c4 50%);z-index:5}
   #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
   #formula-modal.open{display:flex}
   .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
@@ -236,8 +239,9 @@
 
 <!-- Desmos -->
 <div id="desmos-wrap">
-  <div class="desmos-header"><span>Graphing Calculator</span><button class="desmos-close" onclick="toggleCalc()">✕</button></div>
+  <div class="desmos-header" id="desmos-header"><span>Graphing Calculator</span><button class="desmos-close" onclick="toggleCalc()">✕</button></div>
   <div id="desmos-container"></div>
+  <div id="desmos-resize"></div>
 </div>
 
 <!-- Formula sheet modal -->
@@ -283,6 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.'
   ].map(t => `<li>${t}</li>`).join('');
 
+  initCalcDragResize();
   await loadWeakSkills();
 });
 
@@ -615,6 +620,91 @@ async function markDayComplete() {
     );
     document.getElementById('complete-banner').classList.add('show');
   } catch(e) { console.error(e); }
+}
+
+function initCalcDragResize() {
+  const wrap = document.getElementById('desmos-wrap');
+  const header = document.getElementById('desmos-header');
+  const resize = document.getElementById('desmos-resize');
+  if (!wrap || !header || !resize) return;
+
+  // DRAG via header
+  let drag = null;
+  const dragMove = (e) => {
+    if (!drag) return;
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    let nl = cx - drag.offsetX;
+    let nt = cy - drag.offsetY;
+    nl = Math.max(0, Math.min(window.innerWidth - 80, nl));
+    nt = Math.max(0, Math.min(window.innerHeight - 40, nt));
+    wrap.style.left = nl + 'px';
+    wrap.style.top = nt + 'px';
+    wrap.style.right = 'auto';
+    wrap.style.bottom = 'auto';
+  };
+  const dragEnd = () => {
+    if (!drag) return;
+    drag = null;
+    header.classList.remove('grabbing');
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', dragMove);
+    document.removeEventListener('touchmove', dragMove);
+    document.removeEventListener('mouseup', dragEnd);
+    document.removeEventListener('touchend', dragEnd);
+  };
+  const dragStart = (e) => {
+    if (e.target.closest('.desmos-close')) return;
+    e.preventDefault();
+    wrap.classList.add('dragged');
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    const r = wrap.getBoundingClientRect();
+    drag = { offsetX: cx - r.left, offsetY: cy - r.top };
+    header.classList.add('grabbing');
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', dragMove);
+    document.addEventListener('touchmove', dragMove, { passive: false });
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
+  };
+  header.addEventListener('mousedown', dragStart);
+  header.addEventListener('touchstart', dragStart, { passive: false });
+
+  // RESIZE via corner handle
+  let rz = null;
+  const rzMove = (e) => {
+    if (!rz) return;
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    wrap.style.width = Math.max(320, rz.startW + (cx - rz.startX)) + 'px';
+    wrap.style.height = Math.max(280, rz.startH + (cy - rz.startY)) + 'px';
+    if (desmosCalc && desmosCalc.resize) desmosCalc.resize();
+  };
+  const rzEnd = () => {
+    if (!rz) return;
+    rz = null;
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', rzMove);
+    document.removeEventListener('touchmove', rzMove);
+    document.removeEventListener('mouseup', rzEnd);
+    document.removeEventListener('touchend', rzEnd);
+    if (desmosCalc && desmosCalc.resize) desmosCalc.resize();
+  };
+  const rzStart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    rz = { startX: cx, startY: cy, startW: wrap.offsetWidth, startH: wrap.offsetHeight };
+    document.body.style.userSelect = 'none';
+    document.addEventListener('mousemove', rzMove);
+    document.addEventListener('touchmove', rzMove, { passive: false });
+    document.addEventListener('mouseup', rzEnd);
+    document.addEventListener('touchend', rzEnd);
+  };
+  resize.addEventListener('mousedown', rzStart);
+  resize.addEventListener('touchstart', rzStart, { passive: false });
 }
 
 function toggleCalc() {
