@@ -27,6 +27,14 @@
   .setup-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:8px}
   .setup-card p{color:#555;font-size:0.95rem;line-height:1.6;margin-bottom:28px}
   .spinner-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:12px}
+  .diff-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:10px;margin-top:24px}
+  .diff-row{display:flex;gap:10px;margin-bottom:28px}
+  .diff-btn{flex:1;padding:10px 6px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;color:#555;transition:all 0.15s;text-align:center;font-family:'Inter',sans-serif}
+  .diff-btn:hover{border-color:#1a3a5c;color:#1a3a5c}
+  .diff-btn.active{border-color:#1a3a5c;background:#1a3a5c;color:#fff}
+  .diff-btn.active.easy{border-color:#2e7d32;background:#2e7d32}
+  .diff-btn.active.medium{border-color:#e65100;background:#e65100}
+  .diff-btn.active.hard{border-color:#c62828;background:#c62828}
   .spinner-row{display:flex;align-items:center;gap:16px;margin-bottom:32px}
   .spinner-btn{width:40px;height:40px;border-radius:50%;border:2px solid #1a3a5c;background:#fff;color:#1a3a5c;font-size:1.3rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s}
   .spinner-btn:hover{background:#1a3a5c;color:#fff}
@@ -143,6 +151,13 @@
       <button class="spinner-btn" id="btn-minus">−</button>
       <span class="spinner-count" id="q-count-display">10</span>
       <button class="spinner-btn" id="btn-plus">+</button>
+    </div>
+    <div class="diff-label">Difficulty</div>
+    <div class="diff-row">
+      <button class="diff-btn easy" id="diff-easy" onclick="setDiff('Easy',this)">Easy</button>
+      <button class="diff-btn medium active" id="diff-medium" onclick="setDiff('Medium',this)">Medium</button>
+      <button class="diff-btn hard" id="diff-hard" onclick="setDiff('Hard',this)">Hard</button>
+      <button class="diff-btn" id="diff-mixed" onclick="setDiff('Mixed',this)">Mixed</button>
     </div>
     <button class="btn-primary" id="btn-start-session">Start Practice Session</button>
   </div>
@@ -261,6 +276,7 @@ const DAY_MAP = {
 let domain = 'algebra';
 let dayNumber = null;
 let questionCount = 10;
+let selectedDiff = 'Medium';
 let questions = [];
 let currentIndex = 0;
 let userAnswers = [];   // {qIndex, chosen, correct}
@@ -300,6 +316,12 @@ let sessionUser = null;
   ].map(t => `<li>${t}</li>`).join('');
 
   // Spinner
+  function setDiff(diff, btn) {
+    selectedDiff = diff;
+    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
   document.getElementById('btn-minus').onclick = () => {
     if (questionCount > 5) { questionCount--; document.getElementById('q-count-display').textContent = questionCount; }
   };
@@ -312,6 +334,11 @@ let sessionUser = null;
   document.getElementById('btn-more-questions').onclick = () => {
     questionCount = parseInt(document.getElementById('q-count-display').textContent) || 10;
     show('screen-setup');
+    // Re-highlight the active diff button
+    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+    const activeId = selectedDiff === 'Easy' ? 'diff-easy' : selectedDiff === 'Hard' ? 'diff-hard' : selectedDiff === 'Mixed' ? 'diff-mixed' : 'diff-medium';
+    const activeBtn = document.getElementById(activeId);
+    if (activeBtn) activeBtn.classList.add('active');
   };
   document.getElementById('btn-dashboard').onclick = () => window.location.href = '/dashboard/';
 
@@ -397,9 +424,16 @@ async function loadAndStart() {
       return;
     }
 
+    // Build difficulty filter
+    let diffFilter = '';
+    if (selectedDiff !== 'Mixed') {
+      diffFilter = `,{Difficulty}="${selectedDiff}"`;
+    }
+
     // Fetch reviewed questions from this domain (text only, no graph_type)
     const allQuestions = await atFetch('Questions',
-      'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=AND(%7BReview+Status%7D%3D%22Reviewed+-+OK%22,OR(%7Bgraph_type%7D%3D%22%22,NOT(%7Bgraph_type%7D)))&pageSize=100'
+      'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=' +
+      encodeURIComponent(`AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`) + '&pageSize=100'
     );
 
     // Filter to domain skills
@@ -409,7 +443,11 @@ async function loadAndStart() {
     });
 
     if (domainQs.length < questionCount) {
-      alert('Not enough questions found for this domain. Found: ' + domainQs.length);
+      if (selectedDiff !== 'Mixed') {
+        alert(`Not enough ${selectedDiff} questions found for this domain (found ${domainQs.length}). Try Mixed difficulty or a different domain.`);
+      } else {
+        alert('Not enough questions found for this domain. Found: ' + domainQs.length);
+      }
       show('screen-setup');
       return;
     }
@@ -552,7 +590,7 @@ async function showResults() {
   document.getElementById('score-correct').textContent = correct;
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
-  document.getElementById('results-subtitle').textContent = `${DOMAIN_LABELS[domain]} · ${questions.length} questions`;
+  document.getElementById('results-subtitle').textContent = `${DOMAIN_LABELS[domain]} · ${questions.length} questions · ${selectedDiff}`;
 
   // Mark day complete
   if (dayNumber) {
