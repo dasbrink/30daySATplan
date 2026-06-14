@@ -586,30 +586,7 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
-// ── FETCH PRACTICE QUESTIONS FROM MAIN BANK ──
-// Queries the Questions table for reviewed questions linked to a prerequisite node,
-// returning up to 1 Easy, 1 Medium, 1 Hard.
-async function fetchPracticeQuestionsForNode(nodeId) {
-  const formula = `AND(
-    FIND('${nodeId}', ARRAYJOIN({Critical Prerequisite})),
-    {Review Status}='Reviewed - OK',
-    NOT({graph_type}='desmos')
-  )`;
-  const recs = await fetchTable('Questions', formula, 9);
 
-  const byDiff = { Easy: [], Medium: [], Hard: [] };
-  for (const r of recs) {
-    const diff = r.fields['Difficulty'] || '';
-    if (byDiff[diff]) byDiff[diff].push(r);
-  }
-
-  const pick = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
-  return [
-    pick(byDiff['Easy']),
-    pick(byDiff['Medium']),
-    pick(byDiff['Hard'])
-  ].filter(Boolean);
-}
 
 function toggleStudyReveal(id, btn, kind) {
   const el = document.getElementById(id);
@@ -721,12 +698,13 @@ async function fetchTeachingByMisconceptions(miscIds) {
   };
 }
 
-// Fetch 1 Easy + 1 Medium + 1 Hard from the main question bank for a given skill record ID,
+// Fetch 1 Easy + 1 Medium + 1 Hard from the main question bank for a given skill number,
 // excluding the question the student already saw (excludeId).
-async function fetchPracticeQsBySkill(skillRecId, excludeId) {
-  if (!skillRecId) return [];
+async function fetchPracticeQsBySkillNum(skillNum, excludeId) {
+  if (!skillNum) return [];
+  // Filter by template_sample_skill which stores the skill number as a string
   const formula = `AND(
-    FIND('${skillRecId}', ARRAYJOIN({Skill})),
+    {template_sample_skill}='${skillNum}',
     {Review Status}='Reviewed - OK',
     NOT(RECORD_ID()='${excludeId || ''}'),
     OR(NOT({graph_type}), {graph_type}='')
@@ -763,16 +741,14 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-    // Pre-fetch practice questions from main bank for each missed question's skill
+    // Pre-fetch practice questions from main bank for each missed question's skill number
     const ppByMiscId = new Map();
-    await Promise.all([...miscIds].map(async mId => {
-      const skillRecId = teaching.miscToSkill.get(mId);
-      const missedQ = missed.find(m => {
-        for (const c of (m.choices || [])) { if (c && !c.isCorrect && c.misconceptionId === mId) return true; }
-        return false;
-      });
-      const excludeId = missedQ && missedQ.q ? missedQ.q.id : null;
-      const qs = await fetchPracticeQsBySkill(skillRecId, excludeId);
+    await Promise.all(missed.map(async (m, i) => {
+      const mId = qToMisc.get(i);
+      if (!mId) return;
+      const skillNum = m.q && (m.q.skillId || (m.q.skillIds && m.q.skillIds[0]));
+      const excludeId = m.q ? m.q.id : null;
+      const qs = await fetchPracticeQsBySkillNum(skillNum, excludeId);
       ppByMiscId.set(mId, qs);
     }));
 
@@ -806,11 +782,14 @@ async function renderSpecificMistakes(missed) {
 }
 
 // ── UPDATED: renderGapCard now takes pre-fetched main-bank questions ──
-function renderGapCard(rec, count, practiceQs) {
+function renderGapCard(rec, count) {
   const f = rec.fields || {};
   const name    = f['Name'] || '(unnamed)';
   const concept = renderField(f['Concept Explanation'] || '');
   const worked  = renderField(f['Worked Example'] || '');
+  const easy    = renderField(f['Practice Easy'] || '');
+  const medium  = renderField(f['Practice Medium'] || '');
+  const hard    = renderField(f['Practice Hard'] || '');
 
   let html = `<div class="gap-card">
     <div class="gap-card-header">
@@ -821,12 +800,11 @@ function renderGapCard(rec, count, practiceQs) {
 
   if (concept) html += `<div class="gap-section-label">The Concept</div><div class="gap-content">${concept}</div>`;
   if (worked)  html += `<div class="gap-section-label">Worked Example</div><div class="gap-example-box gap-content">${worked}</div>`;
-
-  if (practiceQs && practiceQs.length > 0) {
-    html += `<div class="gap-practice-label">Practice Problems — Same Concept</div>`;
-    practiceQs.forEach((qRec, i) => {
-      html += renderMainBankPP(qRec, `gap-${rec.id}-${i}`);
-    });
+  if (easy || medium || hard) {
+    html += `<div class="gap-practice-label">Practice Problems</div>`;
+    if (easy)   html += `<div class="gap-pp"><span class="gap-pp-difficulty easy">Easy</span><div style="margin-top:8px;" class="gap-content">${easy}</div></div>`;
+    if (medium) html += `<div class="gap-pp"><span class="gap-pp-difficulty medium">Medium</span><div style="margin-top:8px;" class="gap-content">${medium}</div></div>`;
+    if (hard)   html += `<div class="gap-pp"><span class="gap-pp-difficulty hard">Hard</span><div style="margin-top:8px;" class="gap-content">${hard}</div></div>`;
   }
 
   html += `</div></div>`;
@@ -861,13 +839,6 @@ async function renderFoundationalGaps(missedIds) {
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
 
-    // Fetch practice questions from main bank for all nodes in parallel
-    const practiceMap = new Map();
-    await Promise.all(topIds.map(async nid => {
-      const qs = await fetchPracticeQuestionsForNode(nid);
-      practiceMap.set(nid, qs);
-    }));
-
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 1 preview</div>
       <p>These are the foundational concepts that appeared most often in your Day 1 missed questions.</p>
@@ -877,7 +848,7 @@ async function renderFoundationalGaps(missedIds) {
     topIds.forEach(nid => {
       const rec = nodeMap.get(nid);
       if (!rec) return;
-      html += renderGapCard(rec, tally.get(nid), practiceMap.get(nid) || []);
+      html += renderGapCard(rec, tally.get(nid));
     });
 
     panel.innerHTML = html;
