@@ -705,21 +705,40 @@ function reportTutorialHTML(tutRec) {
 
 async function fetchTeachingByMisconceptions(miscIds) {
   const miscRecs = await fetchRecordsByIds('Misconceptions', Array.from(miscIds));
-  const tutIds = new Set(), ppIds = new Set(), miscToTut = new Map(), miscToPp = new Map();
+  const tutIds = new Set(), miscToTut = new Map(), miscToSkill = new Map();
   miscRecs.forEach(m => {
-    const t = m.fields['Tutorials'] || [], p = m.fields['Practice Problems'] || [];
-    miscToTut.set(m.id, t[0] || null); miscToPp.set(m.id, p);
-    t.forEach(id => tutIds.add(id)); p.forEach(id => ppIds.add(id));
+    const t = m.fields['Tutorials'] || [];
+    const skillLinks = m.fields['Skill'] || [];
+    miscToTut.set(m.id, t[0] || null);
+    miscToSkill.set(m.id, skillLinks[0] || null); // Airtable skill record ID
+    t.forEach(id => tutIds.add(id));
   });
-  const [tutRecs, ppRecs] = await Promise.all([
-    fetchRecordsByIds('Tutorials', Array.from(tutIds)),
-    fetchRecordsByIds('Practice Problems', Array.from(ppIds))
-  ]);
+  const tutRecs = await fetchRecordsByIds('Tutorials', Array.from(tutIds));
   return {
-    miscToTut, miscToPp,
-    tutById: new Map(tutRecs.map(r => [r.id, r])),
-    ppById:  new Map(ppRecs.map(r => [r.id, r]))
+    miscToTut,
+    miscToSkill,
+    tutById: new Map(tutRecs.map(r => [r.id, r]))
   };
+}
+
+// Fetch 1 Easy + 1 Medium + 1 Hard from the main question bank for a given skill record ID,
+// excluding the question the student already saw (excludeId).
+async function fetchPracticeQsBySkill(skillRecId, excludeId) {
+  if (!skillRecId) return [];
+  const formula = `AND(
+    FIND('${skillRecId}', ARRAYJOIN({Skill})),
+    {Review Status}='Reviewed - OK',
+    NOT(RECORD_ID()='${excludeId || ''}'),
+    OR(NOT({graph_type}), {graph_type}='')
+  )`;
+  const recs = await fetchTable('Questions', formula, 12);
+  const byDiff = { Easy: [], Medium: [], Hard: [] };
+  for (const r of recs) {
+    const diff = r.fields['Difficulty'] || '';
+    if (byDiff[diff]) byDiff[diff].push(r);
+  }
+  const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+  return [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
 }
 
 async function renderSpecificMistakes(missed) {
@@ -744,6 +763,19 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
+    // Pre-fetch practice questions from main bank for each missed question's skill
+    const ppByMiscId = new Map();
+    await Promise.all([...miscIds].map(async mId => {
+      const skillRecId = teaching.miscToSkill.get(mId);
+      const missedQ = missed.find(m => {
+        for (const c of (m.choices || [])) { if (c && !c.isCorrect && c.misconceptionId === mId) return true; }
+        return false;
+      });
+      const excludeId = missedQ && missedQ.q ? missedQ.q.id : null;
+      const qs = await fetchPracticeQsBySkill(skillRecId, excludeId);
+      ppByMiscId.set(mId, qs);
+    }));
+
     missed.forEach((m, i) => {
       const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
       mountJobs.push({ mountId: block.mountId, qn: m.q });
@@ -753,12 +785,10 @@ async function renderSpecificMistakes(missed) {
         const tutId = teaching.miscToTut.get(mId);
         const tut = tutId ? teaching.tutById.get(tutId) : null;
         html += reportTutorialHTML(tut);
-        const ppList = (teaching.miscToPp.get(mId) || [])
-          .map(id => teaching.ppById.get(id)).filter(Boolean)
-          .sort((a, b) => (STUDY_DIFF_ORDER[a.fields['Difficulty']] ?? 9) - (STUDY_DIFF_ORDER[b.fields['Difficulty']] ?? 9));
+        const ppList = ppByMiscId.get(mId) || [];
         if (ppList.length > 0) {
           html += `<div class="study-practice-header">Practice Problems — Same Concept</div>`;
-          for (const pp of ppList) html += renderPracticeProblemHTML(pp, uid++);
+          for (const pp of ppList) html += renderMainBankPP(pp, uid++);
         }
       }
       html += `</div></div>`;
