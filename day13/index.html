@@ -100,7 +100,7 @@
   .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
   .desmos-header span{font-size:0.85rem;font-weight:600}
   .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
-  #desmos-container{flex:1}
+  #desmos-container{flex:1;width:100%;min-height:330px}
   #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
   #formula-modal.open{display:flex}
   .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
@@ -620,9 +620,18 @@ function toggleCalc() {
   const wrap = document.getElementById('desmos-wrap');
   const isOpen = wrap.style.display === 'flex';
   wrap.style.display = isOpen ? 'none' : 'flex';
-  if (!isOpen && !desmosCalc) {
-    desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'));
+  if (isOpen) return;
+  if (typeof Desmos === 'undefined') {
+    alert('The graphing calculator is still loading. Please try again in a moment.');
+    return;
   }
+  // Create after the panel has painted so Desmos measures a real box.
+  requestAnimationFrame(() => {
+    if (!desmosCalc) {
+      desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'), { keypad: true, expressions: true, settingsMenu: true });
+    }
+    if (desmosCalc && desmosCalc.resize) desmosCalc.resize();
+  });
 }
 
 async function atFetch(table, params = '') {
