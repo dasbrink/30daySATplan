@@ -711,27 +711,34 @@ async function fetchTeachingByMisconceptions(miscIds) {
 // Fetch 1 Easy + 1 Medium + 1 Hard from the main 4,700-question bank
 // for the skill linked to a misconception, excluding the question already seen.
 async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
-  if (!skillRecId) return [];
+  if (!skillRecId) { console.log('[PP] no skillRecId for a missed question'); return []; }
   // Step 1: Fetch the skill record to get its name (primary field)
   const skillRecs = await fetchRecordsByIds('Skills', [skillRecId]);
-  if (!skillRecs.length) return [];
+  if (!skillRecs.length) { console.log('[PP] skill record not found:', skillRecId); return []; }
   const skillName = skillRecs[0].fields['Skill Name'] || '';
-  if (!skillName) return [];
+  if (!skillName) { console.log('[PP] skill has no name:', skillRecId); return []; }
   // Step 2: Filter Questions where ARRAYJOIN({Skill}) contains the skill name
+  const esc = skillName.replace(/'/g, "\\'");
   const formula = `AND(
-    FIND('${skillName.replace(/'/g, "\\'")}', ARRAYJOIN({Skill})),
+    FIND('${esc}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
     OR(NOT({graph_type}), {graph_type}=''),
     NOT(RECORD_ID()='${excludeQId || ''}')
   )`;
-  const recs = await fetchTable('Questions', formula, 15);
+  const recs = await fetchTable('Questions', formula, 30);
+  console.log(`[PP] skill "${skillName}" -> ${recs.length} questions`);
   const byDiff = { Easy: [], Medium: [], Hard: [] };
   for (const r of recs) {
     const d = r.fields['Difficulty'] || '';
     if (byDiff[d]) byDiff[d].push(r);
   }
   const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
-  return [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
+  let chosen = [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
+  // Fallback: if no difficulty buckets matched but we have questions, take up to 3 of any difficulty
+  if (chosen.length === 0 && recs.length > 0) {
+    chosen = fisherYatesShuffle(recs).slice(0, 3);
+  }
+  return chosen;
 }
 
 async function renderSpecificMistakes(missed) {
