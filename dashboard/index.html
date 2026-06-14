@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My 30-Day SAT Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
@@ -57,7 +58,6 @@
   .day-type{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em}
   .day-icon{font-size:1rem}
 
-  /* Day states */
   .day-btn.done-diagnostic  {background:#e3f2fd;border-color:#1565c0;color:#0d47a1}
   .day-btn.done-review      {background:#f3e5f5;border-color:#6a1b9a;color:#4a148c}
   .day-btn.done-practice    {background:#e8f5e9;border-color:#2e7d32;color:#1b5e20}
@@ -74,12 +74,10 @@
 
   .today-pulse::after{content:'TODAY';position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#d4a04a;color:#fff;font-size:0.58rem;font-weight:700;padding:1px 7px;border-radius:8px;white-space:nowrap}
 
-  /* Legend */
   .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
   .legend-item{display:flex;align-items:center;gap:5px;font-size:0.78rem;color:#555}
   .legend-dot{width:10px;height:10px;border-radius:50%}
 
-  /* Loading */
   #loading-overlay{display:none;position:fixed;inset:0;background:rgba(245,245,240,0.85);z-index:100;align-items:center;justify-content:center}
   #loading-overlay.show{display:flex}
   .spinner{width:32px;height:32px;border:3px solid #e0e0e0;border-top-color:#1a3a5c;border-radius:50%;animation:spin 0.7s linear infinite}
@@ -95,7 +93,7 @@
 <div id="loading-overlay" class="show"><div class="spinner"></div></div>
 
 <!-- AUTH SCREEN -->
-<div id="screen-auth">
+<div id="screen-auth" style="display:none;">
   <div class="auth-card">
     <h2>Sign In</h2>
     <p>Enter your email address and we'll send you a sign-in link.</p>
@@ -106,7 +104,7 @@
 </div>
 
 <!-- DASHBOARD -->
-<div id="screen-dash">
+<div id="screen-dash" style="display:none;">
   <div class="dash-top">
     <div class="dash-welcome">
       <h1>Your 30-Day Plan</h1>
@@ -149,97 +147,64 @@
 <script>
 const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 30-day schedule definition
 const SCHEDULE = [
-  {day:1,  label:'Diagnostic',       type:'diagnostic', url:'/day1/'},
-  {day:2,  label:'Review',           type:'review',     url:'/day2/'},
-  {day:3,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=3'},
-  {day:4,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=4'},
-  {day:5,  label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=5'},
-  {day:6,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=6'},
-  {day:7,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=7'},
-  {day:8,  label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=8'},
-  {day:9,  label:'Data Analysis',    type:'practice',   url:'/practice/?domain=data-analysis&day=9'},
-  {day:10, label:'Geometry',         type:'practice',   url:'/practice/?domain=geometry&day=10'},
-  {day:11, label:'Diagnostic',       type:'diagnostic', url:'/day11/'},
-  {day:12, label:'Review',           type:'review',     url:'/day12/'},
-  {day:13, label:'Weakness',         type:'weakness',   url:'/day13/'},
-  {day:14, label:'Weakness',         type:'weakness',   url:'/day14/'},
-  {day:15, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=15'},
-  {day:16, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=16'},
-  {day:17, label:'Algebra',          type:'practice',   url:'/practice/?domain=algebra&day=17'},
-  {day:18, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=18'},
-  {day:19, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=19'},
-  {day:20, label:'Adv Math',         type:'practice',   url:'/practice/?domain=advanced-math&day=20'},
-  {day:21, label:'Data Analysis',    type:'practice',   url:'/practice/?domain=data-analysis&day=21'},
-  {day:22, label:'Geometry',         type:'practice',   url:'/practice/?domain=geometry&day=22'},
-  {day:23, label:'Diagnostic',       type:'diagnostic', url:'/day23/'},
-  {day:24, label:'Review',           type:'review',     url:'/day24/'},
-  {day:25, label:'Weakness',         type:'weakness',   url:'/day25/'},
-  {day:26, label:'Weakness',         type:'weakness',   url:'/day26/'},
-  {day:27, label:'Full Test',        type:'fulltest',   url:'/day27/'},
-  {day:28, label:'Full Test',        type:'fulltest',   url:'/day28/'},
-  {day:29, label:'Full Test',        type:'fulltest',   url:'/day29/'},
-  {day:30, label:'Full Test',        type:'fulltest',   url:'/day30/'},
+  {day:1,  label:'Diagnostic',    type:'diagnostic', url:'/day1/'},
+  {day:2,  label:'Review',        type:'review',     url:'/day2/'},
+  {day:3,  label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=3'},
+  {day:4,  label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=4'},
+  {day:5,  label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=5'},
+  {day:6,  label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=6'},
+  {day:7,  label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=7'},
+  {day:8,  label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=8'},
+  {day:9,  label:'Data Analysis', type:'practice',   url:'/practice/?domain=data-analysis&day=9'},
+  {day:10, label:'Geometry',      type:'practice',   url:'/practice/?domain=geometry&day=10'},
+  {day:11, label:'Diagnostic',    type:'diagnostic', url:'/day11/'},
+  {day:12, label:'Review',        type:'review',     url:'/day12/'},
+  {day:13, label:'Weakness',      type:'weakness',   url:'/day13/'},
+  {day:14, label:'Weakness',      type:'weakness',   url:'/day14/'},
+  {day:15, label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=15'},
+  {day:16, label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=16'},
+  {day:17, label:'Algebra',       type:'practice',   url:'/practice/?domain=algebra&day=17'},
+  {day:18, label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=18'},
+  {day:19, label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=19'},
+  {day:20, label:'Adv Math',      type:'practice',   url:'/practice/?domain=advanced-math&day=20'},
+  {day:21, label:'Data Analysis', type:'practice',   url:'/practice/?domain=data-analysis&day=21'},
+  {day:22, label:'Geometry',      type:'practice',   url:'/practice/?domain=geometry&day=22'},
+  {day:23, label:'Diagnostic',    type:'diagnostic', url:'/day23/'},
+  {day:24, label:'Review',        type:'review',     url:'/day24/'},
+  {day:25, label:'Weakness',      type:'weakness',   url:'/day25/'},
+  {day:26, label:'Weakness',      type:'weakness',   url:'/day26/'},
+  {day:27, label:'Full Test',     type:'fulltest',   url:'/day27/'},
+  {day:28, label:'Full Test',     type:'fulltest',   url:'/day28/'},
+  {day:29, label:'Full Test',     type:'fulltest',   url:'/day29/'},
+  {day:30, label:'Full Test',     type:'fulltest',   url:'/day30/'},
 ];
 
 const TYPE_ICONS = {
-  diagnostic: '🎯',
-  review:     '📖',
-  practice:   '✏️',
-  weakness:   '🔥',
-  fulltest:   '📝'
+  diagnostic: '🎯', review: '📖', practice: '✏️', weakness: '🔥', fulltest: '📝'
 };
 
-// Pages not yet built — show "coming soon" instead of navigating
 const BUILT_PAGES = new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
 
 let currentUser = null;
 let completedDays = new Set();
 let enrollmentDate = null;
-let accessToken = null;
-
-// ── SUPABASE HELPERS ──────────────────────────────────────────────────────────
-async function sbGet(path) {
-  const headers = { 'apikey': SUPABASE_KEY };
-  if (accessToken) {
-    headers['Authorization'] = 'Bearer ' + accessToken;
-  } else {
-    headers['Authorization'] = 'Bearer ' + SUPABASE_KEY;
-  }
-  const r = await fetch(SUPABASE_URL + path, { headers });
-  return r.json();
-}
-
-async function sbPost(path, body, useToken) {
-  const headers = { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' };
-  if (useToken && accessToken) {
-    headers['Authorization'] = 'Bearer ' + accessToken;
-  } else {
-    headers['Authorization'] = 'Bearer ' + SUPABASE_KEY;
-  }
-  const r = await fetch(SUPABASE_URL + path, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body)
-  });
-  return r.json();
-}
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 document.getElementById('btn-signin').onclick = async () => {
   const email = document.getElementById('auth-email').value.trim();
   if (!email) return;
   document.getElementById('btn-signin').disabled = true;
-  const res = await sbPost('/auth/v1/magiclink', {
+  const { error } = await sb.auth.signInWithOtp({
     email,
     options: { emailRedirectTo: 'https://30daysatplan.com/dashboard/' }
   });
   const msg = document.getElementById('auth-msg');
-  if (res.error) {
+  if (error) {
     msg.style.color = '#c62828';
-    msg.textContent = res.error.message || 'Something went wrong.';
+    msg.textContent = error.message || 'Something went wrong.';
   } else {
     msg.style.color = '#2e7d32';
     msg.textContent = 'Check your email for a sign-in link!';
@@ -248,8 +213,7 @@ document.getElementById('btn-signin').onclick = async () => {
 };
 
 document.getElementById('btn-logout').onclick = async () => {
-  await sbPost('/auth/v1/logout', {}, true);
-  accessToken = null;
+  await sb.auth.signOut();
   currentUser = null;
   document.getElementById('screen-dash').style.display = 'none';
   document.getElementById('screen-auth').style.display = 'flex';
@@ -258,55 +222,40 @@ document.getElementById('btn-logout').onclick = async () => {
 // ── INIT ──────────────────────────────────────────────────────────────────────
 (async function init() {
 
-  // 1. Check for magic link token in URL query params (?token=...&type=magiclink)
+  // Handle magic link token in URL query params
   const urlParams = new URLSearchParams(window.location.search);
   const tokenParam = urlParams.get('token');
   const typeParam  = urlParams.get('type');
 
   if (tokenParam && typeParam === 'magiclink') {
-    // Exchange the OTP token for a session
     try {
-      const res = await sbPost('/auth/v1/verify', {
+      const { error } = await sb.auth.verifyOtp({
         token: tokenParam,
-        type: 'magiclink',
-        redirect_to: 'https://30daysatplan.com/dashboard/'
+        type: 'magiclink'
       });
-      if (res.access_token) {
-        accessToken = res.access_token;
-        // Clean the URL so the token isn't visible / reused
+      if (!error) {
         window.history.replaceState({}, document.title, '/dashboard/');
-      }
-    } catch(e) {
-      // verification failed — fall through to show auth screen
-    }
-  }
-
-  // 2. Also check hash-based tokens (fallback for some Supabase flows)
-  if (!accessToken) {
-    const hash = window.location.hash;
-    if (hash.includes('access_token')) {
-      const hashParams = new URLSearchParams(hash.substring(1));
-      const token = hashParams.get('access_token');
-      if (token) {
-        accessToken = token;
-        window.history.replaceState({}, document.title, '/dashboard/');
-      }
-    }
-  }
-
-  // 3. Try to load the user
-  if (accessToken) {
-    try {
-      const session = await sbGet('/auth/v1/user');
-      if (session && session.id) {
-        currentUser = session;
-        await loadDashboard();
-        return;
       }
     } catch(e) {}
   }
 
-  // 4. No valid session — show sign-in
+  // Handle hash-based tokens
+  const hash = window.location.hash;
+  if (hash.includes('access_token')) {
+    // Supabase JS client handles this automatically
+    window.history.replaceState({}, document.title, '/dashboard/');
+  }
+
+  // Get session from Supabase JS client (works for password login, magic links, localStorage)
+  const { data: { session } } = await sb.auth.getSession();
+
+  if (session && session.user) {
+    currentUser = session.user;
+    await loadDashboard();
+    return;
+  }
+
+  // No session — show sign-in
   hideLoading();
   showAuth();
 })();
@@ -323,116 +272,99 @@ function hideLoading() {
 // ── LOAD DASHBOARD ────────────────────────────────────────────────────────────
 async function loadDashboard() {
   // Fetch completed days
-  const progress = await sbGet('/rest/v1/day_progress?user_id=eq.' + currentUser.id + '&completed=eq.true&select=day_number');
+  const { data: progress } = await sb.from('day_progress')
+    .select('day_number')
+    .eq('user_id', currentUser.id)
+    .eq('completed', true);
   if (Array.isArray(progress)) {
     progress.forEach(r => completedDays.add(r.day_number));
   }
 
   // Fetch test scores
-  const results = await sbGet('/rest/v1/test_results?user_id=eq.' + currentUser.id + '&select=score,test_number&order=test_number.asc');
+  const { data: results } = await sb.from('test_results')
+    .select('score,test_number')
+    .eq('user_id', currentUser.id)
+    .order('test_number', { ascending: true });
 
-  // Auto-mark diagnostic days complete if test result exists
   if (Array.isArray(results)) {
     results.forEach(r => {
-      if (r.test_number === 1) { completedDays.add(1); }
-      if (r.test_number === 2) { completedDays.add(11); }
-      if (r.test_number === 3) { completedDays.add(23); }
+      if (r.test_number === 1) completedDays.add(1);
+      if (r.test_number === 2) completedDays.add(11);
+      if (r.test_number === 3) completedDays.add(23);
     });
-
-    // Score cards
     const d1 = results.find(r => r.test_number === 1);
     const d2 = results.find(r => r.test_number === 2);
     const d3 = results.find(r => r.test_number === 3);
-    if (d1) {
-      document.getElementById('score-d1').textContent = d1.score;
-      document.getElementById('card-d1').classList.remove('locked');
-    }
-    if (d2) {
-      document.getElementById('score-d11').textContent = d2.score;
-      document.getElementById('card-d11').classList.remove('locked');
-    }
-    if (d3) {
-      document.getElementById('score-d23').textContent = d3.score;
-      document.getElementById('card-d23').classList.remove('locked');
-    }
+    if (d1) { document.getElementById('score-d1').textContent = d1.score; document.getElementById('card-d1').classList.remove('locked'); }
+    if (d2) { document.getElementById('score-d11').textContent = d2.score; document.getElementById('card-d11').classList.remove('locked'); }
+    if (d3) { document.getElementById('score-d23').textContent = d3.score; document.getElementById('card-d23').classList.remove('locked'); }
   }
 
-  // Fetch enrollment date — check enrollments table first, then vouchers
-  const enrollment = await sbGet('/rest/v1/enrollments?user_id=eq.' + currentUser.id + '&select=enrolled_at&limit=1');
+  // Fetch enrollment date
+  const { data: enrollment } = await sb.from('enrollments')
+    .select('enrolled_at')
+    .eq('user_id', currentUser.id)
+    .limit(1);
+
   if (Array.isArray(enrollment) && enrollment.length > 0) {
     enrollmentDate = new Date(enrollment[0].enrolled_at);
   } else {
-    // Check vouchers table (for users granted free access)
-    const voucher = await sbGet('/rest/v1/vouchers?student_email=eq.' + encodeURIComponent(currentUser.email) + '&select=enrolled_at&limit=1');
+    const { data: voucher } = await sb.from('vouchers')
+      .select('enrolled_at')
+      .eq('student_email', currentUser.email)
+      .limit(1);
     if (Array.isArray(voucher) && voucher.length > 0) {
       enrollmentDate = new Date(voucher[0].enrolled_at);
-      // Write to enrollments so we don't need to check vouchers again
       try {
-        await fetch(SUPABASE_URL + '/rest/v1/enrollments', {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'resolution=ignore-duplicates'
-          },
-          body: JSON.stringify({
-            user_id: currentUser.id,
-            enrolled_at: voucher[0].enrolled_at,
-            student_email: currentUser.email
-          })
+        await sb.from('enrollments').insert({
+          user_id: currentUser.id,
+          enrolled_at: voucher[0].enrolled_at,
+          student_email: currentUser.email
         });
-      } catch(e) { console.warn('Could not write enrollment from voucher:', e); }
+      } catch(e) {}
     } else {
-      enrollmentDate = new Date(); // fallback to today
+      enrollmentDate = new Date();
     }
   }
 
-  // Calculate current program day
+  // Calculate program day
   const today = new Date();
   today.setHours(0,0,0,0);
   enrollmentDate.setHours(0,0,0,0);
   const diffMs = today - enrollmentDate;
   const programDay = Math.max(1, Math.min(30, Math.floor(diffMs / 86400000) + 1));
 
-  // Subtitle
   document.getElementById('dash-subtitle').textContent = 'Day ' + programDay + ' of 30 · Keep going!';
 
-  // Progress
   const pct = Math.round((completedDays.size / 30) * 100);
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-text').textContent = completedDays.size + ' of 30 days complete';
 
-  // Countdown to Aug 22
   const target = new Date('2026-08-22');
   const daysLeft = Math.max(0, Math.ceil((target - today) / 86400000));
   document.getElementById('countdown-days').textContent = daysLeft;
 
-  // Build calendar
   buildCalendar(programDay);
 
-  // Show dashboard
   hideLoading();
   document.getElementById('screen-auth').style.display = 'none';
   document.getElementById('screen-dash').style.display = 'block';
 }
 
-// ── BUILD CALENDAR ─────────────────────────────────────────────────────────────
+// ── BUILD CALENDAR ────────────────────────────────────────────────────────────
 function buildCalendar(programDay) {
   const grid = document.getElementById('calendar-grid');
   grid.innerHTML = '';
 
-  // A day is unlocked if: it's completed, it's today, or it's the immediate
-  // next day after any completed day (so finishing Day X unlocks Day X+1).
   const unlockedByProgress = new Set();
   completedDays.forEach(d => unlockedByProgress.add(d + 1));
 
   SCHEDULE.forEach(item => {
-    const isDone    = completedDays.has(item.day);
-    const isToday   = item.day === programDay;
+    const isDone     = completedDays.has(item.day);
+    const isToday    = item.day === programDay;
     const isUnlocked = isDone || isToday || unlockedByProgress.has(item.day) || item.day <= programDay;
-    const isLocked  = !isUnlocked;
-    const isBuilt   = BUILT_PAGES.has(item.day);
+    const isLocked   = !isUnlocked;
+    const isBuilt    = BUILT_PAGES.has(item.day);
 
     const btn = document.createElement(isLocked ? 'div' : 'a');
     btn.className = 'day-btn';
@@ -455,7 +387,7 @@ function buildCalendar(programDay) {
         btn.href = '#';
         btn.onclick = (e) => {
           e.preventDefault();
-          alert('Day ' + item.day + ' is coming soon! Check back after completing the earlier days.');
+          alert('Day ' + item.day + ' is coming soon!');
         };
       }
     }
