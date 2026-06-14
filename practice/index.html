@@ -5,23 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Practice Session — 30-Day SAT Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
-<script src="https://api.desmos.com/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
-  
-  /* NAV */
   nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
   .nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;text-decoration:none}
   .nav-day{color:#d4a04a;font-size:0.85rem;font-weight:600}
-  
-  /* SCREENS */
   .screen{display:none;min-height:calc(100vh - 52px)}
   .screen.active{display:block}
   .centered{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
-
-  /* ── SETUP SCREEN ── */
   .setup-card{background:#fff;border-radius:12px;padding:40px;max-width:520px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
   .domain-badge{display:inline-block;background:#1a3a5c;color:#d4a04a;font-family:'Playfair Display',serif;font-size:0.85rem;padding:4px 14px;border-radius:20px;margin-bottom:20px}
   .setup-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:8px}
@@ -43,16 +44,12 @@
   .btn-primary:hover{background:#0f2540}
   .btn-secondary{background:#fff;color:#1a3a5c;border:2px solid #1a3a5c;padding:12px 28px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s}
   .btn-secondary:hover{background:#1a3a5c;color:#fff}
-
-  /* ── INSTRUCTIONS SCREEN ── */
   .instr-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
   .instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
   .instr-list{list-style:none;padding:0;margin-bottom:28px}
   .instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
   .instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
   .instr-list li:last-child{border-bottom:none}
-
-  /* ── QUESTION SCREEN ── */
   #screen-question{padding:0}
   .q-layout{display:grid;grid-template-columns:1fr 340px;min-height:calc(100vh - 52px)}
   @media(max-width:768px){.q-layout{grid-template-columns:1fr}.q-sidebar{display:none}}
@@ -75,8 +72,6 @@
   .submit-row{margin-top:16px;display:flex;justify-content:flex-end}
   .btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer}
   .btn-submit:disabled{background:#aaa;cursor:default}
-
-  /* Sidebar */
   .q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
   .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
   .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
@@ -91,8 +86,6 @@
   .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
   .formula-inner img{width:100%;border-radius:6px}
   .formula-close{position:absolute;top:10px;right:14px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:#555}
-
-  /* ── RESULTS SCREEN ── */
   #screen-results{padding:28px 20px;max-width:720px;margin:0 auto}
   .results-header{text-align:center;margin-bottom:28px}
   .results-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a3a5c;margin-bottom:6px}
@@ -101,8 +94,6 @@
   .score-box .num{font-family:'Playfair Display',serif;font-size:2rem;color:#1a3a5c}
   .score-box .lbl{font-size:0.8rem;color:#888;margin-top:4px}
   .results-actions{display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
-  
-  /* Wrong answer review */
   .missed-section h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:#1a3a5c;margin-bottom:16px}
   .missed-card{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.07);overflow:hidden}
   .missed-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
@@ -123,14 +114,15 @@
   .pp-item{background:#f5f5f0;border-radius:8px;padding:14px 16px;margin-bottom:10px;font-size:0.9rem}
   .pp-difficulty{font-size:0.75rem;color:#888;margin-bottom:6px;font-weight:600;text-transform:uppercase}
   .pp-question{margin-bottom:8px;line-height:1.6}
-  .pp-answers{display:flex;flex-direction:column;gap:4px}
   .pp-answer{padding:6px 10px;border-radius:5px;font-size:0.85rem}
   .pp-answer.pp-correct{background:#e8f5e9;color:#1b5e20;font-weight:600}
   .loading-spinner{text-align:center;padding:40px;color:#888;font-size:0.95rem}
-
-  /* Mark complete banner */
   .complete-banner{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:16px 20px;margin-bottom:24px;text-align:center;color:#1b5e20;font-size:0.95rem;font-weight:600;display:none}
   .complete-banner.show{display:block}
+  .diff-result-badge{display:inline-block;font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .diff-result-badge.Easy{background:#e8f5e9;color:#1b5e20}
+  .diff-result-badge.Medium{background:#fff8e1;color:#8a6515}
+  .diff-result-badge.Hard{background:#fce4ec;color:#880e4f}
 </style>
 </head>
 <body>
@@ -145,7 +137,7 @@
   <div class="setup-card">
     <div class="domain-badge" id="domain-badge">Algebra</div>
     <h1 id="setup-title">Algebra Practice</h1>
-    <p id="setup-desc">Work through a focused set of Algebra questions. Take your time — there's no clock. Aim to spend at least 2 minutes on each question before moving on.</p>
+    <p id="setup-desc">Work through a focused set of Algebra questions. Take your time — there's no clock. Aim to spend at least 2 minutes thinking through each question.</p>
     <div class="spinner-label">How many questions do you want?</div>
     <div class="spinner-row">
       <button class="spinner-btn" id="btn-minus">−</button>
@@ -238,17 +230,13 @@
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
-const AT_BASE     = 'app4WLsifRZPgtosg';
-const AT_TOKEN    = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
+const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Domain → SAT Airtable skill IDs mapping
-// Algebra skills: 1,2,3,4,5,6,7,8,9,10,11,12,13
-// Advanced Math:  14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
-// PSDA:           40,41,42,43,44,45,46,47,48,49,50
-// Geometry/Trig:  51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67
+const AT_BASE  = 'app4WLsifRZPgtosg';
+const AT_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
+
 const DOMAIN_SKILLS = {
   'algebra':       [1,2,3,4,5,6,7,8,9,10,11,12,13],
   'advanced-math': [14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -263,29 +251,24 @@ const DOMAIN_LABELS = {
   'geometry': 'Geometry & Trigonometry'
 };
 
-const DAY_MAP = {
-  '3':'algebra','4':'algebra','5':'algebra',
-  '6':'advanced-math','7':'advanced-math','8':'advanced-math',
-  '9':'data-analysis','10':'geometry',
-  '15':'algebra','16':'algebra','17':'algebra',
-  '18':'advanced-math','19':'advanced-math','20':'advanced-math',
-  '21':'data-analysis','22':'geometry'
-};
-
-// ── STATE ───────────────────────────────────────────────────────────────────
 let domain = 'algebra';
 let dayNumber = null;
 let questionCount = 10;
 let selectedDiff = 'Medium';
 let questions = [];
 let currentIndex = 0;
-let userAnswers = [];   // {qIndex, chosen, correct}
+let userAnswers = [];
 let selectedAnswer = null;
 let submitted = false;
 let desmosCalc = null;
 let sessionUser = null;
 
-// ── INIT ────────────────────────────────────────────────────────────────────
+function setDiff(diff, btn) {
+  selectedDiff = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
 (async function init() {
   const params = new URLSearchParams(window.location.search);
   const domainParam = params.get('domain') || 'algebra';
@@ -306,21 +289,13 @@ let sessionUser = null;
   };
   document.getElementById('setup-desc').textContent = descs[domain];
 
-  const instrList = document.getElementById('instr-list');
-  instrList.innerHTML = [
+  document.getElementById('instr-list').innerHTML = [
     'This session is <strong>untimed</strong> — there is no clock.',
     'Spend at least <strong>2 minutes</strong> on each question before submitting your answer.',
     'After the session, review every question you got wrong — spend <strong>3–5 minutes</strong> reading the solution and working through the practice problems.',
     'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.',
     'At the end, you can do another round with fresh questions.'
   ].map(t => `<li>${t}</li>`).join('');
-
-  // Spinner
-  function setDiff(diff, btn) {
-    selectedDiff = diff;
-    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
 
   document.getElementById('btn-minus').onclick = () => {
     if (questionCount > 5) { questionCount--; document.getElementById('q-count-display').textContent = questionCount; }
@@ -334,58 +309,35 @@ let sessionUser = null;
   document.getElementById('btn-more-questions').onclick = () => {
     questionCount = parseInt(document.getElementById('q-count-display').textContent) || 10;
     show('screen-setup');
-    // Re-highlight the active diff button
     document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
     const activeId = selectedDiff === 'Easy' ? 'diff-easy' : selectedDiff === 'Hard' ? 'diff-hard' : selectedDiff === 'Mixed' ? 'diff-mixed' : 'diff-medium';
     const activeBtn = document.getElementById(activeId);
     if (activeBtn) activeBtn.classList.add('active');
   };
   document.getElementById('btn-dashboard').onclick = () => window.location.href = '/dashboard/';
-
   document.getElementById('btn-calc').onclick = toggleCalc;
   document.getElementById('desmos-close').onclick = toggleCalc;
   document.getElementById('btn-formula').onclick = () => document.getElementById('formula-modal').classList.add('open');
   document.getElementById('formula-close').onclick = () => document.getElementById('formula-modal').classList.remove('open');
   document.getElementById('formula-modal').onclick = (e) => { if (e.target === document.getElementById('formula-modal')) document.getElementById('formula-modal').classList.remove('open'); };
 
-  // Auth check
-  try {
-    const r = await sbFetch('/auth/v1/user');
-    if (r.id) sessionUser = r;
-  } catch(e) {}
+  // Auth using Supabase JS client
+  const { data: { session } } = await sbClient.auth.getSession();
+  if (session && session.user) sessionUser = session.user;
 })();
-
-// ── SUPABASE HELPERS ─────────────────────────────────────────────────────────
-async function sbFetch(path, opts={}) {
-  const res = await fetch(SUPABASE_URL + path, {
-    ...opts,
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_KEY,
-      'Content-Type': 'application/json',
-      ...(opts.headers||{})
-    }
-  });
-  return res.json();
-}
 
 async function markDayComplete(day) {
   if (!sessionUser || !day) return;
   try {
-    await fetch(SUPABASE_URL + '/rest/v1/day_progress', {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates'
-      },
-      body: JSON.stringify({ user_id: sessionUser.id, day_number: parseInt(day), completed: true, completed_at: new Date().toISOString() })
-    });
-  } catch(e) {}
+    await sbClient.from('day_progress').upsert({
+      user_id: sessionUser.id,
+      day_number: parseInt(day),
+      completed: true,
+      completed_at: new Date().toISOString()
+    }, { onConflict: 'user_id,day_number' });
+  } catch(e) { console.warn('markDayComplete failed:', e); }
 }
 
-// ── AIRTABLE HELPERS ──────────────────────────────────────────────────────────
 async function atFetch(table, params='') {
   const base = encodeURIComponent(table);
   let all = [], offset = null;
@@ -402,13 +354,18 @@ async function atFetch(table, params='') {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// ── LOAD QUESTIONS ─────────────────────────────────────────────────────────────
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 async function loadAndStart() {
   show('screen-loading');
   try {
     const skillNums = DOMAIN_SKILLS[domain];
-
-    // Fetch all skills to get record IDs for our domain
     const skillRecords = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
     const domainSkillIds = skillRecords
       .filter(r => {
@@ -424,19 +381,16 @@ async function loadAndStart() {
       return;
     }
 
-    // Build difficulty filter
     let diffFilter = '';
     if (selectedDiff !== 'Mixed') {
       diffFilter = `,{Difficulty}="${selectedDiff}"`;
     }
 
-    // Fetch reviewed questions from this domain (text only, no graph_type)
     const allQuestions = await atFetch('Questions',
       'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=' +
       encodeURIComponent(`AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`) + '&pageSize=100'
     );
 
-    // Filter to domain skills
     const domainQs = allQuestions.filter(r => {
       const skills = r.fields['Skill'] || [];
       return skills.some(sid => domainSkillIds.includes(sid));
@@ -452,11 +406,9 @@ async function loadAndStart() {
       return;
     }
 
-    // Fisher-Yates shuffle and pick questionCount
     const shuffled = fisherYates([...domainQs]);
     const selected = shuffled.slice(0, questionCount);
 
-    // Fetch distractors for selected questions
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
     if (distIds.length > 0) {
@@ -469,7 +421,6 @@ async function loadAndStart() {
       }
     }
 
-    // Build question objects
     questions = selected.map(q => {
       const dists = (q.fields['Distractors'] || []).map(id => distMap[id]?.['Distractor Text']).filter(Boolean);
       const correct = q.fields['Correct Answer'] || '';
@@ -481,6 +432,7 @@ async function loadAndStart() {
         solution: q.fields['Solution'] || '',
         difficulty: q.fields['Difficulty'] || '',
         skillIds: q.fields['Skill'] || [],
+        distIds: q.fields['Distractors'] || [],
         choices
       };
     });
@@ -497,25 +449,14 @@ async function loadAndStart() {
   }
 }
 
-function fisherYates(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-// ── RENDER QUESTION ───────────────────────────────────────────────────────────
 function renderQuestion() {
   const q = questions[currentIndex];
   selectedAnswer = null;
   submitted = false;
-
   const pct = (currentIndex / questions.length) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
   document.getElementById('q-text').innerHTML = q.text;
-
   const labels = ['A','B','C','D'];
   const container = document.getElementById('answer-options');
   container.innerHTML = '';
@@ -525,46 +466,40 @@ function renderQuestion() {
     btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${choice}</span><button class="cross-out-btn" title="Cross out">✕</button>`;
     btn.onclick = (e) => {
       if (submitted) return;
-      if (e.target.classList.contains('cross-out-btn')) {
-        btn.classList.toggle('crossed');
-        return;
-      }
+      if (e.target.classList.contains('cross-out-btn')) { btn.classList.toggle('crossed'); return; }
       document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       selectedAnswer = choice;
       document.getElementById('btn-submit').disabled = false;
     };
-    btn.querySelector('.cross-out-btn').onclick = (e) => {
-      e.stopPropagation();
-      btn.classList.toggle('crossed');
-    };
+    btn.querySelector('.cross-out-btn').onclick = (e) => { e.stopPropagation(); btn.classList.toggle('crossed'); };
     container.appendChild(btn);
+    renderMathInBtn(btn);
   });
-
   document.getElementById('btn-submit').disabled = true;
   typeset();
 }
 
-// ── SUBMIT ANSWER ──────────────────────────────────────────────────────────────
+function renderMathInBtn(btn) {
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    try { window.MathJax.typesetPromise([btn]).catch(() => {}); } catch(e) {}
+  }
+}
+
 function submitAnswer() {
   if (!selectedAnswer || submitted) return;
   submitted = true;
   const q = questions[currentIndex];
   const isCorrect = selectedAnswer === q.correct;
-
   userAnswers.push({ qIndex: currentIndex, chosen: selectedAnswer, correct: isCorrect });
-
-  // Color the buttons
   document.querySelectorAll('.answer-btn').forEach(btn => {
     const text = btn.querySelector('.answer-text').textContent;
     if (text === q.correct) btn.classList.add('show-correct');
     else if (text === selectedAnswer && !isCorrect) btn.classList.add('wrong');
   });
-
-  // Change submit button to Next
   const submitBtn = document.getElementById('btn-submit');
   if (currentIndex < questions.length - 1) {
-    submitBtn.textContent = 'Next Question →';
+    submitBtn.textContent = 'Next Question';
     submitBtn.disabled = false;
     submitBtn.onclick = nextQuestion;
   } else {
@@ -581,28 +516,21 @@ function nextQuestion() {
   renderQuestion();
 }
 
-// ── RESULTS ────────────────────────────────────────────────────────────────────
 async function showResults() {
   const correct = userAnswers.filter(a => a.correct).length;
   const wrong = userAnswers.length - correct;
   const pct = Math.round((correct / userAnswers.length) * 100);
-
   document.getElementById('score-correct').textContent = correct;
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
   document.getElementById('results-subtitle').textContent = `${DOMAIN_LABELS[domain]} · ${questions.length} questions · ${selectedDiff}`;
-
-  // Mark day complete
   if (dayNumber) {
     await markDayComplete(dayNumber);
     document.getElementById('complete-banner').classList.add('show');
   }
-
-  // Render missed questions
   const missed = userAnswers.filter(a => !a.correct);
   const container = document.getElementById('missed-section');
   container.innerHTML = '';
-
   if (missed.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600;font-size:1rem">Perfect score! All answers correct.</div>';
   } else {
@@ -611,9 +539,10 @@ async function showResults() {
       const q = questions[a.qIndex];
       const card = document.createElement('div');
       card.className = 'missed-card';
+      const diffBadge = q.difficulty ? `<span class="diff-result-badge ${q.difficulty}">${q.difficulty}</span>` : '';
       card.innerHTML = `
         <div class="missed-header" onclick="toggleMissed(this)">
-          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}</div>
+          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}${diffBadge}</div>
           <span class="missed-badge">Incorrect</span>
           <span class="expand-arrow">▼</span>
         </div>
@@ -630,7 +559,6 @@ async function showResults() {
       loadTutorialForQuestion(q, a.qIndex);
     });
   }
-
   show('screen-results');
   typeset();
 }
@@ -642,53 +570,42 @@ function toggleMissed(header) {
   if (body.classList.contains('open')) typeset();
 }
 
-// ── LOAD TUTORIAL + PRACTICE PROBLEMS ────────────────────────────────────────
 async function loadTutorialForQuestion(q, idx) {
   const container = document.getElementById('tutorial-' + idx);
   if (!container) return;
   try {
-    // Get distractor IDs from the original question record
-    const distIds = q.distIds || [];
-
-    // Find misconception via distractors
     let misconceptionId = null;
     let tutorialContent = '';
     let practiceProblems = [];
-
-    if (distIds && distIds.length > 0) {
-      const formula = 'OR(' + distIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+    if (q.distIds && q.distIds.length > 0) {
+      const formula = 'OR(' + q.distIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
       const distRecs = await atFetch('Distractors', 'fields%5B%5D=Misconception&filterByFormula=' + encodeURIComponent(formula));
       const miscIds = [...new Set(distRecs.flatMap(r => r.fields['Misconception'] || []))];
       if (miscIds.length > 0) misconceptionId = miscIds[0];
     }
-
-    // Fallback: look up via skill
-    if (!misconceptionId && q.skillIds.length > 0) {
-      const skillId = q.skillIds[0];
-      const miscRecs = await atFetch('Misconceptions', 'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' + encodeURIComponent(`OR(${q.skillIds.map(id=>`FIND("${id}",ARRAYJOIN(Skill))`).join(',')})`));
+    if (misconceptionId) {
+      const miscRecs = await atFetch('Misconceptions', 'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' + encodeURIComponent(`RECORD_ID()="${misconceptionId}"`));
       if (miscRecs.length > 0) {
-        misconceptionId = miscRecs[0].id;
         const tutIds = miscRecs[0].fields['Tutorials'] || [];
         const ppIds = miscRecs[0].fields['Practice Problems'] || [];
         if (tutIds.length > 0) {
-          const tutRecs = await atFetch('Tutorials', 'fields%5B%5D=Tutorial+Text&filterByFormula=' + encodeURIComponent('OR(' + tutIds.map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
-          tutorialContent = tutRecs[0]?.fields['Tutorial Text'] || '';
+          const tutRecs = await atFetch('Tutorials', 'fields%5B%5D=Concept+Explanation&fields%5B%5D=Worked+Example&filterByFormula=' + encodeURIComponent('OR(' + tutIds.map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
+          const concept = tutRecs[0]?.fields['Concept Explanation'] || '';
+          const worked = tutRecs[0]?.fields['Worked Example'] || '';
+          tutorialContent = [concept, worked].filter(Boolean).join('<br><br>');
         }
         if (ppIds.length > 0) {
-          const ppRecs = await atFetch('Practice+Problems', 'fields%5B%5D=Problem+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Difficulty&filterByFormula=' + encodeURIComponent('OR(' + ppIds.slice(0,3).map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
+          const ppRecs = await atFetch('Practice+Problems', 'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Difficulty&filterByFormula=' + encodeURIComponent('OR(' + ppIds.slice(0,3).map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
           practiceProblems = ppRecs.map(r => ({
-            text: r.fields['Problem Text'] || '',
+            text: r.fields['Question Text'] || '',
             answer: r.fields['Correct Answer'] || '',
             difficulty: r.fields['Difficulty'] || ''
           }));
         }
       }
     }
-
     let html = '';
-    if (tutorialContent) {
-      html += `<div class="tutorial-content">${tutorialContent}</div>`;
-    }
+    if (tutorialContent) html += `<div class="tutorial-content">${tutorialContent}</div>`;
     if (practiceProblems.length > 0) {
       html += '<div class="practice-problems"><h4>Practice Problems</h4>';
       practiceProblems.forEach(pp => {
@@ -696,9 +613,7 @@ async function loadTutorialForQuestion(q, idx) {
       });
       html += '</div>';
     }
-    if (!html) {
-      html = '<div style="color:#888;font-size:0.88rem">No tutorial available for this question yet.</div>';
-    }
+    if (!html) html = '<div style="color:#888;font-size:0.88rem">No tutorial available for this question yet.</div>';
     container.innerHTML = '<h4>Tutorial & Practice Problems</h4>' + html;
     typeset();
   } catch(e) {
@@ -706,17 +621,15 @@ async function loadTutorialForQuestion(q, idx) {
   }
 }
 
-// ── DESMOS ────────────────────────────────────────────────────────────────────
 function toggleCalc() {
   const wrap = document.getElementById('desmos-wrap');
   const isOpen = wrap.style.display === 'flex';
   wrap.style.display = isOpen ? 'none' : 'flex';
-  if (!isOpen && !desmosCalc) {
+  if (!isOpen && !desmosCalc && typeof Desmos !== 'undefined') {
     desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'));
   }
 }
 
-// ── UTILITIES ─────────────────────────────────────────────────────────────────
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
