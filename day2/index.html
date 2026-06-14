@@ -459,16 +459,17 @@ let currentUser = null;
 let inlineGraphInstances = [];
 
 // ── MATH RENDERING ──
-// Always wait for MathJax to be ready, then typeset a specific element.
-// Using a queue so rapid calls don't race each other.
+// Queue-based so rapid calls don't race. typesetClear first so MathJax
+// re-scans elements it has already seen (otherwise it skips them).
 let mathQueue = Promise.resolve();
 function renderMath(el) {
   if (!el) return;
   mathQueue = mathQueue.then(() => {
     if (window.MathJax && MathJax.typesetPromise) {
+      try { MathJax.typesetClear([el]); } catch(e) {}
       return MathJax.typesetPromise([el]).catch(() => {});
     }
-    return new Promise(resolve => setTimeout(resolve, 300));
+    return new Promise(resolve => setTimeout(resolve, 400));
   });
 }
 
@@ -477,9 +478,9 @@ function switchTab(tab) {
   document.getElementById('tab-foundational').classList.toggle('active', tab === 'foundational');
   document.getElementById('tab-specific-btn').classList.toggle('active', tab === 'specific');
   document.getElementById('tab-foundational-btn').classList.toggle('active', tab === 'foundational');
-  // Re-typeset whichever tab just became visible
+  // Force MathJax to re-scan the newly visible panel
   const activePanel = document.getElementById('tab-' + tab);
-  renderMath(activePanel);
+  if (activePanel) renderMath(activePanel);
 }
 
 function fisherYatesShuffle(arr) {
@@ -719,8 +720,8 @@ async function renderSpecificMistakes(missed) {
       const el = document.getElementById(job.mountId);
       if (el) renderQuestionContent(el, job.qn);
     }
-    // Typeset the whole panel once all content is in the DOM
-    renderMath(panel);
+    // Small delay ensures DOM is fully painted before MathJax scans
+    setTimeout(() => renderMath(panel), 50);
   } catch (e) {
     console.error('Specific mistakes failed:', e);
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Something went wrong. Please refresh and try again.</p></div>`;
@@ -792,8 +793,8 @@ async function renderFoundationalGaps(missedIds) {
       html += renderGapCard(rec, tally.get(nid));
     });
     panel.innerHTML = html;
-    // Typeset after all content is in the DOM
-    renderMath(panel);
+    // Small delay ensures DOM is fully painted before MathJax scans
+    setTimeout(() => renderMath(panel), 50);
   } catch (e) {
     console.error('Foundational gaps failed:', e);
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Please refresh and try again.</p></div>`;
