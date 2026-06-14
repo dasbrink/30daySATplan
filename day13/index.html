@@ -253,7 +253,6 @@ const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
 const AT_BASE = 'app4WLsifRZPgtosg';
 const AT_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
 const DAY_NUMBER = 13;
-// For Day 25/26, change this to [1,2,3]
 const DIAGNOSTIC_TEST_NUMBERS = [1, 2];
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -268,8 +267,8 @@ let selectedAnswer = null;
 let submitted = false;
 let desmosCalc = null;
 let sessionUser = null;
+let inlineGraphInstances = [];
 
-// ── INIT ──
 document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (!session) { window.location.href = '/dashboard/'; return; }
@@ -286,11 +285,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadWeakSkills();
 });
 
-// ── LOAD WEAK SKILLS FROM DIAGNOSTICS ──
 async function loadWeakSkills() {
   const area = document.getElementById('weak-skills-area');
   try {
-    // Pull snapshots from all relevant diagnostics
     const { data: results, error } = await supabaseClient
       .from('test_results')
       .select('snapshot')
@@ -302,9 +299,6 @@ async function loadWeakSkills() {
       return;
     }
 
-    // Collect all missed question IDs from every diagnostic snapshot.
-    // The snapshot stores missedIds (question record IDs). The saved `q`
-    // objects do NOT contain skill fields, so we look skills up from Airtable.
     const missedIdSet = new Set();
     for (const row of results) {
       const snap = row.snapshot;
@@ -322,7 +316,6 @@ async function loadWeakSkills() {
       return;
     }
 
-    // Fetch the missed question records from Airtable to read their Skill field.
     const missedIds = Array.from(missedIdSet);
     const skillMissCount = new Map();
     for (let i = 0; i < missedIds.length; i += 50) {
@@ -345,83 +338,52 @@ async function loadWeakSkills() {
       return;
     }
 
-    // Sort by miss count descending, take top 5 skills
-    const sorted = [...skillMissCount.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-
+    const sorted = [...skillMissCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
     weakSkillIds = sorted.map(([id]) => id);
 
-    // Fetch skill names from Airtable
     const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
     const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || r.id]));
-
     weakSkillNames = weakSkillIds.map(id => skillNameMap.get(id) || id);
 
     let html = '<div class="weak-skills-list">';
     sorted.forEach(([id, count]) => {
       const name = skillNameMap.get(id) || id;
-      html += `<div class="weak-skill-row">
-        <span class="weak-skill-name">${name}</span>
-        <span class="weak-skill-pct">${count} missed</span>
-      </div>`;
+      html += `<div class="weak-skill-row"><span class="weak-skill-name">${name}</span><span class="weak-skill-pct">${count} missed</span></div>`;
     });
     html += '</div>';
     area.innerHTML = html;
     document.getElementById('btn-start').disabled = false;
-
   } catch(e) {
     console.error(e);
     area.innerHTML = '<div style="color:#c62828">Could not load your specific mistakes. Please refresh.</div>';
   }
 }
 
-// ── DIFFICULTY ──
 function setDiff(diff, btn) {
   selectedDiff = diff;
   document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+function goToInstructions() { show('screen-instructions'); }
+function restartSetup() { show('screen-setup'); }
 
-function goToInstructions() {
-  show('screen-instructions');
-}
+const QFIELDS = 'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label';
 
-function restartSetup() {
-  show('screen-setup');
-}
-
-// ── LOAD QUESTIONS ──
 async function loadAndStart() {
   show('screen-loading');
   try {
     let allQuestions;
-
     if (weakSkillIds.length === 0) {
-      // Fallback: fetch all reviewed questions of selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`
-      );
+        `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`);
     } else {
-      // Fetch questions from weak skills at selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`
-      );
-      // Filter to weak skill IDs
-      allQuestions = allQuestions.filter(r => {
-        const skills = r.fields['Skill'] || [];
-        return skills.some(sid => weakSkillIds.includes(sid));
-      });
-
-      // If not enough questions at this difficulty, fall back to any difficulty
+        `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`);
+      allQuestions = allQuestions.filter(r => (r.fields['Skill'] || []).some(sid => weakSkillIds.includes(sid)));
       if (allQuestions.length < 5) {
         const fallback = await atFetch('Questions',
-          `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK")`)}&pageSize=100`
-        );
-        allQuestions = fallback.filter(r => {
-          const skills = r.fields['Skill'] || [];
-          return skills.some(sid => weakSkillIds.includes(sid));
-        });
+          `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK")`)}&pageSize=100`);
+        allQuestions = fallback.filter(r => (r.fields['Skill'] || []).some(sid => weakSkillIds.includes(sid)));
       }
     }
 
@@ -432,10 +394,8 @@ async function loadAndStart() {
     }
 
     const count = Math.min(allQuestions.length, 15);
-    const shuffled = fisherYates([...allQuestions]);
-    const selected = shuffled.slice(0, count);
+    const selected = fisherYates([...allQuestions]).slice(0, count);
 
-    // Fetch distractors
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
     for (let i = 0; i < distIds.length; i += 100) {
@@ -446,7 +406,6 @@ async function loadAndStart() {
       if (i + 100 < distIds.length) await sleep(200);
     }
 
-    // Fetch skill name map
     const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
     const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || '']));
 
@@ -484,8 +443,6 @@ async function loadAndStart() {
   }
 }
 
-// ── INLINE DESMOS GRAPH (question figures) ──
-let inlineGraphInstances = [];
 function destroyInlineGraphs() {
   inlineGraphInstances.forEach(c => { try { if (c && c.destroy) c.destroy(); } catch(e) {} });
   inlineGraphInstances = [];
@@ -515,7 +472,6 @@ function renderInlineDesmosGraph(mountEl, q) {
   inlineGraphInstances.push(calc);
 }
 
-// ── RENDER QUESTION ──
 function renderQuestion() {
   const q = questions[currentIndex];
   selectedAnswer = null;
@@ -524,6 +480,7 @@ function renderQuestion() {
   const pct = (currentIndex / questions.length) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+
   destroyInlineGraphs();
   const qTextEl = document.getElementById('q-text');
   const gtype = (q.graphType || '').toLowerCase();
@@ -566,7 +523,6 @@ function renderQuestion() {
   typeset();
 }
 
-// ── SUBMIT ──
 function submitAnswer() {
   if (!selectedAnswer || submitted) return;
   submitted = true;
@@ -592,12 +548,8 @@ function submitAnswer() {
   }
 }
 
-function nextQuestion() {
-  currentIndex++;
-  renderQuestion();
-}
+function nextQuestion() { currentIndex++; renderQuestion(); }
 
-// ── RESULTS ──
 async function showResults() {
   destroyInlineGraphs();
   const correct = userAnswers.filter(a => a.correct).length;
@@ -649,7 +601,6 @@ function toggleMissed(header) {
   if (body.classList.contains('open')) typeset();
 }
 
-// ── MARK COMPLETE ──
 async function markDayComplete() {
   if (!sessionUser) return;
   try {
@@ -661,7 +612,6 @@ async function markDayComplete() {
   } catch(e) { console.error(e); }
 }
 
-// ── DESMOS ──
 function toggleCalc() {
   const wrap = document.getElementById('desmos-wrap');
   const isOpen = wrap.style.display === 'flex';
@@ -671,7 +621,6 @@ function toggleCalc() {
   }
 }
 
-// ── AIRTABLE HELPERS ──
 async function atFetch(table, params = '') {
   const base = encodeURIComponent(table);
   let all = [], offset = null;
