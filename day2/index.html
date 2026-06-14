@@ -682,38 +682,40 @@ function reportTutorialHTML(tutRec) {
 
 async function fetchTeachingByMisconceptions(miscIds) {
   const miscRecs = await fetchRecordsByIds('Misconceptions', Array.from(miscIds));
-  const tutIds = new Set(), miscToTut = new Map(), miscToSkill = new Map();
+  const tutIds = new Set(), miscToTut = new Map(), miscToSkillName = new Map();
   miscRecs.forEach(m => {
     const t = m.fields['Tutorials'] || [];
-    const skillLinks = m.fields['Skill'] || [];
     miscToTut.set(m.id, t[0] || null);
-    miscToSkill.set(m.id, skillLinks[0] || null); // Airtable skill record ID
+    // Skill field returns linked record IDs; ARRAYJOIN in formula uses skill name.
+    // Store the raw skill record IDs for filtering.
+    miscToSkillName.set(m.id, (m.fields['Skill'] || [])[0] || null);
     t.forEach(id => tutIds.add(id));
   });
   const tutRecs = await fetchRecordsByIds('Tutorials', Array.from(tutIds));
   return {
     miscToTut,
-    miscToSkill,
+    miscToSkillName,
     tutById: new Map(tutRecs.map(r => [r.id, r]))
   };
 }
 
-// Fetch 1 Easy + 1 Medium + 1 Hard from the main question bank for a given skill number,
-// excluding the question the student already saw (excludeId).
-async function fetchPracticeQsBySkillNum(skillNum, excludeId) {
-  if (!skillNum) return [];
-  // Filter by template_sample_skill which stores the skill number as a string
+// Fetch 1 Easy + 1 Medium + 1 Hard from the main 4,700-question bank
+// for the skill linked to a misconception, excluding the question already seen.
+async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
+  if (!skillRecId) return [];
+  // Skill is a linked field — filter by checking if the skill record ID appears
+  // in the linked Skill field via FIND on ARRAYJOIN
   const formula = `AND(
-    {template_sample_skill}='${skillNum}',
+    FIND('${skillRecId}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
-    NOT(RECORD_ID()='${excludeId || ''}'),
-    OR(NOT({graph_type}), {graph_type}='')
+    OR(NOT({graph_type}), {graph_type}=''),
+    NOT(RECORD_ID()='${excludeQId || ''}')
   )`;
-  const recs = await fetchTable('Questions', formula, 12);
+  const recs = await fetchTable('Questions', formula, 15);
   const byDiff = { Easy: [], Medium: [], Hard: [] };
   for (const r of recs) {
-    const diff = r.fields['Difficulty'] || '';
-    if (byDiff[diff]) byDiff[diff].push(r);
+    const d = r.fields['Difficulty'] || '';
+    if (byDiff[d]) byDiff[d].push(r);
   }
   const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   return [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
@@ -741,14 +743,14 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-    // Pre-fetch practice questions from main bank for each missed question's skill number
+    // Pre-fetch practice problems from main bank for each missed question's skill
     const ppByMiscId = new Map();
     await Promise.all(missed.map(async (m, i) => {
       const mId = qToMisc.get(i);
       if (!mId) return;
-      const skillNum = m.q && (m.q.skillId || (m.q.skillIds && m.q.skillIds[0]));
-      const excludeId = m.q ? m.q.id : null;
-      const qs = await fetchPracticeQsBySkillNum(skillNum, excludeId);
+      const skillRecId = teaching.miscToSkillName.get(mId);
+      const excludeQId = m.q ? m.q.id : null;
+      const qs = await fetchMainBankPPBySkillId(skillRecId, excludeQId);
       ppByMiscId.set(mId, qs);
     }));
 
