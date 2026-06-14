@@ -248,11 +248,23 @@ const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const AT_BASE  = 'app4WLsifRZPgtosg';
 const AT_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
 
+// Skill numbers per domain
 const DOMAIN_SKILLS = {
   'algebra':       [1,2,3,4,5,6,7,8,9,10,11,12,13],
   'advanced-math': [14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
   'data-analysis': [40,41,42,43,44,45,46,47,48,49,50],
   'geometry':      [51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67]
+};
+
+// Skill number ranges as Airtable formula strings (avoids fetching all Skills records)
+// We use {Skill Name} contains the number approach by building an OR filter on skill names
+// Instead: we pre-map skill ranges to formula conditions on Questions directly
+// Faster: filter Questions by a formula that checks the linked Skill name number range
+const DOMAIN_SKILL_RANGES = {
+  'algebra':       { min: 1,  max: 13 },
+  'advanced-math': { min: 14, max: 31 },
+  'data-analysis': { min: 40, max: 50 },
+  'geometry':      { min: 51, max: 67 }
 };
 
 const DOMAIN_LABELS = {
@@ -274,6 +286,9 @@ let selectedAnswer = null;
 let submitted = false;
 let desmosCalc = null;
 let sessionUser = null;
+
+// Cached skill IDs per domain (so we only fetch once per session)
+const skillIdCache = {};
 
 // ── HELPERS ──
 function show(id) {
@@ -303,8 +318,21 @@ function setDiff(diff) {
   if (btn) btn.classList.add('active');
 }
 
-// ── AIRTABLE ──
-async function atFetch(table, params) {
+// ── AIRTABLE — single page fetch with maxRecords cap ──
+// This is the key performance fix: we cap at maxRecords so Airtable
+// returns only what we need in a single request instead of paginating
+// through hundreds of records.
+async function atFetchCapped(table, params, maxRecords) {
+  const base = encodeURIComponent(table);
+  let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params || ''}`;
+  if (maxRecords) url += `&maxRecords=${maxRecords}`;
+  const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
+  const data = await res.json();
+  return data.records || [];
+}
+
+// Full paginated fetch — only used when we truly need all records (distractor lookup)
+async function atFetchAll(table, params) {
   const base = encodeURIComponent(table);
   let all = [], offset = null;
   do {
@@ -316,6 +344,22 @@ async function atFetch(table, params) {
     if (offset) await sleep(200);
   } while (offset);
   return all;
+}
+
+// Get skill IDs for the current domain (cached)
+async function getDomainSkillIds(dom) {
+  if (skillIdCache[dom]) return skillIdCache[dom];
+  const skillNums = DOMAIN_SKILLS[dom];
+  // Fetch only the Skills records we need using an OR formula on Skill Name
+  const nameConditions = skillNums.map(n => `FIND("Skill ${n}",{Skill Name})>0`).join(',');
+  const formula = encodeURIComponent(`OR(${nameConditions})`);
+  const records = await atFetchCapped('Skills',
+    `fields%5B%5D=Skill+Name&filterByFormula=${formula}`,
+    200
+  );
+  const ids = records.map(r => r.id);
+  skillIdCache[dom] = ids;
+  return ids;
 }
 
 // ── MARK DAY COMPLETE ──
@@ -331,47 +375,80 @@ async function markDayComplete(day) {
   } catch(e) { console.warn('markDayComplete failed:', e); }
 }
 
-// ── LOAD QUESTIONS ──
+// ── LOAD QUESTIONS — fast version ──
 async function loadAndStart() {
   show('screen-loading');
   try {
-    const skillNums = DOMAIN_SKILLS[domain];
-    const skillRecords = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
-    const domainSkillIds = skillRecords
-      .filter(r => {
-        const name = r.fields['Skill Name'] || '';
-        const match = name.match(/^Skill\s+(\d+)/i);
-        return match && skillNums.includes(parseInt(match[1]));
-      })
-      .map(r => r.id);
+    const domainSkillIds = await getDomainSkillIds(domain);
 
     if (domainSkillIds.length === 0) {
       alert('Could not find skills for this domain. Please try again.');
       show('screen-setup'); return;
     }
 
+    // Build difficulty filter
     let diffFilter = selectedDiff !== 'Mixed' ? `,{Difficulty}="${selectedDiff}"` : '';
 
-    const allQs = await atFetch('Questions',
-      'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=' +
-      encodeURIComponent(`AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`) + '&pageSize=100'
+    // KEY CHANGE: fetch a capped pool of 60 records max (one request, no pagination).
+    // Airtable returns records in their own order — shuffling below gives variety.
+    // 60 is more than enough to pick 15 questions from.
+    const POOL_SIZE = 60;
+    const poolRecords = await atFetchCapped('Questions',
+      'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
+      '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors' +
+      '&filterByFormula=' + encodeURIComponent(
+        `AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`
+      ) + '&pageSize=100',
+      POOL_SIZE
     );
 
-    const domainQs = allQs.filter(r => (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid)));
+    // Filter to this domain's skills
+    const domainQs = poolRecords.filter(r =>
+      (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid))
+    );
 
     if (domainQs.length < questionCount) {
-      alert(`Not enough questions found (found ${domainQs.length}). Try Mixed difficulty.`);
-      show('screen-setup'); return;
+      // If the capped pool didn't give us enough for this domain, try a larger pool
+      const biggerPool = await atFetchAll('Questions',
+        'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
+        '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors' +
+        '&filterByFormula=' + encodeURIComponent(
+          `AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`
+        ) + '&pageSize=100'
+      );
+      const fallbackDomainQs = biggerPool.filter(r =>
+        (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid))
+      );
+      if (fallbackDomainQs.length < questionCount) {
+        alert(`Not enough questions found (found ${fallbackDomainQs.length}). Try Mixed difficulty.`);
+        show('screen-setup'); return;
+      }
+      return finishLoading(fallbackDomainQs);
     }
 
+    finishLoading(domainQs);
+
+  } catch(err) {
+    console.error(err);
+    alert('Error loading questions: ' + err.message);
+    show('screen-setup');
+  }
+}
+
+async function finishLoading(domainQs) {
+  try {
     const selected = fisherYates([...domainQs]).slice(0, questionCount);
 
+    // Fetch distractors for selected questions only
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
     for (let i = 0; i < distIds.length; i += 100) {
-      const batch = distIds.slice(i, i+100);
+      const batch = distIds.slice(i, i + 100);
       const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
-      const recs = await atFetch('Distractors', 'fields%5B%5D=Distractor+Text&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
+      const recs = await atFetchCapped('Distractors',
+        'fields%5B%5D=Distractor+Text&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100',
+        200
+      );
       recs.forEach(r => { distMap[r.id] = r.fields; });
       if (i + 100 < distIds.length) await sleep(200);
     }
@@ -386,7 +463,7 @@ async function loadAndStart() {
         solution: q.fields['Solution'] || '',
         difficulty: q.fields['Difficulty'] || '',
         distIds: q.fields['Distractors'] || [],
-        choices: fisherYates([correct, ...dists.slice(0,3)])
+        choices: fisherYates([correct, ...dists.slice(0, 3)])
       };
     });
 
@@ -471,7 +548,8 @@ async function showResults() {
   document.getElementById('score-correct').textContent = correct;
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
-  document.getElementById('results-subtitle').textContent = `${DOMAIN_LABELS[domain]} · ${questions.length} questions · ${selectedDiff}`;
+  document.getElementById('results-subtitle').textContent =
+    `${DOMAIN_LABELS[domain]} · ${questions.length} questions · ${selectedDiff}`;
 
   if (dayNumber) {
     await markDayComplete(dayNumber);
@@ -491,7 +569,7 @@ async function showResults() {
       card.className = 'missed-card';
       card.innerHTML = `
         <div class="missed-header">
-          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}</div>
+          <div class="missed-q-text">${q.text.substring(0, 120)}${q.text.length > 120 ? '…' : ''}</div>
           <span class="missed-badge">Incorrect</span>
           <span class="expand-arrow">▼</span>
         </div>
@@ -522,14 +600,25 @@ async function loadTutorial(q, idx) {
     let tutHtml = '';
     if (q.distIds && q.distIds.length > 0) {
       const formula = 'OR(' + q.distIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
-      const distRecs = await atFetch('Distractors', 'fields%5B%5D=Misconception&filterByFormula=' + encodeURIComponent(formula));
+      const distRecs = await atFetchCapped('Distractors',
+        'fields%5B%5D=Misconception&filterByFormula=' + encodeURIComponent(formula),
+        20
+      );
       const miscIds = [...new Set(distRecs.flatMap(r => r.fields['Misconception'] || []))];
       if (miscIds.length > 0) {
-        const miscRecs = await atFetch('Misconceptions', 'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' + encodeURIComponent(`RECORD_ID()="${miscIds[0]}"`));
+        const miscRecs = await atFetchCapped('Misconceptions',
+          'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' +
+          encodeURIComponent(`RECORD_ID()="${miscIds[0]}"`),
+          5
+        );
         if (miscRecs.length > 0) {
           const tutIds = miscRecs[0].fields['Tutorials'] || [];
           if (tutIds.length > 0) {
-            const tutRecs = await atFetch('Tutorials', 'fields%5B%5D=Concept+Explanation&fields%5B%5D=Worked+Example&filterByFormula=' + encodeURIComponent('OR(' + tutIds.map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
+            const tutRecs = await atFetchCapped('Tutorials',
+              'fields%5B%5D=Concept+Explanation&fields%5B%5D=Worked+Example&filterByFormula=' +
+              encodeURIComponent('OR(' + tutIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')'),
+              10
+            );
             const concept = tutRecs[0]?.fields['Concept Explanation'] || '';
             const worked = tutRecs[0]?.fields['Worked Example'] || '';
             if (concept) tutHtml += `<div class="tutorial-content" style="margin-bottom:10px">${concept}</div>`;
@@ -557,7 +646,6 @@ function toggleCalc() {
 
 // ── BOOT ──
 document.addEventListener('DOMContentLoaded', async function() {
-  // Parse URL params
   const params = new URLSearchParams(window.location.search);
   const domainParam = params.get('domain') || 'algebra';
   dayNumber = params.get('day');
@@ -569,7 +657,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   document.getElementById('instr-title').textContent = label + ' Practice';
   document.getElementById('nav-day-label').textContent = dayNumber ? 'Day ' + dayNumber : label;
 
-  // Wire up buttons
   document.getElementById('btn-minus').addEventListener('click', function() {
     if (questionCount > 5) { questionCount--; document.getElementById('q-count-display').textContent = questionCount; }
   });
@@ -594,7 +681,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (e.target === this) this.classList.remove('open');
   });
 
-  // Auth
   const { data: { session } } = await sbClient.auth.getSession();
   if (session && session.user) sessionUser = session.user;
 });
