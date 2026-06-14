@@ -555,6 +555,8 @@ function renderQuestionContent(containerEl, question) {
   else { containerEl.textContent = question.text || ''; renderMath(containerEl); }
 }
 
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
 async function fetchTable(tableName, filterByFormula, maxRecords) {
   let allRecords = [], offset = null;
   do {
@@ -564,11 +566,18 @@ async function fetchTable(tableName, filterByFormula, maxRecords) {
     if (offset) params.set('offset', offset);
     const qs = params.toString();
     const url = `${AIRTABLE_API}/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}${qs ? '?' + qs : ''}`;
-    const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-    const data = await response.json();
+    // Retry on 429 (Airtable rate limit: 5 req/sec) with backoff
+    let data = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+      if (response.status === 429) { await sleep(400 + attempt * 400); continue; }
+      data = await response.json();
+      break;
+    }
+    if (!data) return allRecords;
     allRecords = allRecords.concat(data.records || []);
     offset = data.offset || null;
-    if (maxRecords) break; // if we have a limit, only fetch one page
+    if (maxRecords) break;
   } while (offset);
   return allRecords;
 }
@@ -710,7 +719,7 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   if (!skillName) return [];
   // Step 2: Filter Questions where ARRAYJOIN({Skill}) contains the skill name
   const formula = `AND(
-    FIND('${skillName.replace(/'/g, "\'")}', ARRAYJOIN({Skill})),
+    FIND('${skillName.replace(/'/g, "\\'")}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
     OR(NOT({graph_type}), {graph_type}=''),
     NOT(RECORD_ID()='${excludeQId || ''}')
@@ -747,16 +756,25 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-    // Pre-fetch practice problems from main bank for each missed question's skill
+    // Pre-fetch practice problems from main bank, throttled to avoid Airtable 429.
+    // Process 2 at a time with a small delay between batches.
     const ppByMiscId = new Map();
-    await Promise.all(missed.map(async (m, i) => {
+    const fetchJobs = [];
+    missed.forEach((m, i) => {
       const mId = qToMisc.get(i);
-      if (!mId) return;
+      if (!mId || ppByMiscId.has(mId)) return;
       const skillRecId = teaching.miscToSkillName.get(mId);
       const excludeQId = m.q ? m.q.id : null;
-      const qs = await fetchMainBankPPBySkillId(skillRecId, excludeQId);
-      ppByMiscId.set(mId, qs);
-    }));
+      fetchJobs.push({ mId, skillRecId, excludeQId });
+    });
+    for (let i = 0; i < fetchJobs.length; i += 2) {
+      const batch = fetchJobs.slice(i, i + 2);
+      await Promise.all(batch.map(async job => {
+        const qs = await fetchMainBankPPBySkillId(job.skillRecId, job.excludeQId);
+        ppByMiscId.set(job.mId, qs);
+      }));
+      if (i + 2 < fetchJobs.length) await sleep(300);
+    }
 
     missed.forEach((m, i) => {
       const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
