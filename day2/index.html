@@ -7,7 +7,8 @@
 <script>
   window.MathJax = {
     tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
-    svg: { fontCache: 'global' }
+    svg: { fontCache: 'global' },
+    startup: { typeset: false }
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -449,16 +450,33 @@ const AIRTABLE_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f
 const AIRTABLE_BASE_ID = 'app4WLsifRZPgtosg';
 const AIRTABLE_API = 'https://api.airtable.com/v0';
 
-const TEST_NUMBER = 1; // Day 2 reviews test_number 1
+const TEST_NUMBER = 1;
 
 let currentUser = null;
 let inlineGraphInstances = [];
+
+// ── MATH RENDERING ──
+// Always wait for MathJax to be ready, then typeset a specific element.
+// Using a queue so rapid calls don't race each other.
+let mathQueue = Promise.resolve();
+function renderMath(el) {
+  if (!el) return;
+  mathQueue = mathQueue.then(() => {
+    if (window.MathJax && MathJax.typesetPromise) {
+      return MathJax.typesetPromise([el]).catch(() => {});
+    }
+    return new Promise(resolve => setTimeout(resolve, 300));
+  });
+}
 
 function switchTab(tab) {
   document.getElementById('tab-specific').classList.toggle('active', tab === 'specific');
   document.getElementById('tab-foundational').classList.toggle('active', tab === 'foundational');
   document.getElementById('tab-specific-btn').classList.toggle('active', tab === 'specific');
   document.getElementById('tab-foundational-btn').classList.toggle('active', tab === 'foundational');
+  // Re-typeset whichever tab just became visible
+  const activePanel = document.getElementById('tab-' + tab);
+  renderMath(activePanel);
 }
 
 function fisherYatesShuffle(arr) {
@@ -473,11 +491,16 @@ function fisherYatesShuffle(arr) {
 function escHTML(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stripComments(s) { return String(s || '').replace(/<!--[\s\S]*?-->/g, ''); }
 
-function renderMathInDiv(el) {
-  if (!el) return;
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    try { window.MathJax.typesetPromise([el]).catch(e => {}); } catch (e) {}
-  } else { setTimeout(() => renderMathInDiv(el), 200); }
+// Safely render a field that may come back HTML-escaped from Airtable
+// and turn newlines into <br> so multi-line content works.
+function renderField(raw) {
+  if (!raw) return '';
+  return stripComments(raw)
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/\n/g, '<br>');
 }
 
 function safeParseJSON(raw) {
@@ -502,7 +525,7 @@ function renderQuestionContent(containerEl, question) {
     if (questionTextContainsHTML(question.text)) td.innerHTML = question.text || '';
     else td.textContent = question.text || '';
     containerEl.appendChild(td);
-    renderMathInDiv(td);
+    renderMath(td);
     if (typeof Desmos !== 'undefined') {
       const expressions = safeParseJSON(question.graphExpressions) || [];
       const windowBounds = safeParseJSON(question.graphWindow);
@@ -528,10 +551,10 @@ function renderQuestionContent(containerEl, question) {
     const td = document.createElement('div'); td.className = 'question-body-text';
     if (questionTextContainsHTML(question.text)) td.innerHTML = question.text || '';
     else td.textContent = question.text || '';
-    containerEl.appendChild(td); renderMathInDiv(td); return;
+    containerEl.appendChild(td); renderMath(td); return;
   }
-  if (questionTextContainsHTML(question.text)) { containerEl.innerHTML = question.text; renderMathInDiv(containerEl); }
-  else { containerEl.textContent = question.text || ''; renderMathInDiv(containerEl); }
+  if (questionTextContainsHTML(question.text)) { containerEl.innerHTML = question.text; renderMath(containerEl); }
+  else { containerEl.textContent = question.text || ''; renderMath(containerEl); }
 }
 
 async function fetchTable(tableName, filterByFormula) {
@@ -563,11 +586,6 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
-function renderTutorialField(raw) {
-  if (!raw) return '';
-  return stripComments(raw).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\n/g,'<br>');
-}
-
 function toggleStudyReveal(id, btn, kind) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -575,27 +593,28 @@ function toggleStudyReveal(id, btn, kind) {
   if (btn) btn.textContent = showing
     ? (kind === 'sol' ? 'Hide worked solution' : 'Hide answer')
     : (kind === 'sol' ? 'Show worked solution' : 'Show answer & solution');
+  if (showing) renderMath(el);
 }
 
 const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
 
 function renderPracticeProblemHTML(rec, idx) {
   const f = rec.fields || {};
-  const q = escHTML(stripComments(f['Question Text'] || ''));
+  const q = renderField(f['Question Text'] || '');
   const correct = f['Correct Answer'] || '';
   const wrong = [f['Wrong Answer 1'], f['Wrong Answer 2'], f['Wrong Answer 3']].filter(Boolean);
-  const sol = stripComments(f['Solution'] || '').replace(/\n/g,'<br>');
+  const sol = renderField(f['Solution'] || '');
   const diff = f['Difficulty'] || '';
   const choices = fisherYatesShuffle([{ text: correct }, ...wrong.map(w => ({ text: w }))]);
   const letters = ['A','B','C','D','E'];
-  const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${escHTML(c.text)}</div>`).join('');
+  const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${renderField(c.text)}</div>`).join('');
   const ansId = 'ans-' + idx;
   return `<div class="study-pp">
     <div class="study-pp-q">${q}${diff ? `<span class="study-pp-diff">${escHTML(diff)}</span>` : ''}</div>
     <div class="study-pp-choices">${choicesHTML}</div>
     <button class="study-reveal-btn" onclick="toggleStudyReveal('${ansId}',this)">Show answer &amp; solution</button>
     <div class="study-answer" id="${ansId}">
-      <div class="ans-correct">Correct answer: ${escHTML(correct)}</div>
+      <div class="ans-correct">Correct answer: ${renderField(correct)}</div>
       ${sol ? `<div style="margin-top:6px;">${sol}</div>` : ''}
     </div>
   </div>`;
@@ -603,14 +622,14 @@ function renderPracticeProblemHTML(rec, idx) {
 
 function reportQuestionBlockHTML(qn, uid, questionNumber) {
   const solId = 'sol-' + uid, mountId = 'qm-' + uid;
-  const sol = stripComments(qn.solution || '').replace(/\n/g,'<br>');
+  const sol = renderField(qn.solution || '');
   let html = `<div class="study-misc">
     <div class="study-misc-header">Question ${questionNumber} — You got this wrong</div>
     <div class="study-misc-body">
       <div class="study-q"><div class="study-q-mount" id="${mountId}"></div>`;
   if (sol) {
     html += `<button class="study-reveal-btn" onclick="toggleStudyReveal('${solId}',this,'sol')">Show worked solution</button>`;
-    html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${escHTML(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`;
+    html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${renderField(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`;
   }
   html += `</div>`;
   return { html, mountId };
@@ -618,11 +637,11 @@ function reportQuestionBlockHTML(qn, uid, questionNumber) {
 
 function reportTutorialHTML(tutRec) {
   if (!tutRec) return '';
-  const concept = renderTutorialField(tutRec.fields['Concept Explanation']);
-  const worked = renderTutorialField(tutRec.fields['Worked Example']);
+  const concept = renderField(tutRec.fields['Concept Explanation']);
+  const worked  = renderField(tutRec.fields['Worked Example']);
   let html = '';
   if (concept.trim()) html += `<div class="study-tut-label">The concept</div><div class="study-tut-body">${concept}</div>`;
-  if (worked.trim()) html += `<div class="study-tut-label">Worked example</div><div class="study-tut-body">${worked}</div>`;
+  if (worked.trim())  html += `<div class="study-tut-label">Worked example</div><div class="study-tut-body">${worked}</div>`;
   return html;
 }
 
@@ -641,7 +660,7 @@ async function fetchTeachingByMisconceptions(miscIds) {
   return {
     miscToTut, miscToPp,
     tutById: new Map(tutRecs.map(r => [r.id, r])),
-    ppById: new Map(ppRecs.map(r => [r.id, r]))
+    ppById:  new Map(ppRecs.map(r => [r.id, r]))
   };
 }
 
@@ -691,21 +710,23 @@ async function renderSpecificMistakes(missed) {
       const el = document.getElementById(job.mountId);
       if (el) renderQuestionContent(el, job.qn);
     }
-    renderMathInDiv(panel);
+    // Typeset the whole panel once all content is in the DOM
+    renderMath(panel);
   } catch (e) {
     console.error('Specific mistakes failed:', e);
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Something went wrong. Please refresh and try again.</p></div>`;
   }
 }
 
-function renderGapCard(rec, count, cardIndex) {
+function renderGapCard(rec, count) {
   const f = rec.fields || {};
-  const name = f['Name'] || '(unnamed)';
-  const concept = (f['Concept Explanation'] || '').replace(/\n/g, '<br>');
-  const worked  = (f['Worked Example'] || '').replace(/\n/g, '<br>');
-  const easy    = (f['Practice Easy'] || '').replace(/\n/g, '<br>');
-  const medium  = (f['Practice Medium'] || '').replace(/\n/g, '<br>');
-  const hard    = (f['Practice Hard'] || '').replace(/\n/g, '<br>');
+  const name    = f['Name'] || '(unnamed)';
+  // Use renderField so $...$ math is preserved and not HTML-escaped away
+  const concept = renderField(f['Concept Explanation'] || '');
+  const worked  = renderField(f['Worked Example'] || '');
+  const easy    = renderField(f['Practice Easy'] || '');
+  const medium  = renderField(f['Practice Medium'] || '');
+  const hard    = renderField(f['Practice Hard'] || '');
   let html = `<div class="gap-card">
     <div class="gap-card-header">
       <div class="gap-card-title">${escHTML(name)}</div>
@@ -756,13 +777,14 @@ async function renderFoundationalGaps(missedIds) {
       <p>These are the foundational concepts that appeared most often in your Day 1 missed questions.</p>
       <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after your Day 11 diagnostic.</p>
     </div>`;
-    topIds.forEach((nid, i) => {
+    topIds.forEach(nid => {
       const rec = nodeMap.get(nid);
       if (!rec) return;
-      html += renderGapCard(rec, tally.get(nid), i);
+      html += renderGapCard(rec, tally.get(nid));
     });
     panel.innerHTML = html;
-    renderMathInDiv(panel);
+    // Typeset after all content is in the DOM
+    renderMath(panel);
   } catch (e) {
     console.error('Foundational gaps failed:', e);
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Please refresh and try again.</p></div>`;
@@ -796,7 +818,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!session) { window.location.href = '/dashboard/'; return; }
   currentUser = session.user;
 
-  // Fetch the most recent test_number 1 result (handles duplicate rows gracefully)
   let snapshot = null, score = null;
   try {
     const { data } = await supabaseClient.from('test_results')
@@ -807,7 +828,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       .limit(1);
     if (data && data.length > 0) {
       snapshot = data[0].snapshot;
-      score = data[0].score;
+      score    = data[0].score;
     }
   } catch (e) { console.error('Failed to load test result:', e); }
 
@@ -824,9 +845,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  const missed = snapshot.missed || [];
+  const missed      = snapshot.missed || [];
   const totalCorrect = snapshot.totalCorrect;
-  const total = snapshot.total || 44;
+  const total       = snapshot.total || 44;
   const missedCount = missed.length;
 
   const banner = document.getElementById('score-banner');
