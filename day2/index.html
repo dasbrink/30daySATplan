@@ -459,8 +459,6 @@ let currentUser = null;
 let inlineGraphInstances = [];
 
 // ── MATH RENDERING ──
-// Queue-based so rapid calls don't race. typesetClear first so MathJax
-// re-scans elements it has already seen (otherwise it skips them).
 let mathQueue = Promise.resolve();
 function renderMath(el) {
   if (!el) return;
@@ -478,7 +476,6 @@ function switchTab(tab) {
   document.getElementById('tab-foundational').classList.toggle('active', tab === 'foundational');
   document.getElementById('tab-specific-btn').classList.toggle('active', tab === 'specific');
   document.getElementById('tab-foundational-btn').classList.toggle('active', tab === 'foundational');
-  // Force MathJax to re-scan the newly visible panel
   const activePanel = document.getElementById('tab-' + tab);
   if (activePanel) renderMath(activePanel);
 }
@@ -495,9 +492,6 @@ function fisherYatesShuffle(arr) {
 function escHTML(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stripComments(s) { return String(s || '').replace(/<!--[\s\S]*?-->/g, ''); }
 
-// Safely render a field from Airtable.
-// Do NOT convert \n to <br> — that breaks MathJax by splitting $...$ across tags.
-// gap-content uses white-space: pre-wrap in CSS to preserve line breaks visually.
 function renderField(raw) {
   if (!raw) return '';
   return stripComments(raw)
@@ -505,12 +499,6 @@ function renderField(raw) {
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"');
-}
-
-// For plain-text fields with no math (solutions, headers) where <br> is safe.
-function renderFieldWithBreaks(raw) {
-  if (!raw) return '';
-  return renderField(raw).replace(/\n/g, '<br>');
 }
 
 function safeParseJSON(raw) {
@@ -567,11 +555,12 @@ function renderQuestionContent(containerEl, question) {
   else { containerEl.textContent = question.text || ''; renderMath(containerEl); }
 }
 
-async function fetchTable(tableName, filterByFormula) {
+async function fetchTable(tableName, filterByFormula, maxRecords) {
   let allRecords = [], offset = null;
   do {
     const params = new URLSearchParams();
     if (filterByFormula) params.set('filterByFormula', filterByFormula);
+    if (maxRecords) params.set('maxRecords', maxRecords);
     if (offset) params.set('offset', offset);
     const qs = params.toString();
     const url = `${AIRTABLE_API}/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}${qs ? '?' + qs : ''}`;
@@ -579,6 +568,7 @@ async function fetchTable(tableName, filterByFormula) {
     const data = await response.json();
     allRecords = allRecords.concat(data.records || []);
     offset = data.offset || null;
+    if (maxRecords) break; // if we have a limit, only fetch one page
   } while (offset);
   return allRecords;
 }
@@ -596,6 +586,31 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
+// ── FETCH PRACTICE QUESTIONS FROM MAIN BANK ──
+// Queries the Questions table for reviewed questions linked to a prerequisite node,
+// returning up to 1 Easy, 1 Medium, 1 Hard.
+async function fetchPracticeQuestionsForNode(nodeId) {
+  const formula = `AND(
+    FIND('${nodeId}', ARRAYJOIN({Critical Prerequisite})),
+    {Review Status}='Reviewed - OK',
+    NOT({graph_type}='desmos')
+  )`;
+  const recs = await fetchTable('Questions', formula, 9);
+
+  const byDiff = { Easy: [], Medium: [], Hard: [] };
+  for (const r of recs) {
+    const diff = r.fields['Difficulty'] || '';
+    if (byDiff[diff]) byDiff[diff].push(r);
+  }
+
+  const pick = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+  return [
+    pick(byDiff['Easy']),
+    pick(byDiff['Medium']),
+    pick(byDiff['Hard'])
+  ].filter(Boolean);
+}
+
 function toggleStudyReveal(id, btn, kind) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -607,6 +622,39 @@ function toggleStudyReveal(id, btn, kind) {
 }
 
 const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
+
+// Renders a practice problem from the MAIN question bank (Questions table fields)
+function renderMainBankPP(rec, idx) {
+  const f = rec.fields || {};
+  const q = renderField(f['Question Text'] || '');
+  const correct = f['Correct Answer'] || '';
+  const diff = f['Difficulty'] || '';
+
+  // Fetch distractors from linked Distractors table via field
+  // Distractors are linked records — we'll use Wrong Answer fields if available,
+  // otherwise show just the correct answer
+  const wrongFields = ['Wrong Answer 1','Wrong Answer 2','Wrong Answer 3'];
+  const wrongs = wrongFields.map(wf => f[wf]).filter(Boolean);
+
+  const choices = fisherYatesShuffle([correct, ...wrongs]);
+  const letters = ['A','B','C','D'];
+  const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${renderField(c)}</div>`).join('');
+
+  const ansId = 'ans-' + idx;
+  const sol = renderField(f['Solution'] || '');
+  const diffClass = diff.toLowerCase();
+
+  return `<div class="gap-pp">
+    <span class="gap-pp-difficulty ${diffClass}">${escHTML(diff)}</span>
+    <div style="font-weight:600;margin-bottom:6px;">${q}</div>
+    <div style="margin:6px 0 8px;line-height:1.5;">${choicesHTML}</div>
+    <button class="study-reveal-btn" onclick="toggleStudyReveal('${ansId}',this)">Show answer &amp; solution</button>
+    <div class="study-answer" id="${ansId}">
+      <div class="ans-correct">Correct answer: ${renderField(correct)}</div>
+      ${sol ? `<div style="margin-top:6px;">${sol}</div>` : ''}
+    </div>
+  </div>`;
+}
 
 function renderPracticeProblemHTML(rec, idx) {
   const f = rec.fields || {};
@@ -720,7 +768,6 @@ async function renderSpecificMistakes(missed) {
       const el = document.getElementById(job.mountId);
       if (el) renderQuestionContent(el, job.qn);
     }
-    // Small delay ensures DOM is fully painted before MathJax scans
     setTimeout(() => renderMath(panel), 50);
   } catch (e) {
     console.error('Specific mistakes failed:', e);
@@ -728,29 +775,30 @@ async function renderSpecificMistakes(missed) {
   }
 }
 
-function renderGapCard(rec, count) {
+// ── UPDATED: renderGapCard now takes pre-fetched main-bank questions ──
+function renderGapCard(rec, count, practiceQs) {
   const f = rec.fields || {};
   const name    = f['Name'] || '(unnamed)';
-  // Use renderField so $...$ math is preserved and not HTML-escaped away
   const concept = renderField(f['Concept Explanation'] || '');
   const worked  = renderField(f['Worked Example'] || '');
-  const easy    = renderField(f['Practice Easy'] || '');
-  const medium  = renderField(f['Practice Medium'] || '');
-  const hard    = renderField(f['Practice Hard'] || '');
+
   let html = `<div class="gap-card">
     <div class="gap-card-header">
       <div class="gap-card-title">${escHTML(name)}</div>
       <div class="gap-card-count">appeared in ${count} missed question${count > 1 ? 's' : ''}</div>
     </div>
     <div class="gap-card-body">`;
+
   if (concept) html += `<div class="gap-section-label">The Concept</div><div class="gap-content">${concept}</div>`;
   if (worked)  html += `<div class="gap-section-label">Worked Example</div><div class="gap-example-box gap-content">${worked}</div>`;
-  if (easy || medium || hard) {
-    html += `<div class="gap-practice-label">Practice Problems</div>`;
-    if (easy)   html += `<div class="gap-pp"><span class="gap-pp-difficulty easy">Easy</span><div style="margin-top:8px;" class="gap-content">${easy}</div></div>`;
-    if (medium) html += `<div class="gap-pp"><span class="gap-pp-difficulty medium">Medium</span><div style="margin-top:8px;" class="gap-content">${medium}</div></div>`;
-    if (hard)   html += `<div class="gap-pp"><span class="gap-pp-difficulty hard">Hard</span><div style="margin-top:8px;" class="gap-content">${hard}</div></div>`;
+
+  if (practiceQs && practiceQs.length > 0) {
+    html += `<div class="gap-practice-label">Practice Problems — Same Concept</div>`;
+    practiceQs.forEach((qRec, i) => {
+      html += renderMainBankPP(qRec, `gap-${rec.id}-${i}`);
+    });
   }
+
   html += `</div></div>`;
   return html;
 }
@@ -782,18 +830,27 @@ async function renderFoundationalGaps(missedIds) {
     const topIds = [...tally.entries()].sort((a,b) => b[1]-a[1]).slice(0, 8).map(([nid]) => nid);
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
+
+    // Fetch practice questions from main bank for all nodes in parallel
+    const practiceMap = new Map();
+    await Promise.all(topIds.map(async nid => {
+      const qs = await fetchPracticeQuestionsForNode(nid);
+      practiceMap.set(nid, qs);
+    }));
+
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 1 preview</div>
       <p>These are the foundational concepts that appeared most often in your Day 1 missed questions.</p>
       <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after your Day 11 diagnostic.</p>
     </div>`;
+
     topIds.forEach(nid => {
       const rec = nodeMap.get(nid);
       if (!rec) return;
-      html += renderGapCard(rec, tally.get(nid));
+      html += renderGapCard(rec, tally.get(nid), practiceMap.get(nid) || []);
     });
+
     panel.innerHTML = html;
-    // Small delay ensures DOM is fully painted before MathJax scans
     setTimeout(() => renderMath(panel), 50);
   } catch (e) {
     console.error('Foundational gaps failed:', e);
