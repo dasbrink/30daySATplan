@@ -616,12 +616,8 @@ function renderMainBankPP(rec, idx) {
   const correct = f['Correct Answer'] || '';
   const diff = f['Difficulty'] || '';
 
-  // Fetch distractors from linked Distractors table via field
-  // Distractors are linked records — we'll use Wrong Answer fields if available,
-  // otherwise show just the correct answer
-  const wrongFields = ['Wrong Answer 1','Wrong Answer 2','Wrong Answer 3'];
-  const wrongs = wrongFields.map(wf => f[wf]).filter(Boolean);
-
+  // Main-bank distractors were pre-fetched onto rec._wrongAnswers
+  const wrongs = rec._wrongAnswers || [];
   const choices = fisherYatesShuffle([correct, ...wrongs]);
   const letters = ['A','B','C','D'];
   const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${renderField(c)}</div>`).join('');
@@ -734,9 +730,18 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   }
   const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   let chosen = [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
-  // Fallback: if no difficulty buckets matched but we have questions, take up to 3 of any difficulty
   if (chosen.length === 0 && recs.length > 0) {
     chosen = fisherYatesShuffle(recs).slice(0, 3);
+  }
+  // Attach distractor text to each chosen question (main-bank distractors are linked records)
+  const allDistIds = new Set();
+  chosen.forEach(r => (r.fields['Distractors'] || []).forEach(id => allDistIds.add(id)));
+  if (allDistIds.size > 0) {
+    const distRecs = await fetchRecordsByIds('Distractors', Array.from(allDistIds));
+    const distById = new Map(distRecs.map(d => [d.id, d.fields['Distractor Text'] || '']));
+    chosen.forEach(r => {
+      r._wrongAnswers = (r.fields['Distractors'] || []).map(id => distById.get(id)).filter(Boolean);
+    });
   }
   return chosen;
 }
