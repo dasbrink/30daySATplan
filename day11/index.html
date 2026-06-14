@@ -1266,10 +1266,30 @@ async function countCompletedTests() {
   } catch (e) { return 0; }
 }
 
+async function fetchMissedIdsFromResults() {
+  if (!currentUser) return [];
+  try {
+    const { data, error } = await supabaseClient.from('test_results')
+      .select('snapshot, test_number').eq('user_id', currentUser.id);
+    if (error || !data) return [];
+    const missed = new Set();
+    for (const row of data) {
+      const snap = row.snapshot || {};
+      const ids = snap.missedIds || (snap.missed || []).map(m => m.q && m.q.id).filter(Boolean);
+      ids.forEach(id => missed.add(id));
+    }
+    return Array.from(missed);
+  } catch (e) { return []; }
+}
+
 async function computeFoundationalDiagnosis() {
   if (!currentUser) return null;
-  // Day 11 IS the second test — always unlocked. No session count check needed.
-  const allMissedIds = await fetchAllMissedIdsForUser();
+  // Pull missed question IDs from test_results snapshots (test_number 1 and 2).
+  // The 30-day plan Supabase project does NOT have test_sessions/questions_seen tables.
+  const allMissedIds = await fetchMissedIdsFromResults();
+  if (allMissedIds.length === 0) {
+    return { status: 'unlocked', totalGapsFound: 0, gaps: [] };
+  }
   const critMap = await fetchCriticalsForQuestions(allMissedIds);
   const tally = new Map();
   for (const qid of allMissedIds) {
@@ -1627,10 +1647,9 @@ async function openFoundationalReport() {
   document.getElementById('study-title').textContent = 'Foundational gaps — Day 12 prep';
   document.getElementById('study-overlay').classList.add('open');
   body.innerHTML = `<div class="study-loading">Building your foundational report…</div>`;
-  const allMissedIds = await fetchAllMissedIdsForUser();
-  const completedTests = await countCompletedTests();
-  if (completedTests < 1) {
-    body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>We need data from at least 2 tests to identify your foundational gaps. Your Day 1 data is saved. After you complete more tests — starting with the Day 11 diagnostic — this report fills in automatically.</p></div>`;
+  const allMissedIds = await fetchMissedIdsFromResults();
+  if (allMissedIds.length === 0) {
+    body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>No missed questions found yet. Complete the Day 11 test to see your foundational gaps.</p></div>`;
     return;
   }
   try {
