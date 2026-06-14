@@ -609,26 +609,40 @@ function toggleStudyReveal(id, btn, kind) {
 
 const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
 
-// Renders a practice problem from the MAIN question bank (Questions table fields)
+// Normalise a raw Questions record into the shape renderQuestionContent expects
+function normaliseBankQuestion(rec) {
+  const f = rec.fields || {};
+  return {
+    text: f['Question Text'] || '',
+    visualSvg: f['Visual SVG'] || '',
+    graphType: f['graph_type'] || '',
+    graphExpressions: f['graph_expressions'] || '',
+    graphWindow: f['graph_window'] || '',
+    graphPoints: f['graph_points'] || '',
+    graphShowAxisNumbers: f['graph_show_axis_numbers'] === true,
+    graphShowGrid: f['graph_show_grid'] === true,
+    graphXAxisLabel: f['graph_x_axis_label'] || '',
+    graphYAxisLabel: f['graph_y_axis_label'] || ''
+  };
+}
+
+// Renders a practice problem from the MAIN question bank (Questions table fields).
+// Returns { html, mountId, question } so the caller can render the graph/text into the mount.
 function renderMainBankPP(rec, idx) {
   const f = rec.fields || {};
-  const q = renderField(f['Question Text'] || '');
   const correct = f['Correct Answer'] || '';
   const diff = f['Difficulty'] || '';
-
-  // Main-bank distractors were pre-fetched onto rec._wrongAnswers
   const wrongs = rec._wrongAnswers || [];
   const choices = fisherYatesShuffle([correct, ...wrongs]);
   const letters = ['A','B','C','D'];
   const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${renderField(c)}</div>`).join('');
-
   const ansId = 'ans-' + idx;
+  const mountId = 'ppmount-' + idx;
   const sol = renderField(f['Solution'] || '');
   const diffClass = diff.toLowerCase();
-
-  return `<div class="gap-pp">
+  const html = `<div class="gap-pp">
     <span class="gap-pp-difficulty ${diffClass}">${escHTML(diff)}</span>
-    <div style="font-weight:600;margin-bottom:6px;">${q}</div>
+    <div class="study-q-mount" id="${mountId}" style="margin-bottom:6px;"></div>
     <div style="margin:6px 0 8px;line-height:1.5;">${choicesHTML}</div>
     <button class="study-reveal-btn" onclick="toggleStudyReveal('${ansId}',this)">Show answer &amp; solution</button>
     <div class="study-answer" id="${ansId}">
@@ -636,6 +650,7 @@ function renderMainBankPP(rec, idx) {
       ${sol ? `<div style="margin-top:6px;">${sol}</div>` : ''}
     </div>
   </div>`;
+  return { html, mountId, question: normaliseBankQuestion(rec) };
 }
 
 function renderPracticeProblemHTML(rec, idx) {
@@ -718,7 +733,6 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   const formula = `AND(
     FIND('${esc}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
-    OR(NOT({graph_type}), {graph_type}=''),
     NOT(RECORD_ID()='${excludeQId || ''}')
   )`;
   const recs = await fetchTable('Questions', formula, 30);
@@ -800,7 +814,11 @@ async function renderSpecificMistakes(missed) {
         const ppList = ppByMiscId.get(mId) || [];
         if (ppList.length > 0) {
           html += `<div class="study-practice-header">Practice Problems — Same Concept</div>`;
-          for (const pp of ppList) html += renderMainBankPP(pp, uid++);
+          for (const pp of ppList) {
+            const block = renderMainBankPP(pp, uid++);
+            html += block.html;
+            mountJobs.push({ mountId: block.mountId, qn: block.question });
+          }
         }
       }
       html += `</div></div>`;
