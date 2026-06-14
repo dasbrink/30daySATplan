@@ -81,11 +81,12 @@ nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify
 .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s;font-family:'Inter',sans-serif}
 .tool-btn:hover{background:#1a3a5c;color:#fff}
 
-#desmos-wrap{position:fixed;bottom:0;right:0;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:none;flex-direction:column}
-.desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
+#desmos-wrap{position:fixed;bottom:16px;right:16px;width:420px;height:360px;min-width:280px;min-height:220px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.18);border-radius:10px;z-index:1000;display:none;flex-direction:column;resize:both;overflow:hidden}
+.desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:10px 10px 0 0;cursor:grab;user-select:none;flex-shrink:0}
+.desmos-header:active{cursor:grabbing}
 .desmos-header span{font-size:0.85rem;font-weight:600}
 .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
-#desmos-container{flex:1}
+#desmos-container{flex:1;min-height:0}
 #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
 #formula-modal.open{display:flex}
 .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
@@ -643,6 +644,48 @@ function toggleCalc() {
     desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'));
   }
 }
+
+// ── DRAGGABLE DESMOS ──
+(function() {
+  let dragEl, startX, startY, origLeft, origTop;
+  function onMouseMove(e) {
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    let newLeft = origLeft + dx;
+    let newTop  = origTop  + dy;
+    // Clamp inside viewport
+    newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - dragEl.offsetWidth));
+    newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - dragEl.offsetHeight));
+    dragEl.style.left   = newLeft + 'px';
+    dragEl.style.top    = newTop  + 'px';
+    dragEl.style.right  = 'auto';
+    dragEl.style.bottom = 'auto';
+  }
+  function onMouseUp() {
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.desmos-header');
+    if (!header) return;
+    header.addEventListener('mousedown', function(e) {
+      if (e.target.classList.contains('desmos-close')) return;
+      dragEl  = document.getElementById('desmos-wrap');
+      // Convert right/bottom positioning to left/top before dragging
+      const rect = dragEl.getBoundingClientRect();
+      dragEl.style.left   = rect.left + 'px';
+      dragEl.style.top    = rect.top  + 'px';
+      dragEl.style.right  = 'auto';
+      dragEl.style.bottom = 'auto';
+      startX   = e.clientX;
+      startY   = e.clientY;
+      origLeft = rect.left;
+      origTop  = rect.top;
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup',   onMouseUp);
+    });
+  });
+})();
 
 // ── BOOT ──
 document.addEventListener('DOMContentLoaded', async function() {
