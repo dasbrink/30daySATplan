@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 13 — Specific Weaknesses | 30-Day SAT Plan</title>
+<title>Day 13 — Specific Mistakes | 30-Day SAT Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
 <script src="https://api.desmos.com/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
@@ -137,10 +137,10 @@
 <!-- SETUP SCREEN -->
 <div class="screen active centered" id="screen-setup">
   <div class="setup-card">
-    <div class="day-badge">Day 13 — Specific Weaknesses</div>
-    <h1>Your Weak Skills</h1>
-    <p>Today you'll practice questions from the exact skills you've been getting wrong. These are pulled directly from your Day 1 and Day 11 diagnostic results.</p>
-    <div id="weak-skills-area" class="loading-weak">Finding your weak skills…</div>
+    <div class="day-badge">Day 13 — Specific Mistakes</div>
+    <h1>Your Specific Mistakes</h1>
+    <p>Today you'll practice questions from the exact skills behind your specific mistakes — the ones you've been getting wrong. These are pulled directly from your Day 1 and Day 11 diagnostic results.</p>
+    <div id="weak-skills-area" class="loading-weak">Finding your specific mistakes…</div>
     <div class="diff-label">Choose difficulty</div>
     <div class="diff-row">
       <button class="diff-btn easy" onclick="setDiff('Easy',this)">Easy</button>
@@ -155,7 +155,7 @@
 <div class="screen centered" id="screen-no-data">
   <div class="no-data-card">
     <h2>No diagnostic data yet</h2>
-    <p>Complete your Day 1 and Day 11 diagnostics first. Your weak skills will appear here automatically once those tests are done.</p>
+    <p>Complete your Day 1 and Day 11 diagnostics first. Your specific mistakes will appear here automatically once those tests are done.</p>
     <button class="btn-primary" style="margin-top:8px" onclick="window.location.href='/dashboard/'">Back to Dashboard</button>
   </div>
 </div>
@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('instr-list').innerHTML = [
     'This session is <strong>untimed</strong> — there is no clock.',
-    'Questions are from your <strong>specific weak skills</strong> identified in your diagnostics.',
+    'Questions target your <strong>specific mistakes</strong> identified in your diagnostics.',
     'Spend at least <strong>2 minutes</strong> on each question before submitting.',
     'After the session, review every wrong answer — read the solution carefully.',
     'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.'
@@ -302,7 +302,7 @@ async function loadWeakSkills() {
     }
 
     if (missedIdSet.size === 0) {
-      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific weaknesses. Try any domain to practice.</div>';
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific mistakes. Try any domain to practice.</div>';
       document.getElementById('btn-start').disabled = false;
       return;
     }
@@ -325,7 +325,7 @@ async function loadWeakSkills() {
     }
 
     if (skillMissCount.size === 0) {
-      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific weaknesses. Try any domain to practice.</div>';
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific mistakes. Try any domain to practice.</div>';
       document.getElementById('btn-start').disabled = false;
       return;
     }
@@ -357,7 +357,7 @@ async function loadWeakSkills() {
 
   } catch(e) {
     console.error(e);
-    area.innerHTML = '<div style="color:#c62828">Could not load your weak skills. Please refresh.</div>';
+    area.innerHTML = '<div style="color:#c62828">Could not load your specific mistakes. Please refresh.</div>';
   }
 }
 
@@ -411,7 +411,7 @@ async function loadAndStart() {
     }
 
     if (allQuestions.length === 0) {
-      alert('No questions found for your weak skills at this difficulty. Try a different difficulty level.');
+      alert('No questions found for your specific mistakes at this difficulty. Try a different difficulty level.');
       show('screen-setup');
       return;
     }
@@ -536,7 +536,7 @@ async function showResults() {
   document.getElementById('score-correct').textContent = correct;
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
-  document.getElementById('results-subtitle').textContent = `Specific Weaknesses · ${questions.length} questions · ${selectedDiff}`;
+  document.getElementById('results-subtitle').textContent = `Specific Mistakes · ${questions.length} questions · ${selectedDiff}`;
 
   await markDayComplete();
 
@@ -547,7 +547,7 @@ async function showResults() {
   if (missed.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600;font-size:1rem">Perfect score! All answers correct.</div>';
   } else {
-    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each solution carefully. These are your weak spots — spending time here now will pay off on the real test.</p>`;
+    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each solution carefully. These are your specific mistakes — spending time here now will pay off on the real test.</p>`;
     missed.forEach(a => {
       const q = questions[a.qIndex];
       const card = document.createElement('div');
