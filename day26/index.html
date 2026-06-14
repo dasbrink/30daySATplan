@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 26 — Foundational Gaps | 30-Day SAT Plan</title>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #1a3a5c;
+  --navy-dark: #0f2540;
+  --gold: #c9902a;
+  --cream: #f5f5f0;
+  --white: #ffffff;
+  --ink: #1a1a1a;
+  --green: #1a7a4c;
+  --red: #c65d4e;
+  --border: #e0e0e0;
+}
+body { font-family: Georgia, 'Times New Roman', serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+.topbar { background: var(--navy); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.topbar-logo { font-size: 0.95rem; font-weight: 700; color: white; font-family: -apple-system, Segoe UI, sans-serif; }
+.topbar-logo span { color: var(--gold); }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.topbar-day { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); font-family: -apple-system, Segoe UI, sans-serif; }
+.topbar-back { font-size: 0.82rem; color: rgba(255,255,255,0.6); font-family: -apple-system, Segoe UI, sans-serif; background: none; border: none; cursor: pointer; text-decoration: underline; }
+
+.page-body { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+
+/* LEGO BANNER */
+.lego-banner {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.lego-banner::before {
+  content: '🧱';
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.5rem;
+  opacity: 0.25;
+}
+.lego-banner-title {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.lego-banner p {
+  color: rgba(255,255,255,0.85);
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  margin: 0 0 8px;
+  max-width: 620px;
+}
+.lego-banner p:last-child { margin-bottom: 0; }
+.lego-banner strong { color: white; }
+
+/* STATE BOXES */
+.state-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 40px; text-align: center; font-family: -apple-system, Segoe UI, sans-serif; color: #666; line-height: 1.6; }
+.state-box h3 { color: var(--navy); margin-bottom: 8px; font-size: 1.1rem; }
+.state-box a { display: inline-block; margin-top: 16px; padding: 10px 22px; background: var(--navy); color: white; border-radius: 7px; font-weight: 700; text-decoration: none; font-size: 0.9rem; }
+
+/* PROGRESS HEADER */
+.progress-header {
+  font-family: -apple-system, Segoe UI, sans-serif;
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 6px;
+}
+.progress-bar-wrap { background: var(--border); border-radius: 4px; height: 6px; margin-bottom: 20px; }
+.progress-bar { background: var(--navy); height: 6px; border-radius: 4px; transition: width 0.4s; }
+
+/* GAP CARD — matches Day 2 style */
+.gap-card { border: 1px solid #e2e2dc; border-radius: 10px; margin-bottom: 24px; background: white; overflow: hidden; }
+.gap-card-header { background: var(--navy); color: white; padding: 14px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.gap-card-title { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.95rem; line-height: 1.4; }
+.gap-card-count { font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.75rem; color: var(--gold); font-weight: 600; white-space: nowrap; margin-top: 2px; }
+.gap-card-body { padding: 18px 20px; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; color: #333; }
+
+.gap-section-label { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin: 14px 0 6px; }
+.gap-section-label:first-child { margin-top: 0; }
+.gap-content { font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; color: #333; }
+.gap-example-box { background: #f5f5f0; border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 8px 0; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; }
+
+.gap-practice-label { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin: 16px 0 8px; padding-top: 14px; border-top: 2px solid #e8f5ee; }
+.gap-pp { background: #fafafa; border: 1px solid #ececec; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.6; }
+.gap-pp-difficulty { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; vertical-align: middle; }
+.gap-pp-difficulty.easy   { background: #e8f5e9; color: #1b5e20; }
+.gap-pp-difficulty.medium { background: #fff8e1; color: #8a6515; }
+.gap-pp-difficulty.hard   { background: #fce4ec; color: #880e4f; }
+
+/* DONE SECTION */
+.done-section { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; }
+.done-section p { font-family: -apple-system, Segoe UI, sans-serif; color: #555; margin-bottom: 16px; font-size: 0.9rem; }
+.btn-done { padding: 14px 32px; background: var(--green); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; font-family: Georgia, serif; cursor: pointer; transition: background 0.2s; }
+.btn-done:hover { background: #145c38; }
+.btn-done:disabled { background: #ccc; cursor: default; }
+
+@media (max-width: 600px) {
+  .page-body { padding: 20px 14px 40px; }
+  .lego-banner { padding: 18px 20px; }
+  .lego-banner::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">30-Day <span>SAT</span> Math Plan</div>
+  <div class="topbar-right">
+    <span class="topbar-day">Day 26 of 30</span>
+    <button class="topbar-back" onclick="window.location.href='/dashboard/'">Dashboard</button>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <div class="lego-banner">
+    <div class="lego-banner-title">Day 26 — Fix Your Foundational Gaps</div>
+    <p>Think of SAT Math like <strong>Lego blocks</strong>. Every concept you learn sits on top of earlier ones. If a block near the bottom is missing or wobbly, everything above it becomes unstable — no matter how hard you study the advanced stuff.</p>
+    <p>Today is about finding and fixing those missing blocks. <strong>This is the most valuable work you can do.</strong> One hour here is worth more than five hours drilling practice questions on shaky foundations.</p>
+  </div>
+
+  <div class="progress-header" id="progress-label">Loading your foundational gaps…</div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+
+  <div id="gaps-container">
+    <div class="state-box"><h3>Loading your foundational gaps…</h3></div>
+  </div>
+
+  <div class="done-section">
+    <p>Work through every gap above before marking this day complete.</p>
+    <button class="btn-done" id="btn-mark-done" onclick="markDayDone()">Mark Day 26 Complete</button>
+  </div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
+const AIRTABLE_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
+const AIRTABLE_BASE_ID = 'app4WLsifRZPgtosg';
+const AIRTABLE_API = 'https://api.airtable.com/v0';
+const DAY_NUMBER = 26;
+
+const DIAGNOSTIC_TEST_NUMBERS = [1, 2, 3];
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let currentUser = null;
+
+function escHTML(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderMathInDiv(el) {
+  if (!el) return;
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    try { window.MathJax.typesetPromise([el]).catch(e => {}); } catch(e) {}
+  } else { setTimeout(() => renderMathInDiv(el), 200); }
+}
+
+async function fetchTable(tableName, filterByFormula) {
+  let allRecords = [], offset = null;
+  do {
+    const params = new URLSearchParams();
+    if (filterByFormula) params.set('filterByFormula', filterByFormula);
+    if (offset) params.set('offset', offset);
+    const qs = params.toString();
+    const url = `${AIRTABLE_API}/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}${qs ? '?' + qs : ''}`;
+    const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+    const data = await response.json();
+    allRecords = allRecords.concat(data.records || []);
+    offset = data.offset || null;
+  } while (offset);
+  return allRecords;
+}
+
+async function fetchRecordsByIds(table, ids) {
+  if (!ids || ids.length === 0) return [];
+  const CHUNK = 50, chunks = [];
+  for (let i = 0; i < ids.length; i += CHUNK) chunks.push(ids.slice(i, i + CHUNK));
+  const results = await Promise.all(chunks.map(chunk => {
+    const cond = chunk.map(id => `RECORD_ID()='${id}'`).join(',');
+    return fetchTable(table, `OR(${cond})`);
+  }));
+  const seen = new Set(), flat = [];
+  for (const batch of results) for (const rec of batch) if (!seen.has(rec.id)) { seen.add(rec.id); flat.push(rec); }
+  return flat;
+}
+
+function renderGapCard(rec, count, cardIndex) {
+  const f = rec.fields || {};
+  const name = f['Name'] || '(unnamed)';
+  const concept = (f['Concept Explanation'] || '').replace(/\n/g, '<br>');
+  const worked  = (f['Worked Example'] || '').replace(/\n/g, '<br>');
+  const easy    = (f['Practice Easy'] || '').replace(/\n/g, '<br>');
+  const medium  = (f['Practice Medium'] || '').replace(/\n/g, '<br>');
+  const hard    = (f['Practice Hard'] || '').replace(/\n/g, '<br>');
+
+  const cid = 'gap-' + cardIndex;
+
+  let html = `<div class="gap-card" id="${cid}">
+    <div class="gap-card-header">
+      <div class="gap-card-title">${escHTML(name)}</div>
+      <div class="gap-card-count">missed in ${count} question${count > 1 ? 's' : ''}</div>
+    </div>
+    <div class="gap-card-body">`;
+
+  if (concept) {
+    html += `<div class="gap-section-label">The Concept</div>
+             <div class="gap-content">${concept}</div>`;
+  }
+  if (worked) {
+    html += `<div class="gap-section-label">Worked Example</div>
+             <div class="gap-example-box gap-content">${worked}</div>`;
+  }
+  if (easy || medium || hard) {
+    html += `<div class="gap-practice-label">Practice Problems</div>`;
+    if (easy)   html += `<div class="gap-pp"><span class="gap-pp-difficulty easy">Easy</span><div style="margin-top:8px;" class="gap-content">${easy}</div></div>`;
+    if (medium) html += `<div class="gap-pp"><span class="gap-pp-difficulty medium">Medium</span><div style="margin-top:8px;" class="gap-content">${medium}</div></div>`;
+    if (hard)   html += `<div class="gap-pp"><span class="gap-pp-difficulty hard">Hard</span><div style="margin-top:8px;" class="gap-content">${hard}</div></div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+}
+
+async function loadGaps() {
+  const container = document.getElementById('gaps-container');
+  const progressLabel = document.getElementById('progress-label');
+  const progressBar = document.getElementById('progress-bar');
+
+  try {
+    // Pull missed question IDs from all diagnostic snapshots
+    const { data: results, error } = await supabaseClient
+      .from('test_results')
+      .select('snapshot')
+      .eq('user_id', currentUser.id)
+      .in('test_number', DIAGNOSTIC_TEST_NUMBERS);
+
+    if (error || !results || results.length === 0) {
+      container.innerHTML = `<div class="state-box">
+        <h3>No diagnostic data yet</h3>
+        <p>Complete your Day 1, Day 11, and Day 23 diagnostics first. Your foundational gaps will appear here automatically.</p>
+        <a href="/day1/">Go to Day 1</a>
+      </div>`;
+      progressLabel.textContent = 'No data available';
+      return;
+    }
+
+    // Collect all missed question Airtable record IDs
+    const missedIds = [];
+    for (const row of results) {
+      const snap = row.snapshot;
+      if (!snap) continue;
+      const missed = snap.missed || [];
+      for (const item of missed) {
+        const q = item.q || item;
+        if (q.id) missedIds.push(q.id);
+      }
+    }
+
+    if (missedIds.length === 0) {
+      container.innerHTML = `<div class="state-box">
+        <h3>No missed questions found</h3>
+        <p>You haven't missed enough questions across your diagnostics to identify foundational gaps yet. Keep going!</p>
+      </div>`;
+      progressLabel.textContent = 'No gaps to show';
+      return;
+    }
+
+    progressLabel.textContent = 'Analysing your missed questions…';
+    progressBar.style.width = '30%';
+
+    // Fetch Question records to get Critical Prerequisite links
+    const CHUNK = 50;
+    const chunks = [];
+    for (let i = 0; i < missedIds.length; i += CHUNK) chunks.push(missedIds.slice(i, i + CHUNK));
+    const qResults = await Promise.all(chunks.map(chunk => {
+      const cond = chunk.map(id => `RECORD_ID()='${id}'`).join(',');
+      return fetchTable('Questions', `OR(${cond})`);
+    }));
+    const qRecs = qResults.flat();
+
+    progressBar.style.width = '60%';
+
+    // Tally CRIT prerequisite nodes
+    const tally = new Map();
+    for (const rec of qRecs) {
+      const crits = rec.fields['Critical Prerequisite'] || [];
+      for (const nid of new Set(crits)) {
+        tally.set(nid, (tally.get(nid) || 0) + 1);
+      }
+    }
+
+    if (tally.size === 0) {
+      container.innerHTML = `<div class="state-box">
+        <h3>No foundational gaps identified</h3>
+        <p>Not enough prerequisite data from your diagnostics to identify foundational gaps. Your specific weaknesses on Day 13 are the best place to focus today.</p>
+      </div>`;
+      progressLabel.textContent = 'No foundational gaps found';
+      progressBar.style.width = '100%';
+      return;
+    }
+
+    // Top 8 nodes by frequency
+    const topIds = [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([nid]) => nid);
+    const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
+    const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
+
+    progressBar.style.width = '100%';
+    progressLabel.textContent = `${topIds.length} foundational gap${topIds.length !== 1 ? 's' : ''} identified`;
+
+    let html = '';
+    topIds.forEach((nid, i) => {
+      const rec = nodeMap.get(nid);
+      if (!rec) return;
+      html += renderGapCard(rec, tally.get(nid), i);
+    });
+
+    container.innerHTML = html || `<div class="state-box"><h3>No gap content available yet</h3><p>Prerequisite content is still being added. Check back soon.</p></div>`;
+    renderMathInDiv(container);
+
+  } catch(e) {
+    console.error('loadGaps failed:', e);
+    container.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Something went wrong. Please refresh and try again.</p></div>`;
+    progressLabel.textContent = 'Error loading gaps';
+  }
+}
+
+async function markDayDone() {
+  const btn = document.getElementById('btn-mark-done');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    await supabaseClient.from('day_progress').upsert(
+      { user_id: currentUser.id, day_number: DAY_NUMBER, completed_at: new Date().toISOString() },
+      { onConflict: 'user_id,day_number' }
+    );
+    btn.textContent = 'Day 26 Complete!';
+    btn.style.background = '#1a7a4c';
+    setTimeout(() => { window.location.href = '/dashboard/'; }, 1200);
+  } catch(e) {
+    console.error(e);
+    btn.disabled = false;
+    btn.textContent = 'Mark Day 26 Complete';
+    alert('Could not save progress. Please try again.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) { window.location.href = '/dashboard/'; return; }
+  currentUser = session.user;
+  await loadGaps();
+});
+</script>
+</body>
+</html>
