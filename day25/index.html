@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 25 — Specific Weaknesses | 30-Day SAT Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<script src="https://api.desmos.com/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
+  nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;text-decoration:none}
+  .nav-day{color:#d4a04a;font-size:0.85rem;font-weight:600}
+  .nav-back{color:rgba(255,255,255,0.6);font-size:0.82rem;background:none;border:none;cursor:pointer;text-decoration:underline}
+  .screen{display:none;min-height:calc(100vh - 52px)}
+  .screen.active{display:block}
+  .centered{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
+
+  /* SETUP */
+  .setup-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
+  .day-badge{display:inline-block;background:#1a3a5c;color:#d4a04a;font-family:'Playfair Display',serif;font-size:0.85rem;padding:4px 14px;border-radius:20px;margin-bottom:20px}
+  .setup-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:12px}
+  .setup-card p{color:#555;font-size:0.95rem;line-height:1.6;margin-bottom:20px}
+  .loading-weak{background:#f0f4f8;border-radius:8px;padding:16px;margin-bottom:20px;font-size:0.9rem;color:#555;text-align:center}
+  .weak-skills-list{margin-bottom:24px}
+  .weak-skill-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:8px;background:#f8f8f8;border:1px solid #e8e8e8;margin-bottom:8px;font-size:0.9rem}
+  .weak-skill-name{color:#1a3a5c;font-weight:500}
+  .weak-skill-pct{color:#c62828;font-weight:700;font-size:0.85rem}
+
+  /* DIFFICULTY PICKER */
+  .diff-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:10px}
+  .diff-row{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap}
+  .diff-btn{flex:1;min-width:80px;padding:10px 6px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;color:#555;transition:all 0.15s;text-align:center}
+  .diff-btn:hover{border-color:#1a3a5c;color:#1a3a5c}
+  .diff-btn.active{border-color:#1a3a5c;background:#1a3a5c;color:#fff}
+  .diff-btn.easy.active{border-color:#2e7d32;background:#2e7d32;color:#fff}
+  .diff-btn.medium.active{border-color:#e65100;background:#e65100;color:#fff}
+  .diff-btn.hard.active{border-color:#c62828;background:#c62828;color:#fff}
+
+  .btn-primary{background:#1a3a5c;color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;transition:background 0.2s}
+  .btn-primary:hover{background:#0f2540}
+  .btn-primary:disabled{background:#aaa;cursor:default}
+  .btn-secondary{background:#fff;color:#1a3a5c;border:2px solid #1a3a5c;padding:12px 28px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+  .btn-secondary:hover{background:#1a3a5c;color:#fff}
+
+  /* INSTRUCTIONS */
+  .instr-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
+  .instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
+  .instr-list{list-style:none;padding:0;margin-bottom:28px}
+  .instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
+  .instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
+  .instr-list li:last-child{border-bottom:none}
+
+  /* QUESTION SCREEN */
+  #screen-question{padding:0}
+  .q-layout{display:grid;grid-template-columns:1fr 340px;min-height:calc(100vh - 52px)}
+  @media(max-width:768px){.q-layout{grid-template-columns:1fr}.q-sidebar{display:none}}
+  .q-main{padding:28px 32px;overflow-y:auto;background:#f5f5f0}
+  .q-progress-bar-wrap{background:#e0e0e0;border-radius:4px;height:6px;margin-bottom:20px}
+  .q-progress-bar{background:#1a3a5c;height:6px;border-radius:4px;transition:width 0.3s}
+  .q-counter{font-size:0.85rem;color:#777;margin-bottom:16px}
+  .q-skill-tag{display:inline-block;background:#e8f0f8;color:#1a3a5c;font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
+  .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+  .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+  .answer-options{display:flex;flex-direction:column;gap:10px}
+  .answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a}
+  .answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
+  .answer-btn.selected{border-color:#1a3a5c;background:#e8f0f8}
+  .answer-btn.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+  .answer-btn.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+  .answer-btn.show-correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+  .answer-label{font-weight:700;min-width:22px}
+  .cross-out-btn{font-size:0.7rem;color:#aaa;border:1px solid #ddd;background:#fff;border-radius:4px;padding:1px 6px;cursor:pointer;margin-left:auto;flex-shrink:0;margin-top:2px}
+  .answer-btn.crossed .answer-label,.answer-btn.crossed .answer-text{text-decoration:line-through;opacity:0.5}
+  .submit-row{margin-top:16px;display:flex;justify-content:flex-end}
+  .btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer}
+  .btn-submit:disabled{background:#aaa;cursor:default}
+  .q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
+  .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+  .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
+  .tool-btn:hover{background:#1a3a5c;color:#fff}
+  #desmos-wrap{position:fixed;bottom:0;right:0;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:none;flex-direction:column}
+  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
+  .desmos-header span{font-size:0.85rem;font-weight:600}
+  .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
+  #desmos-container{flex:1}
+  #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
+  #formula-modal.open{display:flex}
+  .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
+  .formula-inner img{width:100%;border-radius:6px}
+  .formula-close{position:absolute;top:10px;right:14px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:#555}
+
+  /* RESULTS */
+  #screen-results{padding:28px 20px;max-width:720px;margin:0 auto}
+  .results-header{text-align:center;margin-bottom:28px}
+  .results-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a3a5c;margin-bottom:6px}
+  .score-summary{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
+  .score-box{background:#fff;border-radius:10px;padding:20px 28px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);min-width:120px}
+  .score-box .num{font-family:'Playfair Display',serif;font-size:2rem;color:#1a3a5c}
+  .score-box .lbl{font-size:0.8rem;color:#888;margin-top:4px}
+  .results-actions{display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+  .missed-section h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:#1a3a5c;margin-bottom:16px}
+  .missed-card{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.07);overflow:hidden}
+  .missed-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .missed-q-text{font-size:0.9rem;color:#333;flex:1;line-height:1.4}
+  .missed-badge{background:#ffebee;color:#c62828;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+  .expand-arrow{color:#aaa;font-size:0.8rem;margin-top:2px}
+  .missed-body{display:none;padding:0 20px 20px;border-top:1px solid #f0f0f0}
+  .missed-body.open{display:block}
+  .answer-row{font-size:0.88rem;padding:6px 0;color:#555}
+  .answer-row.your-answer{color:#c62828}
+  .answer-row.right-answer{color:#2e7d32;font-weight:600}
+  .solution-box{background:#f5f5f0;border-radius:6px;padding:14px;margin:12px 0;font-size:0.88rem;line-height:1.6;color:#333}
+  .tutorial-box{margin-top:12px;font-size:0.88rem;color:#555;line-height:1.6}
+  .tutorial-box h4{font-size:0.85rem;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+  .loading-spinner{color:#888;font-style:italic;font-size:0.85rem}
+  .complete-banner{display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:14px 20px;text-align:center;color:#2e7d32;font-weight:600;font-size:0.95rem;margin-bottom:20px}
+  .complete-banner.show{display:block}
+  .no-data-card{background:#fff;border-radius:12px;padding:40px;max-width:520px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08);text-align:center}
+  .no-data-card h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1a3a5c;margin-bottom:12px}
+  .no-data-card p{color:#555;font-size:0.95rem;line-height:1.6;margin-bottom:20px}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">30-Day SAT Math Plan</span>
+  <div style="display:flex;align-items:center;gap:16px">
+    <span class="nav-day">Day 25 of 30</span>
+    <button class="nav-back" onclick="window.location.href='/dashboard/'">Dashboard</button>
+  </div>
+</nav>
+
+<!-- SETUP SCREEN -->
+<div class="screen active centered" id="screen-setup">
+  <div class="setup-card">
+    <div class="day-badge">Day 25 — Specific Weaknesses</div>
+    <h1>Your Weak Skills</h1>
+    <p>Today you'll practice questions from the exact skills you've been getting wrong. These are pulled directly from your Day 1, Day 11, and Day 23 diagnostic results.</p>
+    <div id="weak-skills-area" class="loading-weak">Finding your weak skills…</div>
+    <div class="diff-label">Choose difficulty</div>
+    <div class="diff-row">
+      <button class="diff-btn easy" onclick="setDiff('Easy',this)">Easy</button>
+      <button class="diff-btn medium active" onclick="setDiff('Medium',this)">Medium</button>
+      <button class="diff-btn hard" onclick="setDiff('Hard',this)">Hard</button>
+    </div>
+    <button class="btn-primary" id="btn-start" onclick="goToInstructions()" disabled>Start Session</button>
+  </div>
+</div>
+
+<!-- NO DATA SCREEN -->
+<div class="screen centered" id="screen-no-data">
+  <div class="no-data-card">
+    <h2>No diagnostic data yet</h2>
+    <p>Complete your Day 1, Day 11, and Day 23 diagnostics first. Your weak skills will appear here automatically once those tests are done.</p>
+    <button class="btn-primary" style="margin-top:8px" onclick="window.location.href='/dashboard/'">Back to Dashboard</button>
+  </div>
+</div>
+
+<!-- INSTRUCTIONS SCREEN -->
+<div class="screen centered" id="screen-instructions">
+  <div class="instr-card">
+    <h2>Before You Start</h2>
+    <ul class="instr-list" id="instr-list"></ul>
+    <button class="btn-primary" id="btn-begin" onclick="loadAndStart()">Begin Session</button>
+  </div>
+</div>
+
+<!-- LOADING SCREEN -->
+<div class="screen centered" id="screen-loading">
+  <div style="text-align:center;color:#1a3a5c;font-family:'Playfair Display',serif;font-size:1.3rem">Loading questions…</div>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div class="screen" id="screen-question">
+  <div class="q-layout">
+    <div class="q-main">
+      <div class="q-progress-bar-wrap"><div class="q-progress-bar" id="progress-bar" style="width:0%"></div></div>
+      <div class="q-counter" id="q-counter">Question 1</div>
+      <div class="q-skill-tag" id="q-skill-tag"></div>
+      <div class="q-card">
+        <div class="q-text" id="q-text"></div>
+        <div class="answer-options" id="answer-options"></div>
+      </div>
+      <div class="submit-row">
+        <button class="btn-submit" id="btn-submit" disabled onclick="submitAnswer()">Submit Answer</button>
+      </div>
+    </div>
+    <div class="q-sidebar">
+      <div>
+        <div class="sidebar-section">Tools</div>
+        <button class="tool-btn" id="btn-calc" onclick="toggleCalc()">Graphing Calculator</button>
+        <button class="tool-btn" style="margin-top:8px" id="btn-formula" onclick="document.getElementById('formula-modal').classList.add('open')">Formula Sheet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div class="screen" id="screen-results">
+  <div class="complete-banner" id="complete-banner">Day 25 complete! Progress saved.</div>
+  <div class="results-header">
+    <h2>Session Complete</h2>
+    <p style="color:#666;font-size:0.95rem" id="results-subtitle"></p>
+  </div>
+  <div class="score-summary">
+    <div class="score-box"><div class="num" id="score-correct">—</div><div class="lbl">Correct</div></div>
+    <div class="score-box"><div class="num" id="score-wrong">—</div><div class="lbl">Incorrect</div></div>
+    <div class="score-box"><div class="num" id="score-pct">—</div><div class="lbl">Score</div></div>
+  </div>
+  <div class="results-actions">
+    <button class="btn-primary" id="btn-more" onclick="restartSetup()">Do More Questions</button>
+    <button class="btn-secondary" onclick="window.location.href='/dashboard/'">Back to Dashboard</button>
+  </div>
+  <div class="missed-section" id="missed-section"></div>
+</div>
+
+<!-- Desmos -->
+<div id="desmos-wrap" style="display:none;flex-direction:column">
+  <div class="desmos-header"><span>Graphing Calculator</span><button class="desmos-close" onclick="toggleCalc()">✕</button></div>
+  <div id="desmos-container"></div>
+</div>
+
+<!-- Formula sheet modal -->
+<div id="formula-modal">
+  <div class="formula-inner">
+    <button class="formula-close" onclick="document.getElementById('formula-modal').classList.remove('open')">✕</button>
+    <img src="/formula_sheet.png" alt="Formula Sheet">
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
+const AT_BASE = 'app4WLsifRZPgtosg';
+const AT_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
+const DAY_NUMBER = 25;
+
+const DIAGNOSTIC_TEST_NUMBERS = [1, 2, 3];
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let selectedDiff = 'Medium';
+let weakSkillIds = [];
+let weakSkillNames = [];
+let questions = [];
+let currentIndex = 0;
+let userAnswers = [];
+let selectedAnswer = null;
+let submitted = false;
+let desmosCalc = null;
+let sessionUser = null;
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) { window.location.href = '/dashboard/'; return; }
+  sessionUser = session.user;
+
+  document.getElementById('instr-list').innerHTML = [
+    'This session is <strong>untimed</strong> — there is no clock.',
+    'Questions are from your <strong>specific weak skills</strong> identified in your diagnostics.',
+    'Spend at least <strong>2 minutes</strong> on each question before submitting.',
+    'After the session, review every wrong answer — read the solution carefully.',
+    'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.'
+  ].map(t => `<li>${t}</li>`).join('');
+
+  await loadWeakSkills();
+});
+
+// ── LOAD WEAK SKILLS FROM DIAGNOSTICS ──
+async function loadWeakSkills() {
+  const area = document.getElementById('weak-skills-area');
+  try {
+    // Pull snapshots from all relevant diagnostics
+    const { data: results, error } = await supabaseClient
+      .from('test_results')
+      .select('snapshot')
+      .eq('user_id', sessionUser.id)
+      .in('test_number', DIAGNOSTIC_TEST_NUMBERS);
+
+    if (error || !results || results.length === 0) {
+      show('screen-no-data');
+      return;
+    }
+
+    // Tally missed questions per skill
+    const skillMissCount = new Map();
+    const skillTotalCount = new Map();
+
+    for (const row of results) {
+      const snap = row.snapshot;
+      if (!snap) continue;
+      const missed = snap.missed || [];
+      const all = snap.questions || [];
+
+      // Count totals per skill from the snapshot
+      for (const item of all) {
+        const q = item.q || item;
+        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
+        if (!skillId) continue;
+        skillTotalCount.set(skillId, (skillTotalCount.get(skillId) || 0) + 1);
+      }
+      // Count misses per skill
+      for (const item of missed) {
+        const q = item.q || item;
+        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
+        if (!skillId) continue;
+        skillMissCount.set(skillId, (skillMissCount.get(skillId) || 0) + 1);
+      }
+    }
+
+    if (skillMissCount.size === 0) {
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific weaknesses. Try any domain to practice.</div>';
+      document.getElementById('btn-start').disabled = false;
+      return;
+    }
+
+    // Sort by miss count descending, take top 5 skills
+    const sorted = [...skillMissCount.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    weakSkillIds = sorted.map(([id]) => id);
+
+    // Fetch skill names from Airtable
+    const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
+    const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || r.id]));
+
+    weakSkillNames = weakSkillIds.map(id => skillNameMap.get(id) || id);
+
+    let html = '<div class="weak-skills-list">';
+    sorted.forEach(([id, count], i) => {
+      const name = skillNameMap.get(id) || id;
+      const total = skillTotalCount.get(id) || count;
+      const pct = Math.round((count / total) * 100);
+      html += `<div class="weak-skill-row">
+        <span class="weak-skill-name">${name}</span>
+        <span class="weak-skill-pct">${count} missed (${pct}% wrong)</span>
+      </div>`;
+    });
+    html += '</div>';
+    area.innerHTML = html;
+    document.getElementById('btn-start').disabled = false;
+
+  } catch(e) {
+    console.error(e);
+    area.innerHTML = '<div style="color:#c62828">Could not load your weak skills. Please refresh.</div>';
+  }
+}
+
+// ── DIFFICULTY ──
+function setDiff(diff, btn) {
+  selectedDiff = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function goToInstructions() {
+  show('screen-instructions');
+}
+
+function restartSetup() {
+  show('screen-setup');
+}
+
+// ── LOAD QUESTIONS ──
+async function loadAndStart() {
+  show('screen-loading');
+  try {
+    let allQuestions;
+
+    if (weakSkillIds.length === 0) {
+      // Fallback: fetch all reviewed questions of selected difficulty
+      allQuestions = await atFetch('Questions',
+        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+      );
+    } else {
+      // Fetch questions from weak skills at selected difficulty
+      allQuestions = await atFetch('Questions',
+        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+      );
+      // Filter to weak skill IDs
+      allQuestions = allQuestions.filter(r => {
+        const skills = r.fields['Skill'] || [];
+        return skills.some(sid => weakSkillIds.includes(sid));
+      });
+
+      // If not enough questions at this difficulty, fall back to any difficulty
+      if (allQuestions.length < 5) {
+        const fallback = await atFetch('Questions',
+          `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+        );
+        allQuestions = fallback.filter(r => {
+          const skills = r.fields['Skill'] || [];
+          return skills.some(sid => weakSkillIds.includes(sid));
+        });
+      }
+    }
+
+    if (allQuestions.length === 0) {
+      alert('No questions found for your weak skills at this difficulty. Try a different difficulty level.');
+      show('screen-setup');
+      return;
+    }
+
+    const count = Math.min(allQuestions.length, 15);
+    const shuffled = fisherYates([...allQuestions]);
+    const selected = shuffled.slice(0, count);
+
+    // Fetch distractors
+    const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
+    const distMap = {};
+    for (let i = 0; i < distIds.length; i += 100) {
+      const batch = distIds.slice(i, i + 100);
+      const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+      const recs = await atFetch('Distractors', 'fields%5B%5D=Distractor+Text&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
+      recs.forEach(r => { distMap[r.id] = r.fields; });
+      if (i + 100 < distIds.length) await sleep(200);
+    }
+
+    // Fetch skill name map
+    const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
+    const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || '']));
+
+    questions = selected.map(q => {
+      const dists = (q.fields['Distractors'] || []).map(id => distMap[id]?.['Distractor Text']).filter(Boolean);
+      const correct = q.fields['Correct Answer'] || '';
+      const choices = fisherYates([correct, ...dists.slice(0, 3)]);
+      const skillIds = q.fields['Skill'] || [];
+      const skillName = skillIds.map(id => skillNameMap.get(id)).filter(Boolean).join(', ');
+      return { id: q.id, text: q.fields['Question Text'] || '', correct, solution: q.fields['Solution'] || '', difficulty: q.fields['Difficulty'] || '', skillIds, skillName, choices };
+    });
+
+    currentIndex = 0;
+    userAnswers = [];
+    renderQuestion();
+    show('screen-question');
+    typeset();
+  } catch(err) {
+    console.error(err);
+    alert('Error loading questions. Please try again.');
+    show('screen-setup');
+  }
+}
+
+// ── RENDER QUESTION ──
+function renderQuestion() {
+  const q = questions[currentIndex];
+  selectedAnswer = null;
+  submitted = false;
+
+  const pct = (currentIndex / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+  document.getElementById('q-text').innerHTML = q.text;
+
+  const tag = document.getElementById('q-skill-tag');
+  tag.textContent = q.skillName || '';
+  tag.style.display = q.skillName ? 'inline-block' : 'none';
+
+  const labels = ['A','B','C','D'];
+  const container = document.getElementById('answer-options');
+  container.innerHTML = '';
+  q.choices.forEach((choice, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${choice}</span><button class="cross-out-btn" title="Cross out">✕</button>`;
+    btn.onclick = (e) => {
+      if (submitted) return;
+      if (e.target.classList.contains('cross-out-btn')) { btn.classList.toggle('crossed'); return; }
+      document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedAnswer = choice;
+      document.getElementById('btn-submit').disabled = false;
+    };
+    btn.querySelector('.cross-out-btn').onclick = (e) => { e.stopPropagation(); btn.classList.toggle('crossed'); };
+    container.appendChild(btn);
+  });
+
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('btn-submit').textContent = 'Submit Answer';
+  document.getElementById('btn-submit').onclick = submitAnswer;
+  typeset();
+}
+
+// ── SUBMIT ──
+function submitAnswer() {
+  if (!selectedAnswer || submitted) return;
+  submitted = true;
+  const q = questions[currentIndex];
+  const isCorrect = selectedAnswer === q.correct;
+  userAnswers.push({ qIndex: currentIndex, chosen: selectedAnswer, correct: isCorrect });
+
+  document.querySelectorAll('.answer-btn').forEach(btn => {
+    const text = btn.querySelector('.answer-text').textContent;
+    if (text === q.correct) btn.classList.add('show-correct');
+    else if (text === selectedAnswer && !isCorrect) btn.classList.add('wrong');
+  });
+
+  const submitBtn = document.getElementById('btn-submit');
+  if (currentIndex < questions.length - 1) {
+    submitBtn.textContent = 'Next Question';
+    submitBtn.disabled = false;
+    submitBtn.onclick = nextQuestion;
+  } else {
+    submitBtn.textContent = 'See Results';
+    submitBtn.disabled = false;
+    submitBtn.onclick = showResults;
+  }
+}
+
+function nextQuestion() {
+  currentIndex++;
+  renderQuestion();
+}
+
+// ── RESULTS ──
+async function showResults() {
+  const correct = userAnswers.filter(a => a.correct).length;
+  const wrong = userAnswers.length - correct;
+  const pct = Math.round((correct / userAnswers.length) * 100);
+
+  document.getElementById('score-correct').textContent = correct;
+  document.getElementById('score-wrong').textContent = wrong;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('results-subtitle').textContent = `Specific Weaknesses · ${questions.length} questions · ${selectedDiff}`;
+
+  await markDayComplete();
+
+  const missed = userAnswers.filter(a => !a.correct);
+  const container = document.getElementById('missed-section');
+  container.innerHTML = '';
+
+  if (missed.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600;font-size:1rem">Perfect score! All answers correct.</div>';
+  } else {
+    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each solution carefully. These are your weak spots — spending time here now will pay off on the real test.</p>`;
+    missed.forEach(a => {
+      const q = questions[a.qIndex];
+      const card = document.createElement('div');
+      card.className = 'missed-card';
+      card.innerHTML = `
+        <div class="missed-header" onclick="toggleMissed(this)">
+          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}</div>
+          <span class="missed-badge">Incorrect</span>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="missed-body">
+          <div class="answer-row your-answer">Your answer: ${a.chosen}</div>
+          <div class="answer-row right-answer">Correct answer: ${q.correct}</div>
+          <div class="solution-box"><strong>Solution:</strong><br>${q.solution || 'Solution not available.'}</div>
+        </div>`;
+      container.appendChild(card);
+    });
+  }
+
+  show('screen-results');
+  typeset();
+}
+
+function toggleMissed(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+  header.querySelector('.expand-arrow').textContent = body.classList.contains('open') ? '▲' : '▼';
+  if (body.classList.contains('open')) typeset();
+}
+
+// ── MARK COMPLETE ──
+async function markDayComplete() {
+  if (!sessionUser) return;
+  try {
+    await supabaseClient.from('day_progress').upsert(
+      { user_id: sessionUser.id, day_number: DAY_NUMBER, completed: true, completed_at: new Date().toISOString() },
+      { onConflict: 'user_id,day_number' }
+    );
+    document.getElementById('complete-banner').classList.add('show');
+  } catch(e) { console.error(e); }
+}
+
+// ── DESMOS ──
+function toggleCalc() {
+  const wrap = document.getElementById('desmos-wrap');
+  const isOpen = wrap.style.display === 'flex';
+  wrap.style.display = isOpen ? 'none' : 'flex';
+  if (!isOpen && !desmosCalc) {
+    desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'));
+  }
+}
+
+// ── AIRTABLE HELPERS ──
+async function atFetch(table, params = '') {
+  const base = encodeURIComponent(table);
+  let all = [], offset = null;
+  do {
+    let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params}${offset ? '&offset=' + offset : ''}`;
+    const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
+    const data = await res.json();
+    all = all.concat(data.records || []);
+    offset = data.offset;
+    if (offset) await sleep(200);
+  } while(offset);
+  return all;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function typeset() {
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(() => {});
+}
+</script>
+</body>
+</html>
