@@ -1361,7 +1361,7 @@ async function showResults() {
   const totalCorrect = m1Correct + m2Correct;
   const total = module1Questions.length + module2Questions.length;
   const estimatedScore = convertToSATScore(totalCorrect);
-  completeTestSession(currentSessionId, estimatedScore, total);
+  await completeTestSession(currentSessionId, estimatedScore, total);
 
   try {
     await supabaseClient.from('test_results').insert({
