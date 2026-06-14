@@ -1269,8 +1269,9 @@ async function countCompletedTests() {
 async function computeFoundationalDiagnosis() {
   if (!currentUser) return null;
   const [completedTests, allMissedIds] = await Promise.all([countCompletedTests(), fetchAllMissedIdsForUser()]);
-  // FIX: Day 11 is the 2nd test. Unlock foundational gaps after completing 1 test.
-  if (completedTests < 1 || allMissedIds.length < 30) {
+  // FIX: Day 11 is the 2nd test. Unlock foundational gaps if at least 1 test is complete.
+  // Do not gate on allMissedIds.length — questions_seen may not be fully written yet.
+  if (completedTests < 1) {
     return { status: 'locked', completedTests, distinctMisses: allMissedIds.length, needed: { tests: 1, misses: 30 } };
   }
   const critMap = await fetchCriticalsForQuestions(allMissedIds);
@@ -1632,7 +1633,7 @@ async function openFoundationalReport() {
   body.innerHTML = `<div class="study-loading">Building your foundational report…</div>`;
   const allMissedIds = await fetchAllMissedIdsForUser();
   const completedTests = await countCompletedTests();
-  if (completedTests < 1 || allMissedIds.length < 30) {
+  if (completedTests < 1) {
     body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>We need data from at least 2 tests to identify your foundational gaps. Your Day 1 data is saved. After you complete more tests — starting with the Day 11 diagnostic — this report fills in automatically.</p></div>`;
     return;
   }
