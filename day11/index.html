@@ -1268,12 +1268,8 @@ async function countCompletedTests() {
 
 async function computeFoundationalDiagnosis() {
   if (!currentUser) return null;
-  const [completedTests, allMissedIds] = await Promise.all([countCompletedTests(), fetchAllMissedIdsForUser()]);
-  // FIX: Day 11 is the 2nd test. Unlock foundational gaps if at least 1 test is complete.
-  // Do not gate on allMissedIds.length — questions_seen may not be fully written yet.
-  if (completedTests < 1) {
-    return { status: 'locked', completedTests, distinctMisses: allMissedIds.length, needed: { tests: 1, misses: 30 } };
-  }
+  // Day 11 IS the second test — always unlocked. No session count check needed.
+  const allMissedIds = await fetchAllMissedIdsForUser();
   const critMap = await fetchCriticalsForQuestions(allMissedIds);
   const tally = new Map();
   for (const qid of allMissedIds) {
