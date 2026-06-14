@@ -366,6 +366,13 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 .choice-btn:hover { border-color: var(--navy); background: #f0f4f8; }
 .choice-btn.selected { border-color: var(--navy); background: #e8f0f8; font-weight: 600; }
 .choice-btn.struck { text-decoration: line-through; color: #aaa; border-color: #ddd; background: #fafafa; }
+.oe-badge { display: inline-block; background: var(--gold); color: #fff; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 10px; margin-bottom: 14px; font-family: -apple-system, Segoe UI, sans-serif; }
+.oe-input-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.oe-input { font-size: 1.1rem; font-family: Georgia, serif; padding: 10px 14px; border: 2px solid var(--border); border-radius: 8px; width: 160px; text-align: center; transition: border-color 0.15s; }
+.oe-input:focus { outline: none; border-color: var(--navy); }
+.oe-input.correct { border-color: var(--green); background: #e8f5e9; }
+.oe-input.wrong { border-color: var(--red); background: #fdf0ee; }
+.oe-hint { font-size: 0.82rem; color: #888; font-family: -apple-system, Segoe UI, sans-serif; }
 
 .choice-strike {
   width: 36px; min-width: 36px; min-height: 44px; border: 1.5px solid var(--border);
@@ -817,6 +824,48 @@ function showScreen(id) {
 }
 
 // ── FISHER-YATES ───────────────────────────────────────────────
+// ── OPEN-ENDED HELPERS ────────────────────────────────────────
+function isCleanInteger(answer) {
+  if (!answer) return false;
+  const s = String(answer).replace(/\$/g, '').replace(/\\,/g, '').trim().replace(/\.$/, '');
+  const n = Number(s);
+  return !isNaN(n) && isFinite(n) && n === Math.floor(n);
+}
+
+function assignOpenEndedForModule(questions) {
+  openEndedMap = {};
+  openEndedAnswers = {};
+  oeModuleCount = 0;
+  questions.forEach((q, i) => {
+    if (isCleanInteger(q.correctAnswer) && oeModuleCount < OE_MAX_PER_MODULE && Math.random() < OE_PROBABILITY) {
+      openEndedMap[i] = true;
+      oeModuleCount++;
+    }
+  });
+}
+
+function normaliseAnswer(s) {
+  return String(s || '').replace(/\$/g, '').replace(/\\,/g, '').trim().replace(/\.$/, '');
+}
+
+function checkOpenEndedAnswer(typed, correct) {
+  const t = normaliseAnswer(typed);
+  const c = normaliseAnswer(correct);
+  if (t === '' ) return null; // unanswered
+  const tn = Number(t), cn = Number(c);
+  if (!isNaN(tn) && !isNaN(cn)) return tn === cn;
+  return t.toLowerCase() === c.toLowerCase();
+}
+
+function isOE(idx) { return openEndedMap[idx] === true; }
+
+function getOEAnswer(idx) { return openEndedAnswers[idx] || ''; }
+
+function setOEAnswer(idx, val) {
+  openEndedAnswers[idx] = val;
+  updateQuestionGrid();
+}
+
 function fisherYatesShuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -1189,10 +1238,17 @@ let module1Questions = [], module2Questions = [];
 let currentModuleQuestions = [];
 let currentModule = 1;
 let module1Score = 0;
+let module1OEAnswers = {};
+let module1OEMap = {};
 let currentQuestionIndex = 0;
 let studentAnswers = {}, module1Answers = {}, module1ShuffledChoices = {};
 let markedQuestions = {}, shuffledChoices = {}, struckChoices = {};
 let lastResultsMissed = [];
+let openEndedMap = {};        // index -> true if this question is open-ended this session
+let openEndedAnswers = {};    // index -> string typed by student
+let oeModuleCount = 0;        // how many OE questions assigned so far this module
+const OE_PROBABILITY = 0.25;
+const OE_MAX_PER_MODULE = 6;
 let currentSessionId = null;
 let sessionStartTime = null;
 let untimedMode = false;
@@ -1241,6 +1297,7 @@ async function startTest(untimed) {
     sessionStartTime = Date.now();
     currentSessionId = await createTestSession(untimedMode ? 'untimed' : 'timed');
     buildShuffledChoices(currentModuleQuestions);
+    assignOpenEndedForModule(currentModuleQuestions);
     const untimedSuffix = untimedMode ? ' (Untimed)' : '';
     document.getElementById('module-label').textContent = 'Day 1 — Module 1' + untimedSuffix;
     document.getElementById('confirm-title').textContent = 'Submit Module 1?';
@@ -1284,7 +1341,7 @@ function updateQuestionGrid() {
     if (!btn || !wrapper) return;
     btn.className = 'q-num-btn';
     if (i === currentQuestionIndex) btn.classList.add('current');
-    if (studentAnswers[i] !== undefined) btn.classList.add('answered');
+    if (studentAnswers[i] !== undefined || (openEndedMap[i] && openEndedAnswers[i])) btn.classList.add('answered');
     let flag = wrapper.querySelector('.q-flag');
     if (markedQuestions[i]) { if (!flag) { flag = document.createElement('span'); flag.className = 'q-flag'; flag.textContent = '⚑'; wrapper.appendChild(flag); } }
     else { if (flag) flag.remove(); }
@@ -1315,28 +1372,67 @@ function showQuestion() {
   if (!q) return;
   document.getElementById('question-counter').textContent = `Question ${currentQuestionIndex + 1} of ${currentModuleQuestions.length}`;
   renderQuestionContent(document.getElementById('question-text'), q);
-  const choices = shuffledChoices[currentQuestionIndex] || [];
-  const struck = getStruckSet(currentQuestionIndex);
   const choicesEl = document.getElementById('answer-choices');
   choicesEl.innerHTML = '';
-  choices.forEach((choice, i) => {
-    const row = document.createElement('div'); row.className = 'choice-row';
-    const btn = document.createElement('button'); btn.className = 'choice-btn'; btn.textContent = choice.text;
-    if (studentAnswers[currentQuestionIndex] === i) btn.classList.add('selected');
-    if (struck.has(i)) btn.classList.add('struck');
-    btn.onclick = () => selectAnswer(i);
-    const sb = document.createElement('button'); sb.className = 'choice-strike'; sb.type = 'button';
-    sb.title = struck.has(i) ? 'Un-strike this choice' : 'Cross out this choice';
-    sb.setAttribute('aria-label', sb.title); sb.textContent = '✕';
-    if (struck.has(i)) sb.classList.add('active');
-    sb.onclick = (e) => { e.stopPropagation(); toggleStrike(i); };
-    row.appendChild(btn); row.appendChild(sb); choicesEl.appendChild(row);
-    renderMathInDiv(btn);
-  });
+
+  if (isOE(currentQuestionIndex)) {
+    // ── Open-ended input ──
+    const badge = document.createElement('div');
+    badge.className = 'oe-badge';
+    badge.textContent = 'Student-produced response';
+    choicesEl.appendChild(badge);
+
+    const row = document.createElement('div'); row.className = 'oe-input-row';
+    const input = document.createElement('input');
+    input.type = 'text'; input.className = 'oe-input'; input.id = 'oe-input';
+    input.placeholder = '0'; input.autocomplete = 'off';
+    input.value = getOEAnswer(currentQuestionIndex);
+    input.addEventListener('input', () => {
+      setOEAnswer(currentQuestionIndex, input.value);
+      document.getElementById('btn-submit') && (document.getElementById('btn-submit').disabled = input.value.trim() === '');
+    });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && input.value.trim()) document.getElementById('btn-submit')?.click(); });
+    row.appendChild(input);
+    choicesEl.appendChild(row);
+
+    const hint = document.createElement('div'); hint.className = 'oe-hint';
+    hint.textContent = 'Type your answer and click Submit Answer. Enter numbers only (e.g. 7, 42).';
+    choicesEl.appendChild(hint);
+
+    setTimeout(() => { const el = document.getElementById('oe-input'); if (el) el.focus(); }, 50);
+  } else {
+    // ── Multiple choice ──
+    const choices = shuffledChoices[currentQuestionIndex] || [];
+    const struck = getStruckSet(currentQuestionIndex);
+    choices.forEach((choice, i) => {
+      const row = document.createElement('div'); row.className = 'choice-row';
+      const btn = document.createElement('button'); btn.className = 'choice-btn'; btn.textContent = choice.text;
+      if (studentAnswers[currentQuestionIndex] === i) btn.classList.add('selected');
+      if (struck.has(i)) btn.classList.add('struck');
+      btn.onclick = () => selectAnswer(i);
+      const sb = document.createElement('button'); sb.className = 'choice-strike'; sb.type = 'button';
+      sb.title = struck.has(i) ? 'Un-strike this choice' : 'Cross out this choice';
+      sb.setAttribute('aria-label', sb.title); sb.textContent = '✕';
+      if (struck.has(i)) sb.classList.add('active');
+      sb.onclick = (e) => { e.stopPropagation(); toggleStrike(i); };
+      row.appendChild(btn); row.appendChild(sb); choicesEl.appendChild(row);
+      renderMathInDiv(btn);
+    });
+  }
+
   document.getElementById('back-btn').style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
   const isLast = currentQuestionIndex === currentModuleQuestions.length - 1;
   document.getElementById('next-btn').style.display = isLast ? 'none' : 'inline-block';
   document.getElementById('inline-submit-btn').style.display = isLast ? 'inline-block' : 'none';
+
+  // Disable submit for OE until something is typed
+  const submitBtn = document.getElementById('btn-submit');
+  if (submitBtn && isOE(currentQuestionIndex)) {
+    submitBtn.disabled = getOEAnswer(currentQuestionIndex).trim() === '';
+  } else if (submitBtn) {
+    submitBtn.disabled = false; // MC — always enabled (selection handled by selectAnswer)
+  }
+
   updateQuestionGrid();
 }
 
@@ -1388,6 +1484,7 @@ function exitTest() {
   module1Questions = []; module2Questions = []; currentModuleQuestions = [];
   module1Answers = {}; module1ShuffledChoices = {}; studentAnswers = {};
   markedQuestions = {}; shuffledChoices = {}; struckChoices = {};
+  openEndedMap = {}; openEndedAnswers = {}; oeModuleCount = 0;
   currentSessionId = null; sessionStartTime = null;
   module1Score = 0; currentModule = 1; currentQuestionIndex = 0; untimedMode = false;
   lastResultsMissed = [];
@@ -1399,13 +1496,19 @@ async function submitModule() {
   stopTimer();
   if (currentModule === 1) {
     module1Answers = { ...studentAnswers };
+    module1OEAnswers = { ...openEndedAnswers };
+    module1OEMap = { ...openEndedMap };
     module1ShuffledChoices = {};
     Object.keys(shuffledChoices).forEach(idx => { module1ShuffledChoices[idx] = shuffledChoices[idx]; });
     saveAnswers(module1Questions, module1Answers, module1ShuffledChoices);
     let correct = 0;
     currentModuleQuestions.forEach((q, i) => {
-      const ai = studentAnswers[i];
-      if (ai !== undefined && shuffledChoices[i] && shuffledChoices[i][ai] && shuffledChoices[i][ai].isCorrect) correct++;
+      if (module1OEMap[i]) {
+        if (checkOpenEndedAnswer(module1OEAnswers[i], q.correctAnswer) === true) correct++;
+      } else {
+        const ai = studentAnswers[i];
+        if (ai !== undefined && shuffledChoices[i] && shuffledChoices[i][ai] && shuffledChoices[i][ai].isCorrect) correct++;
+      }
     });
     module1Score = correct / currentModuleQuestions.length;
     startBreak();
@@ -1452,6 +1555,7 @@ function startModule2() {
   currentModule = 2; currentModuleQuestions = module2Questions;
   currentQuestionIndex = 0; studentAnswers = {}; markedQuestions = {}; shuffledChoices = {}; struckChoices = {};
   buildShuffledChoices(currentModuleQuestions);
+  assignOpenEndedForModule(currentModuleQuestions);
   buildQuestionGrid(); showQuestion();
   if (!untimedMode) startTimer(MODULE_SECONDS, 'timer-display', () => submitModule());
 }
@@ -1616,23 +1720,55 @@ async function showResults() {
   lastResultsMissed = [];
 
   module1Questions.forEach((q, i) => {
-    const ai = module1Answers[i];
-    if (ai === undefined) { lastResultsMissed.push({ q, choices: module1ShuffledChoices[i] || [], chosenIndex: null }); return; }
-    const choices = module1ShuffledChoices[i];
-    if (!choices || !choices[ai]) return;
-    answeredIds.push(q.id);
-    if (choices[ai].isCorrect) m1Correct++;
-    else { missedIds.push(q.id); lastResultsMissed.push({ q, choices, chosenIndex: ai }); }
+    if (module1OEMap[i]) {
+      // Open-ended question
+      const typed = module1OEAnswers[i] || '';
+      const result = checkOpenEndedAnswer(typed, q.correctAnswer);
+      if (result === null) {
+        lastResultsMissed.push({ q, choices: [], chosenIndex: null, isOE: true, typedAnswer: typed });
+      } else if (result === true) {
+        answeredIds.push(q.id);
+        m1Correct++;
+      } else {
+        answeredIds.push(q.id);
+        missedIds.push(q.id);
+        lastResultsMissed.push({ q, choices: [], chosenIndex: null, isOE: true, typedAnswer: typed });
+      }
+    } else {
+      const ai = module1Answers[i];
+      if (ai === undefined) { lastResultsMissed.push({ q, choices: module1ShuffledChoices[i] || [], chosenIndex: null }); return; }
+      const choices = module1ShuffledChoices[i];
+      if (!choices || !choices[ai]) return;
+      answeredIds.push(q.id);
+      if (choices[ai].isCorrect) m1Correct++;
+      else { missedIds.push(q.id); lastResultsMissed.push({ q, choices, chosenIndex: ai }); }
+    }
   });
 
   let m2Correct = 0;
   module2Questions.forEach((q, i) => {
-    const ai = studentAnswers[i];
-    if (ai === undefined) { lastResultsMissed.push({ q, choices: shuffledChoices[i] || [], chosenIndex: null }); return; }
-    if (shuffledChoices[i] && shuffledChoices[i][ai]) {
-      answeredIds.push(q.id);
-      if (shuffledChoices[i][ai].isCorrect) m2Correct++;
-      else { missedIds.push(q.id); lastResultsMissed.push({ q, choices: shuffledChoices[i], chosenIndex: ai }); }
+    if (openEndedMap[i]) {
+      // Open-ended question in module 2
+      const typed = openEndedAnswers[i] || '';
+      const result = checkOpenEndedAnswer(typed, q.correctAnswer);
+      if (result === null) {
+        lastResultsMissed.push({ q, choices: [], chosenIndex: null, isOE: true, typedAnswer: typed });
+      } else if (result === true) {
+        answeredIds.push(q.id);
+        m2Correct++;
+      } else {
+        answeredIds.push(q.id);
+        missedIds.push(q.id);
+        lastResultsMissed.push({ q, choices: [], chosenIndex: null, isOE: true, typedAnswer: typed });
+      }
+    } else {
+      const ai = studentAnswers[i];
+      if (ai === undefined) { lastResultsMissed.push({ q, choices: shuffledChoices[i] || [], chosenIndex: null }); return; }
+      if (shuffledChoices[i] && shuffledChoices[i][ai]) {
+        answeredIds.push(q.id);
+        if (shuffledChoices[i][ai].isCorrect) m2Correct++;
+        else { missedIds.push(q.id); lastResultsMissed.push({ q, choices: shuffledChoices[i], chosenIndex: ai }); }
+      }
     }
   });
 
@@ -1647,7 +1783,8 @@ async function showResults() {
       user_id: currentUser.id, score: estimatedScore, test_number: 1,
       snapshot: { estimatedScore, totalCorrect, total, m1Correct, m2Correct, missedIds, answeredIds,
         missed: lastResultsMissed.map(m => ({
-          chosenIndex: m.chosenIndex, choices: (m.choices || []).map(c => ({ text: c.text, isCorrect: c.isCorrect, misconceptionId: c.misconceptionId || null })),
+          chosenIndex: m.chosenIndex, isOE: m.isOE || false, typedAnswer: m.typedAnswer || null,
+          choices: (m.choices || []).map(c => ({ text: c.text, isCorrect: c.isCorrect, misconceptionId: c.misconceptionId || null })),
           q: { id: m.q.id, text: m.q.text, correctAnswer: m.q.correctAnswer, solution: m.q.solution, difficulty: m.q.difficulty,
                visualSvg: m.q.visualSvg, graphType: m.q.graphType, graphExpressions: m.q.graphExpressions,
                graphWindow: m.q.graphWindow, graphPoints: m.q.graphPoints,
@@ -1780,6 +1917,14 @@ function renderPrintItem(it) {
   const q = it.q;
   const qText = questionTextContainsHTML(q.text) ? stripComments(q.text) : escForPrint(stripComments(q.text));
   const letters = ['A','B','C','D','E','F','G','H'];
+
+  // Open-ended missed question
+  if (it.isOE) {
+    const typed = it.typedAnswer || '(no answer)';
+    const sol = q.solution && q.solution.trim() ? `<div class="solution"><div class="sol-label">Worked solution</div><div class="sol-body">${stripComments(q.solution).replace(/\n/g,'<br>')}</div></div>` : '';
+    return `<div class="q-block"><div class="q-head">Question ${it.number} <span style="background:#d4a04a;color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:8px;margin-left:6px;font-family:sans-serif;">Student-produced response</span></div>${it.figureHTML ? `<div class="q-fig">${it.figureHTML}</div>` : ''}<div class="q-text">${qText}</div><div class="choice correct" style="margin-bottom:6px;"><span class="cl">✓</span><span class="ct">Correct answer: ${escForPrint(q.correctAnswer)}</span></div><div class="choice chosen-wrong"><span class="cl">✗</span><span class="ct">Your answer: ${escForPrint(typed)}</span></div>${sol}</div>`;
+  }
+
   const chosenIdx = (typeof it.chosenIndex === 'number') ? it.chosenIndex : -1;
   const choicesHTML = (it.choices || []).map((c, i) => {
     const isChosen = (i === chosenIdx);
