@@ -96,15 +96,13 @@
   .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
   .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
   .tool-btn:hover{background:#1a3a5c;color:#fff}
-  #desmos-wrap{position:fixed;bottom:0;right:-480px;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:flex;flex-direction:column;transition:right 0.25s ease}
-  #desmos-wrap.open{right:0}
-  #desmos-wrap.dragged{transition:none}
-  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0;cursor:grab;user-select:none}
-  .desmos-header.grabbing{cursor:grabbing}
-  .desmos-header span{font-size:0.85rem;font-weight:600}
-  .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
-  #desmos-container{flex:1;width:100%;min-height:330px}
-  #desmos-resize{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:se-resize;background:linear-gradient(135deg,transparent 50%,#9bb0c4 50%);z-index:5}
+  #calculator-panel{position:fixed;right:-600px;top:0;bottom:0;width:520px;background:#fff;border-left:1px solid #e0e0e0;z-index:2000;transition:right 0.25s ease;display:flex;flex-direction:column}
+  #calculator-panel.open{right:0}
+  #calculator-resize-handle{position:absolute;left:0;top:0;bottom:0;width:8px;cursor:ew-resize;background:transparent;z-index:10}
+  #calculator-resize-handle:hover{background:rgba(26,58,92,0.25)}
+  #calculator-header{background:#1a3a5c;color:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;flex-shrink:0}
+  #calculator-close{background:none;border:none;color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;padding:0 4px}
+  #calculator-mount{flex:1}
   #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
   #formula-modal.open{display:flex}
   .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
@@ -210,12 +208,12 @@
     <div class="q-sidebar">
       <div>
         <div class="sidebar-section">Tools</div>
-        <button class="tool-btn" id="btn-calc" onclick="toggleCalc()">Graphing Calculator</button>
+        <button class="tool-btn" id="btn-calc" onclick="toggleCalculator()">Graphing Calculator</button>
         <button class="tool-btn" style="margin-top:8px" id="btn-formula" onclick="document.getElementById('formula-modal').classList.add('open')">Formula Sheet</button>
       </div>
     </div>
   </div>
-  <button id="floating-calc-btn" onclick="toggleCalc()" title="Graphing calculator">Calculator</button>
+  <button id="floating-calc-btn" onclick="toggleCalculator()" title="Graphing calculator">Calculator</button>
 </div>
 
 <!-- RESULTS SCREEN -->
@@ -237,11 +235,14 @@
   <div class="missed-section" id="missed-section"></div>
 </div>
 
-<!-- Desmos -->
-<div id="desmos-wrap">
-  <div class="desmos-header" id="desmos-header"><span>Graphing Calculator</span><button class="desmos-close" onclick="toggleCalc()">✕</button></div>
-  <div id="desmos-container"></div>
-  <div id="desmos-resize"></div>
+<!-- Desmos calculator panel (copied from Day 1) -->
+<div id="calculator-panel">
+  <div id="calculator-resize-handle"></div>
+  <div id="calculator-header">
+    <span>Graphing Calculator</span>
+    <button id="calculator-close" onclick="toggleCalculator()" aria-label="Close calculator">&times;</button>
+  </div>
+  <div id="calculator-mount"></div>
 </div>
 
 <!-- Formula sheet modal -->
@@ -270,7 +271,7 @@ let currentIndex = 0;
 let userAnswers = [];
 let selectedAnswer = null;
 let submitted = false;
-let desmosCalc = null;
+let desmosCalculator = null, calculatorOpen = false, calculatorWidth = 520;
 let sessionUser = null;
 let inlineGraphInstances = [];
 
@@ -287,7 +288,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.'
   ].map(t => `<li>${t}</li>`).join('');
 
-  initCalcDragResize();
+  initCalculatorResize();
   await loadWeakSkills();
 });
 
@@ -622,107 +623,54 @@ async function markDayComplete() {
   } catch(e) { console.error(e); }
 }
 
-function initCalcDragResize() {
-  const wrap = document.getElementById('desmos-wrap');
-  const header = document.getElementById('desmos-header');
-  const resize = document.getElementById('desmos-resize');
-  if (!wrap || !header || !resize) return;
-
-  // DRAG via header
-  let drag = null;
-  const dragMove = (e) => {
-    if (!drag) return;
-    const cx = e.touches ? e.touches[0].clientX : e.clientX;
-    const cy = e.touches ? e.touches[0].clientY : e.clientY;
-    let nl = cx - drag.offsetX;
-    let nt = cy - drag.offsetY;
-    nl = Math.max(0, Math.min(window.innerWidth - 80, nl));
-    nt = Math.max(0, Math.min(window.innerHeight - 40, nt));
-    wrap.style.left = nl + 'px';
-    wrap.style.top = nt + 'px';
-    wrap.style.right = 'auto';
-    wrap.style.bottom = 'auto';
-  };
-  const dragEnd = () => {
-    if (!drag) return;
-    drag = null;
-    header.classList.remove('grabbing');
-    document.body.style.userSelect = '';
-    document.removeEventListener('mousemove', dragMove);
-    document.removeEventListener('touchmove', dragMove);
-    document.removeEventListener('mouseup', dragEnd);
-    document.removeEventListener('touchend', dragEnd);
-  };
-  const dragStart = (e) => {
-    if (e.target.closest('.desmos-close')) return;
-    e.preventDefault();
-    wrap.classList.add('dragged');
-    const cx = e.touches ? e.touches[0].clientX : e.clientX;
-    const cy = e.touches ? e.touches[0].clientY : e.clientY;
-    const r = wrap.getBoundingClientRect();
-    drag = { offsetX: cx - r.left, offsetY: cy - r.top };
-    header.classList.add('grabbing');
-    document.body.style.userSelect = 'none';
-    document.addEventListener('mousemove', dragMove);
-    document.addEventListener('touchmove', dragMove, { passive: false });
-    document.addEventListener('mouseup', dragEnd);
-    document.addEventListener('touchend', dragEnd);
-  };
-  header.addEventListener('mousedown', dragStart);
-  header.addEventListener('touchstart', dragStart, { passive: false });
-
-  // RESIZE via corner handle
-  let rz = null;
-  const rzMove = (e) => {
-    if (!rz) return;
-    const cx = e.touches ? e.touches[0].clientX : e.clientX;
-    const cy = e.touches ? e.touches[0].clientY : e.clientY;
-    wrap.style.width = Math.max(320, rz.startW + (cx - rz.startX)) + 'px';
-    wrap.style.height = Math.max(280, rz.startH + (cy - rz.startY)) + 'px';
-    if (desmosCalc && desmosCalc.resize) desmosCalc.resize();
-  };
-  const rzEnd = () => {
-    if (!rz) return;
-    rz = null;
-    document.body.style.userSelect = '';
-    document.removeEventListener('mousemove', rzMove);
-    document.removeEventListener('touchmove', rzMove);
-    document.removeEventListener('mouseup', rzEnd);
-    document.removeEventListener('touchend', rzEnd);
-    if (desmosCalc && desmosCalc.resize) desmosCalc.resize();
-  };
-  const rzStart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const cx = e.touches ? e.touches[0].clientX : e.clientX;
-    const cy = e.touches ? e.touches[0].clientY : e.clientY;
-    rz = { startX: cx, startY: cy, startW: wrap.offsetWidth, startH: wrap.offsetHeight };
-    document.body.style.userSelect = 'none';
-    document.addEventListener('mousemove', rzMove);
-    document.addEventListener('touchmove', rzMove, { passive: false });
-    document.addEventListener('mouseup', rzEnd);
-    document.addEventListener('touchend', rzEnd);
-  };
-  resize.addEventListener('mousedown', rzStart);
-  resize.addEventListener('touchstart', rzStart, { passive: false });
+function setCalculatorWidth(px) {
+  const minW = 320;
+  const maxW = Math.min(window.innerWidth - 80, window.innerWidth * 0.95);
+  calculatorWidth = Math.max(minW, Math.min(maxW, px));
+  const panel = document.getElementById('calculator-panel');
+  if (panel) panel.style.width = calculatorWidth + 'px';
+  if (desmosCalculator && desmosCalculator.resize) desmosCalculator.resize();
 }
 
-function toggleCalc() {
-  const wrap = document.getElementById('desmos-wrap');
-  const isOpen = wrap.classList.contains('open');
-  if (isOpen) { wrap.classList.remove('open'); return; }
-  if (typeof Desmos === 'undefined') {
-    alert('The graphing calculator is still loading. Please try again in a moment.');
-    return;
-  }
-  // The panel always has a real size (it is off-screen, not display:none),
-  // so Desmos initializes into a measured box. Create it, then slide in, then resize.
-  if (!desmosCalc) {
-    desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'), { keypad: true, expressions: true, settingsMenu: true });
-  }
-  wrap.classList.add('open');
-  setTimeout(() => { if (desmosCalc && desmosCalc.resize) desmosCalc.resize(); }, 280);
+function initCalculator() {
+  if (desmosCalculator) return;
+  if (typeof Desmos === 'undefined') { alert('The graphing calculator is still loading. Please try again in a moment.'); return; }
+  const mount = document.getElementById('calculator-mount');
+  if (!mount) return;
+  desmosCalculator = Desmos.GraphingCalculator(mount, {
+    keypad: true, expressions: true, settingsMenu: true, zoomButtons: true,
+    expressionsTopbar: true, border: false, lockViewport: false, images: false,
+    folders: false, notes: false, sliders: true, links: false, qwertyKeyboard: true, distributions: false
+  });
+  window.addEventListener('resize', () => { if (calculatorOpen) setCalculatorWidth(calculatorWidth); });
 }
+
+function initCalculatorResize() {
+  const handle = document.getElementById('calculator-resize-handle');
+  if (!handle) return;
+  let dragging = false;
+  const onMove = (e) => { if (!dragging) return; const x = e.touches ? e.touches[0].clientX : e.clientX; setCalculatorWidth(window.innerWidth - x); };
+  const onUp = () => { if (!dragging) return; dragging = false; document.body.style.userSelect = ''; document.body.style.cursor = ''; document.removeEventListener('mousemove', onMove); document.removeEventListener('touchmove', onMove); document.removeEventListener('mouseup', onUp); document.removeEventListener('touchend', onUp); };
+  const onDown = (e) => { e.preventDefault(); dragging = true; document.body.style.userSelect = 'none'; document.body.style.cursor = 'ew-resize'; document.addEventListener('mousemove', onMove); document.addEventListener('touchmove', onMove, { passive: false }); document.addEventListener('mouseup', onUp); document.addEventListener('touchend', onUp); };
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, { passive: false });
+}
+
+function toggleCalculator() {
+  const panel = document.getElementById('calculator-panel');
+  if (!panel) return;
+  if (!calculatorOpen) {
+    initCalculator();
+    setCalculatorWidth(calculatorWidth);
+    panel.classList.add('open');
+    calculatorOpen = true;
+    setTimeout(() => { if (desmosCalculator && desmosCalculator.resize) desmosCalculator.resize(); }, 280);
+  } else {
+    panel.classList.remove('open');
+    calculatorOpen = false;
+  }
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && calculatorOpen) toggleCalculator(); });
 
 async function atFetch(table, params = '') {
   const base = encodeURIComponent(table);
