@@ -233,7 +233,7 @@ body {
   font-size: 0.85rem;
   margin: 10px 0 4px;
 }
-.study-tut-body { line-height: 1.55; margin-bottom: 6px; }
+.study-tut-body { line-height: 1.55; margin-bottom: 6px; white-space: pre-wrap; }
 
 .study-pp { border-top: 1px dashed #ccc; padding-top: 12px; margin-top: 12px; }
 .study-pp-q { font-weight: 600; margin-bottom: 6px; }
@@ -260,6 +260,7 @@ body {
   padding: 10px 12px;
   background: #eef8f1;
   border-radius: 6px;
+  white-space: pre-wrap;
 }
 .study-answer.show { display: block; }
 .study-answer .ans-correct { color: var(--green); font-weight: 700; }
@@ -318,6 +319,7 @@ body {
   font-size: 0.92rem;
   line-height: 1.65;
   color: #333;
+  white-space: pre-wrap;
 }
 .gap-example-box {
   background: #f5f5f0;
@@ -328,6 +330,7 @@ body {
   font-family: -apple-system, Segoe UI, sans-serif;
   font-size: 0.92rem;
   line-height: 1.65;
+  white-space: pre-wrap;
 }
 .gap-practice-label {
   font-family: -apple-system, Segoe UI, sans-serif;
@@ -491,16 +494,22 @@ function fisherYatesShuffle(arr) {
 function escHTML(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stripComments(s) { return String(s || '').replace(/<!--[\s\S]*?-->/g, ''); }
 
-// Safely render a field that may come back HTML-escaped from Airtable
-// and turn newlines into <br> so multi-line content works.
+// Safely render a field from Airtable.
+// Do NOT convert \n to <br> — that breaks MathJax by splitting $...$ across tags.
+// gap-content uses white-space: pre-wrap in CSS to preserve line breaks visually.
 function renderField(raw) {
   if (!raw) return '';
   return stripComments(raw)
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/\n/g, '<br>');
+    .replace(/&quot;/g, '"');
+}
+
+// For plain-text fields with no math (solutions, headers) where <br> is safe.
+function renderFieldWithBreaks(raw) {
+  if (!raw) return '';
+  return renderField(raw).replace(/\n/g, '<br>');
 }
 
 function safeParseJSON(raw) {
