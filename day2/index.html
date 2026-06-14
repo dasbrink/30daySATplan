@@ -703,10 +703,14 @@ async function fetchTeachingByMisconceptions(miscIds) {
 // for the skill linked to a misconception, excluding the question already seen.
 async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   if (!skillRecId) return [];
-  // Skill is a linked field — filter by checking if the skill record ID appears
-  // in the linked Skill field via FIND on ARRAYJOIN
+  // Step 1: Fetch the skill record to get its name (primary field)
+  const skillRecs = await fetchRecordsByIds('Skills', [skillRecId]);
+  if (!skillRecs.length) return [];
+  const skillName = skillRecs[0].fields['Skill Name'] || '';
+  if (!skillName) return [];
+  // Step 2: Filter Questions where ARRAYJOIN({Skill}) contains the skill name
   const formula = `AND(
-    FIND('${skillRecId}', ARRAYJOIN({Skill})),
+    FIND('${skillName.replace(/'/g, "\'")}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
     OR(NOT({graph_type}), {graph_type}=''),
     NOT(RECORD_ID()='${excludeQId || ''}')
