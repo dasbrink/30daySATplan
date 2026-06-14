@@ -51,7 +51,7 @@
   .instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
   .instr-list{list-style:none;padding:0;margin-bottom:28px}
   .instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
-  .instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
+  .instr-list li::before{content:'';position:absolute;left:8px;top:18px;width:6px;height:6px;border-radius:50%;background:#d4a04a}
   .instr-list li:last-child{border-bottom:none}
 
   /* QUESTION SCREEN */
@@ -287,30 +287,41 @@ async function loadWeakSkills() {
       return;
     }
 
-    // Tally missed questions per skill
-    const skillMissCount = new Map();
-    const skillTotalCount = new Map();
-
+    // Collect all missed question IDs from every diagnostic snapshot.
+    // The snapshot stores missedIds (question record IDs). The saved `q`
+    // objects do NOT contain skill fields, so we look skills up from Airtable.
+    const missedIdSet = new Set();
     for (const row of results) {
       const snap = row.snapshot;
       if (!snap) continue;
-      const missed = snap.missed || [];
-      const all = snap.questions || [];
+      let ids = snap.missedIds || [];
+      if ((!ids || ids.length === 0) && Array.isArray(snap.missed)) {
+        ids = snap.missed.map(m => (m.q && m.q.id) ? m.q.id : null).filter(Boolean);
+      }
+      ids.forEach(id => missedIdSet.add(id));
+    }
 
-      // Count totals per skill from the snapshot
-      for (const item of all) {
-        const q = item.q || item;
-        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
-        if (!skillId) continue;
-        skillTotalCount.set(skillId, (skillTotalCount.get(skillId) || 0) + 1);
-      }
-      // Count misses per skill
-      for (const item of missed) {
-        const q = item.q || item;
-        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
-        if (!skillId) continue;
-        skillMissCount.set(skillId, (skillMissCount.get(skillId) || 0) + 1);
-      }
+    if (missedIdSet.size === 0) {
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific weaknesses. Try any domain to practice.</div>';
+      document.getElementById('btn-start').disabled = false;
+      return;
+    }
+
+    // Fetch the missed question records from Airtable to read their Skill field.
+    const missedIds = Array.from(missedIdSet);
+    const skillMissCount = new Map();
+    for (let i = 0; i < missedIds.length; i += 50) {
+      const batch = missedIds.slice(i, i + 50);
+      const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+      const recs = await atFetch('Questions', 'fields%5B%5D=Skill&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
+      recs.forEach(r => {
+        const skills = r.fields['Skill'] || [];
+        if (skills.length > 0) {
+          const sid = skills[0];
+          skillMissCount.set(sid, (skillMissCount.get(sid) || 0) + 1);
+        }
+      });
+      if (i + 50 < missedIds.length) await sleep(200);
     }
 
     if (skillMissCount.size === 0) {
@@ -333,13 +344,11 @@ async function loadWeakSkills() {
     weakSkillNames = weakSkillIds.map(id => skillNameMap.get(id) || id);
 
     let html = '<div class="weak-skills-list">';
-    sorted.forEach(([id, count], i) => {
+    sorted.forEach(([id, count]) => {
       const name = skillNameMap.get(id) || id;
-      const total = skillTotalCount.get(id) || count;
-      const pct = Math.round((count / total) * 100);
       html += `<div class="weak-skill-row">
         <span class="weak-skill-name">${name}</span>
-        <span class="weak-skill-pct">${count} missed (${pct}% wrong)</span>
+        <span class="weak-skill-pct">${count} missed</span>
       </div>`;
     });
     html += '</div>';
@@ -597,8 +606,14 @@ async function atFetch(table, params = '') {
   let all = [], offset = null;
   do {
     let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params}${offset ? '&offset=' + offset : ''}`;
-    const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
-    const data = await res.json();
+    let data = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
+      if (res.status === 429) { await sleep(400 + attempt * 400); continue; }
+      data = await res.json();
+      break;
+    }
+    if (!data) break;
     all = all.concat(data.records || []);
     offset = data.offset;
     if (offset) await sleep(200);
