@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Day 13 — Specific Mistakes | 30-Day SAT Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+    svg: { fontCache: 'global' },
+    startup: { typeset: false }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="https://api.desmos.com/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -66,6 +73,9 @@
   .q-skill-tag{display:inline-block;background:#e8f0f8;color:#1a3a5c;font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
   .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
   .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+  .inline-graph-figure{width:100%;max-width:460px;height:320px;margin:0 auto 16px;display:block}
+  .inline-graph-figure svg{max-width:100%;height:auto}
+  .q-body-text{line-height:1.7}
   .answer-options{display:flex;flex-direction:column;gap:10px}
   .answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a}
   .answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
@@ -80,6 +90,9 @@
   .btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer}
   .btn-submit:disabled{background:#aaa;cursor:default}
   .q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
+  #floating-calc-btn{position:fixed;bottom:20px;right:20px;z-index:1500;background:#1a3a5c;color:#fff;border:none;border-radius:24px;padding:12px 22px;font-size:0.9rem;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:none}
+  #floating-calc-btn:hover{background:#0f2540}
+  #screen-question.active #floating-calc-btn{display:block}
   .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
   .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
   .tool-btn:hover{background:#1a3a5c;color:#fff}
@@ -198,6 +211,7 @@
       </div>
     </div>
   </div>
+  <button id="floating-calc-btn" onclick="toggleCalc()" title="Graphing calculator">Calculator</button>
 </div>
 
 <!-- RESULTS SCREEN -->
@@ -386,12 +400,12 @@ async function loadAndStart() {
     if (weakSkillIds.length === 0) {
       // Fallback: fetch all reviewed questions of selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`
       );
     } else {
       // Fetch questions from weak skills at selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`
       );
       // Filter to weak skill IDs
       allQuestions = allQuestions.filter(r => {
@@ -402,7 +416,7 @@ async function loadAndStart() {
       // If not enough questions at this difficulty, fall back to any difficulty
       if (allQuestions.length < 5) {
         const fallback = await atFetch('Questions',
-          `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
+          `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK")`)}&pageSize=100`
         );
         allQuestions = fallback.filter(r => {
           const skills = r.fields['Skill'] || [];
@@ -442,7 +456,20 @@ async function loadAndStart() {
       const choices = fisherYates([correct, ...dists.slice(0, 3)]);
       const skillIds = q.fields['Skill'] || [];
       const skillName = skillIds.map(id => skillNameMap.get(id)).filter(Boolean).join(', ');
-      return { id: q.id, text: q.fields['Question Text'] || '', correct, solution: q.fields['Solution'] || '', difficulty: q.fields['Difficulty'] || '', skillIds, skillName, choices };
+      return {
+        id: q.id, text: q.fields['Question Text'] || '', correct,
+        solution: q.fields['Solution'] || '', difficulty: q.fields['Difficulty'] || '',
+        skillIds, skillName, choices,
+        visualSvg: q.fields['Visual SVG'] || '',
+        graphType: q.fields['graph_type'] || '',
+        graphExpressions: q.fields['graph_expressions'] || '',
+        graphWindow: q.fields['graph_window'] || '',
+        graphPoints: q.fields['graph_points'] || '',
+        graphShowAxisNumbers: q.fields['graph_show_axis_numbers'] === true,
+        graphShowGrid: q.fields['graph_show_grid'] === true,
+        graphXAxisLabel: q.fields['graph_x_axis_label'] || '',
+        graphYAxisLabel: q.fields['graph_y_axis_label'] || ''
+      };
     });
 
     currentIndex = 0;
@@ -457,6 +484,37 @@ async function loadAndStart() {
   }
 }
 
+// ── INLINE DESMOS GRAPH (question figures) ──
+let inlineGraphInstances = [];
+function destroyInlineGraphs() {
+  inlineGraphInstances.forEach(c => { try { if (c && c.destroy) c.destroy(); } catch(e) {} });
+  inlineGraphInstances = [];
+}
+function safeParseJSON(raw) {
+  if (!raw) return null;
+  if (typeof raw !== 'string') return raw;
+  try { return JSON.parse(raw.trim()); } catch (e) { return null; }
+}
+function renderInlineDesmosGraph(mountEl, q) {
+  if (typeof Desmos === 'undefined') { mountEl.textContent = '[Graph could not load.]'; return; }
+  const expressions = safeParseJSON(q.graphExpressions) || [];
+  const windowBounds = safeParseJSON(q.graphWindow);
+  const points = safeParseJSON(q.graphPoints) || [];
+  const calc = Desmos.GraphingCalculator(mountEl, {
+    expressions: false, settingsMenu: false, zoomButtons: false, expressionsTopbar: false,
+    border: false, keypad: false, lockViewport: true, images: false, folders: false,
+    notes: false, sliders: false, links: false, distributions: false,
+    xAxisNumbers: q.graphShowAxisNumbers === true, yAxisNumbers: q.graphShowAxisNumbers === true,
+    showGrid: q.graphShowGrid === true,
+    xAxisLabel: q.graphXAxisLabel || 'x', yAxisLabel: q.graphYAxisLabel || 'y'
+  });
+  calc.updateSettings({ xAxisArrowMode: Desmos.AxisArrowModes.POSITIVE, yAxisArrowMode: Desmos.AxisArrowModes.POSITIVE });
+  expressions.forEach((expr, i) => calc.setExpression(Object.assign({ id: 'expr' + i }, expr)));
+  points.forEach((pt, i) => calc.setExpression(Object.assign({ id: 'pt' + i, showLabel: true, dragMode: 'NONE' }, pt)));
+  if (windowBounds && typeof windowBounds.left === 'number') calc.setMathBounds(windowBounds);
+  inlineGraphInstances.push(calc);
+}
+
 // ── RENDER QUESTION ──
 function renderQuestion() {
   const q = questions[currentIndex];
@@ -466,7 +524,18 @@ function renderQuestion() {
   const pct = (currentIndex / questions.length) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-  document.getElementById('q-text').innerHTML = q.text;
+  destroyInlineGraphs();
+  const qTextEl = document.getElementById('q-text');
+  const gtype = (q.graphType || '').toLowerCase();
+  if (gtype === 'desmos') {
+    qTextEl.innerHTML = '<div class="inline-graph-figure"></div><div class="q-body-text"></div>';
+    qTextEl.querySelector('.q-body-text').innerHTML = q.text;
+    renderInlineDesmosGraph(qTextEl.querySelector('.inline-graph-figure'), q);
+  } else if (q.visualSvg && q.visualSvg.trim()) {
+    qTextEl.innerHTML = '<div class="inline-graph-figure">' + q.visualSvg + '</div><div class="q-body-text">' + q.text + '</div>';
+  } else {
+    qTextEl.innerHTML = q.text;
+  }
 
   const tag = document.getElementById('q-skill-tag');
   tag.textContent = q.skillName || '';
@@ -530,6 +599,7 @@ function nextQuestion() {
 
 // ── RESULTS ──
 async function showResults() {
+  destroyInlineGraphs();
   const correct = userAnswers.filter(a => a.correct).length;
   const wrong = userAnswers.length - correct;
   const pct = Math.round((correct / userAnswers.length) * 100);
@@ -638,7 +708,10 @@ function show(id) {
 }
 
 function typeset() {
-  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(() => {});
+  if (window.MathJax && MathJax.typesetPromise) {
+    try { MathJax.typesetClear(); } catch(e) {}
+    MathJax.typesetPromise().catch(() => {});
+  }
 }
 </script>
 </body>
