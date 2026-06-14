@@ -35,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── TOPBAR ── */
 .topbar {
   background: var(--navy);
   padding: 0 24px;
@@ -73,7 +72,6 @@ body {
   text-decoration: underline;
 }
 
-/* ── PAGE BODY ── */
 .page-body {
   max-width: 860px;
   margin: 0 auto;
@@ -96,7 +94,6 @@ body {
   font-family: -apple-system, Segoe UI, sans-serif;
 }
 
-/* ── SCORE BANNER ── */
 .score-banner {
   background: var(--navy);
   border-radius: 10px;
@@ -121,12 +118,10 @@ body {
 }
 .score-banner-detail strong { color: white; }
 
-/* ── TAB BAR ── */
 .tab-bar {
   display: flex;
   border-bottom: 2px solid var(--border);
   margin-bottom: 28px;
-  gap: 0;
 }
 .tab-btn {
   padding: 12px 20px;
@@ -142,16 +137,11 @@ body {
   transition: color 0.15s;
   white-space: nowrap;
 }
-.tab-btn.active {
-  color: var(--navy);
-  border-bottom-color: var(--navy);
-}
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
 
-/* ── TAB PANELS ── */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
-/* ── LOADING / EMPTY STATES ── */
 .state-box {
   background: white;
   border: 1px solid var(--border);
@@ -175,7 +165,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* ── STUDY CONTENT ── */
 .study-intro {
   background: var(--navy);
   color: white;
@@ -192,17 +181,6 @@ body {
 .study-intro p { margin: 0 0 8px; line-height: 1.55; font-size: 0.95rem; }
 .study-intro p:last-child { margin-bottom: 0; }
 
-.study-section-title {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 700;
-  color: var(--navy);
-  font-size: 1.05rem;
-  margin: 24px 0 4px;
-  padding-top: 14px;
-  border-top: 2px solid #ece7da;
-}
-.study-sec-desc { color: #444; font-style: italic; margin: 4px 0 8px; line-height: 1.5; }
-
 .study-misc {
   border: 1px solid #e2e2dc;
   border-radius: 10px;
@@ -210,7 +188,6 @@ body {
   background: white;
   overflow: hidden;
 }
-
 .study-misc-header {
   background: var(--navy);
   color: white;
@@ -221,10 +198,7 @@ body {
   letter-spacing: 0.08em;
   font-family: -apple-system, Segoe UI, sans-serif;
 }
-
-.study-misc-body {
-  padding: 16px 18px;
-}
+.study-misc-body { padding: 16px 18px; }
 
 .study-practice-header {
   font-size: 0.75rem;
@@ -290,7 +264,6 @@ body {
 .study-answer .ans-correct { color: var(--green); font-weight: 700; }
 .study-empty { color: #666; font-style: italic; }
 
-/* ── FOUNDATIONAL GAP CARD ── */
 .gap-card {
   border: 1px solid #e2e2dc;
   border-radius: 10px;
@@ -345,7 +318,6 @@ body {
   line-height: 1.65;
   color: #333;
 }
-.gap-content br { display: block; margin-bottom: 4px; }
 .gap-example-box {
   background: #f5f5f0;
   border-left: 3px solid var(--gold);
@@ -386,13 +358,11 @@ body {
   padding: 2px 8px;
   border-radius: 10px;
   margin-bottom: 8px;
-  vertical-align: middle;
 }
 .gap-pp-difficulty.easy   { background: #e8f5e9; color: #1b5e20; }
 .gap-pp-difficulty.medium { background: #fff8e1; color: #8a6515; }
 .gap-pp-difficulty.hard   { background: #fce4ec; color: #880e4f; }
 
-/* ── DONE BUTTON ── */
 .done-section {
   margin-top: 36px;
   padding-top: 24px;
@@ -457,15 +427,11 @@ body {
   </div>
 
   <div id="tab-specific" class="tab-panel active">
-    <div class="state-box" id="specific-loading">
-      <h3>Loading your missed questions…</h3>
-    </div>
+    <div class="state-box"><h3>Loading your missed questions…</h3></div>
   </div>
 
   <div id="tab-foundational" class="tab-panel">
-    <div class="state-box" id="foundational-loading">
-      <h3>Loading foundational analysis…</h3>
-    </div>
+    <div class="state-box"><h3>Loading foundational analysis…</h3></div>
   </div>
 
   <div class="done-section">
@@ -483,11 +449,11 @@ const AIRTABLE_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f
 const AIRTABLE_BASE_ID = 'app4WLsifRZPgtosg';
 const AIRTABLE_API = 'https://api.airtable.com/v0';
 
+const TEST_NUMBER = 1; // Day 2 reviews test_number 1
+
 let currentUser = null;
 let inlineGraphInstances = [];
-let revealCounter = 0;
 
-// ── TAB SWITCHING ──
 function switchTab(tab) {
   document.getElementById('tab-specific').classList.toggle('active', tab === 'specific');
   document.getElementById('tab-foundational').classList.toggle('active', tab === 'foundational');
@@ -495,7 +461,6 @@ function switchTab(tab) {
   document.getElementById('tab-foundational-btn').classList.toggle('active', tab === 'foundational');
 }
 
-// ── UTILS ──
 function fisherYatesShuffle(arr) {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -519,11 +484,6 @@ function safeParseJSON(raw) {
   if (!raw) return null;
   if (typeof raw !== 'string') return raw;
   try { return JSON.parse(raw.trim()); } catch (e) { return null; }
-}
-
-function destroyAllInlineGraphs() {
-  inlineGraphInstances.forEach(c => { try { if (c && c.destroy) c.destroy(); } catch (e) {} });
-  inlineGraphInstances = [];
 }
 
 function questionTextContainsHTML(text) {
@@ -574,7 +534,6 @@ function renderQuestionContent(containerEl, question) {
   else { containerEl.textContent = question.text || ''; renderMathInDiv(containerEl); }
 }
 
-// ── AIRTABLE ──
 async function fetchTable(tableName, filterByFormula) {
   let allRecords = [], offset = null;
   do {
@@ -604,7 +563,6 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
-// ── STUDY RENDERING (Specific Mistakes tab) ──
 function renderTutorialField(raw) {
   if (!raw) return '';
   return stripComments(raw).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\n/g,'<br>');
@@ -655,7 +613,7 @@ function reportQuestionBlockHTML(qn, uid, questionNumber) {
     html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${escHTML(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`;
   }
   html += `</div>`;
-  return { html, mountId, open: true };
+  return { html, mountId };
 }
 
 function reportTutorialHTML(tutRec) {
@@ -687,35 +645,28 @@ async function fetchTeachingByMisconceptions(miscIds) {
   };
 }
 
-// ── RENDER SPECIFIC MISTAKES ──
 async function renderSpecificMistakes(missed) {
   const panel = document.getElementById('tab-specific');
-
   if (!missed || missed.length === 0) {
     panel.innerHTML = `<div class="state-box"><h3>No missed questions</h3><p>You got everything right on Day 1. Nothing to review here — move on to the foundational gaps tab.</p></div>`;
     return;
   }
-
   panel.innerHTML = `<div class="state-box"><h3>Loading ${missed.length} missed questions…</h3><p>This may take a few seconds.</p></div>`;
-
   const qToMisc = new Map(), miscIds = new Set();
   missed.forEach((m, i) => {
     let mId = null;
     for (const c of (m.choices || [])) { if (c && !c.isCorrect && c.misconceptionId) { mId = c.misconceptionId; break; } }
     if (mId) { qToMisc.set(i, mId); miscIds.add(mId); }
   });
-
   try {
     const teaching = await fetchTeachingByMisconceptions(miscIds);
     let uid = 0, mountJobs = [];
     const countWord = missed.length === 1 ? 'mistake' : 'mistakes';
-
     let html = `<div class="study-intro">
       <div class="study-intro-head">Your Day 1 mistakes — ${missed.length} ${countWord}</div>
-      <p>Each question below comes with a worked solution and practice problems targeting the exact same concept. Work through everything before moving to the foundational gaps tab.</p>
+      <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-
     missed.forEach((m, i) => {
       const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
       mountJobs.push({ mountId: block.mountId, qn: m.q });
@@ -735,7 +686,6 @@ async function renderSpecificMistakes(missed) {
       }
       html += `</div></div>`;
     });
-
     panel.innerHTML = html;
     for (const job of mountJobs) {
       const el = document.getElementById(job.mountId);
@@ -744,29 +694,10 @@ async function renderSpecificMistakes(missed) {
     renderMathInDiv(panel);
   } catch (e) {
     console.error('Specific mistakes failed:', e);
-    panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Something went wrong loading your missed questions. Please refresh and try again.</p></div>`;
+    panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Something went wrong. Please refresh and try again.</p></div>`;
   }
 }
 
-// ── RENDER FOUNDATIONAL GAPS ──
-async function renderFoundationalGaps(missedIds) {
-  const panel = document.getElementById('tab-foundational');
-  try {
-    const { count } = await supabaseClient.from('test_sessions')
-      .select('id', { count: 'exact', head: true })
-      .eq('user_id', currentUser.id).not('completed_at', 'is', null);
-
-    if (!count || count < 2) {
-      await renderDay1CritPreview(missedIds, panel);
-      return;
-    }
-    await renderFullFoundational(panel);
-  } catch (e) {
-    panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Please refresh and try again.</p></div>`;
-  }
-}
-
-// ── FOUNDATIONAL GAP CARD RENDERING ──
 function renderGapCard(rec, count, cardIndex) {
   const f = rec.fields || {};
   const name = f['Name'] || '(unnamed)';
@@ -775,164 +706,69 @@ function renderGapCard(rec, count, cardIndex) {
   const easy    = (f['Practice Easy'] || '').replace(/\n/g, '<br>');
   const medium  = (f['Practice Medium'] || '').replace(/\n/g, '<br>');
   const hard    = (f['Practice Hard'] || '').replace(/\n/g, '<br>');
-
-  const cid = 'gap-' + cardIndex;
-  const eid = cid + '-easy', mid = cid + '-med', hid = cid + '-hard';
-
-  let html = `<div class="gap-card" id="${cid}">
+  let html = `<div class="gap-card">
     <div class="gap-card-header">
       <div class="gap-card-title">${escHTML(name)}</div>
       <div class="gap-card-count">appeared in ${count} missed question${count > 1 ? 's' : ''}</div>
     </div>
     <div class="gap-card-body">`;
-
-  if (concept) {
-    html += `<div class="gap-section-label">The Concept</div>
-             <div class="gap-content">${concept}</div>`;
-  }
-
-  if (worked) {
-    html += `<div class="gap-section-label">Worked Example</div>
-             <div class="gap-example-box gap-content">${worked}</div>`;
-  }
-
+  if (concept) html += `<div class="gap-section-label">The Concept</div><div class="gap-content">${concept}</div>`;
+  if (worked)  html += `<div class="gap-section-label">Worked Example</div><div class="gap-example-box gap-content">${worked}</div>`;
   if (easy || medium || hard) {
     html += `<div class="gap-practice-label">Practice Problems</div>`;
-
-    if (easy) {
-      html += `<div class="gap-pp">
-        <span class="gap-pp-difficulty easy">Easy</span>
-        <div style="margin-top:8px;" class="gap-content">${easy}</div>
-      </div>`;
-    }
-    if (medium) {
-      html += `<div class="gap-pp">
-        <span class="gap-pp-difficulty medium">Medium</span>
-        <div style="margin-top:8px;" class="gap-content">${medium}</div>
-      </div>`;
-    }
-    if (hard) {
-      html += `<div class="gap-pp">
-        <span class="gap-pp-difficulty hard">Hard</span>
-        <div style="margin-top:8px;" class="gap-content">${hard}</div>
-      </div>`;
-    }
+    if (easy)   html += `<div class="gap-pp"><span class="gap-pp-difficulty easy">Easy</span><div style="margin-top:8px;" class="gap-content">${easy}</div></div>`;
+    if (medium) html += `<div class="gap-pp"><span class="gap-pp-difficulty medium">Medium</span><div style="margin-top:8px;" class="gap-content">${medium}</div></div>`;
+    if (hard)   html += `<div class="gap-pp"><span class="gap-pp-difficulty hard">Hard</span><div style="margin-top:8px;" class="gap-content">${hard}</div></div>`;
   }
-
   html += `</div></div>`;
   return html;
 }
 
-async function renderDay1CritPreview(missedIds, panel) {
+async function renderFoundationalGaps(missedIds) {
+  const panel = document.getElementById('tab-foundational');
   if (!missedIds || missedIds.length === 0) {
-    panel.innerHTML = `<div class="state-box"><h3>No foundational gaps to show</h3><p>You didn't miss any questions on Day 1. Your foundational analysis will build up as you take more tests.</p></div>`;
+    panel.innerHTML = `<div class="state-box"><h3>No foundational gaps to show</h3><p>You didn't miss any questions on Day 1.</p></div>`;
     return;
   }
-
   panel.innerHTML = `<div class="state-box"><h3>Building your foundational preview…</h3></div>`;
-
   try {
-    // Fetch CRIT prereqs for missed questions
     const CHUNK = 50, chunks = [];
     for (let i = 0; i < missedIds.length; i += CHUNK) chunks.push(missedIds.slice(i, i + CHUNK));
     const results = await Promise.all(chunks.map(chunk => {
       const cond = chunk.map(id => `RECORD_ID()='${id}'`).join(',');
       return fetchTable('Questions', `OR(${cond})`);
     }));
-    const qRecs = results.flat();
-
     const tally = new Map();
-    for (const rec of qRecs) {
-      const crits = rec.fields['Critical Prerequisite'] || [];
-      for (const nid of new Set(crits)) tally.set(nid, (tally.get(nid) || 0) + 1);
+    for (const rec of results.flat()) {
+      for (const nid of new Set(rec.fields['Critical Prerequisite'] || [])) {
+        tally.set(nid, (tally.get(nid) || 0) + 1);
+      }
     }
-
     if (tally.size === 0) {
-      panel.innerHTML = `<div class="state-box"><h3>Foundational gaps</h3><p>Not enough prerequisite data from Day 1 to identify foundational gaps yet. These will appear after your Day 11 diagnostic.</p></div>`;
+      panel.innerHTML = `<div class="state-box"><h3>Foundational gaps</h3><p>Not enough prerequisite data from Day 1. These will appear after your Day 11 diagnostic.</p></div>`;
       return;
     }
-
-    // Top 8 nodes by frequency
     const topIds = [...tally.entries()].sort((a,b) => b[1]-a[1]).slice(0, 8).map(([nid]) => nid);
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
-
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 1 preview</div>
-      <p>These are the foundational concepts that appeared most often in your Day 1 missed questions. They are the building blocks behind the errors you made.</p>
+      <p>These are the foundational concepts that appeared most often in your Day 1 missed questions.</p>
       <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after your Day 11 diagnostic.</p>
     </div>`;
-
     topIds.forEach((nid, i) => {
       const rec = nodeMap.get(nid);
       if (!rec) return;
       html += renderGapCard(rec, tally.get(nid), i);
     });
-
     panel.innerHTML = html;
     renderMathInDiv(panel);
   } catch (e) {
-    console.error('CRIT preview failed:', e);
-    panel.innerHTML = `<div class="state-box"><h3>Could not load foundational preview</h3><p>Please refresh and try again.</p></div>`;
-  }
-}
-
-async function renderFullFoundational(panel) {
-  panel.innerHTML = `<div class="state-box"><h3>Building foundational analysis…</h3></div>`;
-  try {
-    const missed = new Set();
-    let from = 0;
-    while (true) {
-      const { data, error } = await supabaseClient.from('questions_seen')
-        .select('question_id').eq('user_id', currentUser.id).eq('is_correct', false)
-        .range(from, from + 999);
-      if (error || !data || data.length === 0) break;
-      data.forEach(r => missed.add(r.question_id));
-      if (data.length < 1000) break;
-      from += 1000;
-    }
-    const allMissedIds = Array.from(missed);
-    if (allMissedIds.length < 30) {
-      panel.innerHTML = `<div class="state-box"><h3>Not enough data yet</h3><p>Foundational gaps need at least 30 missed questions across 2+ tests. Keep going — this fills in automatically.</p></div>`;
-      return;
-    }
-    const CHUNK = 50, chunks = [];
-    for (let i = 0; i < allMissedIds.length; i += CHUNK) chunks.push(allMissedIds.slice(i, i + CHUNK));
-    const results = await Promise.all(chunks.map(chunk => {
-      const cond = chunk.map(id => `RECORD_ID()='${id}'`).join(',');
-      return fetchTable('Questions', `OR(${cond})`);
-    }));
-    const tally = new Map();
-    for (const rec of results.flat()) {
-      for (const nid of new Set(rec.fields['Critical Prerequisite'] || [])) tally.set(nid, (tally.get(nid) || 0) + 1);
-    }
-    const topIds = [...tally.entries()].filter(([,c]) => c >= 2).sort((a,b) => b[1]-a[1]).slice(0,5).map(([nid]) => nid);
-    if (topIds.length === 0) {
-      panel.innerHTML = `<div class="state-box"><h3>No recurring gaps found</h3><p>No foundational gaps recurring across your tests yet. Keep going.</p></div>`;
-      return;
-    }
-    const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
-    const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
-
-    let html = `<div class="study-intro">
-      <div class="study-intro-head">Your foundational gaps</div>
-      <p>These concepts keep appearing in your missed questions across multiple tests. Fixing them will unlock improvement across many skill areas at once.</p>
-    </div>`;
-
-    topIds.forEach((nid, i) => {
-      const rec = nodeMap.get(nid);
-      if (!rec) return;
-      html += renderGapCard(rec, tally.get(nid), i + 100);
-    });
-
-    panel.innerHTML = html;
-    renderMathInDiv(panel);
-  } catch (e) {
+    console.error('Foundational gaps failed:', e);
     panel.innerHTML = `<div class="state-box"><h3>Could not load</h3><p>Please refresh and try again.</p></div>`;
   }
 }
 
-// ── MARK DAY DONE ──
 async function markDayDone() {
   const btn = document.getElementById('btn-mark-done');
   btn.disabled = true;
@@ -941,6 +777,7 @@ async function markDayDone() {
     await supabaseClient.from('day_progress').upsert({
       user_id: currentUser.id,
       day_number: 2,
+      completed: true,
       completed_at: new Date().toISOString()
     }, { onConflict: 'user_id,day_number' });
     btn.textContent = 'Day 2 Complete!';
@@ -954,18 +791,25 @@ async function markDayDone() {
   }
 }
 
-// ── BOOT ──
 document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (!session) { window.location.href = '/dashboard/'; return; }
   currentUser = session.user;
 
+  // Fetch the most recent test_number 1 result (handles duplicate rows gracefully)
   let snapshot = null, score = null;
   try {
     const { data } = await supabaseClient.from('test_results')
-      .select('snapshot, score').eq('user_id', currentUser.id).eq('test_number', 1).single();
-    if (data) { snapshot = data.snapshot; score = data.score; }
-  } catch (e) {}
+      .select('snapshot, score')
+      .eq('user_id', currentUser.id)
+      .eq('test_number', TEST_NUMBER)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (data && data.length > 0) {
+      snapshot = data[0].snapshot;
+      score = data[0].score;
+    }
+  } catch (e) { console.error('Failed to load test result:', e); }
 
   if (!snapshot || !score) {
     document.getElementById('tab-specific').innerHTML = `<div class="state-box">
@@ -984,6 +828,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const totalCorrect = snapshot.totalCorrect;
   const total = snapshot.total || 44;
   const missedCount = missed.length;
+
   const banner = document.getElementById('score-banner');
   banner.style.display = 'flex';
   document.getElementById('banner-score').textContent = score;
