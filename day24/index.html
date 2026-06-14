@@ -555,6 +555,8 @@ function renderQuestionContent(containerEl, question) {
   else { containerEl.textContent = question.text || ''; renderMath(containerEl); }
 }
 
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
 async function fetchTable(tableName, filterByFormula, maxRecords) {
   let allRecords = [], offset = null;
   do {
@@ -564,11 +566,18 @@ async function fetchTable(tableName, filterByFormula, maxRecords) {
     if (offset) params.set('offset', offset);
     const qs = params.toString();
     const url = `${AIRTABLE_API}/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}${qs ? '?' + qs : ''}`;
-    const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-    const data = await response.json();
+    // Retry on 429 (Airtable rate limit: 5 req/sec) with backoff
+    let data = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+      if (response.status === 429) { await sleep(400 + attempt * 400); continue; }
+      data = await response.json();
+      break;
+    }
+    if (!data) return allRecords;
     allRecords = allRecords.concat(data.records || []);
     offset = data.offset || null;
-    if (maxRecords) break; // if we have a limit, only fetch one page
+    if (maxRecords) break;
   } while (offset);
   return allRecords;
 }
@@ -600,30 +609,40 @@ function toggleStudyReveal(id, btn, kind) {
 
 const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
 
-// Renders a practice problem from the MAIN question bank (Questions table fields)
+// Normalise a raw Questions record into the shape renderQuestionContent expects
+function normaliseBankQuestion(rec) {
+  const f = rec.fields || {};
+  return {
+    text: f['Question Text'] || '',
+    visualSvg: f['Visual SVG'] || '',
+    graphType: f['graph_type'] || '',
+    graphExpressions: f['graph_expressions'] || '',
+    graphWindow: f['graph_window'] || '',
+    graphPoints: f['graph_points'] || '',
+    graphShowAxisNumbers: f['graph_show_axis_numbers'] === true,
+    graphShowGrid: f['graph_show_grid'] === true,
+    graphXAxisLabel: f['graph_x_axis_label'] || '',
+    graphYAxisLabel: f['graph_y_axis_label'] || ''
+  };
+}
+
+// Renders a practice problem from the MAIN question bank (Questions table fields).
+// Returns { html, mountId, question } so the caller can render the graph/text into the mount.
 function renderMainBankPP(rec, idx) {
   const f = rec.fields || {};
-  const q = renderField(f['Question Text'] || '');
   const correct = f['Correct Answer'] || '';
   const diff = f['Difficulty'] || '';
-
-  // Fetch distractors from linked Distractors table via field
-  // Distractors are linked records — we'll use Wrong Answer fields if available,
-  // otherwise show just the correct answer
-  const wrongFields = ['Wrong Answer 1','Wrong Answer 2','Wrong Answer 3'];
-  const wrongs = wrongFields.map(wf => f[wf]).filter(Boolean);
-
+  const wrongs = rec._wrongAnswers || [];
   const choices = fisherYatesShuffle([correct, ...wrongs]);
   const letters = ['A','B','C','D'];
   const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${renderField(c)}</div>`).join('');
-
   const ansId = 'ans-' + idx;
+  const mountId = 'ppmount-' + idx;
   const sol = renderField(f['Solution'] || '');
   const diffClass = diff.toLowerCase();
-
-  return `<div class="gap-pp">
+  const html = `<div class="gap-pp">
     <span class="gap-pp-difficulty ${diffClass}">${escHTML(diff)}</span>
-    <div style="font-weight:600;margin-bottom:6px;">${q}</div>
+    <div class="study-q-mount" id="${mountId}" style="margin-bottom:6px;"></div>
     <div style="margin:6px 0 8px;line-height:1.5;">${choicesHTML}</div>
     <button class="study-reveal-btn" onclick="toggleStudyReveal('${ansId}',this)">Show answer &amp; solution</button>
     <div class="study-answer" id="${ansId}">
@@ -631,6 +650,7 @@ function renderMainBankPP(rec, idx) {
       ${sol ? `<div style="margin-top:6px;">${sol}</div>` : ''}
     </div>
   </div>`;
+  return { html, mountId, question: normaliseBankQuestion(rec) };
 }
 
 function renderPracticeProblemHTML(rec, idx) {
@@ -702,27 +722,42 @@ async function fetchTeachingByMisconceptions(miscIds) {
 // Fetch 1 Easy + 1 Medium + 1 Hard from the main 4,700-question bank
 // for the skill linked to a misconception, excluding the question already seen.
 async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
-  if (!skillRecId) return [];
+  if (!skillRecId) { console.log('[PP] no skillRecId for a missed question'); return []; }
   // Step 1: Fetch the skill record to get its name (primary field)
   const skillRecs = await fetchRecordsByIds('Skills', [skillRecId]);
-  if (!skillRecs.length) return [];
+  if (!skillRecs.length) { console.log('[PP] skill record not found:', skillRecId); return []; }
   const skillName = skillRecs[0].fields['Skill Name'] || '';
-  if (!skillName) return [];
+  if (!skillName) { console.log('[PP] skill has no name:', skillRecId); return []; }
   // Step 2: Filter Questions where ARRAYJOIN({Skill}) contains the skill name
+  const esc = skillName.replace(/'/g, "\\'");
   const formula = `AND(
-    FIND('${skillName.replace(/'/g, "\'")}', ARRAYJOIN({Skill})),
+    FIND('${esc}', ARRAYJOIN({Skill})),
     {Review Status}='Reviewed - OK',
-    OR(NOT({graph_type}), {graph_type}=''),
     NOT(RECORD_ID()='${excludeQId || ''}')
   )`;
-  const recs = await fetchTable('Questions', formula, 15);
+  const recs = await fetchTable('Questions', formula, 30);
+  console.log(`[PP] skill "${skillName}" -> ${recs.length} questions`);
   const byDiff = { Easy: [], Medium: [], Hard: [] };
   for (const r of recs) {
     const d = r.fields['Difficulty'] || '';
     if (byDiff[d]) byDiff[d].push(r);
   }
   const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
-  return [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
+  let chosen = [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
+  if (chosen.length === 0 && recs.length > 0) {
+    chosen = fisherYatesShuffle(recs).slice(0, 3);
+  }
+  // Attach distractor text to each chosen question (main-bank distractors are linked records)
+  const allDistIds = new Set();
+  chosen.forEach(r => (r.fields['Distractors'] || []).forEach(id => allDistIds.add(id)));
+  if (allDistIds.size > 0) {
+    const distRecs = await fetchRecordsByIds('Distractors', Array.from(allDistIds));
+    const distById = new Map(distRecs.map(d => [d.id, d.fields['Distractor Text'] || '']));
+    chosen.forEach(r => {
+      r._wrongAnswers = (r.fields['Distractors'] || []).map(id => distById.get(id)).filter(Boolean);
+    });
+  }
+  return chosen;
 }
 
 async function renderSpecificMistakes(missed) {
@@ -747,16 +782,25 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-    // Pre-fetch practice problems from main bank for each missed question's skill
+    // Pre-fetch practice problems from main bank, throttled to avoid Airtable 429.
+    // Process 2 at a time with a small delay between batches.
     const ppByMiscId = new Map();
-    await Promise.all(missed.map(async (m, i) => {
+    const fetchJobs = [];
+    missed.forEach((m, i) => {
       const mId = qToMisc.get(i);
-      if (!mId) return;
+      if (!mId || ppByMiscId.has(mId)) return;
       const skillRecId = teaching.miscToSkillName.get(mId);
       const excludeQId = m.q ? m.q.id : null;
-      const qs = await fetchMainBankPPBySkillId(skillRecId, excludeQId);
-      ppByMiscId.set(mId, qs);
-    }));
+      fetchJobs.push({ mId, skillRecId, excludeQId });
+    });
+    for (let i = 0; i < fetchJobs.length; i += 2) {
+      const batch = fetchJobs.slice(i, i + 2);
+      await Promise.all(batch.map(async job => {
+        const qs = await fetchMainBankPPBySkillId(job.skillRecId, job.excludeQId);
+        ppByMiscId.set(job.mId, qs);
+      }));
+      if (i + 2 < fetchJobs.length) await sleep(300);
+    }
 
     missed.forEach((m, i) => {
       const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
@@ -770,7 +814,11 @@ async function renderSpecificMistakes(missed) {
         const ppList = ppByMiscId.get(mId) || [];
         if (ppList.length > 0) {
           html += `<div class="study-practice-header">Practice Problems — Same Concept</div>`;
-          for (const pp of ppList) html += renderMainBankPP(pp, uid++);
+          for (const pp of ppList) {
+            const block = renderMainBankPP(pp, uid++);
+            html += block.html;
+            mountJobs.push({ mountId: block.mountId, qn: block.question });
+          }
         }
       }
       html += `</div></div>`;
@@ -838,7 +886,7 @@ async function renderFoundationalGaps(missedIds) {
       }
     }
     if (tally.size === 0) {
-      panel.innerHTML = `<div class="state-box"><h3>Foundational gaps</h3><p>Not enough prerequisite data from Day 1. These will appear after your Day 11 diagnostic.</p></div>`;
+      panel.innerHTML = `<div class="state-box"><h3>Foundational gaps</h3><p>Not enough prerequisite data from Day 1. These will appear after your Day 23 diagnostic.</p></div>`;
       return;
     }
     const topIds = [...tally.entries()].sort((a,b) => b[1]-a[1]).slice(0, 8).map(([nid]) => nid);
@@ -848,7 +896,7 @@ async function renderFoundationalGaps(missedIds) {
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 23 preview</div>
       <p>These are the foundational concepts that appeared most often in your Day 23 missed questions.</p>
-      <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after completing all three diagnostics.</p>
+      <p>Study each concept, work through the examples, then try the practice problems. This is your final diagnostic before the full practice tests.</p>
     </div>`;
 
     topIds.forEach(nid => {
@@ -882,7 +930,7 @@ async function markDayDone() {
   } catch (e) {
     console.error('markDayDone failed:', e);
     btn.disabled = false;
-    btn.textContent = 'Mark Day 2 Complete';
+    btn.textContent = 'Mark Day 24 Complete';
     alert('Could not save progress. Please try again.');
   }
 }
