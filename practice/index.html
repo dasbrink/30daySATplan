@@ -15,115 +15,113 @@
 <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
-  nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
-  .nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;text-decoration:none}
-  .nav-day{color:#d4a04a;font-size:0.85rem;font-weight:600}
-  .screen{display:none;min-height:calc(100vh - 52px)}
-  .screen.active{display:block}
-  .screen.active.centered{display:flex;align-items:center;justify-content:center}
-  .centered{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
-  .setup-card{background:#fff;border-radius:12px;padding:40px;max-width:520px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
-  .domain-badge{display:inline-block;background:#1a3a5c;color:#d4a04a;font-family:'Playfair Display',serif;font-size:0.85rem;padding:4px 14px;border-radius:20px;margin-bottom:20px}
-  .setup-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:8px}
-  .setup-card p{color:#555;font-size:0.95rem;line-height:1.6;margin-bottom:28px}
-  .spinner-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:12px}
-  .diff-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:10px;margin-top:24px}
-  .diff-row{display:flex;gap:10px;margin-bottom:28px}
-  .diff-btn{flex:1;padding:10px 6px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;color:#555;transition:all 0.15s;text-align:center;font-family:'Inter',sans-serif}
-  .diff-btn:hover{border-color:#1a3a5c;color:#1a3a5c}
-  .diff-btn.active{border-color:#1a3a5c;background:#1a3a5c;color:#fff}
-  .diff-btn.active.easy{border-color:#2e7d32;background:#2e7d32}
-  .diff-btn.active.medium{border-color:#e65100;background:#e65100}
-  .diff-btn.active.hard{border-color:#c62828;background:#c62828}
-  .spinner-row{display:flex;align-items:center;gap:16px;margin-bottom:32px}
-  .spinner-btn{width:40px;height:40px;border-radius:50%;border:2px solid #1a3a5c;background:#fff;color:#1a3a5c;font-size:1.3rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s}
-  .spinner-btn:hover{background:#1a3a5c;color:#fff}
-  .spinner-count{font-size:2rem;font-weight:700;color:#1a3a5c;min-width:40px;text-align:center}
-  .btn-primary{background:#1a3a5c;color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;transition:background 0.2s}
-  .btn-primary:hover{background:#0f2540}
-  .btn-secondary{background:#fff;color:#1a3a5c;border:2px solid #1a3a5c;padding:12px 28px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s}
-  .btn-secondary:hover{background:#1a3a5c;color:#fff}
-  .instr-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
-  .instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
-  .instr-list{list-style:none;padding:0;margin-bottom:28px}
-  .instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
-  .instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
-  .instr-list li:last-child{border-bottom:none}
-  #screen-question{padding:0}
-  .q-layout{display:grid;grid-template-columns:1fr 340px;min-height:calc(100vh - 52px)}
-  @media(max-width:768px){.q-layout{grid-template-columns:1fr}.q-sidebar{display:none}}
-  .q-main{padding:28px 32px;overflow-y:auto;background:#f5f5f0}
-  .q-progress-bar-wrap{background:#e0e0e0;border-radius:4px;height:6px;margin-bottom:20px}
-  .q-progress-bar{background:#1a3a5c;height:6px;border-radius:4px;transition:width 0.3s}
-  .q-counter{font-size:0.85rem;color:#777;margin-bottom:16px}
-  .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
-  .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
-  .answer-options{display:flex;flex-direction:column;gap:10px}
-  .answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a}
-  .answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
-  .answer-btn.selected{border-color:#1a3a5c;background:#e8f0f8}
-  .answer-btn.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
-  .answer-btn.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
-  .answer-btn.show-correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
-  .answer-label{font-weight:700;min-width:22px}
-  .cross-out-btn{font-size:0.7rem;color:#aaa;border:1px solid #ddd;background:#fff;border-radius:4px;padding:1px 6px;cursor:pointer;margin-left:auto;flex-shrink:0;margin-top:2px}
-  .answer-btn.crossed .answer-label,.answer-btn.crossed .answer-text{text-decoration:line-through;opacity:0.5}
-  .submit-row{margin-top:16px;display:flex;justify-content:flex-end}
-  .btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer}
-  .btn-submit:disabled{background:#aaa;cursor:default}
-  .q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
-  .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
-  .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
-  .tool-btn:hover{background:#1a3a5c;color:#fff}
-  #desmos-wrap{position:fixed;bottom:0;right:0;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:none;flex-direction:column}
-  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
-  .desmos-header span{font-size:0.85rem;font-weight:600}
-  .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
-  #desmos-container{flex:1}
-  #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
-  #formula-modal.open{display:flex}
-  .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
-  .formula-inner img{width:100%;border-radius:6px}
-  .formula-close{position:absolute;top:10px;right:14px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:#555}
-  #screen-results{padding:28px 20px;max-width:720px;margin:0 auto}
-  .results-header{text-align:center;margin-bottom:28px}
-  .results-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a3a5c;margin-bottom:6px}
-  .score-summary{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
-  .score-box{background:#fff;border-radius:10px;padding:20px 28px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);min-width:120px}
-  .score-box .num{font-family:'Playfair Display',serif;font-size:2rem;color:#1a3a5c}
-  .score-box .lbl{font-size:0.8rem;color:#888;margin-top:4px}
-  .results-actions{display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
-  .missed-section h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:#1a3a5c;margin-bottom:16px}
-  .missed-card{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.07);overflow:hidden}
-  .missed-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .missed-q-text{font-size:0.95rem;line-height:1.6;flex:1}
-  .missed-badge{background:#ffebee;color:#c62828;font-size:0.75rem;font-weight:600;padding:2px 10px;border-radius:12px;white-space:nowrap;flex-shrink:0}
-  .expand-arrow{color:#888;font-size:0.85rem;flex-shrink:0;margin-top:2px}
-  .missed-body{display:none;padding:0 20px 20px;border-top:1px solid #f0f0f0}
-  .missed-body.open{display:block}
-  .answer-row{margin:14px 0;padding:10px 14px;border-radius:6px;font-size:0.9rem}
-  .your-answer{background:#ffebee;color:#b71c1c}
-  .right-answer{background:#e8f5e9;color:#1b5e20}
-  .solution-box{background:#f8f8f8;border-left:3px solid #1a3a5c;padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0;font-size:0.9rem;line-height:1.7}
-  .tutorial-box{border:1px solid #e0e0e0;border-radius:8px;padding:16px;margin-top:16px}
-  .tutorial-box h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:10px}
-  .tutorial-content{font-size:0.9rem;line-height:1.6;color:#333}
-  .practice-problems{margin-top:16px}
-  .practice-problems h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:10px}
-  .pp-item{background:#f5f5f0;border-radius:8px;padding:14px 16px;margin-bottom:10px;font-size:0.9rem}
-  .pp-difficulty{font-size:0.75rem;color:#888;margin-bottom:6px;font-weight:600;text-transform:uppercase}
-  .pp-question{margin-bottom:8px;line-height:1.6}
-  .pp-answer{padding:6px 10px;border-radius:5px;font-size:0.85rem}
-  .pp-answer.pp-correct{background:#e8f5e9;color:#1b5e20;font-weight:600}
-  .loading-spinner{text-align:center;padding:40px;color:#888;font-size:0.95rem}
-  .complete-banner{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:16px 20px;margin-bottom:24px;text-align:center;color:#1b5e20;font-size:0.95rem;font-weight:600;display:none}
-  .complete-banner.show{display:block}
-  .diff-result-badge{display:inline-block;font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle}
-  .diff-result-badge.Easy{background:#e8f5e9;color:#1b5e20}
-  .diff-result-badge.Medium{background:#fff8e1;color:#8a6515}
-  .diff-result-badge.Hard{background:#fce4ec;color:#880e4f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
+nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;text-decoration:none}
+.nav-day{color:#d4a04a;font-size:0.85rem;font-weight:600}
+
+.screen{display:none}
+.screen.active{display:block}
+
+.full-center{min-height:calc(100vh - 52px);display:flex;align-items:center;justify-content:center}
+
+.setup-card{background:#fff;border-radius:12px;padding:40px;max-width:520px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
+.domain-badge{display:inline-block;background:#1a3a5c;color:#d4a04a;font-family:'Playfair Display',serif;font-size:0.85rem;padding:4px 14px;border-radius:20px;margin-bottom:20px}
+.setup-card h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:#1a3a5c;margin-bottom:8px}
+.setup-card p{color:#555;font-size:0.95rem;line-height:1.6;margin-bottom:28px}
+.spinner-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:12px}
+.diff-label{font-size:0.9rem;font-weight:600;color:#1a3a5c;margin-bottom:10px;margin-top:24px}
+.diff-row{display:flex;gap:10px;margin-bottom:28px}
+.diff-btn{flex:1;padding:10px 6px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;color:#555;transition:all 0.15s;text-align:center;font-family:'Inter',sans-serif}
+.diff-btn:hover{border-color:#1a3a5c;color:#1a3a5c}
+.diff-btn.active{border-color:#1a3a5c;background:#1a3a5c;color:#fff}
+.diff-btn.active.easy{border-color:#2e7d32;background:#2e7d32}
+.diff-btn.active.medium{border-color:#e65100;background:#e65100}
+.diff-btn.active.hard{border-color:#c62828;background:#c62828}
+.spinner-row{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.spinner-btn{width:40px;height:40px;border-radius:50%;border:2px solid #1a3a5c;background:#fff;color:#1a3a5c;font-size:1.3rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s}
+.spinner-btn:hover{background:#1a3a5c;color:#fff}
+.spinner-count{font-size:2rem;font-weight:700;color:#1a3a5c;min-width:40px;text-align:center}
+.btn-primary{background:#1a3a5c;color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;transition:background 0.2s;font-family:'Inter',sans-serif}
+.btn-primary:hover{background:#0f2540}
+.btn-secondary{background:#fff;color:#1a3a5c;border:2px solid #1a3a5c;padding:12px 28px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif}
+.btn-secondary:hover{background:#1a3a5c;color:#fff}
+
+.instr-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
+.instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
+.instr-list{list-style:none;padding:0;margin-bottom:28px}
+.instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
+.instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
+.instr-list li:last-child{border-bottom:none}
+
+.q-layout{display:grid;grid-template-columns:1fr 340px;min-height:calc(100vh - 52px)}
+@media(max-width:768px){.q-layout{grid-template-columns:1fr}.q-sidebar{display:none}}
+.q-main{padding:28px 32px;overflow-y:auto;background:#f5f5f0}
+.q-progress-bar-wrap{background:#e0e0e0;border-radius:4px;height:6px;margin-bottom:20px}
+.q-progress-bar{background:#1a3a5c;height:6px;border-radius:4px;transition:width 0.3s}
+.q-counter{font-size:0.85rem;color:#777;margin-bottom:16px}
+.q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+.answer-options{display:flex;flex-direction:column;gap:10px}
+.answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a;font-family:'Inter',sans-serif;width:100%}
+.answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
+.answer-btn.selected{border-color:#1a3a5c;background:#e8f0f8}
+.answer-btn.show-correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+.answer-btn.wrong{border-color:#c62828;background:#ffebee;color:#b71c1c}
+.answer-label{font-weight:700;min-width:22px}
+.answer-text{flex:1}
+.cross-out-btn{font-size:0.7rem;color:#aaa;border:1px solid #ddd;background:#fff;border-radius:4px;padding:1px 6px;cursor:pointer;margin-left:auto;flex-shrink:0;margin-top:2px;font-family:'Inter',sans-serif}
+.answer-btn.crossed .answer-label,.answer-btn.crossed .answer-text{text-decoration:line-through;opacity:0.5}
+.submit-row{margin-top:16px;display:flex;justify-content:flex-end}
+.btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-submit:disabled{background:#aaa;cursor:default}
+.q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
+.sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+.tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s;font-family:'Inter',sans-serif}
+.tool-btn:hover{background:#1a3a5c;color:#fff}
+
+#desmos-wrap{position:fixed;bottom:0;right:0;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:none;flex-direction:column}
+.desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
+.desmos-header span{font-size:0.85rem;font-weight:600}
+.desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
+#desmos-container{flex:1}
+#formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
+#formula-modal.open{display:flex}
+.formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
+.formula-inner img{width:100%;border-radius:6px}
+.formula-close{position:absolute;top:10px;right:14px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:#555}
+
+#screen-results{padding:28px 20px;max-width:720px;margin:0 auto}
+.results-header{text-align:center;margin-bottom:28px}
+.results-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a3a5c;margin-bottom:6px}
+.score-summary{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap}
+.score-box{background:#fff;border-radius:10px;padding:20px 28px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.08);min-width:120px}
+.score-box .num{font-family:'Playfair Display',serif;font-size:2rem;color:#1a3a5c}
+.score-box .lbl{font-size:0.8rem;color:#888;margin-top:4px}
+.results-actions{display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+.missed-section h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:#1a3a5c;margin-bottom:16px}
+.missed-card{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.07);overflow:hidden}
+.missed-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.missed-q-text{font-size:0.95rem;line-height:1.6;flex:1}
+.missed-badge{background:#ffebee;color:#c62828;font-size:0.75rem;font-weight:600;padding:2px 10px;border-radius:12px;white-space:nowrap;flex-shrink:0}
+.expand-arrow{color:#888;font-size:0.85rem;flex-shrink:0;margin-top:2px}
+.missed-body{display:none;padding:0 20px 20px;border-top:1px solid #f0f0f0}
+.missed-body.open{display:block}
+.answer-row{margin:14px 0;padding:10px 14px;border-radius:6px;font-size:0.9rem}
+.your-answer{background:#ffebee;color:#b71c1c}
+.right-answer{background:#e8f5e9;color:#1b5e20}
+.solution-box{background:#f8f8f8;border-left:3px solid #1a3a5c;padding:12px 16px;border-radius:0 6px 6px 0;margin:14px 0;font-size:0.9rem;line-height:1.7}
+.tutorial-box{border:1px solid #e0e0e0;border-radius:8px;padding:16px;margin-top:16px}
+.tutorial-box h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:10px}
+.tutorial-content{font-size:0.9rem;line-height:1.6;color:#333}
+.pp-item{background:#f5f5f0;border-radius:8px;padding:14px 16px;margin-bottom:10px;font-size:0.9rem}
+.pp-difficulty{font-size:0.75rem;color:#888;margin-bottom:6px;font-weight:600;text-transform:uppercase}
+.pp-question{margin-bottom:8px;line-height:1.6}
+.pp-answer{padding:6px 10px;border-radius:5px;font-size:0.85rem}
+.pp-answer.pp-correct{background:#e8f5e9;color:#1b5e20;font-weight:600}
+.complete-banner{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:16px 20px;margin-bottom:24px;text-align:center;color:#1b5e20;font-size:0.95rem;font-weight:600;display:none}
+.complete-banner.show{display:block}
 </style>
 </head>
 <body>
@@ -133,47 +131,59 @@
   <span class="nav-day" id="nav-day-label"></span>
 </nav>
 
-<!-- SETUP SCREEN -->
-<div class="screen active centered" id="screen-setup">
-  <div class="setup-card">
-    <div class="domain-badge" id="domain-badge">Algebra</div>
-    <h1 id="setup-title">Algebra Practice</h1>
-    <p id="setup-desc">Work through a focused set of Algebra questions. Take your time — there's no clock. Aim to spend at least 2 minutes thinking through each question.</p>
-    <div class="spinner-label">How many questions do you want?</div>
-    <div class="spinner-row">
-      <button class="spinner-btn" id="btn-minus">−</button>
-      <span class="spinner-count" id="q-count-display">10</span>
-      <button class="spinner-btn" id="btn-plus">+</button>
+<!-- SETUP -->
+<div class="screen active" id="screen-setup">
+  <div class="full-center">
+    <div class="setup-card">
+      <div class="domain-badge" id="domain-badge">Algebra</div>
+      <h1 id="setup-title">Algebra Practice</h1>
+      <p id="setup-desc">Work through a focused set of questions. Take your time — there's no clock.</p>
+      <div class="spinner-label">How many questions do you want?</div>
+      <div class="spinner-row">
+        <button class="spinner-btn" id="btn-minus">−</button>
+        <span class="spinner-count" id="q-count-display">10</span>
+        <button class="spinner-btn" id="btn-plus">+</button>
+      </div>
+      <div class="diff-label">Difficulty</div>
+      <div class="diff-row">
+        <button class="diff-btn easy" id="diff-easy">Easy</button>
+        <button class="diff-btn medium active" id="diff-medium">Medium</button>
+        <button class="diff-btn hard" id="diff-hard">Hard</button>
+        <button class="diff-btn" id="diff-mixed">Mixed</button>
+      </div>
+      <button class="btn-primary" id="btn-start-session">Start Practice Session</button>
     </div>
-    <div class="diff-label">Difficulty</div>
-    <div class="diff-row">
-      <button class="diff-btn easy" id="diff-easy" onclick="setDiff('Easy',this)">Easy</button>
-      <button class="diff-btn medium active" id="diff-medium" onclick="setDiff('Medium',this)">Medium</button>
-      <button class="diff-btn hard" id="diff-hard" onclick="setDiff('Hard',this)">Hard</button>
-      <button class="diff-btn" id="diff-mixed" onclick="setDiff('Mixed',this)">Mixed</button>
+  </div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div class="screen" id="screen-instructions">
+  <div class="full-center">
+    <div class="instr-card">
+      <h2 id="instr-title">Ready to Practice?</h2>
+      <ul class="instr-list">
+        <li>This session is <strong>untimed</strong> — there is no clock.</li>
+        <li>Spend at least <strong>2 minutes</strong> on each question before submitting.</li>
+        <li>After the session, review every wrong answer carefully.</li>
+        <li>You can use the <strong>calculator</strong> and <strong>formula sheet</strong> at any time.</li>
+        <li>At the end, you can do another round with fresh questions.</li>
+      </ul>
+      <button class="btn-primary" id="btn-begin">Begin</button>
     </div>
-    <button class="btn-primary" id="btn-start-session">Start Practice Session</button>
   </div>
 </div>
 
-<!-- INSTRUCTIONS SCREEN -->
-<div class="screen centered" id="screen-instructions">
-  <div class="instr-card">
-    <h2 id="instr-title">Ready to Practice?</h2>
-    <ul class="instr-list" id="instr-list"></ul>
-    <button class="btn-primary" id="btn-begin">Begin</button>
+<!-- LOADING -->
+<div class="screen" id="screen-loading">
+  <div class="full-center">
+    <div style="text-align:center">
+      <div style="font-size:1.1rem;color:#1a3a5c;font-weight:600;margin-bottom:8px">Loading your questions…</div>
+      <div style="color:#888;font-size:0.9rem">Pulling from the question bank</div>
+    </div>
   </div>
 </div>
 
-<!-- LOADING SCREEN -->
-<div class="screen centered" id="screen-loading">
-  <div style="text-align:center">
-    <div style="font-size:1.1rem;color:#1a3a5c;font-weight:600;margin-bottom:8px">Loading your questions…</div>
-    <div style="color:#888;font-size:0.9rem">Pulling from your domain bank</div>
-  </div>
-</div>
-
-<!-- QUESTION SCREEN -->
+<!-- QUESTION -->
 <div class="screen" id="screen-question">
   <div class="q-layout">
     <div class="q-main">
@@ -197,7 +207,7 @@
   </div>
 </div>
 
-<!-- RESULTS SCREEN -->
+<!-- RESULTS -->
 <div class="screen" id="screen-results">
   <div class="complete-banner" id="complete-banner">Day marked complete! Great work.</div>
   <div class="results-header">
@@ -210,7 +220,7 @@
     <div class="score-box"><div class="num" id="score-pct">—</div><div class="lbl">Score</div></div>
   </div>
   <div class="results-actions">
-    <button class="btn-primary" id="btn-more-questions">Do More Questions</button>
+    <button class="btn-primary" id="btn-more-questions" style="width:auto">Do More Questions</button>
     <button class="btn-secondary" id="btn-dashboard">Back to Dashboard</button>
   </div>
   <div class="missed-section" id="missed-section"></div>
@@ -222,7 +232,7 @@
   <div id="desmos-container"></div>
 </div>
 
-<!-- Formula sheet modal -->
+<!-- Formula modal -->
 <div id="formula-modal">
   <div class="formula-inner">
     <button class="formula-close" id="formula-close">✕</button>
@@ -252,6 +262,7 @@ const DOMAIN_LABELS = {
   'geometry': 'Geometry & Trigonometry'
 };
 
+// ── STATE ──
 let domain = 'algebra';
 let dayNumber = null;
 let questionCount = 10;
@@ -264,69 +275,50 @@ let submitted = false;
 let desmosCalc = null;
 let sessionUser = null;
 
-function setDiff(diff, btn) {
-  selectedDiff = diff;
-  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+// ── HELPERS ──
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-(async function init() {
-  const params = new URLSearchParams(window.location.search);
-  const domainParam = params.get('domain') || 'algebra';
-  dayNumber = params.get('day');
-  domain = DOMAIN_SKILLS[domainParam] ? domainParam : 'algebra';
+function fisherYates(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
-  const label = DOMAIN_LABELS[domain];
-  document.getElementById('domain-badge').textContent = label;
-  document.getElementById('setup-title').textContent = label + ' Practice';
-  document.getElementById('instr-title').textContent = label + ' Practice';
-  document.getElementById('nav-day-label').textContent = dayNumber ? 'Day ' + dayNumber : label;
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  const descs = {
-    'algebra': 'Work through a focused set of Algebra questions. Take your time — there\'s no clock. Aim to spend at least 2 minutes thinking through each question.',
-    'advanced-math': 'Work through a focused set of Advanced Math questions. These cover functions, polynomials, and more complex algebra. Take at least 2 minutes on each.',
-    'data-analysis': 'Work through Problem-Solving & Data Analysis questions. These involve interpreting data, statistics, and real-world contexts. Take at least 2 minutes per question.',
-    'geometry': 'Work through Geometry & Trigonometry questions. These cover shapes, angles, area, and trig ratios. Take at least 2 minutes on each.'
-  };
-  document.getElementById('setup-desc').textContent = descs[domain];
+function typeset() {
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(() => {});
+}
 
-  document.getElementById('instr-list').innerHTML = [
-    'This session is <strong>untimed</strong> — there is no clock.',
-    'Spend at least <strong>2 minutes</strong> on each question before submitting your answer.',
-    'After the session, review every question you got wrong — spend <strong>3–5 minutes</strong> reading the solution and working through the practice problems.',
-    'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.',
-    'At the end, you can do another round with fresh questions.'
-  ].map(t => `<li>${t}</li>`).join('');
+function setDiff(diff) {
+  selectedDiff = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  const map = { 'Easy': 'diff-easy', 'Medium': 'diff-medium', 'Hard': 'diff-hard', 'Mixed': 'diff-mixed' };
+  const btn = document.getElementById(map[diff]);
+  if (btn) btn.classList.add('active');
+}
 
-  document.getElementById('btn-minus').onclick = () => {
-    if (questionCount > 5) { questionCount--; document.getElementById('q-count-display').textContent = questionCount; }
-  };
-  document.getElementById('btn-plus').onclick = () => {
-    if (questionCount < 15) { questionCount++; document.getElementById('q-count-display').textContent = questionCount; }
-  };
-  document.getElementById('btn-start-session').onclick = () => show('screen-instructions');
-  document.getElementById('btn-begin').onclick = loadAndStart;
-  document.getElementById('btn-submit').onclick = submitAnswer;
-  document.getElementById('btn-more-questions').onclick = () => {
-    questionCount = parseInt(document.getElementById('q-count-display').textContent) || 10;
-    show('screen-setup');
-    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-    const activeId = selectedDiff === 'Easy' ? 'diff-easy' : selectedDiff === 'Hard' ? 'diff-hard' : selectedDiff === 'Mixed' ? 'diff-mixed' : 'diff-medium';
-    const activeBtn = document.getElementById(activeId);
-    if (activeBtn) activeBtn.classList.add('active');
-  };
-  document.getElementById('btn-dashboard').onclick = () => window.location.href = '/dashboard/';
-  document.getElementById('btn-calc').onclick = toggleCalc;
-  document.getElementById('desmos-close').onclick = toggleCalc;
-  document.getElementById('btn-formula').onclick = () => document.getElementById('formula-modal').classList.add('open');
-  document.getElementById('formula-close').onclick = () => document.getElementById('formula-modal').classList.remove('open');
-  document.getElementById('formula-modal').onclick = (e) => { if (e.target === document.getElementById('formula-modal')) document.getElementById('formula-modal').classList.remove('open'); };
+// ── AIRTABLE ──
+async function atFetch(table, params) {
+  const base = encodeURIComponent(table);
+  let all = [], offset = null;
+  do {
+    let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params || ''}${offset ? '&offset=' + offset : ''}`;
+    const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
+    const data = await res.json();
+    all = all.concat(data.records || []);
+    offset = data.offset;
+    if (offset) await sleep(200);
+  } while (offset);
+  return all;
+}
 
-  // Auth using Supabase JS client
-  const { data: { session } } = await sbClient.auth.getSession();
-  if (session && session.user) sessionUser = session.user;
-})();
-
+// ── MARK DAY COMPLETE ──
 async function markDayComplete(day) {
   if (!sessionUser || !day) return;
   try {
@@ -339,30 +331,7 @@ async function markDayComplete(day) {
   } catch(e) { console.warn('markDayComplete failed:', e); }
 }
 
-async function atFetch(table, params='') {
-  const base = encodeURIComponent(table);
-  let all = [], offset = null;
-  do {
-    let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params}${offset ? '&offset=' + offset : ''}`;
-    const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
-    const data = await res.json();
-    all = all.concat(data.records || []);
-    offset = data.offset;
-    if (offset) await sleep(200);
-  } while(offset);
-  return all;
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-function fisherYates(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
+// ── LOAD QUESTIONS ──
 async function loadAndStart() {
   show('screen-loading');
   try {
@@ -378,63 +347,46 @@ async function loadAndStart() {
 
     if (domainSkillIds.length === 0) {
       alert('Could not find skills for this domain. Please try again.');
-      show('screen-setup');
-      return;
+      show('screen-setup'); return;
     }
 
-    let diffFilter = '';
-    if (selectedDiff !== 'Mixed') {
-      diffFilter = `,{Difficulty}="${selectedDiff}"`;
-    }
+    let diffFilter = selectedDiff !== 'Mixed' ? `,{Difficulty}="${selectedDiff}"` : '';
 
-    const allQuestions = await atFetch('Questions',
+    const allQs = await atFetch('Questions',
       'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=' +
       encodeURIComponent(`AND({Review Status}="Reviewed - OK"${diffFilter},OR({graph_type}="",NOT({graph_type})))`) + '&pageSize=100'
     );
 
-    const domainQs = allQuestions.filter(r => {
-      const skills = r.fields['Skill'] || [];
-      return skills.some(sid => domainSkillIds.includes(sid));
-    });
+    const domainQs = allQs.filter(r => (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid)));
 
     if (domainQs.length < questionCount) {
-      if (selectedDiff !== 'Mixed') {
-        alert(`Not enough ${selectedDiff} questions found for this domain (found ${domainQs.length}). Try Mixed difficulty or a different domain.`);
-      } else {
-        alert('Not enough questions found for this domain. Found: ' + domainQs.length);
-      }
-      show('screen-setup');
-      return;
+      alert(`Not enough questions found (found ${domainQs.length}). Try Mixed difficulty.`);
+      show('screen-setup'); return;
     }
 
-    const shuffled = fisherYates([...domainQs]);
-    const selected = shuffled.slice(0, questionCount);
+    const selected = fisherYates([...domainQs]).slice(0, questionCount);
 
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
-    if (distIds.length > 0) {
-      for (let i = 0; i < distIds.length; i += 100) {
-        const batch = distIds.slice(i, i+100);
-        const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
-        const recs = await atFetch('Distractors', 'fields%5B%5D=Distractor+Text&fields%5B%5D=Misconception&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
-        recs.forEach(r => { distMap[r.id] = r.fields; });
-        if (i + 100 < distIds.length) await sleep(200);
-      }
+    for (let i = 0; i < distIds.length; i += 100) {
+      const batch = distIds.slice(i, i+100);
+      const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+      const recs = await atFetch('Distractors', 'fields%5B%5D=Distractor+Text&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
+      recs.forEach(r => { distMap[r.id] = r.fields; });
+      if (i + 100 < distIds.length) await sleep(200);
     }
 
     questions = selected.map(q => {
       const dists = (q.fields['Distractors'] || []).map(id => distMap[id]?.['Distractor Text']).filter(Boolean);
       const correct = q.fields['Correct Answer'] || '';
-      const choices = fisherYates([correct, ...dists.slice(0,3)]);
       return {
         id: q.id,
         text: q.fields['Question Text'] || '',
         correct,
         solution: q.fields['Solution'] || '',
         difficulty: q.fields['Difficulty'] || '',
-        skillIds: q.fields['Skill'] || [],
         distIds: q.fields['Distractors'] || [],
-        choices
+        choices: fisherYates([correct, ...dists.slice(0,3)])
       };
     });
 
@@ -445,48 +397,49 @@ async function loadAndStart() {
     typeset();
   } catch(err) {
     console.error(err);
-    alert('Error loading questions. Please check your connection and try again.');
+    alert('Error loading questions: ' + err.message);
     show('screen-setup');
   }
 }
 
+// ── RENDER QUESTION ──
 function renderQuestion() {
   const q = questions[currentIndex];
   selectedAnswer = null;
   submitted = false;
-  const pct = (currentIndex / questions.length) * 100;
-  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-bar').style.width = (currentIndex / questions.length * 100) + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
   document.getElementById('q-text').innerHTML = q.text;
+
   const labels = ['A','B','C','D'];
   const container = document.getElementById('answer-options');
   container.innerHTML = '';
   q.choices.forEach((choice, i) => {
     const btn = document.createElement('button');
     btn.className = 'answer-btn';
-    btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${choice}</span><button class="cross-out-btn" title="Cross out">✕</button>`;
-    btn.onclick = (e) => {
+    btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${choice}</span><button class="cross-out-btn">✕</button>`;
+    btn.addEventListener('click', function(e) {
       if (submitted) return;
       if (e.target.classList.contains('cross-out-btn')) { btn.classList.toggle('crossed'); return; }
       document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       selectedAnswer = choice;
       document.getElementById('btn-submit').disabled = false;
-    };
-    btn.querySelector('.cross-out-btn').onclick = (e) => { e.stopPropagation(); btn.classList.toggle('crossed'); };
+    });
+    btn.querySelector('.cross-out-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      btn.classList.toggle('crossed');
+    });
     container.appendChild(btn);
-    renderMathInBtn(btn);
   });
+
   document.getElementById('btn-submit').disabled = true;
+  document.getElementById('btn-submit').textContent = 'Submit Answer';
+  document.getElementById('btn-submit').onclick = submitAnswer;
   typeset();
 }
 
-function renderMathInBtn(btn) {
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    try { window.MathJax.typesetPromise([btn]).catch(() => {}); } catch(e) {}
-  }
-}
-
+// ── SUBMIT ──
 function submitAnswer() {
   if (!selectedAnswer || submitted) return;
   submitted = true;
@@ -502,7 +455,7 @@ function submitAnswer() {
   if (currentIndex < questions.length - 1) {
     submitBtn.textContent = 'Next Question';
     submitBtn.disabled = false;
-    submitBtn.onclick = nextQuestion;
+    submitBtn.onclick = () => { currentIndex++; renderQuestion(); };
   } else {
     submitBtn.textContent = 'See Results';
     submitBtn.disabled = false;
@@ -510,13 +463,7 @@ function submitAnswer() {
   }
 }
 
-function nextQuestion() {
-  currentIndex++;
-  document.getElementById('btn-submit').onclick = submitAnswer;
-  document.getElementById('btn-submit').textContent = 'Submit Answer';
-  renderQuestion();
-}
-
+// ── RESULTS ──
 async function showResults() {
   const correct = userAnswers.filter(a => a.correct).length;
   const wrong = userAnswers.length - correct;
@@ -525,103 +472,80 @@ async function showResults() {
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
   document.getElementById('results-subtitle').textContent = `${DOMAIN_LABELS[domain]} · ${questions.length} questions · ${selectedDiff}`;
+
   if (dayNumber) {
     await markDayComplete(dayNumber);
     document.getElementById('complete-banner').classList.add('show');
   }
+
   const missed = userAnswers.filter(a => !a.correct);
   const container = document.getElementById('missed-section');
   container.innerHTML = '';
   if (missed.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600;font-size:1rem">Perfect score! All answers correct.</div>';
+    container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600">Perfect score! All answers correct.</div>';
   } else {
-    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Spend 3–5 minutes on each one. Read the worked solution, then try the practice problems.</p>`;
+    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each worked solution carefully.</p>`;
     missed.forEach(a => {
       const q = questions[a.qIndex];
       const card = document.createElement('div');
       card.className = 'missed-card';
-      const diffBadge = q.difficulty ? `<span class="diff-result-badge ${q.difficulty}">${q.difficulty}</span>` : '';
       card.innerHTML = `
-        <div class="missed-header" onclick="toggleMissed(this)">
-          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}${diffBadge}</div>
+        <div class="missed-header">
+          <div class="missed-q-text">${q.text.substring(0,120)}${q.text.length>120?'…':''}</div>
           <span class="missed-badge">Incorrect</span>
           <span class="expand-arrow">▼</span>
         </div>
         <div class="missed-body">
           <div class="answer-row your-answer">Your answer: ${a.chosen}</div>
           <div class="answer-row right-answer">Correct answer: ${q.correct}</div>
-          <div class="solution-box"><strong>Solution:</strong><br>${q.solution || 'Solution not available.'}</div>
-          <div class="tutorial-box" id="tutorial-${a.qIndex}">
-            <h4>Tutorial & Practice Problems</h4>
-            <div class="loading-spinner">Loading…</div>
-          </div>
+          <div class="solution-box"><strong>Solution:</strong><br>${q.solution || 'Not available.'}</div>
+          <div class="tutorial-box" id="tut-${a.qIndex}"><h4>Tutorial</h4><div style="color:#888;font-size:0.88rem">Loading…</div></div>
         </div>`;
+      card.querySelector('.missed-header').addEventListener('click', function() {
+        const body = this.nextElementSibling;
+        body.classList.toggle('open');
+        this.querySelector('.expand-arrow').textContent = body.classList.contains('open') ? '▲' : '▼';
+        if (body.classList.contains('open')) typeset();
+      });
       container.appendChild(card);
-      loadTutorialForQuestion(q, a.qIndex);
+      loadTutorial(q, a.qIndex);
     });
   }
   show('screen-results');
   typeset();
 }
 
-function toggleMissed(header) {
-  const body = header.nextElementSibling;
-  body.classList.toggle('open');
-  header.querySelector('.expand-arrow').textContent = body.classList.contains('open') ? '▲' : '▼';
-  if (body.classList.contains('open')) typeset();
-}
-
-async function loadTutorialForQuestion(q, idx) {
-  const container = document.getElementById('tutorial-' + idx);
+async function loadTutorial(q, idx) {
+  const container = document.getElementById('tut-' + idx);
   if (!container) return;
   try {
-    let misconceptionId = null;
-    let tutorialContent = '';
-    let practiceProblems = [];
+    let tutHtml = '';
     if (q.distIds && q.distIds.length > 0) {
       const formula = 'OR(' + q.distIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
       const distRecs = await atFetch('Distractors', 'fields%5B%5D=Misconception&filterByFormula=' + encodeURIComponent(formula));
       const miscIds = [...new Set(distRecs.flatMap(r => r.fields['Misconception'] || []))];
-      if (miscIds.length > 0) misconceptionId = miscIds[0];
-    }
-    if (misconceptionId) {
-      const miscRecs = await atFetch('Misconceptions', 'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' + encodeURIComponent(`RECORD_ID()="${misconceptionId}"`));
-      if (miscRecs.length > 0) {
-        const tutIds = miscRecs[0].fields['Tutorials'] || [];
-        const ppIds = miscRecs[0].fields['Practice Problems'] || [];
-        if (tutIds.length > 0) {
-          const tutRecs = await atFetch('Tutorials', 'fields%5B%5D=Concept+Explanation&fields%5B%5D=Worked+Example&filterByFormula=' + encodeURIComponent('OR(' + tutIds.map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
-          const concept = tutRecs[0]?.fields['Concept Explanation'] || '';
-          const worked = tutRecs[0]?.fields['Worked Example'] || '';
-          tutorialContent = [concept, worked].filter(Boolean).join('<br><br>');
-        }
-        if (ppIds.length > 0) {
-          const ppRecs = await atFetch('Practice+Problems', 'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Difficulty&filterByFormula=' + encodeURIComponent('OR(' + ppIds.slice(0,3).map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
-          practiceProblems = ppRecs.map(r => ({
-            text: r.fields['Question Text'] || '',
-            answer: r.fields['Correct Answer'] || '',
-            difficulty: r.fields['Difficulty'] || ''
-          }));
+      if (miscIds.length > 0) {
+        const miscRecs = await atFetch('Misconceptions', 'fields%5B%5D=Tutorials&fields%5B%5D=Practice+Problems&filterByFormula=' + encodeURIComponent(`RECORD_ID()="${miscIds[0]}"`));
+        if (miscRecs.length > 0) {
+          const tutIds = miscRecs[0].fields['Tutorials'] || [];
+          if (tutIds.length > 0) {
+            const tutRecs = await atFetch('Tutorials', 'fields%5B%5D=Concept+Explanation&fields%5B%5D=Worked+Example&filterByFormula=' + encodeURIComponent('OR(' + tutIds.map(id=>`RECORD_ID()="${id}"`).join(',') + ')'));
+            const concept = tutRecs[0]?.fields['Concept Explanation'] || '';
+            const worked = tutRecs[0]?.fields['Worked Example'] || '';
+            if (concept) tutHtml += `<div class="tutorial-content" style="margin-bottom:10px">${concept}</div>`;
+            if (worked) tutHtml += `<div class="tutorial-content">${worked}</div>`;
+          }
         }
       }
     }
-    let html = '';
-    if (tutorialContent) html += `<div class="tutorial-content">${tutorialContent}</div>`;
-    if (practiceProblems.length > 0) {
-      html += '<div class="practice-problems"><h4>Practice Problems</h4>';
-      practiceProblems.forEach(pp => {
-        html += `<div class="pp-item"><div class="pp-difficulty">${pp.difficulty}</div><div class="pp-question">${pp.text}</div><div class="pp-answer pp-correct">Answer: ${pp.answer}</div></div>`;
-      });
-      html += '</div>';
-    }
-    if (!html) html = '<div style="color:#888;font-size:0.88rem">No tutorial available for this question yet.</div>';
-    container.innerHTML = '<h4>Tutorial & Practice Problems</h4>' + html;
+    container.innerHTML = '<h4>Tutorial</h4>' + (tutHtml || '<div style="color:#888;font-size:0.88rem">No tutorial available for this question.</div>');
     typeset();
   } catch(e) {
-    container.innerHTML = '<h4>Tutorial & Practice Problems</h4><div style="color:#888;font-size:0.88rem">Could not load tutorial.</div>';
+    container.innerHTML = '<h4>Tutorial</h4><div style="color:#888;font-size:0.88rem">Could not load tutorial.</div>';
   }
 }
 
+// ── CALCULATOR ──
 function toggleCalc() {
   const wrap = document.getElementById('desmos-wrap');
   const isOpen = wrap.style.display === 'flex';
@@ -631,16 +555,49 @@ function toggleCalc() {
   }
 }
 
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+// ── BOOT ──
+document.addEventListener('DOMContentLoaded', async function() {
+  // Parse URL params
+  const params = new URLSearchParams(window.location.search);
+  const domainParam = params.get('domain') || 'algebra';
+  dayNumber = params.get('day');
+  domain = DOMAIN_SKILLS[domainParam] ? domainParam : 'algebra';
 
-function typeset() {
-  if (window.MathJax && MathJax.typesetPromise) {
-    MathJax.typesetPromise().catch(() => {});
-  }
-}
+  const label = DOMAIN_LABELS[domain];
+  document.getElementById('domain-badge').textContent = label;
+  document.getElementById('setup-title').textContent = label + ' Practice';
+  document.getElementById('instr-title').textContent = label + ' Practice';
+  document.getElementById('nav-day-label').textContent = dayNumber ? 'Day ' + dayNumber : label;
+
+  // Wire up buttons
+  document.getElementById('btn-minus').addEventListener('click', function() {
+    if (questionCount > 5) { questionCount--; document.getElementById('q-count-display').textContent = questionCount; }
+  });
+  document.getElementById('btn-plus').addEventListener('click', function() {
+    if (questionCount < 15) { questionCount++; document.getElementById('q-count-display').textContent = questionCount; }
+  });
+
+  document.getElementById('diff-easy').addEventListener('click', function() { setDiff('Easy'); });
+  document.getElementById('diff-medium').addEventListener('click', function() { setDiff('Medium'); });
+  document.getElementById('diff-hard').addEventListener('click', function() { setDiff('Hard'); });
+  document.getElementById('diff-mixed').addEventListener('click', function() { setDiff('Mixed'); });
+
+  document.getElementById('btn-start-session').addEventListener('click', function() { show('screen-instructions'); });
+  document.getElementById('btn-begin').addEventListener('click', function() { loadAndStart(); });
+  document.getElementById('btn-more-questions').addEventListener('click', function() { show('screen-setup'); });
+  document.getElementById('btn-dashboard').addEventListener('click', function() { window.location.href = '/dashboard/'; });
+  document.getElementById('btn-calc').addEventListener('click', toggleCalc);
+  document.getElementById('desmos-close').addEventListener('click', toggleCalc);
+  document.getElementById('btn-formula').addEventListener('click', function() { document.getElementById('formula-modal').classList.add('open'); });
+  document.getElementById('formula-close').addEventListener('click', function() { document.getElementById('formula-modal').classList.remove('open'); });
+  document.getElementById('formula-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+
+  // Auth
+  const { data: { session } } = await sbClient.auth.getSession();
+  if (session && session.user) sessionUser = session.user;
+});
 </script>
 </body>
 </html>
