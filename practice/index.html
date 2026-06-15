@@ -552,6 +552,7 @@ function renderQuestion() {
   q.choices.forEach((choice, i) => {
     const btn = document.createElement('button');
     btn.className = 'answer-btn';
+    btn.dataset.choice = choice;   // raw string — MathJax never alters dataset, so comparison stays reliable
     btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${choice}</span><button class="cross-out-btn">✕</button>`;
     btn.addEventListener('click', function(e) {
       if (submitted) return;
@@ -582,9 +583,9 @@ function submitAnswer() {
   const isCorrect = selectedAnswer === q.correct;
   userAnswers.push({ qIndex: currentIndex, chosen: selectedAnswer, correct: isCorrect });
   document.querySelectorAll('.answer-btn').forEach(btn => {
-    const text = btn.querySelector('.answer-text').textContent;
-    if (text === q.correct) btn.classList.add('show-correct');
-    else if (text === selectedAnswer && !isCorrect) btn.classList.add('wrong');
+    const choice = btn.dataset.choice;
+    if (choice === q.correct) btn.classList.add('show-correct');
+    else if (choice === selectedAnswer && !isCorrect) btn.classList.add('wrong');
   });
   const submitBtn = document.getElementById('btn-submit');
   if (currentIndex < questions.length - 1) {
