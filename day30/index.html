@@ -650,6 +650,21 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
   </div>
 </div>
 
+<!-- ── ALREADY-TAKEN GATE SCREEN ───────────────────────────── -->
+<div id="screen-gate" class="screen">
+  <div class="welcome-card">
+    <div class="welcome-day-badge">Day 30 of 30</div>
+    <h1>You've already taken this test</h1>
+    <p>You completed the Day 30 practice test. You can look back at your saved results, or take the test again with a fresh set of questions.</p>
+    <div id="gate-score-line" style="font-family:-apple-system,Segoe UI,sans-serif;font-size:1rem;color:#1a3a5c;font-weight:700;margin:6px 0 4px;"></div>
+    <div class="welcome-btns">
+      <button class="btn-start-timed" onclick="viewSavedResults()">View my results</button>
+      <button class="btn-start-untimed" onclick="showScreen('screen-welcome')">Retake test</button>
+    </div>
+    <button class="welcome-signout" onclick="handleSignOut()">Sign out</button>
+  </div>
+</div>
+
 <!-- ── TEST SCREEN ─────────────────────────────────────────── -->
 <div id="screen-test" class="screen">
   <div id="test-layout">
@@ -773,6 +788,7 @@ const AIRTABLE_API = 'https://api.airtable.com/v0';
 const FULL_TEST_QUESTIONS = 44;
 const MODULE_SECONDS = 35 * 60;
 const BREAK_SECONDS = 3; // Break bypassed — Module 2 unlocks immediately
+const THIS_TEST_NUMBER = 7; // Day 30 saves as test_number 4
 
 // ── AUTH ───────────────────────────────────────────────────────
 let currentUser = null;
@@ -1709,6 +1725,7 @@ function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct) {
 
     <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #e0e0e0;max-width:720px;margin-left:auto;margin-right:auto;">
       <a href="/dashboard/" style="padding:12px 24px;background:#1a3a5c;color:#fff;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;font-family:-apple-system,Segoe UI,sans-serif;">Go to my dashboard</a>
+      <button onclick="showScreen('screen-welcome')" style="padding:12px 24px;background:#fff;color:#1a3a5c;border:1.5px solid #1a3a5c;border-radius:8px;font-weight:700;font-size:0.95rem;cursor:pointer;font-family:-apple-system,Segoe UI,sans-serif;">Retake this test</button>
     </div>
   `;
 
@@ -1807,6 +1824,41 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) closeStudyPanel();
 });
 
+// ── VIEW SAVED RESULTS (rebuild from snapshot — no retake) ─────
+let savedResultSnapshot = null;
+
+async function fetchSavedResult() {
+  if (!currentUser) return null;
+  try {
+    const { data, error } = await supabaseClient.from('test_results')
+      .select('score,snapshot,created_at')
+      .eq('user_id', currentUser.id)
+      .eq('test_number', THIS_TEST_NUMBER)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (error || !data || data.length === 0) return null;
+    return data[0];
+  } catch (e) { return null; }
+}
+
+function viewSavedResults() {
+  const snap = savedResultSnapshot;
+  if (!snap) { showScreen('screen-welcome'); return; }
+  // Rebuild lastResultsMissed from the saved snapshot so worked solutions work.
+  lastResultsMissed = (snap.missed || []).map(m => ({
+    q: m.q || {},
+    choices: m.choices || [],
+    chosenIndex: m.chosenIndex,
+    isOE: m.isOE || false,
+    typedAnswer: m.typedAnswer || null
+  }));
+  showScreen('screen-results');
+  renderResultsPage(
+    snap.estimatedScore, snap.totalCorrect, snap.total,
+    snap.m1Correct, snap.m2Correct
+  );
+}
+
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   initFormulaSheetDragging();
@@ -1814,7 +1866,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
     currentUser = session.user;
-    showScreen('screen-welcome');
+    // If this test was already taken, show the gate (View results / Retake).
+    const existing = await fetchSavedResult();
+    if (existing && existing.snapshot) {
+      savedResultSnapshot = existing.snapshot;
+      const sl = document.getElementById('gate-score-line');
+      if (sl && (existing.snapshot.estimatedScore || existing.score)) {
+        sl.textContent = 'Your saved score: ' + (existing.snapshot.estimatedScore || existing.score) + ' / 800';
+      }
+      showScreen('screen-gate');
+    } else {
+      showScreen('screen-welcome');
+    }
   } else {
     showScreen('screen-auth');
   }
