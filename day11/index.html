@@ -1136,7 +1136,7 @@ function exitTest() {
   currentSessionId = null; sessionStartTime = null;
   module1Score = 0; currentModule = 1; currentQuestionIndex = 0; untimedMode = false;
   lastResultsMissed = [];
-  showScreen('screen-welcome');
+  window.location.href = '/dashboard/';
 }
 
 async function submitModule() {
