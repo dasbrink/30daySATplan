@@ -3,10 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 25 — Specific Weaknesses | 30-Day SAT Plan</title>
+<title>Day 25 — Specific Mistakes | 30-Day SAT Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
-<script src="https://api.desmos.com/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147" defer></script>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+    svg: { fontCache: 'global' },
+    startup: { typeset: false }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=49cba95f503741b9a11b081cd6e45147"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -17,7 +24,8 @@
   .nav-back{color:rgba(255,255,255,0.6);font-size:0.82rem;background:none;border:none;cursor:pointer;text-decoration:underline}
   .screen{display:none;min-height:calc(100vh - 52px)}
   .screen.active{display:block}
-  .centered{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
+  .centered{align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
+  .screen.centered.active{display:flex}
 
   /* SETUP */
   .setup-card{background:#fff;border-radius:12px;padding:40px;max-width:560px;width:90%;box-shadow:0 2px 16px rgba(0,0,0,0.08)}
@@ -51,7 +59,7 @@
   .instr-card h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a5c;margin-bottom:20px}
   .instr-list{list-style:none;padding:0;margin-bottom:28px}
   .instr-list li{padding:10px 0 10px 28px;border-bottom:1px solid #f0f0f0;font-size:0.95rem;color:#333;line-height:1.5;position:relative}
-  .instr-list li::before{content:'→';position:absolute;left:0;color:#d4a04a;font-weight:700}
+  .instr-list li::before{content:'';position:absolute;left:8px;top:18px;width:6px;height:6px;border-radius:50%;background:#d4a04a}
   .instr-list li:last-child{border-bottom:none}
 
   /* QUESTION SCREEN */
@@ -65,6 +73,9 @@
   .q-skill-tag{display:inline-block;background:#e8f0f8;color:#1a3a5c;font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
   .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
   .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+  .inline-graph-figure{width:100%;max-width:460px;height:320px;margin:0 auto 16px;display:block}
+  .inline-graph-figure svg{max-width:100%;height:auto}
+  .q-body-text{line-height:1.7}
   .answer-options{display:flex;flex-direction:column;gap:10px}
   .answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a}
   .answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
@@ -79,14 +90,19 @@
   .btn-submit{background:#1a3a5c;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer}
   .btn-submit:disabled{background:#aaa;cursor:default}
   .q-sidebar{background:#fff;border-left:1px solid #e0e0e0;padding:24px;display:flex;flex-direction:column;gap:16px}
+  #floating-calc-btn{position:fixed;bottom:20px;right:20px;z-index:1500;background:#1a3a5c;color:#fff;border:none;border-radius:24px;padding:12px 22px;font-size:0.9rem;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:none}
+  #floating-calc-btn:hover{background:#0f2540}
+  #screen-question.active #floating-calc-btn{display:block}
   .sidebar-section{font-size:0.8rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
   .tool-btn{width:100%;background:#f5f5f0;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:0.85rem;color:#1a3a5c;cursor:pointer;font-weight:600;text-align:left;transition:all 0.15s}
   .tool-btn:hover{background:#1a3a5c;color:#fff}
-  #desmos-wrap{position:fixed;bottom:0;right:0;width:440px;height:380px;background:#fff;box-shadow:0 -2px 20px rgba(0,0,0,0.15);border-radius:12px 0 0 0;z-index:1000;display:none;flex-direction:column}
-  .desmos-header{background:#1a3a5c;color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:12px 0 0 0}
-  .desmos-header span{font-size:0.85rem;font-weight:600}
-  .desmos-close{background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer}
-  #desmos-container{flex:1}
+  #calculator-panel{position:fixed;right:-600px;top:0;bottom:0;width:520px;background:#fff;border-left:1px solid #e0e0e0;z-index:2000;transition:right 0.25s ease;display:flex;flex-direction:column}
+  #calculator-panel.open{right:0}
+  #calculator-resize-handle{position:absolute;left:0;top:0;bottom:0;width:8px;cursor:ew-resize;background:transparent;z-index:10}
+  #calculator-resize-handle:hover{background:rgba(26,58,92,0.25)}
+  #calculator-header{background:#1a3a5c;color:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;flex-shrink:0}
+  #calculator-close{background:none;border:none;color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;padding:0 4px}
+  #calculator-mount{flex:1}
   #formula-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;align-items:center;justify-content:center}
   #formula-modal.open{display:flex}
   .formula-inner{background:#fff;border-radius:10px;padding:20px;max-width:500px;width:90%;position:relative}
@@ -137,10 +153,10 @@
 <!-- SETUP SCREEN -->
 <div class="screen active centered" id="screen-setup">
   <div class="setup-card">
-    <div class="day-badge">Day 25 — Specific Weaknesses</div>
-    <h1>Your Weak Skills</h1>
-    <p>Today you'll practice questions from the exact skills you've been getting wrong. These are pulled directly from your Day 1, Day 11, and Day 23 diagnostic results.</p>
-    <div id="weak-skills-area" class="loading-weak">Finding your weak skills…</div>
+    <div class="day-badge">Day 25 — Specific Mistakes</div>
+    <h1>Your Specific Mistakes</h1>
+    <p>Today you'll practice questions from the exact skills behind your specific mistakes — the ones you've been getting wrong. These are pulled directly from your Day 1 and Day 11 diagnostic results.</p>
+    <div id="weak-skills-area" class="loading-weak">Finding your specific mistakes…</div>
     <div class="diff-label">Choose difficulty</div>
     <div class="diff-row">
       <button class="diff-btn easy" onclick="setDiff('Easy',this)">Easy</button>
@@ -155,7 +171,7 @@
 <div class="screen centered" id="screen-no-data">
   <div class="no-data-card">
     <h2>No diagnostic data yet</h2>
-    <p>Complete your Day 1, Day 11, and Day 23 diagnostics first. Your weak skills will appear here automatically once those tests are done.</p>
+    <p>Complete your Day 1 and Day 11 diagnostics first. Your specific mistakes will appear here automatically once those tests are done.</p>
     <button class="btn-primary" style="margin-top:8px" onclick="window.location.href='/dashboard/'">Back to Dashboard</button>
   </div>
 </div>
@@ -192,11 +208,12 @@
     <div class="q-sidebar">
       <div>
         <div class="sidebar-section">Tools</div>
-        <button class="tool-btn" id="btn-calc" onclick="toggleCalc()">Graphing Calculator</button>
+        <button class="tool-btn" id="btn-calc" onclick="toggleCalculator()">Graphing Calculator</button>
         <button class="tool-btn" style="margin-top:8px" id="btn-formula" onclick="document.getElementById('formula-modal').classList.add('open')">Formula Sheet</button>
       </div>
     </div>
   </div>
+  <button id="floating-calc-btn" onclick="toggleCalculator()" title="Graphing calculator">Calculator</button>
 </div>
 
 <!-- RESULTS SCREEN -->
@@ -218,10 +235,14 @@
   <div class="missed-section" id="missed-section"></div>
 </div>
 
-<!-- Desmos -->
-<div id="desmos-wrap" style="display:none;flex-direction:column">
-  <div class="desmos-header"><span>Graphing Calculator</span><button class="desmos-close" onclick="toggleCalc()">✕</button></div>
-  <div id="desmos-container"></div>
+<!-- Desmos calculator panel (copied from Day 1) -->
+<div id="calculator-panel">
+  <div id="calculator-resize-handle"></div>
+  <div id="calculator-header">
+    <span>Graphing Calculator</span>
+    <button id="calculator-close" onclick="toggleCalculator()" aria-label="Close calculator">&times;</button>
+  </div>
+  <div id="calculator-mount"></div>
 </div>
 
 <!-- Formula sheet modal -->
@@ -238,7 +259,6 @@ const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
 const AT_BASE = 'app4WLsifRZPgtosg';
 const AT_TOKEN = 'pat3cwVbihcH5nPjL.9e032eb19d92ced245276562b506887baf4c7f96b433f03e50a934f0501bb00d';
 const DAY_NUMBER = 25;
-
 const DIAGNOSTIC_TEST_NUMBERS = [1, 2, 3];
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -251,10 +271,10 @@ let currentIndex = 0;
 let userAnswers = [];
 let selectedAnswer = null;
 let submitted = false;
-let desmosCalc = null;
+let desmosCalculator = null, calculatorOpen = false, calculatorWidth = 520;
 let sessionUser = null;
+let inlineGraphInstances = [];
 
-// ── INIT ──
 document.addEventListener('DOMContentLoaded', async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (!session) { window.location.href = '/dashboard/'; return; }
@@ -262,20 +282,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('instr-list').innerHTML = [
     'This session is <strong>untimed</strong> — there is no clock.',
-    'Questions are from your <strong>specific weak skills</strong> identified in your diagnostics.',
+    'Questions target your <strong>specific mistakes</strong> identified in your diagnostics.',
     'Spend at least <strong>2 minutes</strong> on each question before submitting.',
     'After the session, review every wrong answer — read the solution carefully.',
     'You can use the <strong>graphing calculator</strong> and <strong>formula sheet</strong> at any time.'
   ].map(t => `<li>${t}</li>`).join('');
 
+  initCalculatorResize();
   await loadWeakSkills();
 });
 
-// ── LOAD WEAK SKILLS FROM DIAGNOSTICS ──
 async function loadWeakSkills() {
   const area = document.getElementById('weak-skills-area');
   try {
-    // Pull snapshots from all relevant diagnostics
     const { data: results, error } = await supabaseClient
       .from('test_results')
       .select('snapshot')
@@ -287,131 +306,103 @@ async function loadWeakSkills() {
       return;
     }
 
-    // Tally missed questions per skill
-    const skillMissCount = new Map();
-    const skillTotalCount = new Map();
-
+    const missedIdSet = new Set();
     for (const row of results) {
       const snap = row.snapshot;
       if (!snap) continue;
-      const missed = snap.missed || [];
-      const all = snap.questions || [];
-
-      // Count totals per skill from the snapshot
-      for (const item of all) {
-        const q = item.q || item;
-        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
-        if (!skillId) continue;
-        skillTotalCount.set(skillId, (skillTotalCount.get(skillId) || 0) + 1);
+      let ids = snap.missedIds || [];
+      if ((!ids || ids.length === 0) && Array.isArray(snap.missed)) {
+        ids = snap.missed.map(m => (m.q && m.q.id) ? m.q.id : null).filter(Boolean);
       }
-      // Count misses per skill
-      for (const item of missed) {
-        const q = item.q || item;
-        const skillId = q.skillId || (q.skillIds && q.skillIds[0]);
-        if (!skillId) continue;
-        skillMissCount.set(skillId, (skillMissCount.get(skillId) || 0) + 1);
-      }
+      ids.forEach(id => missedIdSet.add(id));
     }
 
-    if (skillMissCount.size === 0) {
-      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific weaknesses. Try any domain to practice.</div>';
+    if (missedIdSet.size === 0) {
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific mistakes. Try any domain to practice.</div>';
       document.getElementById('btn-start').disabled = false;
       return;
     }
 
-    // Sort by miss count descending, take top 5 skills
-    const sorted = [...skillMissCount.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
+    const missedIds = Array.from(missedIdSet);
+    const skillMissCount = new Map();
+    for (let i = 0; i < missedIds.length; i += 50) {
+      const batch = missedIds.slice(i, i + 50);
+      const formula = 'OR(' + batch.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+      const recs = await atFetch('Questions', 'fields%5B%5D=Skill&filterByFormula=' + encodeURIComponent(formula) + '&pageSize=100');
+      recs.forEach(r => {
+        const skills = r.fields['Skill'] || [];
+        if (skills.length > 0) {
+          const sid = skills[0];
+          skillMissCount.set(sid, (skillMissCount.get(sid) || 0) + 1);
+        }
+      });
+      if (i + 50 < missedIds.length) await sleep(200);
+    }
 
+    if (skillMissCount.size === 0) {
+      area.innerHTML = '<div style="color:#2e7d32;font-weight:600">You haven\'t missed enough questions yet to identify specific mistakes. Try any domain to practice.</div>';
+      document.getElementById('btn-start').disabled = false;
+      return;
+    }
+
+    const sorted = [...skillMissCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
     weakSkillIds = sorted.map(([id]) => id);
 
-    // Fetch skill names from Airtable
     const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
     const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || r.id]));
-
     weakSkillNames = weakSkillIds.map(id => skillNameMap.get(id) || id);
 
     let html = '<div class="weak-skills-list">';
-    sorted.forEach(([id, count], i) => {
+    sorted.forEach(([id, count]) => {
       const name = skillNameMap.get(id) || id;
-      const total = skillTotalCount.get(id) || count;
-      const pct = Math.round((count / total) * 100);
-      html += `<div class="weak-skill-row">
-        <span class="weak-skill-name">${name}</span>
-        <span class="weak-skill-pct">${count} missed (${pct}% wrong)</span>
-      </div>`;
+      html += `<div class="weak-skill-row"><span class="weak-skill-name">${name}</span><span class="weak-skill-pct">${count} missed</span></div>`;
     });
     html += '</div>';
     area.innerHTML = html;
     document.getElementById('btn-start').disabled = false;
-
   } catch(e) {
     console.error(e);
-    area.innerHTML = '<div style="color:#c62828">Could not load your weak skills. Please refresh.</div>';
+    area.innerHTML = '<div style="color:#c62828">Could not load your specific mistakes. Please refresh.</div>';
   }
 }
 
-// ── DIFFICULTY ──
 function setDiff(diff, btn) {
   selectedDiff = diff;
   document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+function goToInstructions() { show('screen-instructions'); }
+function restartSetup() { show('screen-setup'); }
 
-function goToInstructions() {
-  show('screen-instructions');
-}
+const QFIELDS = 'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=Distractors&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_type&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label';
 
-function restartSetup() {
-  show('screen-setup');
-}
-
-// ── LOAD QUESTIONS ──
 async function loadAndStart() {
   show('screen-loading');
   try {
     let allQuestions;
-
     if (weakSkillIds.length === 0) {
-      // Fallback: fetch all reviewed questions of selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
-      );
+        `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`);
     } else {
-      // Fetch questions from weak skills at selected difficulty
       allQuestions = await atFetch('Questions',
-        `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
-      );
-      // Filter to weak skill IDs
-      allQuestions = allQuestions.filter(r => {
-        const skills = r.fields['Skill'] || [];
-        return skills.some(sid => weakSkillIds.includes(sid));
-      });
-
-      // If not enough questions at this difficulty, fall back to any difficulty
+        `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",{Difficulty}="${selectedDiff}")`)}&pageSize=100`);
+      allQuestions = allQuestions.filter(r => (r.fields['Skill'] || []).some(sid => weakSkillIds.includes(sid)));
       if (allQuestions.length < 5) {
         const fallback = await atFetch('Questions',
-          `fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK",OR({graph_type}="",NOT({graph_type})))`)}&pageSize=100`
-        );
-        allQuestions = fallback.filter(r => {
-          const skills = r.fields['Skill'] || [];
-          return skills.some(sid => weakSkillIds.includes(sid));
-        });
+          `${QFIELDS}&filterByFormula=${encodeURIComponent(`AND({Review Status}="Reviewed - OK")`)}&pageSize=100`);
+        allQuestions = fallback.filter(r => (r.fields['Skill'] || []).some(sid => weakSkillIds.includes(sid)));
       }
     }
 
     if (allQuestions.length === 0) {
-      alert('No questions found for your weak skills at this difficulty. Try a different difficulty level.');
+      alert('No questions found for your specific mistakes at this difficulty. Try a different difficulty level.');
       show('screen-setup');
       return;
     }
 
     const count = Math.min(allQuestions.length, 15);
-    const shuffled = fisherYates([...allQuestions]);
-    const selected = shuffled.slice(0, count);
+    const selected = fisherYates([...allQuestions]).slice(0, count);
 
-    // Fetch distractors
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
     for (let i = 0; i < distIds.length; i += 100) {
@@ -422,7 +413,6 @@ async function loadAndStart() {
       if (i + 100 < distIds.length) await sleep(200);
     }
 
-    // Fetch skill name map
     const skillRecs = await atFetch('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
     const skillNameMap = new Map(skillRecs.map(r => [r.id, r.fields['Skill Name'] || '']));
 
@@ -432,8 +422,25 @@ async function loadAndStart() {
       const choices = fisherYates([correct, ...dists.slice(0, 3)]);
       const skillIds = q.fields['Skill'] || [];
       const skillName = skillIds.map(id => skillNameMap.get(id)).filter(Boolean).join(', ');
-      return { id: q.id, text: q.fields['Question Text'] || '', correct, solution: q.fields['Solution'] || '', difficulty: q.fields['Difficulty'] || '', skillIds, skillName, choices };
+      return {
+        id: q.id, text: q.fields['Question Text'] || '', correct,
+        solution: q.fields['Solution'] || '', difficulty: q.fields['Difficulty'] || '',
+        skillIds, skillName, choices,
+        visualSvg: q.fields['Visual SVG'] || '',
+        graphType: q.fields['graph_type'] || '',
+        graphExpressions: q.fields['graph_expressions'] || '',
+        graphWindow: q.fields['graph_window'] || '',
+        graphPoints: q.fields['graph_points'] || '',
+        graphShowAxisNumbers: q.fields['graph_show_axis_numbers'] === true,
+        graphShowGrid: q.fields['graph_show_grid'] === true,
+        graphXAxisLabel: q.fields['graph_x_axis_label'] || '',
+        graphYAxisLabel: q.fields['graph_y_axis_label'] || ''
+      };
     });
+
+    const graphCount = questions.filter(q => (q.graphType || '').toLowerCase() === 'desmos').length;
+    const svgCount = questions.filter(q => q.visualSvg && q.visualSvg.trim()).length;
+    console.log(`[day13] ${questions.length} questions loaded — ${graphCount} desmos-graph, ${svgCount} svg-figure, ${questions.length - graphCount - svgCount} text-only`);
 
     currentIndex = 0;
     userAnswers = [];
@@ -447,7 +454,35 @@ async function loadAndStart() {
   }
 }
 
-// ── RENDER QUESTION ──
+function destroyInlineGraphs() {
+  inlineGraphInstances.forEach(c => { try { if (c && c.destroy) c.destroy(); } catch(e) {} });
+  inlineGraphInstances = [];
+}
+function safeParseJSON(raw) {
+  if (!raw) return null;
+  if (typeof raw !== 'string') return raw;
+  try { return JSON.parse(raw.trim()); } catch (e) { return null; }
+}
+function renderInlineDesmosGraph(mountEl, q) {
+  if (typeof Desmos === 'undefined') { mountEl.textContent = '[Graph could not load.]'; return; }
+  const expressions = safeParseJSON(q.graphExpressions) || [];
+  const windowBounds = safeParseJSON(q.graphWindow);
+  const points = safeParseJSON(q.graphPoints) || [];
+  const calc = Desmos.GraphingCalculator(mountEl, {
+    expressions: false, settingsMenu: false, zoomButtons: false, expressionsTopbar: false,
+    border: false, keypad: false, lockViewport: true, images: false, folders: false,
+    notes: false, sliders: false, links: false, distributions: false,
+    xAxisNumbers: q.graphShowAxisNumbers === true, yAxisNumbers: q.graphShowAxisNumbers === true,
+    showGrid: q.graphShowGrid === true,
+    xAxisLabel: q.graphXAxisLabel || 'x', yAxisLabel: q.graphYAxisLabel || 'y'
+  });
+  calc.updateSettings({ xAxisArrowMode: Desmos.AxisArrowModes.POSITIVE, yAxisArrowMode: Desmos.AxisArrowModes.POSITIVE });
+  expressions.forEach((expr, i) => calc.setExpression(Object.assign({ id: 'expr' + i }, expr)));
+  points.forEach((pt, i) => calc.setExpression(Object.assign({ id: 'pt' + i, showLabel: true, dragMode: 'NONE' }, pt)));
+  if (windowBounds && typeof windowBounds.left === 'number') calc.setMathBounds(windowBounds);
+  inlineGraphInstances.push(calc);
+}
+
 function renderQuestion() {
   const q = questions[currentIndex];
   selectedAnswer = null;
@@ -456,7 +491,19 @@ function renderQuestion() {
   const pct = (currentIndex / questions.length) * 100;
   document.getElementById('progress-bar').style.width = pct + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-  document.getElementById('q-text').innerHTML = q.text;
+
+  destroyInlineGraphs();
+  const qTextEl = document.getElementById('q-text');
+  const gtype = (q.graphType || '').toLowerCase();
+  if (gtype === 'desmos') {
+    qTextEl.innerHTML = '<div class="inline-graph-figure"></div><div class="q-body-text"></div>';
+    qTextEl.querySelector('.q-body-text').innerHTML = q.text;
+    renderInlineDesmosGraph(qTextEl.querySelector('.inline-graph-figure'), q);
+  } else if (q.visualSvg && q.visualSvg.trim()) {
+    qTextEl.innerHTML = '<div class="inline-graph-figure">' + q.visualSvg + '</div><div class="q-body-text">' + q.text + '</div>';
+  } else {
+    qTextEl.innerHTML = q.text;
+  }
 
   const tag = document.getElementById('q-skill-tag');
   tag.textContent = q.skillName || '';
@@ -487,7 +534,6 @@ function renderQuestion() {
   typeset();
 }
 
-// ── SUBMIT ──
 function submitAnswer() {
   if (!selectedAnswer || submitted) return;
   submitted = true;
@@ -513,13 +559,10 @@ function submitAnswer() {
   }
 }
 
-function nextQuestion() {
-  currentIndex++;
-  renderQuestion();
-}
+function nextQuestion() { currentIndex++; renderQuestion(); }
 
-// ── RESULTS ──
 async function showResults() {
+  destroyInlineGraphs();
   const correct = userAnswers.filter(a => a.correct).length;
   const wrong = userAnswers.length - correct;
   const pct = Math.round((correct / userAnswers.length) * 100);
@@ -527,7 +570,7 @@ async function showResults() {
   document.getElementById('score-correct').textContent = correct;
   document.getElementById('score-wrong').textContent = wrong;
   document.getElementById('score-pct').textContent = pct + '%';
-  document.getElementById('results-subtitle').textContent = `Specific Weaknesses · ${questions.length} questions · ${selectedDiff}`;
+  document.getElementById('results-subtitle').textContent = `Specific Mistakes · ${questions.length} questions · ${selectedDiff}`;
 
   await markDayComplete();
 
@@ -538,7 +581,7 @@ async function showResults() {
   if (missed.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;color:#2e7d32;font-weight:600;font-size:1rem">Perfect score! All answers correct.</div>';
   } else {
-    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each solution carefully. These are your weak spots — spending time here now will pay off on the real test.</p>`;
+    container.innerHTML = `<h3>Questions to Review (${missed.length})</h3><p style="color:#666;font-size:0.88rem;margin-bottom:16px">Read each solution carefully. These are your specific mistakes — spending time here now will pay off on the real test.</p>`;
     missed.forEach(a => {
       const q = questions[a.qIndex];
       const card = document.createElement('div');
@@ -569,7 +612,6 @@ function toggleMissed(header) {
   if (body.classList.contains('open')) typeset();
 }
 
-// ── MARK COMPLETE ──
 async function markDayComplete() {
   if (!sessionUser) return;
   try {
@@ -581,24 +623,68 @@ async function markDayComplete() {
   } catch(e) { console.error(e); }
 }
 
-// ── DESMOS ──
-function toggleCalc() {
-  const wrap = document.getElementById('desmos-wrap');
-  const isOpen = wrap.style.display === 'flex';
-  wrap.style.display = isOpen ? 'none' : 'flex';
-  if (!isOpen && !desmosCalc) {
-    desmosCalc = Desmos.GraphingCalculator(document.getElementById('desmos-container'));
-  }
+function setCalculatorWidth(px) {
+  const minW = 320;
+  const maxW = Math.min(window.innerWidth - 80, window.innerWidth * 0.95);
+  calculatorWidth = Math.max(minW, Math.min(maxW, px));
+  const panel = document.getElementById('calculator-panel');
+  if (panel) panel.style.width = calculatorWidth + 'px';
+  if (desmosCalculator && desmosCalculator.resize) desmosCalculator.resize();
 }
 
-// ── AIRTABLE HELPERS ──
+function initCalculator() {
+  if (desmosCalculator) return;
+  if (typeof Desmos === 'undefined') { alert('The graphing calculator is still loading. Please try again in a moment.'); return; }
+  const mount = document.getElementById('calculator-mount');
+  if (!mount) return;
+  desmosCalculator = Desmos.GraphingCalculator(mount, {
+    keypad: true, expressions: true, settingsMenu: true, zoomButtons: true,
+    expressionsTopbar: true, border: false, lockViewport: false, images: false,
+    folders: false, notes: false, sliders: true, links: false, qwertyKeyboard: true, distributions: false
+  });
+  window.addEventListener('resize', () => { if (calculatorOpen) setCalculatorWidth(calculatorWidth); });
+}
+
+function initCalculatorResize() {
+  const handle = document.getElementById('calculator-resize-handle');
+  if (!handle) return;
+  let dragging = false;
+  const onMove = (e) => { if (!dragging) return; const x = e.touches ? e.touches[0].clientX : e.clientX; setCalculatorWidth(window.innerWidth - x); };
+  const onUp = () => { if (!dragging) return; dragging = false; document.body.style.userSelect = ''; document.body.style.cursor = ''; document.removeEventListener('mousemove', onMove); document.removeEventListener('touchmove', onMove); document.removeEventListener('mouseup', onUp); document.removeEventListener('touchend', onUp); };
+  const onDown = (e) => { e.preventDefault(); dragging = true; document.body.style.userSelect = 'none'; document.body.style.cursor = 'ew-resize'; document.addEventListener('mousemove', onMove); document.addEventListener('touchmove', onMove, { passive: false }); document.addEventListener('mouseup', onUp); document.addEventListener('touchend', onUp); };
+  handle.addEventListener('mousedown', onDown);
+  handle.addEventListener('touchstart', onDown, { passive: false });
+}
+
+function toggleCalculator() {
+  const panel = document.getElementById('calculator-panel');
+  if (!panel) return;
+  if (!calculatorOpen) {
+    initCalculator();
+    setCalculatorWidth(calculatorWidth);
+    panel.classList.add('open');
+    calculatorOpen = true;
+    setTimeout(() => { if (desmosCalculator && desmosCalculator.resize) desmosCalculator.resize(); }, 280);
+  } else {
+    panel.classList.remove('open');
+    calculatorOpen = false;
+  }
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && calculatorOpen) toggleCalculator(); });
+
 async function atFetch(table, params = '') {
   const base = encodeURIComponent(table);
   let all = [], offset = null;
   do {
     let url = `https://api.airtable.com/v0/${AT_BASE}/${base}?${params}${offset ? '&offset=' + offset : ''}`;
-    const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
-    const data = await res.json();
+    let data = null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + AT_TOKEN } });
+      if (res.status === 429) { await sleep(400 + attempt * 400); continue; }
+      data = await res.json();
+      break;
+    }
+    if (!data) break;
     all = all.concat(data.records || []);
     offset = data.offset;
     if (offset) await sleep(200);
@@ -622,7 +708,10 @@ function show(id) {
 }
 
 function typeset() {
-  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(() => {});
+  if (window.MathJax && MathJax.typesetPromise) {
+    try { MathJax.typesetClear(); } catch(e) {}
+    MathJax.typesetPromise().catch(() => {});
+  }
 }
 </script>
 </body>
