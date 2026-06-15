@@ -346,7 +346,9 @@ async function getDomainSkillIds(dom) {
   const ids = [];
   for (const r of records) {
     const name = r.fields['Skill Name'] || '';
-    const m = name.match(/\bSkill\s+(\d+)/i);          // first "Skill N" in the name
+    // Skill's OWN number. Handle "55: Topic", "Skill 55: Topic", "Skill 55 - Topic".
+    // Use the number at the START of the name; never a "Skill N" mention later in the text.
+    const m = name.match(/^\s*(?:Skill\s+)?(\d+)\b/i);
     if (m && wanted.has(parseInt(m[1], 10))) ids.push(r.id);
   }
   skillIdCache[dom] = ids;
@@ -355,7 +357,7 @@ async function getDomainSkillIds(dom) {
   const matched = [];
   for (const r of records) {
     const nm = r.fields['Skill Name'] || '';
-    const mm = nm.match(/\bSkill\s+(\d+)/i);
+    const mm = nm.match(/^\s*(?:Skill\s+)?(\d+)\b/i);
     if (mm && wanted.has(parseInt(mm[1],10))) matched.push(`${parseInt(mm[1],10)}: ${nm.substring(0,40)}`);
   }
   console.log('[practice] matched skills:', matched);
