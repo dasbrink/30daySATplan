@@ -346,11 +346,19 @@ async function getDomainSkillIds(dom) {
   const ids = [];
   for (const r of records) {
     const name = r.fields['Skill Name'] || '';
-    const m = name.match(/Skill\s+(\d+)/i);            // e.g. "Skill 5: Linear equations" -> 5
+    const m = name.match(/\bSkill\s+(\d+)/i);          // first "Skill N" in the name
     if (m && wanted.has(parseInt(m[1], 10))) ids.push(r.id);
   }
   skillIdCache[dom] = ids;
   console.log(`[practice] domain "${dom}" resolved to ${ids.length} skill ids (wanted numbers: ${[...wanted].join(',')})`);
+  // Show exactly which skill names were matched, to catch bad name->number parsing.
+  const matched = [];
+  for (const r of records) {
+    const nm = r.fields['Skill Name'] || '';
+    const mm = nm.match(/\bSkill\s+(\d+)/i);
+    if (mm && wanted.has(parseInt(mm[1],10))) matched.push(`${parseInt(mm[1],10)}: ${nm.substring(0,40)}`);
+  }
+  console.log('[practice] matched skills:', matched);
   return ids;
 }
 
