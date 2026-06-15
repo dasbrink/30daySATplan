@@ -677,7 +677,10 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
     <div class="welcome-btns">
       <button class="btn-start-timed" onclick="viewSavedResults()">View my results</button>
     </div>
-    <button class="welcome-signout" onclick="handleSignOut()">Sign out</button>
+   <div class="welcome-footer-links">
+      <a href="/dashboard/" class="welcome-dashboard-link">← Dashboard</a>
+      <button class="welcome-signout" onclick="handleSignOut()">Sign out</button>
+    </div>
   </div>
 </div>
 
@@ -692,6 +695,8 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
         <div class="topbar-tools">
           <button class="btn-calculator" onclick="toggleCalculator()">Calculator</button>
           <button class="btn-formula-sheet" onclick="toggleFormulaSheet()">Formulas</button>
+          <button class="btn-topbar-dashboard" onclick="confirmExit()">← Dashboard</button>
+        </div>
         </div>
       </div>
       <!-- Body -->
@@ -1520,7 +1525,7 @@ function exitTest() {
   currentSessionId = null; sessionStartTime = null;
   module1Score = 0; currentModule = 1; currentQuestionIndex = 0; untimedMode = false;
   lastResultsMissed = [];
-  showScreen('screen-welcome');
+  window.location.href = '/dashboard/';
 }
 
 // ── SUBMIT MODULE ──────────────────────────────────────────────
