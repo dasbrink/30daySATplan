@@ -1542,8 +1542,8 @@ function exitTest() {
   openEndedMap = {}; openEndedAnswers = {}; oeModuleCount = 0;
   currentSessionId = null; sessionStartTime = null;
   module1Score = 0; currentModule = 1; currentQuestionIndex = 0; untimedMode = false;
-  lastResultsMissed = [];
-  showScreen('screen-welcome');
+ lastResultsMissed = [];
+  window.location.href = '/dashboard/';
 }
 
 // ── SUBMIT MODULE ──────────────────────────────────────────────
