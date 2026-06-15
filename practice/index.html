@@ -582,20 +582,13 @@ function submitAnswer() {
   const q = questions[currentIndex];
   const isCorrect = selectedAnswer === q.correct;
   userAnswers.push({ qIndex: currentIndex, chosen: selectedAnswer, correct: isCorrect });
-  document.querySelectorAll('.answer-btn').forEach(btn => {
-    const choice = btn.dataset.choice;
-    if (choice === q.correct) btn.classList.add('show-correct');
-    else if (choice === selectedAnswer && !isCorrect) btn.classList.add('wrong');
-  });
-  const submitBtn = document.getElementById('btn-submit');
+  // No right/wrong shown during the test — record the answer and move straight on.
+  // All review (missed questions + solutions) happens on the results screen at the end.
   if (currentIndex < questions.length - 1) {
-    submitBtn.textContent = 'Next Question';
-    submitBtn.disabled = false;
-    submitBtn.onclick = () => { currentIndex++; renderQuestion(); };
+    currentIndex++;
+    renderQuestion();
   } else {
-    submitBtn.textContent = 'See Results';
-    submitBtn.disabled = false;
-    submitBtn.onclick = showResults;
+    showResults();
   }
 }
 
