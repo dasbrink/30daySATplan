@@ -410,7 +410,7 @@ async function loadAndStart() {
       show('screen-setup'); return;
     }
 
-    finishLoading(domainQs);
+    finishLoading(domainQs, domainSkillIds);
 
   } catch(err) {
     console.error(err);
@@ -419,7 +419,7 @@ async function loadAndStart() {
   }
 }
 
-async function finishLoading(domainQs) {
+async function finishLoading(domainQs, domainSkillIds) {
   try {
     // Spread questions EVENLY across the domain's skills (round-robin), so a skill with
     // many questions in the bank doesn't crowd out a skill with few. We bucket the pool
