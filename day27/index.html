@@ -1826,7 +1826,7 @@ function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct, mis
           <div>Module 2: ${m2Correct} of 22</div>
         </div>
         <div style="margin-top:auto;font-size:0.82rem;font-weight:700;color:#1a3a5c;padding-top:8px;border-top:1px solid #e0e0e0;">
-          This is your Day 23 score. You have one week left — use the diagnosis below.
+          This is your Day 27 score. You're in the final stretch — use the diagnosis below.
         </div>
       </div>
 
@@ -1894,7 +1894,7 @@ function updateFoundationalCell(diag) {
     const list = diag.gaps.slice(0, 3).map(g => `<li style="font-size:0.83rem;color:#1a1a1a;padding-left:14px;position:relative;line-height:1.35;"><span style="position:absolute;left:2px;color:#1a3a5c;font-weight:700;">•</span>${escHTML(g.node.name)}</li>`).join('');
     inner += `<ul style="list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:5px;">${list}</ul>`;
     if (diag.gaps.length > 3) inner += `<div style="font-size:0.78rem;color:#c9902a;margin-top:4px;">+ ${diag.gaps.length - 3} more</div>`;
-    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openFoundationalReport()">Review on Day 2</button>`;
+    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openFoundationalReport()">Review on Day 24</button>`;
   } else {
     inner += `<div style="font-size:0.85rem;color:#666;">No recurring foundational gaps detected yet.</div>`;
   }
@@ -1909,7 +1909,7 @@ function updateSpecificCell(diag, missedIds, answeredIds) {
     const list = diag.gaps.slice(0, 3).map(g => `<li style="font-size:0.83rem;color:#1a1a1a;padding-left:14px;position:relative;line-height:1.35;"><span style="position:absolute;left:2px;color:#1a3a5c;font-weight:700;">•</span>${escHTML(g.node.name)}</li>`).join('');
     inner += `<ul style="list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:5px;">${list}</ul>`;
     if (diag.gaps.length > 3) inner += `<div style="font-size:0.78rem;color:#c9902a;margin-top:4px;">+ ${diag.gaps.length - 3} more</div>`;
-    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openSpecificReport()">Review on Day 2</button>`;
+    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openSpecificReport()">Review on Day 24</button>`;
   } else {
     inner += `<div style="font-size:0.85rem;color:#666;">No recurring specific mistakes detected on this test.</div>`;
   }
