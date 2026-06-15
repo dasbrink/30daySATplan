@@ -339,15 +339,18 @@ async function atFetchAll(table, params) {
 
 async function getDomainSkillIds(dom) {
   if (skillIdCache[dom]) return skillIdCache[dom];
-  const skillNums = DOMAIN_SKILLS[dom];
-  const nameConditions = skillNums.map(n => `FIND("Skill ${n}",{Skill Name})>0`).join(',');
-  const formula = encodeURIComponent(`OR(${nameConditions})`);
-  const records = await atFetchCapped('Skills',
-    `fields%5B%5D=Skill+Name&filterByFormula=${formula}`,
-    200
-  );
-  const ids = records.map(r => r.id);
+  const wanted = new Set(DOMAIN_SKILLS[dom]);          // exact integer skill numbers for this domain
+  // Fetch ALL skills once, parse the trailing number from each name, keep only exact matches.
+  // This avoids substring bugs like FIND("Skill 5") also matching "Skill 51".
+  const records = await atFetchAll('Skills', 'fields%5B%5D=Skill+Name&pageSize=100');
+  const ids = [];
+  for (const r of records) {
+    const name = r.fields['Skill Name'] || '';
+    const m = name.match(/Skill\s+(\d+)/i);            // e.g. "Skill 5: Linear equations" -> 5
+    if (m && wanted.has(parseInt(m[1], 10))) ids.push(r.id);
+  }
   skillIdCache[dom] = ids;
+  console.log(`[practice] domain "${dom}" resolved to ${ids.length} skill ids (wanted numbers: ${[...wanted].join(',')})`);
   return ids;
 }
 
@@ -377,36 +380,34 @@ async function loadAndStart() {
 
     let diffFilter = selectedDiff !== 'Mixed' ? `,{Difficulty}="${selectedDiff}"` : '';
 
-    const POOL_SIZE = 60;
-    const poolRecords = await atFetchCapped('Questions',
+    const FIELDS =
       'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
-      '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&fields%5B%5D=Distractors' +
-      '&filterByFormula=' + encodeURIComponent(
+      '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Visual+SVG' +
+      '&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points' +
+      '&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid' +
+      '&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&fields%5B%5D=Distractors';
+
+    // Fetch the FULL set of reviewed questions for this difficulty, then filter to the
+    // domain and shuffle. This guarantees graph questions in the domain can appear —
+    // the old 60-record cap was grabbing only the first 60 questions in Airtable order,
+    // which starved variety (often zero graph questions).
+    const allRecords = await atFetchAll('Questions',
+      FIELDS + '&filterByFormula=' + encodeURIComponent(
         `AND({Review Status}="Reviewed - OK"${diffFilter})`
-      ) + '&pageSize=100',
-      POOL_SIZE
+      ) + '&pageSize=100'
     );
 
-    const domainQs = poolRecords.filter(r =>
+    const domainQs = allRecords.filter(r =>
       (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid))
     );
 
+    const graphInPool = domainQs.filter(r => (r.fields['graph_type']||'').toLowerCase()==='desmos').length;
+    const svgInPool = domainQs.filter(r => (r.fields['Visual SVG']||'').trim()).length;
+    console.log(`[practice] domain pool: ${domainQs.length} questions (${graphInPool} desmos-graph, ${svgInPool} svg) from ${allRecords.length} reviewed at difficulty "${selectedDiff}"`);
+
     if (domainQs.length < questionCount) {
-      const biggerPool = await atFetchAll('Questions',
-        'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
-        '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&fields%5B%5D=Distractors' +
-        '&filterByFormula=' + encodeURIComponent(
-          `AND({Review Status}="Reviewed - OK"${diffFilter})`
-        ) + '&pageSize=100'
-      );
-      const fallbackDomainQs = biggerPool.filter(r =>
-        (r.fields['Skill'] || []).some(sid => domainSkillIds.includes(sid))
-      );
-      if (fallbackDomainQs.length < questionCount) {
-        alert(`Not enough questions found (found ${fallbackDomainQs.length}). Try Mixed difficulty.`);
-        show('screen-setup'); return;
-      }
-      return finishLoading(fallbackDomainQs);
+      alert(`Not enough questions found for this domain (found ${domainQs.length}). Try Mixed difficulty.`);
+      show('screen-setup'); return;
     }
 
     finishLoading(domainQs);
@@ -420,7 +421,23 @@ async function loadAndStart() {
 
 async function finishLoading(domainQs) {
   try {
-    const selected = fisherYates([...domainQs]).slice(0, questionCount);
+    // Ensure graph questions actually appear: if the pool has any, guarantee a share of
+    // them in the session instead of leaving it to chance. Aim for ~30% graph if available.
+    const graphPool = fisherYates(domainQs.filter(r =>
+      (r.fields['graph_type']||'').toLowerCase()==='desmos' || (r.fields['Visual SVG']||'').trim()
+    ));
+    const textPool = fisherYates(domainQs.filter(r =>
+      !((r.fields['graph_type']||'').toLowerCase()==='desmos' || (r.fields['Visual SVG']||'').trim())
+    ));
+    let selected;
+    if (graphPool.length > 0) {
+      const graphTarget = Math.min(graphPool.length, Math.max(1, Math.round(questionCount * 0.3)));
+      const chosenGraph = graphPool.slice(0, graphTarget);
+      const chosenText = textPool.slice(0, Math.max(0, questionCount - chosenGraph.length));
+      selected = fisherYates([...chosenGraph, ...chosenText]).slice(0, questionCount);
+    } else {
+      selected = fisherYates([...domainQs]).slice(0, questionCount);
+    }
 
     const distIds = [...new Set(selected.flatMap(q => q.fields['Distractors'] || []))];
     const distMap = {};
