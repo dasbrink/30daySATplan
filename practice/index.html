@@ -63,6 +63,8 @@ nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify
 .q-counter{font-size:0.85rem;color:#777;margin-bottom:16px}
 .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
 .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+.inline-graph-figure{width:100%;max-width:420px;height:300px;margin:0 auto 18px;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
+.q-body-text{font-size:1rem;line-height:1.7;color:#1a1a1a}
 .answer-options{display:flex;flex-direction:column;gap:10px}
 .answer-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:12px 16px;font-size:0.95rem;text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:flex-start;gap:12px;color:#1a1a1a;font-family:'Inter',sans-serif;width:100%}
 .answer-btn:hover{border-color:#1a3a5c;background:#f0f4f8}
@@ -378,7 +380,7 @@ async function loadAndStart() {
     const POOL_SIZE = 60;
     const poolRecords = await atFetchCapped('Questions',
       'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
-      '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors' +
+      '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&fields%5B%5D=Distractors' +
       '&filterByFormula=' + encodeURIComponent(
         `AND({Review Status}="Reviewed - OK"${diffFilter})`
       ) + '&pageSize=100',
@@ -392,7 +394,7 @@ async function loadAndStart() {
     if (domainQs.length < questionCount) {
       const biggerPool = await atFetchAll('Questions',
         'fields%5B%5D=Question+Text&fields%5B%5D=Correct+Answer&fields%5B%5D=Solution' +
-        '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Distractors' +
+        '&fields%5B%5D=Difficulty&fields%5B%5D=Skill&fields%5B%5D=graph_type&fields%5B%5D=Visual+SVG&fields%5B%5D=graph_expressions&fields%5B%5D=graph_window&fields%5B%5D=graph_points&fields%5B%5D=graph_show_axis_numbers&fields%5B%5D=graph_show_grid&fields%5B%5D=graph_x_axis_label&fields%5B%5D=graph_y_axis_label&fields%5B%5D=Distractors' +
         '&filterByFormula=' + encodeURIComponent(
           `AND({Review Status}="Reviewed - OK"${diffFilter})`
         ) + '&pageSize=100'
@@ -443,9 +445,22 @@ async function finishLoading(domainQs) {
         solution: q.fields['Solution'] || '',
         difficulty: q.fields['Difficulty'] || '',
         distIds: q.fields['Distractors'] || [],
-        choices: fisherYates([correct, ...dists.slice(0, 3)])
+        choices: fisherYates([correct, ...dists.slice(0, 3)]),
+        visualSvg: q.fields['Visual SVG'] || '',
+        graphType: q.fields['graph_type'] || '',
+        graphExpressions: q.fields['graph_expressions'] || '',
+        graphWindow: q.fields['graph_window'] || '',
+        graphPoints: q.fields['graph_points'] || '',
+        graphShowAxisNumbers: q.fields['graph_show_axis_numbers'] === true,
+        graphShowGrid: q.fields['graph_show_grid'] === true,
+        graphXAxisLabel: q.fields['graph_x_axis_label'] || '',
+        graphYAxisLabel: q.fields['graph_y_axis_label'] || ''
       };
     });
+
+    const graphCount = questions.filter(q => (q.graphType||'').toLowerCase()==='desmos').length;
+    const svgCount = questions.filter(q => q.visualSvg && q.visualSvg.trim()).length;
+    console.log(`[practice] ${questions.length} questions — ${graphCount} desmos-graph, ${svgCount} svg-figure, ${questions.length-graphCount-svgCount} text-only`);
 
     currentIndex = 0;
     userAnswers = [];
@@ -459,6 +474,40 @@ async function finishLoading(domainQs) {
   }
 }
 
+// ── INLINE GRAPH RENDERING (ported from Day 13) ──
+let inlineGraphInstances = [];
+
+function safeParseJSON(raw) {
+  if (!raw) return null;
+  if (typeof raw !== 'string') return raw;
+  try { return JSON.parse(raw.trim()); } catch (e) { return null; }
+}
+
+function destroyInlineGraphs() {
+  inlineGraphInstances.forEach(c => { try { if (c && c.destroy) c.destroy(); } catch(e) {} });
+  inlineGraphInstances = [];
+}
+
+function renderInlineDesmosGraph(mountEl, q) {
+  if (typeof Desmos === 'undefined') { mountEl.textContent = '[Graph could not load.]'; return; }
+  const expressions = safeParseJSON(q.graphExpressions) || [];
+  const windowBounds = safeParseJSON(q.graphWindow);
+  const points = safeParseJSON(q.graphPoints) || [];
+  const calc = Desmos.GraphingCalculator(mountEl, {
+    expressions: false, settingsMenu: false, zoomButtons: false, expressionsTopbar: false,
+    border: false, keypad: false, lockViewport: true, images: false, folders: false,
+    notes: false, sliders: false, links: false, distributions: false,
+    xAxisNumbers: q.graphShowAxisNumbers === true, yAxisNumbers: q.graphShowAxisNumbers === true,
+    showGrid: q.graphShowGrid === true,
+    xAxisLabel: q.graphXAxisLabel || 'x', yAxisLabel: q.graphYAxisLabel || 'y'
+  });
+  calc.updateSettings({ xAxisArrowMode: Desmos.AxisArrowModes.POSITIVE, yAxisArrowMode: Desmos.AxisArrowModes.POSITIVE });
+  expressions.forEach((expr, i) => calc.setExpression(Object.assign({ id: 'expr' + i }, expr)));
+  points.forEach((pt, i) => calc.setExpression(Object.assign({ id: 'pt' + i, showLabel: true, dragMode: 'NONE' }, pt)));
+  if (windowBounds && typeof windowBounds.left === 'number') calc.setMathBounds(windowBounds);
+  inlineGraphInstances.push(calc);
+}
+
 // ── RENDER QUESTION ──
 function renderQuestion() {
   const q = questions[currentIndex];
@@ -466,7 +515,19 @@ function renderQuestion() {
   submitted = false;
   document.getElementById('progress-bar').style.width = (currentIndex / questions.length * 100) + '%';
   document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-  document.getElementById('q-text').innerHTML = q.text;
+
+  destroyInlineGraphs();
+  const qTextEl = document.getElementById('q-text');
+  const gtype = (q.graphType || '').toLowerCase();
+  if (gtype === 'desmos') {
+    qTextEl.innerHTML = '<div class="inline-graph-figure"></div><div class="q-body-text"></div>';
+    qTextEl.querySelector('.q-body-text').innerHTML = q.text;
+    renderInlineDesmosGraph(qTextEl.querySelector('.inline-graph-figure'), q);
+  } else if (q.visualSvg && q.visualSvg.trim()) {
+    qTextEl.innerHTML = '<div class="inline-graph-figure">' + q.visualSvg + '</div><div class="q-body-text">' + q.text + '</div>';
+  } else {
+    qTextEl.innerHTML = q.text;
+  }
 
   const labels = ['A','B','C','D'];
   const container = document.getElementById('answer-options');
