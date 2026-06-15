@@ -762,7 +762,6 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 
 <script>
 // ── CONFIGURATION ──────────────────────────────────────────────
-// TODO: Replace with 30-day plan Supabase credentials
 const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -823,7 +822,6 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
 }
 
-// ── FISHER-YATES ───────────────────────────────────────────────
 // ── OPEN-ENDED HELPERS ────────────────────────────────────────
 function isCleanInteger(answer) {
   if (!answer) return false;
@@ -1055,7 +1053,6 @@ function initFormulaSheetDragging() {
   resizeHandle.addEventListener('touchstart', onResizeStart, { passive: false });
 }
 
-// formula sheet dragging initialized in main DOMContentLoaded below
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && formulaSheetOpen) toggleFormulaSheet(); });
 
 // ── INLINE DESMOS ──────────────────────────────────────────────
@@ -1188,9 +1185,7 @@ function normaliseQuestion(r) {
     graphXAxisLabel: r.fields['graph_x_axis_label'] || '',
     graphYAxisLabel: r.fields['graph_y_axis_label'] || '',
     replacementStatus: (r.fields['replacement_status'] || '').toLowerCase(),
-    distractorIds: r.fields['Distractors'] || [],
-    prereqIds: r.fields['Prerequisites'] || [],
-    criticalIds: r.fields['Critical Prerequisite'] || []
+    distractorIds: r.fields['Distractors'] || []
   };
 }
 
@@ -1244,9 +1239,9 @@ let currentQuestionIndex = 0;
 let studentAnswers = {}, module1Answers = {}, module1ShuffledChoices = {};
 let markedQuestions = {}, shuffledChoices = {}, struckChoices = {};
 let lastResultsMissed = [];
-let openEndedMap = {};        // index -> true if this question is open-ended this session
-let openEndedAnswers = {};    // index -> string typed by student
-let oeModuleCount = 0;        // how many OE questions assigned so far this module
+let openEndedMap = {};
+let openEndedAnswers = {};
+let oeModuleCount = 0;
 const OE_PROBABILITY = 0.25;
 const OE_MAX_PER_MODULE = 6;
 let currentSessionId = null;
@@ -1262,11 +1257,11 @@ async function startTest(untimed) {
   enableNavigationWarning();
   showScreen('screen-test');
   document.getElementById('question-text').innerHTML =
-    '<div class="loading"><p style="font-weight:600; margin-bottom:8px;">Building your diagnostic test…</p>' +
+    '<div class="loading"><p style="font-weight:600; margin-bottom:8px;">Building your practice test…</p>' +
     '<p style="margin:0;">Assembling 44 questions from the question bank. This usually takes 10–20 seconds.</p></div>';
   document.getElementById('answer-choices').innerHTML = '';
   try {
-    // Day 23 — Random test (same logic as freepracticesat.com test 3+)
+    // Random full test (same logic as freepracticesat.com test 3+)
     const CACHE_TTL_MS = 60 * 60 * 1000;
     const M1_PROFILE = { easy: 6, medium: 9, hard: 7 };
     const M2_PROFILE = { easy: 2, medium: 7, hard: 13 };
@@ -1276,7 +1271,7 @@ async function startTest(untimed) {
       const raw = localStorage.getItem('cache_day30_questions');
       if (raw) {
         const { ts, records } = JSON.parse(raw);
-        if (Date.now() - ts < CACHE_TTL_MS) { qRecords = records; console.log('[day23] cache hit'); }
+        if (Date.now() - ts < CACHE_TTL_MS) { qRecords = records; console.log('[day30] cache hit'); }
       }
     } catch (e) {}
 
@@ -1421,7 +1416,7 @@ function showQuestion() {
     row.appendChild(input);
     choicesEl.appendChild(row);
     const hint = document.createElement('div'); hint.className = 'oe-hint';
-    hint.textContent = 'Type your answer and click Submit Answer. Enter numbers only (e.g. 7, 42).';
+    hint.textContent = 'Type your answer. Enter numbers only (e.g. 7, 42).';
     choicesEl.appendChild(hint);
     setTimeout(() => { const el = document.getElementById('oe-input'); if (el) el.focus(); }, 50);
   } else {
@@ -1596,138 +1591,6 @@ function convertToSATScore(rawScore) {
   return entry ? entry[1] : 200;
 }
 
-// ── PREREQUISITE DIAGNOSIS ─────────────────────────────────────
-async function fetchRecordsByIds(table, ids) {
-  if (!ids || ids.length === 0) return [];
-  const CHUNK = 50, chunks = [];
-  for (let i = 0; i < ids.length; i += CHUNK) chunks.push(ids.slice(i, i + CHUNK));
-  const results = await Promise.all(chunks.map(chunk => {
-    const cond = chunk.map(id => `RECORD_ID()='${id}'`).join(',');
-    return fetchTable(table, `OR(${cond})`);
-  }));
-  const seen = new Set(), flat = [];
-  for (const batch of results) for (const rec of batch) if (!seen.has(rec.id)) { seen.add(rec.id); flat.push(rec); }
-  return flat;
-}
-
-async function fetchCriticalsForQuestions(questionIds) {
-  const map = new Map();
-  const inMem = new Map(allQuestions.map(q => [q.id, q]));
-  const needFetch = [];
-  for (const qid of questionIds) {
-    const q = inMem.get(qid);
-    if (q && Array.isArray(q.criticalIds)) map.set(qid, q.criticalIds);
-    else needFetch.push(qid);
-  }
-  if (needFetch.length > 0) {
-    const recs = await fetchRecordsByIds('Questions', needFetch);
-    for (const rec of recs) map.set(rec.id, rec.fields['Critical Prerequisite'] || []);
-  }
-  return map;
-}
-
-async function fetchPrereqsForQuestions(questionIds) {
-  const map = new Map();
-  const inMem = new Map(allQuestions.map(q => [q.id, q]));
-  const needFetch = [];
-  for (const qid of questionIds) {
-    const q = inMem.get(qid);
-    if (q && Array.isArray(q.prereqIds)) map.set(qid, q.prereqIds);
-    else needFetch.push(qid);
-  }
-  if (needFetch.length > 0) {
-    const recs = await fetchRecordsByIds('Questions', needFetch);
-    for (const rec of recs) map.set(rec.id, rec.fields['Prerequisites'] || []);
-  }
-  return map;
-}
-
-async function fetchPrereqNodeDetails(nodeIds) {
-  if (nodeIds.length === 0) return new Map();
-  const recs = await fetchRecordsByIds('Prerequisites', nodeIds);
-  const map = new Map();
-  for (const rec of recs) map.set(rec.id, { id: rec.id, name: rec.fields['Name'] || '(unnamed)', description: rec.fields['Description'] || '' });
-  return map;
-}
-
-async function fetchNodeBankUsage(nodeIds) {
-  if (nodeIds.length === 0) return new Map();
-  const recs = await fetchRecordsByIds('Prerequisites', nodeIds);
-  const map = new Map();
-  for (const rec of recs) map.set(rec.id, (rec.fields['Used By Questions'] || []).length);
-  return map;
-}
-
-async function fetchAllMissedIdsForUser() {
-  if (!currentUser) return [];
-  try {
-    const missed = new Set();
-    let from = 0;
-    while (true) {
-      const { data, error } = await supabaseClient.from('questions_seen').select('question_id, is_correct')
-        .eq('user_id', currentUser.id).eq('is_correct', false).range(from, from + 999);
-      if (error || !data || data.length === 0) break;
-      data.forEach(r => missed.add(r.question_id));
-      if (data.length < 1000) break;
-      from += 1000;
-    }
-    return Array.from(missed);
-  } catch (e) { return []; }
-}
-
-async function countCompletedTests() {
-  if (!currentUser) return 0;
-  try {
-    const { count, error } = await supabaseClient.from('test_sessions').select('id', { count: 'exact', head: true })
-      .eq('user_id', currentUser.id).not('completed_at', 'is', null);
-    return error ? 0 : (count || 0);
-  } catch (e) { return 0; }
-}
-
-async function computeFoundationalDiagnosis() {
-  if (!currentUser) return null;
-  const [completedTests, allMissedIds] = await Promise.all([countCompletedTests(), fetchAllMissedIdsForUser()]);
-  // After this test we have 1 completed test — not enough for foundational (needs 2+)
-  // So this will always return locked on Day 1, which is correct.
-  if (completedTests < 2 || allMissedIds.length < 30) {
-    return { status: 'locked', completedTests, distinctMisses: allMissedIds.length, needed: { tests: 2, misses: 30 } };
-  }
-  const critMap = await fetchCriticalsForQuestions(allMissedIds);
-  const tally = new Map();
-  for (const qid of allMissedIds) {
-    for (const nid of new Set(critMap.get(qid) || [])) tally.set(nid, (tally.get(nid) || 0) + 1);
-  }
-  const recurringIds = [...tally.entries()].filter(([, c]) => c >= 2).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([nid]) => nid);
-  let gaps = [];
-  if (recurringIds.length > 0) {
-    const nodeDetails = await fetchPrereqNodeDetails(recurringIds);
-    gaps = recurringIds.map(nid => ({ node: nodeDetails.get(nid) || { id: nid, name: '(unnamed)', description: '' }, missCount: tally.get(nid) }));
-  }
-  return { status: 'unlocked', totalGapsFound: gaps.length, gaps };
-}
-
-async function computeSpecificDiagnosis(missedIds, answeredIds) {
-  if (answeredIds.length === 0) return null;
-  const prereqMap = await fetchPrereqsForQuestions([...new Set(answeredIds)]);
-  const testedNodes = new Set();
-  for (const qid of answeredIds) (prereqMap.get(qid) || []).forEach(nid => testedNodes.add(nid));
-  const missTally = new Map();
-  for (const qid of missedIds) for (const nid of new Set(prereqMap.get(qid) || [])) missTally.set(nid, (missTally.get(nid) || 0) + 1);
-  const implicatedIds = [...missTally.keys()].filter(nid => missTally.get(nid) >= 2);
-  if (implicatedIds.length === 0) return null;
-  const usageMap = await fetchNodeBankUsage(implicatedIds);
-  let maxUsage = 1;
-  for (const u of usageMap.values()) maxUsage = Math.max(maxUsage, u);
-  const bankSize = maxUsage + 1;
-  const scored = implicatedIds.map(nid => {
-    const mc = missTally.get(nid), usage = Math.max(1, usageMap.get(nid) || 1);
-    return { nid, missCount: mc, score: mc * Math.log(bankSize / usage) };
-  }).sort((a, b) => b.score - a.score).slice(0, 8);
-  const nodeDetails = await fetchPrereqNodeDetails(scored.map(g => g.nid));
-  const gaps = scored.map(g => ({ node: nodeDetails.get(g.nid) || { id: g.nid, name: '(unnamed)', description: '' }, missCount: g.missCount })).filter(g => g.node);
-  return { totalNodesTested: testedNodes.size, totalGapsFound: gaps.length, gaps };
-}
-
 // ── RESULTS ────────────────────────────────────────────────────
 function escHTML(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stripComments(s) { return String(s || '').replace(/<!--[\s\S]*?-->/g, ''); }
@@ -1801,24 +1664,24 @@ async function showResults() {
     });
   } catch (e) { console.warn('Could not save test result:', e); }
 
-  renderResultsPage(estimatedScore, totalCorrect, total, m1Correct, m2Correct, missedIds, answeredIds);
+  renderResultsPage(estimatedScore, totalCorrect, total, m1Correct, m2Correct);
 }
 
-function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct, missedIds, answeredIds) {
+function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct) {
   const container = document.querySelector('#screen-results .container');
   const missedCount = lastResultsMissed.length;
   const qword = missedCount === 1 ? 'question' : 'questions';
 
   container.innerHTML = `
     <div style="font-family:-apple-system,Segoe UI,sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1a3a5c;text-align:center;margin-bottom:16px;">
-      DAY 30 RESULTS
+      DAY 30 — FINAL TEST COMPLETE
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;" id="rb-grid">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;max-width:720px;margin-left:auto;margin-right:auto;" id="rb-grid">
 
-      <div style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:16px 14px;min-height:200px;display:flex;flex-direction:column;gap:6px;">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:18px 16px;min-height:210px;display:flex;flex-direction:column;gap:6px;">
         <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;">Your score</div>
-        <div style="font-size:2.8rem;font-weight:700;color:#1a3a5c;line-height:1;">${score}</div>
+        <div style="font-size:3rem;font-weight:700;color:#1a3a5c;line-height:1;">${score}</div>
         <div style="font-size:0.8rem;color:#888;">out of 800</div>
         <div style="font-size:0.85rem;color:#444;display:flex;flex-direction:column;gap:2px;margin-top:4px;">
           <div>${totalCorrect} of ${total} correct</div>
@@ -1826,103 +1689,51 @@ function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct, mis
           <div>Module 2: ${m2Correct} of 22</div>
         </div>
         <div style="margin-top:auto;font-size:0.82rem;font-weight:700;color:#1a3a5c;padding-top:8px;border-top:1px solid #e0e0e0;">
-         This is your Day 30 score. You're in the final stretch — use the diagnosis below.
+          You finished the program. Well done.
         </div>
       </div>
 
-      <div id="rb-cell-worked" style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:16px 14px;min-height:200px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:box-shadow 0.18s,transform 0.18s;" onclick="openWorkedSolutions()" onmouseover="this.style.boxShadow='0 8px 24px rgba(26,58,92,0.18)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+      <div id="rb-cell-worked" style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:18px 16px;min-height:210px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:box-shadow 0.18s,transform 0.18s;" onclick="openWorkedSolutions()" onmouseover="this.style.boxShadow='0 8px 24px rgba(26,58,92,0.18)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
         <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;">Worked solutions</div>
-        <div style="font-size:0.88rem;color:#444;line-height:1.55;">Step-by-step solutions for all ${missedCount} ${qword} you missed.</div>
-        <button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;line-height:1.25;">${missedCount > 0 ? `Review ${missedCount} missed ${qword}` : 'No questions missed'}</button>
-      </div>
-
-      <div id="rb-cell-foundational" style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:16px 14px;min-height:200px;display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;">Foundational gaps</div>
-        <div style="font-size:0.85rem;color:#aaa;font-style:italic;">Analysing…</div>
-      </div>
-
-      <div id="rb-cell-specific" style="background:#fff;border:1px solid #e0e0e0;border-top:3px solid #1a3a5c;border-radius:8px;padding:16px 14px;min-height:200px;display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;">Specific mistakes</div>
-        <div style="font-size:0.85rem;color:#aaa;font-style:italic;">Analysing…</div>
+        <div style="font-size:0.9rem;color:#444;line-height:1.55;">Step-by-step solutions for every question you missed on this test.</div>
+        <button style="margin-top:auto;width:100%;padding:12px;border:none;border-radius:6px;font-size:0.85rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;line-height:1.25;">${missedCount > 0 ? `Review ${missedCount} missed ${qword}` : 'No questions missed'}</button>
       </div>
 
     </div>
 
-    <div style="background:#1a3a5c;color:#fff;border-radius:10px;padding:18px 22px;margin-bottom:24px;font-family:-apple-system,Segoe UI,sans-serif;line-height:1.6;">
-      <div style="font-weight:800;font-size:1.05rem;margin-bottom:8px;">What happens next</div>
-      <div style="font-size:0.92rem;opacity:0.92;">Your score has been saved. Review your missed questions below and go back to the dashboard when done.</div>
+    <div style="background:#1a3a5c;color:#fff;border-radius:10px;padding:18px 22px;margin-bottom:24px;font-family:-apple-system,Segoe UI,sans-serif;line-height:1.6;max-width:720px;margin-left:auto;margin-right:auto;">
+      <div style="font-weight:800;font-size:1.2rem;margin-bottom:10px;">Congratulations — you made it.</div>
+      <div style="font-size:0.95rem;opacity:0.95;line-height:1.7;">You've completed all 30 days. Thirty days ago you took your first diagnostic, and you've put in the work every day since — the practice, the reviews, the full tests, the questions you got wrong and came back to understand. That effort is exactly what moves a score.</div>
+      <div style="font-size:0.95rem;opacity:0.95;line-height:1.7;margin-top:12px;">Take your worked solutions for this last test, rest well the night before, and walk in knowing you've prepared properly. You've earned your confidence. Good luck on test day — you've got this.</div>
     </div>
 
-    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #e0e0e0;">
-      <a href="/dashboard" style="padding:12px 24px;background:#1a3a5c;color:#fff;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;font-family:-apple-system,Segoe UI,sans-serif;">Go to my dashboard</a>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #e0e0e0;max-width:720px;margin-left:auto;margin-right:auto;">
+      <a href="/dashboard/" style="padding:12px 24px;background:#1a3a5c;color:#fff;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;font-family:-apple-system,Segoe UI,sans-serif;">Go to my dashboard</a>
     </div>
   `;
 
-  // Add responsive grid styles
   if (!document.getElementById('rb-grid-style')) {
     const s = document.createElement('style');
     s.id = 'rb-grid-style';
-    s.textContent = `@media(max-width:720px){#rb-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:480px){#rb-grid{grid-template-columns:1fr!important}}`;
+    s.textContent = `@media(max-width:560px){#rb-grid{grid-template-columns:1fr!important}}`;
     document.head.appendChild(s);
   }
-
-  // Run diagnosis async and fill in cells
-  runDiagnosis(missedIds, answeredIds);
 }
 
-async function runDiagnosis(missedIds, answeredIds) {
-  try {
-    const [foundational, specific] = await Promise.all([
-      computeFoundationalDiagnosis(),
-      computeSpecificDiagnosis(missedIds, answeredIds)
-    ]);
-    updateFoundationalCell(foundational);
-    updateSpecificCell(specific, missedIds, answeredIds);
-  } catch (e) {
-    console.error('Diagnosis failed:', e);
-  }
-}
-
-function updateFoundationalCell(diag) {
-  const cell = document.getElementById('rb-cell-foundational');
-  if (!cell) return;
-  let inner = `<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;margin-bottom:6px;">Foundational gaps</div>`;
-  if (!diag || diag.status === 'locked') {
-    inner += `<div style="font-size:0.85rem;color:#666;line-height:1.4;">Available after you complete a second test. Your Day 1 data is saved — the gaps will appear automatically.</div>`;
-    inner += `<div style="margin-top:auto;padding:10px;border-radius:6px;font-size:0.82rem;font-weight:700;background:#cfcfcf;color:#777;text-align:center;">Unlocks after Test 2</div>`;
-  } else if (diag.gaps && diag.gaps.length > 0) {
-    const list = diag.gaps.slice(0, 3).map(g => `<li style="font-size:0.83rem;color:#1a1a1a;padding-left:14px;position:relative;line-height:1.35;"><span style="position:absolute;left:2px;color:#1a3a5c;font-weight:700;">•</span>${escHTML(g.node.name)}</li>`).join('');
-    inner += `<ul style="list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:5px;">${list}</ul>`;
-    if (diag.gaps.length > 3) inner += `<div style="font-size:0.78rem;color:#c9902a;margin-top:4px;">+ ${diag.gaps.length - 3} more</div>`;
-    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openFoundationalReport()">Review on Day 24</button>`;
-  } else {
-    inner += `<div style="font-size:0.85rem;color:#666;">No recurring foundational gaps detected yet.</div>`;
-  }
-  cell.innerHTML = inner;
-}
-
-function updateSpecificCell(diag, missedIds, answeredIds) {
-  const cell = document.getElementById('rb-cell-specific');
-  if (!cell) return;
-  let inner = `<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#888;margin-bottom:6px;">Specific mistakes</div>`;
-  if (diag && diag.gaps && diag.gaps.length > 0) {
-    const list = diag.gaps.slice(0, 3).map(g => `<li style="font-size:0.83rem;color:#1a1a1a;padding-left:14px;position:relative;line-height:1.35;"><span style="position:absolute;left:2px;color:#1a3a5c;font-weight:700;">•</span>${escHTML(g.node.name)}</li>`).join('');
-    inner += `<ul style="list-style:none;padding:0;margin:4px 0 0;display:flex;flex-direction:column;gap:5px;">${list}</ul>`;
-    if (diag.gaps.length > 3) inner += `<div style="font-size:0.78rem;color:#c9902a;margin-top:4px;">+ ${diag.gaps.length - 3} more</div>`;
-    inner += `<button style="margin-top:auto;width:100%;padding:10px;border:none;border-radius:6px;font-size:0.82rem;font-weight:700;cursor:pointer;background:#1a7a4c;color:#fff;" onclick="openSpecificReport()">Review on Day 24</button>`;
-  } else {
-    inner += `<div style="font-size:0.85rem;color:#666;">No recurring specific mistakes detected on this test.</div>`;
-  }
-  cell.innerHTML = inner;
-}
-
-// ── WORKED SOLUTIONS (printout, same as freepracticesat.com) ───
+// ── WORKED SOLUTIONS (printout) ────────────────────────────────
 function escForPrint(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderPrintItem(it) {
   const q = it.q;
   const qText = questionTextContainsHTML(q.text) ? stripComments(q.text) : escForPrint(stripComments(q.text));
   const letters = ['A','B','C','D','E','F','G','H'];
+
+  if (it.isOE) {
+    const typed = it.typedAnswer || '(no answer)';
+    const sol = q.solution && q.solution.trim() ? `<div class="solution"><div class="sol-label">Worked solution</div><div class="sol-body">${stripComments(q.solution).replace(/\n/g,'<br>')}</div></div>` : '';
+    return `<div class="q-block"><div class="q-head">Question ${it.number} <span style="background:#d4a04a;color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:8px;margin-left:6px;font-family:sans-serif;">Student-produced response</span></div>${it.figureHTML ? `<div class="q-fig">${it.figureHTML}</div>` : ''}<div class="q-text">${qText}</div><div class="choice correct" style="margin-bottom:6px;"><span class="cl">✓</span><span class="ct">Correct answer: ${escForPrint(q.correctAnswer)}</span></div><div class="choice chosen-wrong"><span class="cl">✗</span><span class="ct">Your answer: ${escForPrint(typed)}</span></div>${sol}</div>`;
+  }
+
   const chosenIdx = (typeof it.chosenIndex === 'number') ? it.chosenIndex : -1;
   const choicesHTML = (it.choices || []).map((c, i) => {
     const isChosen = (i === chosenIdx);
@@ -1944,10 +1755,9 @@ async function openWorkedSolutions() {
   if (!win) { alert('Please allow pop-ups so the review sheet can open.'); return; }
   win.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Preparing…</title></head><body style="font-family:-apple-system,Segoe UI,sans-serif;padding:48px;color:#1a3a5c;"><h2>Preparing your review sheet…</h2><p>Please keep this tab open.</p></body></html>');
   win.document.close();
-  const items = lastResultsMissed.map((m, idx) => ({ number: idx + 1, q: m.q, choices: m.choices, chosenIndex: m.chosenIndex, figureHTML: '' }));
+  const items = lastResultsMissed.map((m, idx) => ({ number: idx + 1, q: m.q, choices: m.choices, chosenIndex: m.chosenIndex, isOE: m.isOE || false, typedAnswer: m.typedAnswer || null, figureHTML: '' }));
   await Promise.all(items.map(async (it) => {
     if ((it.q.graphType || '').toLowerCase() === 'desmos') {
-      // Capture desmos as data URI
       const uri = await captureDesmosDataURI(it.q);
       if (uri) it.figureHTML = `<img class="fig-img" src="${uri}" alt="graph">`;
     } else if (it.q.visualSvg && it.q.visualSvg.trim()) { it.figureHTML = it.q.visualSvg; }
@@ -1987,152 +1797,15 @@ async function captureDesmosDataURI(question) {
   });
 }
 
-// ── STUDY REPORTS (Foundational + Specific — same as freepracticesat.com) ──
-
+// ── STUDY OVERLAY (unused on full tests, kept for safety) ──────
 function closeStudyPanel() {
   const overlay = document.getElementById('study-overlay');
   if (overlay) overlay.classList.remove('open');
 }
-
 document.addEventListener('keydown', (e) => {
   const overlay = document.getElementById('study-overlay');
   if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) closeStudyPanel();
 });
-
-function toggleStudyReveal(id, btn, kind) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const showing = el.classList.toggle('show');
-  if (btn) btn.textContent = showing ? (kind === 'sol' ? 'Hide worked solution' : 'Hide answer') : (kind === 'sol' ? 'Show worked solution' : 'Show answer & solution');
-}
-
-function renderTutorialField(raw) {
-  if (!raw) return '';
-  return stripComments(raw).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\n/g,'<br>');
-}
-
-const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
-
-function renderPracticeProblemHTML(rec, idx) {
-  const f = rec.fields || {};
-  const q = escForPrint(stripComments(f['Question Text'] || ''));
-  const correct = f['Correct Answer'] || '';
-  const wrong = [f['Wrong Answer 1'], f['Wrong Answer 2'], f['Wrong Answer 3']].filter(Boolean);
-  const sol = stripComments(f['Solution'] || '').replace(/\n/g,'<br>');
-  const diff = f['Difficulty'] || '';
-  const choices = fisherYatesShuffle([{ text: correct, isCorrect: true }, ...wrong.map(w => ({ text: w, isCorrect: false }))]);
-  const letters = ['A','B','C','D','E'];
-  const choicesHTML = choices.map((c, i) => `<div>${letters[i]}. ${escForPrint(c.text)}</div>`).join('');
-  const ansId = 'study-ans-' + idx;
-  return `<div class="study-pp"><div class="study-pp-q">${q}${diff ? `<span class="study-pp-diff">${escForPrint(diff)}</span>` : ''}</div><div class="study-pp-choices">${choicesHTML}</div><button class="study-reveal-btn" onclick="toggleStudyReveal('${ansId}',this)">Show answer &amp; solution</button><div class="study-answer" id="${ansId}"><div class="ans-correct">Correct answer: ${escForPrint(correct)}</div>${sol ? `<div style="margin-top:6px;">${sol}</div>` : ''}</div></div>`;
-}
-
-function reportQuestionBlockHTML(qn, uid) {
-  const solId = 'rep-sol-' + uid, mountId = 'rep-qm-' + uid;
-  const sol = stripComments(qn.solution || '').replace(/\n/g,'<br>');
-  let html = `<div class="study-q"><div class="study-q-mount" id="${mountId}"></div>`;
-  if (sol) { html += `<button class="study-reveal-btn" onclick="toggleStudyReveal('${solId}',this,'sol')">Show worked solution</button>`; html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${escForPrint(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`; }
-  html += `</div>`;
-  return { html, mountId };
-}
-
-function reportTutorialHTML(tutRec) {
-  if (!tutRec) return '';
-  const concept = renderTutorialField(tutRec.fields['Concept Explanation']);
-  const worked = renderTutorialField(tutRec.fields['Worked Example']);
-  let html = '';
-  if (concept.trim()) html += `<div class="study-tut-label">The concept</div><div class="study-tut-body">${concept}</div>`;
-  if (worked.trim()) html += `<div class="study-tut-label">Worked example</div><div class="study-tut-body">${worked}</div>`;
-  return html;
-}
-
-async function fetchTeachingByMisconceptions(miscIds) {
-  const miscRecs = await fetchRecordsByIds('Misconceptions', Array.from(miscIds));
-  const tutIds = new Set(), ppIds = new Set(), miscToTut = new Map(), miscToPp = new Map();
-  miscRecs.forEach(m => {
-    const t = m.fields['Tutorials'] || [], p = m.fields['Practice Problems'] || [];
-    miscToTut.set(m.id, t[0] || null); miscToPp.set(m.id, p);
-    t.forEach(id => tutIds.add(id)); p.forEach(id => ppIds.add(id));
-  });
-  const [tutRecs, ppRecs] = await Promise.all([fetchRecordsByIds('Tutorials', Array.from(tutIds)), fetchRecordsByIds('Practice Problems', Array.from(ppIds))]);
-  return { miscToTut, miscToPp, tutById: new Map(tutRecs.map(r => [r.id, r])), ppById: new Map(ppRecs.map(r => [r.id, r])) };
-}
-
-async function openFoundationalReport() {
-  const body = document.getElementById('study-body');
-  document.getElementById('study-title').textContent = 'Foundational gaps — Day 30 review';
-  document.getElementById('study-overlay').classList.add('open');
-  body.innerHTML = `<div class="study-loading">Building your foundational report…</div>`;
-
-  // Same as freepracticesat.com's openFoundationalReport but simplified for Day 1
-  // Foundational requires 2+ tests so on Day 1 this will show the locked message
-  const allMissedIds = await fetchAllMissedIdsForUser();
-  const completedTests = await countCompletedTests();
-  if (completedTests < 2 || allMissedIds.length < 30) {
-    body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>We need data from at least 2 tests to identify your foundational gaps. Your Day 1 data is saved. After you complete more tests — starting with the Day 11 diagnostic — this report fills in automatically.</p><p>Come back to this on Day 2 to review your specific mistakes from today, and again after Day 11 for your full foundational analysis.</p></div>`;
-    return;
-  }
-  // (If somehow 2+ tests exist, run the full report)
-  try {
-    const critMap = await fetchCriticalsForQuestions(allMissedIds);
-    const tally = new Map();
-    for (const qid of allMissedIds) for (const nid of new Set(critMap.get(qid) || [])) tally.set(nid, (tally.get(nid) || 0) + 1);
-    const recurringIds = [...tally.entries()].filter(([,c]) => c >= 2).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([nid]) => nid);
-    if (recurringIds.length === 0) { body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>No recurring foundational gaps detected yet.</p></div>`; return; }
-    const nodeDetails = await fetchPrereqNodeDetails(recurringIds);
-    body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>These are the foundational concepts that keep appearing in your missed questions.</p></div>` +
-      recurringIds.map(nid => { const n = nodeDetails.get(nid); return n ? `<div class="study-misc"><div class="study-section-title">${escHTML(n.name)}</div>${n.description ? `<p class="study-sec-desc">${escHTML(n.description)}</p>` : ''}</div>` : ''; }).join('');
-    renderMathInDiv(body);
-  } catch (e) { body.innerHTML = `<div class="study-empty">Could not load this report. Please try again.</div>`; }
-}
-
-async function openSpecificReport() {
-  const body = document.getElementById('study-body');
-  document.getElementById('study-title').textContent = 'Specific mistakes — Day 30 review';
-  document.getElementById('study-overlay').classList.add('open');
-  body.innerHTML = `<div class="study-loading">Building your report…</div>`;
-
-  const missed = lastResultsMissed || [];
-  if (missed.length === 0) {
-    body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Specific mistakes — Day 30</div><p>You didn't get any questions wrong — nothing to review here. Excellent work.</p></div>`;
-    return;
-  }
-
-  const qToMisc = new Map(), miscIds = new Set();
-  missed.forEach((m, i) => {
-    let mId = null;
-    for (const c of (m.choices || [])) { if (c && !c.isCorrect && c.misconceptionId) { mId = c.misconceptionId; break; } }
-    if (mId) { qToMisc.set(i, mId); miscIds.add(mId); }
-  });
-
-  try {
-    const teaching = await fetchTeachingByMisconceptions(miscIds);
-    let uid = 0, mountJobs = [];
-    const countWord = missed.length === 1 ? 'mistake' : 'mistakes';
-    let html = `<div class="study-intro"><div class="study-intro-head">Specific mistakes — Day 30</div><p>Here are all ${missed.length} ${countWord} from your Day 30 test, each with a tutorial and practice problems. This is your Day 24 study material.</p><p>Try the practice problems yourself first, then tap to check your answer.</p></div>`;
-    missed.forEach((m, i) => {
-      html += `<div class="study-misc">`;
-      const block = reportQuestionBlockHTML(m.q, uid++);
-      mountJobs.push({ mountId: block.mountId, qn: m.q });
-      html += block.html;
-      const mId = qToMisc.get(i);
-      if (mId) {
-        const tutId = teaching.miscToTut.get(mId);
-        const tut = tutId ? teaching.tutById.get(tutId) : null;
-        html += reportTutorialHTML(tut);
-        const ppList = (teaching.miscToPp.get(mId) || []).map(id => teaching.ppById.get(id)).filter(Boolean).sort((a, b) => (STUDY_DIFF_ORDER[a.fields['Difficulty']] ?? 9) - (STUDY_DIFF_ORDER[b.fields['Difficulty']] ?? 9));
-        for (const pp of ppList) html += renderPracticeProblemHTML(pp, uid++);
-      }
-      html += `</div>`;
-    });
-    body.innerHTML = html;
-    for (const job of mountJobs) { const el = document.getElementById(job.mountId); if (el) renderQuestionContent(el, job.qn); }
-    renderMathInDiv(body);
-  } catch (e) {
-    console.error('Specific report failed:', e);
-    body.innerHTML = `<div class="study-empty">Could not load this report. Please try again.</div>`;
-  }
-}
 
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
