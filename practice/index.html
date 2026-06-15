@@ -63,6 +63,8 @@ nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify
 .q-counter{font-size:0.85rem;color:#777;margin-bottom:16px}
 .q-card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
 .q-text{font-size:1rem;line-height:1.7;color:#1a1a1a;margin-bottom:24px}
+#skill-debug{position:fixed;top:56px;left:0;right:0;background:#1a3a5c;color:#fff;font-family:monospace;font-size:11px;padding:6px 12px;z-index:5000;max-height:140px;overflow:auto;white-space:pre-wrap;line-height:1.4}
+#skill-debug b{color:#d4a04a}
 .inline-graph-figure{width:100%;max-width:420px;height:300px;margin:0 auto 18px;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
 .q-body-text{font-size:1rem;line-height:1.7;color:#1a1a1a}
 .answer-options{display:flex;flex-direction:column;gap:10px}
@@ -130,6 +132,7 @@ nav{background:#1a3a5c;padding:12px 24px;display:flex;align-items:center;justify
 </head>
 <body>
 
+<div id="skill-debug">skill check loading…</div>
 <nav>
   <a href="/dashboard/" class="nav-logo">30-Day SAT Plan</a>
   <span class="nav-day" id="nav-day-label"></span>
@@ -514,20 +517,25 @@ async function finishLoading(domainQs, domainSkillIds) {
     const svgCount = questions.filter(q => q.visualSvg && q.visualSvg.trim()).length;
     console.log(`[practice] ${questions.length} questions — ${graphCount} desmos-graph, ${svgCount} svg-figure, ${questions.length-graphCount-svgCount} text-only`);
 
-    // Diagnostic: show which skill each loaded question is tagged with, so mis-tagged
-    // questions (e.g. an algebra question carrying a geometry skill) are visible.
+    // Diagnostic: show which skill each loaded question is tagged with, ON THE PAGE
+    // (not just console), so mis-tagged questions are visible without dev tools.
     try {
       const allSkillIds = [...new Set(questions.flatMap(q => q.skillIds))];
+      const dbg = document.getElementById('skill-debug');
       if (allSkillIds.length) {
         const formula = 'OR(' + allSkillIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
         const recs = await atFetchCapped('Skills', 'fields%5B%5D=Skill+Name&filterByFormula=' + encodeURIComponent(formula), 200);
         const nm = new Map(recs.map(r => [r.id, r.fields['Skill Name'] || r.id]));
-        console.log('[practice] question skills in this session:');
+        let lines = `DOMAIN: ${domain}  (wanted skills ${DOMAIN_SKILLS[domain].join(',')})\n`;
         questions.forEach((q, i) => {
-          console.log(`  Q${i+1}: ${q.skillIds.map(id => nm.get(id)).join(', ') || '(no in-domain skill)'} — ${q.text.replace(/<[^>]+>/g,'').substring(0,50)}`);
+          const names = q.skillIds.map(id => nm.get(id)).join(' | ') || '(NONE in-domain)';
+          lines += `Q${i+1}: ${names}\n`;
         });
+        if (dbg) dbg.innerHTML = lines.replace(/Q(\d+):/g, '<b>Q$1:</b>');
+      } else if (dbg) {
+        dbg.textContent = 'No skillIds on questions.';
       }
-    } catch(e) { console.warn('skill diagnostic failed', e); }
+    } catch(e) { const dbg=document.getElementById('skill-debug'); if(dbg) dbg.textContent='skill check failed: '+e.message; }
 
     currentIndex = 0;
     userAnswers = [];
