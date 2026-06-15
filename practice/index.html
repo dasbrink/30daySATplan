@@ -486,6 +486,7 @@ async function finishLoading(domainQs, domainSkillIds) {
         solution: q.fields['Solution'] || '',
         difficulty: q.fields['Difficulty'] || '',
         distIds: q.fields['Distractors'] || [],
+        skillIds: (q.fields['Skill'] || []).filter(sid => domainSkillIds.includes(sid)),
         choices: fisherYates([correct, ...dists.slice(0, 3)]),
         visualSvg: q.fields['Visual SVG'] || '',
         graphType: q.fields['graph_type'] || '',
@@ -502,6 +503,21 @@ async function finishLoading(domainQs, domainSkillIds) {
     const graphCount = questions.filter(q => (q.graphType||'').toLowerCase()==='desmos').length;
     const svgCount = questions.filter(q => q.visualSvg && q.visualSvg.trim()).length;
     console.log(`[practice] ${questions.length} questions — ${graphCount} desmos-graph, ${svgCount} svg-figure, ${questions.length-graphCount-svgCount} text-only`);
+
+    // Diagnostic: show which skill each loaded question is tagged with, so mis-tagged
+    // questions (e.g. an algebra question carrying a geometry skill) are visible.
+    try {
+      const allSkillIds = [...new Set(questions.flatMap(q => q.skillIds))];
+      if (allSkillIds.length) {
+        const formula = 'OR(' + allSkillIds.map(id => `RECORD_ID()="${id}"`).join(',') + ')';
+        const recs = await atFetchCapped('Skills', 'fields%5B%5D=Skill+Name&filterByFormula=' + encodeURIComponent(formula), 200);
+        const nm = new Map(recs.map(r => [r.id, r.fields['Skill Name'] || r.id]));
+        console.log('[practice] question skills in this session:');
+        questions.forEach((q, i) => {
+          console.log(`  Q${i+1}: ${q.skillIds.map(id => nm.get(id)).join(', ') || '(no in-domain skill)'} — ${q.text.replace(/<[^>]+>/g,'').substring(0,50)}`);
+        });
+      }
+    } catch(e) { console.warn('skill diagnostic failed', e); }
 
     currentIndex = 0;
     userAnswers = [];
