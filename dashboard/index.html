@@ -188,6 +188,9 @@ const TYPE_ICONS = {
 
 const BUILT_PAGES = new Set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]);
 
+// Maps a test_results.test_number to the calendar day it completes.
+const TEST_NUMBER_TO_DAY = { 1:1, 2:11, 3:23, 4:27, 5:28, 6:29, 7:30 };
+
 let currentUser = null;
 let completedDays = new Set();
 let enrollmentDate = null;
@@ -287,10 +290,11 @@ async function loadDashboard() {
     .order('test_number', { ascending: true });
 
   if (Array.isArray(results)) {
+    // Mark the matching calendar day complete for every test taken,
+    // including the full tests (test_number 4-7 -> days 27-30).
     results.forEach(r => {
-      if (r.test_number === 1) completedDays.add(1);
-      if (r.test_number === 2) completedDays.add(11);
-      if (r.test_number === 3) completedDays.add(23);
+      const day = TEST_NUMBER_TO_DAY[r.test_number];
+      if (day) completedDays.add(day);
     });
     const d1 = results.find(r => r.test_number === 1);
     const d2 = results.find(r => r.test_number === 2);
