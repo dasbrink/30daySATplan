@@ -114,116 +114,47 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 .auth-error { color: var(--red); font-size: 0.85rem; font-family: -apple-system, Segoe UI, sans-serif; }
 .auth-success { color: var(--green); font-size: 0.85rem; font-family: -apple-system, Segoe UI, sans-serif; }
 
-/* ── WELCOME SCREEN ───────────────────────────────────────── */
-#screen-welcome {
-  min-height: 100vh;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background: var(--navy);
-}
-#screen-welcome.active { display: flex; }
+<!-- ── WELCOME SCREEN ──────────────────────────────────────── -->
+<div id="screen-welcome" class="screen">
+  <div class="welcome-card">
+    <div class="welcome-day-badge">Day 27 of 30</div>
+    <h1>Day 27 — Full Practice Test</h1>
+    <p>This is a full 44-question practice test drawn from the entire question bank. Treat it like the real SAT — timed, focused, no interruptions.</p>
+    <div class="welcome-details">
+      <div><span>Format</span> 2 modules × 22 questions</div>
+      <div><span>Break</span> 10 minutes between modules</div>
+      <div><span>Time per module</span> 35 minutes</div>
+      <div><span>Total time</span> approx. 90 minutes</div>
+    </div>
+    <p>After the test you'll get your score and worked solutions for every question you missed.</p>
+    <div class="welcome-btns">
+      <button class="btn-start-timed" onclick="startTest(false)">Start timed test</button>
+      <button class="btn-start-untimed" onclick="startTest(true)">Start without timer</button>
+    </div>
+    <div class="welcome-footer-links">
+      <a href="/dashboard/" class="welcome-dashboard-link">← Dashboard</a>
+      <button class="welcome-signout" onclick="handleSignOut()">Sign out</button>
+    </div>
+  </div>
+</div>
 
-.welcome-card {
-  background: var(--white);
-  border-radius: 14px;
-  padding: 44px 40px;
-  max-width: 560px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
-}
-
-.welcome-day-badge {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--white);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 18px;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
-
-.welcome-card h1 {
-  font-size: 1.8rem;
-  color: var(--navy);
-  margin-bottom: 14px;
-  line-height: 1.25;
-}
-
-.welcome-card p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.65;
-  margin-bottom: 10px;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
-
-.welcome-details {
-  background: var(--cream);
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  text-align: left;
-}
-.welcome-details div {
-  font-size: 0.88rem;
-  color: #444;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  padding: 4px 0;
-  border-bottom: 1px solid #e8e8e4;
-  display: flex;
-  justify-content: space-between;
-}
-.welcome-details div:last-child { border-bottom: none; }
-.welcome-details span { font-weight: 700; color: var(--navy); }
-
-.welcome-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
-
-.btn-start-timed {
-  padding: 14px 20px; background: var(--navy); color: var(--white);
-  border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700;
-  transition: background 0.2s;
-}
-.btn-start-timed:hover { background: var(--navy-dark); }
-
-.btn-start-untimed {
-  padding: 12px 20px; background: transparent; color: var(--navy);
-  border: 2px solid var(--navy); border-radius: 8px; font-size: 0.95rem; font-weight: 600;
-  transition: background 0.2s, color 0.2s;
-}
-.btn-start-untimed:hover { background: var(--navy); color: var(--white); }
-
-.welcome-footer-links {
-  margin-top: 20px; display: flex; align-items: center;
-  justify-content: center; gap: 24px;
-  font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.82rem;
-}
-.welcome-dashboard-link {
-  color: #666; text-decoration: none; border-bottom: 1px solid #ccc;
-}
-.welcome-dashboard-link:hover { color: var(--navy); border-bottom-color: var(--navy); }
-.welcome-signout {
-  color: #999; background: none; border: none; text-decoration: underline;
-  cursor: pointer; font-size: 0.82rem; font-family: -apple-system, Segoe UI, sans-serif;
-}
-.btn-topbar-dashboard {
-  background: none; color: rgba(255,255,255,0.65);
-  border: 1px solid rgba(255,255,255,0.25); border-radius: 6px;
-  padding: 5px 12px; font-size: 0.78rem; font-weight: 600;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  display: inline-flex; align-items: center; cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.btn-topbar-dashboard:hover { background: rgba(255,255,255,0.12); color: #fff; }
-
-
+<!-- ── ALREADY-TAKEN GATE SCREEN ───────────────────────────── -->
+<div id="screen-gate" class="screen">
+  <div class="welcome-card">
+    <div class="welcome-day-badge">Day 27 of 30</div>
+    <h1>You've already taken this test</h1>
+    <p>You completed the Day 27 practice test. You can look back at your saved results, or take the test again with a fresh set of questions.</p>
+    <div id="gate-score-line" style="font-family:-apple-system,Segoe UI,sans-serif;font-size:1rem;color:#1a3a5c;font-weight:700;margin:6px 0 4px;"></div>
+    <div class="welcome-btns">
+      <button class="btn-start-timed" onclick="viewSavedResults()">View my results</button>
+      <button class="btn-start-untimed" onclick="showScreen('screen-welcome')">Retake test</button>
+    </div>
+    <div class="welcome-footer-links">
+      <a href="/dashboard/" class="welcome-dashboard-link">← Dashboard</a>
+      <button class="welcome-signout" onclick="handleSignOut()">Sign out</button>
+    </div>
+  </div>
+</div>
 /* ── TEST SCREEN ──────────────────────────────────────────── */
 #screen-test {
   display: none;
