@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>30 Day SAT Math Plan — Targeted Prep That Actually Works</title>
-    <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242816022"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,630 +14,107 @@
   <meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99. Starts the day you enroll.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy: #1a3a5c;
-      --navy-dark: #0f2540;
-      --gold: #d4a04a;
-      --gold-light: #e8b86d;
-      --cream: #f8f7f4;
-      --white: #ffffff;
-      --text: #1a1a1a;
-      --text-muted: #5a6a7a;
-      --border: #e0ddd5;
+      --navy: #1a3a5c; --navy-dark: #0f2540; --gold: #d4a04a; --gold-light: #e8b86d;
+      --cream: #f8f7f4; --white: #ffffff; --text: #1a1a1a; --text-muted: #5a6a7a; --border: #e0ddd5;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: Georgia, 'Times New Roman', serif;
-      color: var(--text);
-      background: var(--cream);
-      line-height: 1.6;
-    }
-
-    /* NAV */
-    nav {
-      background: var(--navy);
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-
-    .nav-logo {
-      color: var(--white);
-      font-size: 1.05rem;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
+    body { font-family: Georgia, "Times New Roman", serif; color: var(--text); background: var(--cream); line-height: 1.6; }
+    nav { background: var(--navy); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+    .nav-logo { color: var(--white); font-size: 1.05rem; font-weight: bold; text-decoration: none; }
     .nav-logo span { color: var(--gold); }
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.55rem 1.25rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
+    .nav-cta { background: var(--gold); color: var(--navy); padding: 0.55rem 1.25rem; border-radius: 4px; text-decoration: none; font-size: 0.9rem; font-weight: bold; transition: background 0.2s; }
     .nav-cta:hover { background: var(--gold-light); }
-
-    /* HERO */
-    .hero {
-      background: var(--navy);
-      color: var(--white);
-      padding: 5rem 2rem 4.5rem;
-      text-align: center;
-    }
-
-    .hero-eyebrow {
-      font-size: 1rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      line-height: 1.2;
-      max-width: 1050px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
-      border-bottom: 3px solid var(--gold);
-      padding-bottom: 3px;
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.75;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.9rem 2rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: bold;
-      display: inline-block;
-      transition: background 0.2s;
-    }
-
+    .hero { background: var(--navy); color: var(--white); padding: 5rem 2rem 4.5rem; text-align: center; }
+    .hero-eyebrow { font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.2; max-width: 1050px; margin: 0 auto 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--gold); border-bottom: 3px solid var(--gold); padding-bottom: 3px; }
+    .hero-sub { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem; color: rgba(255,255,255,0.85); line-height: 1.75; }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--gold); color: var(--navy); padding: 0.9rem 2rem; border-radius: 4px; text-decoration: none; font-size: 1.05rem; font-weight: bold; display: inline-block; transition: background 0.2s; }
     .btn-primary:hover { background: var(--gold-light); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--white);
-      padding: 0.9rem 2rem;
-      border: 2px solid rgba(255,255,255,0.35);
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 1.05rem;
-      display: inline-block;
-      transition: border-color 0.2s;
-    }
-
+    .btn-ghost { background: transparent; color: var(--white); padding: 0.9rem 2rem; border: 2px solid rgba(255,255,255,0.35); border-radius: 4px; text-decoration: none; font-size: 1.05rem; display: inline-block; transition: border-color 0.2s; }
     .btn-ghost:hover { border-color: var(--white); }
-
-    /* STATS BAR */
-    .stats-bar {
-      background: var(--navy-dark);
-      padding: 1.75rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
+    .stats-bar { background: var(--navy-dark); padding: 1.75rem 2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
     .stat-item { text-align: center; }
-
-    .stat-number {
-      font-size: 1.9rem;
-      font-weight: bold;
-      color: var(--gold);
-      display: block;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.65);
-      margin-top: 0.35rem;
-      letter-spacing: 0.02em;
-    }
-
-    /* SHARED SECTION STYLES */
+    .stat-number { font-size: 1.9rem; font-weight: bold; color: var(--gold); display: block; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-top: 0.35rem; letter-spacing: 0.02em; }
     section { padding: 4.5rem 2rem; }
-
     .container { max-width: 1100px; margin: 0 auto; }
-
-    .section-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      color: var(--navy);
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      line-height: 1.75;
-    }
-
-    /* PROBLEM */
+    .section-eyebrow { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--navy); margin-bottom: 1rem; line-height: 1.3; }
+    .section-body { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; }
     .problem-section { background: var(--white); }
-
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      margin-top: 2.5rem;
-    }
-
-    .problem-text p {
-      margin-bottom: 1rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-
-    .problem-callout {
-      background: var(--navy);
-      color: var(--white);
-      padding: 2rem 2rem 2rem 2.5rem;
-      border-radius: 8px;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      border-left: 5px solid var(--gold);
-    }
-
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 2.5rem; }
+    .problem-text p { margin-bottom: 1rem; color: var(--text-muted); line-height: 1.8; }
+    .problem-callout { background: var(--navy); color: var(--white); padding: 2rem 2rem 2rem 2.5rem; border-radius: 8px; font-size: 1.05rem; line-height: 1.75; border-left: 5px solid var(--gold); }
     .problem-callout strong { color: var(--gold); }
-
-    /* PILLARS */
     .pillars-section { background: var(--cream); }
-
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .pillar-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-top: 4px solid var(--gold);
-      border-radius: 4px;
-      padding: 2rem;
-    }
-
-    .pillar-number {
-      font-size: 2.2rem;
-      font-weight: bold;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 0.75rem;
-    }
-
-    .pillar-title {
-      font-size: 1.1rem;
-      color: var(--navy);
-      margin-bottom: 0.6rem;
-      font-weight: bold;
-    }
-
-    .pillar-body {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* HOW IT WORKS */
+    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .pillar-card { background: var(--white); border: 1px solid var(--border); border-top: 4px solid var(--gold); border-radius: 4px; padding: 2rem; }
+    .pillar-number { font-size: 2.2rem; font-weight: bold; color: var(--gold); line-height: 1; margin-bottom: 0.75rem; }
+    .pillar-title { font-size: 1.1rem; color: var(--navy); margin-bottom: 0.6rem; font-weight: bold; }
+    .pillar-body { font-size: 0.93rem; color: var(--text-muted); line-height: 1.7; }
     .how-section { background: var(--white); }
-
-    .day-calendar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin: 2rem 0 1rem;
-    }
-
-    .day-cell {
-      width: 46px;
-      height: 46px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.78rem;
-      font-weight: bold;
-      background: rgba(26, 58, 92, 0.1);
-      color: var(--navy);
-      transition: transform 0.15s;
-    }
-
+    .day-calendar { display: flex; flex-wrap: wrap; gap: 7px; margin: 2rem 0 1rem; }
+    .day-cell { width: 46px; height: 46px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: bold; background: rgba(26,58,92,0.1); color: var(--navy); transition: transform 0.15s; }
     .day-cell:hover { transform: scale(1.1); }
-
-    .day-cell.diagnostic {
-      background: var(--gold);
-      color: var(--navy-dark);
-    }
-
-    .day-cell.practice {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .day-cell.fulltest {
-      background: var(--navy-dark);
-      color: var(--gold);
-    }
-
-    .calendar-legend {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 0.75rem;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.83rem;
-      color: var(--text-muted);
-    }
-
-    .legend-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .step-card {
-      padding: 1.5rem;
-      border-left: 4px solid var(--gold);
-      background: var(--cream);
-      border-radius: 0 6px 6px 0;
-    }
-
-    .step-label {
-      font-size: 0.78rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.4rem;
-    }
-
-    .step-title {
-      font-size: 1.05rem;
-      color: var(--navy);
-      font-weight: bold;
-      margin-bottom: 0.4rem;
-    }
-
-    .step-body {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    /* AUTHOR */
-    .author-section {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .author-grid {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .author-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-
-    .author-name {
-      font-size: 1.6rem;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-
-    .author-title {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 1.25rem;
-    }
-
-    .author-body {
-      color: rgba(255,255,255,0.82);
-      line-height: 1.8;
-      margin-bottom: 1.25rem;
-      font-size: 0.98rem;
-    }
-
-    .cred-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .cred-list li {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.72);
-      padding-left: 1.3rem;
-      position: relative;
-    }
-
-    .cred-list li::before {
-      content: '✓';
-      color: var(--gold);
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-    }
-
-    .author-link {
-      color: var(--gold);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid rgba(212,160,74,0.4);
-      padding-bottom: 1px;
-      transition: border-color 0.2s;
-    }
-
+    .day-cell.diagnostic { background: var(--gold); color: var(--navy-dark); }
+    .day-cell.practice { background: var(--navy); color: var(--white); }
+    .day-cell.fulltest { background: var(--navy-dark); color: var(--gold); }
+    .calendar-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; color: var(--text-muted); }
+    .legend-dot { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .step-card { padding: 1.5rem; border-left: 4px solid var(--gold); background: var(--cream); border-radius: 0 6px 6px 0; }
+    .step-label { font-size: 0.78rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .step-title { font-size: 1.05rem; color: var(--navy); font-weight: bold; margin-bottom: 0.4rem; }
+    .step-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .author-section { background: var(--navy); color: var(--white); }
+    .author-grid { display: grid; grid-template-columns: 160px 1fr; gap: 3rem; align-items: start; }
+    .author-eyebrow { font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .author-name { font-size: 1.6rem; color: var(--white); margin-bottom: 0.2rem; }
+    .author-title { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin-bottom: 1.25rem; }
+    .author-body { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.25rem; font-size: 0.98rem; }
+    .cred-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.5rem; }
+    .cred-list li { font-size: 0.88rem; color: rgba(255,255,255,0.72); padding-left: 1.3rem; position: relative; }
+    .cred-list li::before { content: "\2713"; color: var(--gold); position: absolute; left: 0; font-weight: bold; }
+    .author-link { color: var(--gold); text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid rgba(212,160,74,0.4); padding-bottom: 1px; transition: border-color 0.2s; }
     .author-link:hover { border-color: var(--gold); }
-
-    /* BLOG TEASER */
     .blog-section { background: var(--white); }
-
-    .blog-card {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--gold);
-      border-radius: 6px;
-      padding: 2rem 2.5rem;
-      max-width: 780px;
-      margin-top: 2rem;
-      text-decoration: none;
-      transition: box-shadow 0.2s;
-    }
-
+    .blog-card { display: flex; align-items: center; gap: 2.5rem; background: var(--cream); border: 1px solid var(--border); border-left: 5px solid var(--gold); border-radius: 6px; padding: 2rem 2.5rem; max-width: 780px; margin-top: 2rem; text-decoration: none; transition: box-shadow 0.2s; }
     .blog-card:hover { box-shadow: 0 4px 20px rgba(26,58,92,0.1); }
-
-    .blog-card-icon {
-      font-size: 2.6rem;
-      flex-shrink: 0;
-    }
-
-    .blog-card-meta {
-      font-size: 0.75rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.4rem;
-    }
-
-    .blog-card-title {
-      font-size: 1.15rem;
-      color: var(--navy);
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      line-height: 1.35;
-    }
-
-    .blog-card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .blog-card-arrow {
-      font-size: 1.5rem;
-      color: var(--gold);
-      flex-shrink: 0;
-      margin-left: auto;
-    }
-
-    /* ENROLL */
+    .blog-card-icon { font-size: 2.6rem; flex-shrink: 0; }
+    .blog-card-meta { font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem; }
+    .blog-card-title { font-size: 1.15rem; color: var(--navy); font-weight: bold; margin-bottom: 0.5rem; line-height: 1.35; }
+    .blog-card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .blog-card-arrow { font-size: 1.5rem; color: var(--gold); flex-shrink: 0; margin-left: auto; }
     .enroll-section { background: var(--cream); }
-
-    .enroll-intro {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .enroll-card {
-      background: var(--white);
-      border: 2px solid var(--navy);
-      border-radius: 10px;
-      padding: 2.5rem 3rem;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .price-display {
-      font-size: 3.2rem;
-      font-weight: bold;
-      color: var(--navy);
-      line-height: 1;
-    }
-
-    .price-compare {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    .price-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1.5rem 0;
-    }
-
-    .price-includes {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .price-includes li {
-      font-size: 0.93rem;
-      color: var(--text);
-      padding-left: 1.6rem;
-      position: relative;
-      line-height: 1.5;
-    }
-
-    .price-includes li::before {
-      content: '✓';
-      color: var(--gold);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-
-    .enroll-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .enroll-form input {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 5px;
-      font-size: 0.97rem;
-      font-family: Georgia, serif;
-      background: var(--cream);
-      color: var(--text);
-      transition: border-color 0.2s;
-    }
-
-    .enroll-form input:focus {
-      outline: none;
-      border-color: var(--navy);
-    }
-
+    .enroll-intro { text-align: center; margin-bottom: 2.5rem; }
+    .enroll-card { background: var(--white); border: 2px solid var(--navy); border-radius: 10px; padding: 2.5rem 3rem; max-width: 560px; margin: 0 auto; }
+    .price-row { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.4rem; }
+    .price-display { font-size: 3.2rem; font-weight: bold; color: var(--navy); line-height: 1; }
+    .price-compare { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .price-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .price-includes { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .price-includes li { font-size: 0.93rem; color: var(--text); padding-left: 1.6rem; position: relative; line-height: 1.5; }
+    .price-includes li::before { content: "\2713"; color: var(--gold); font-weight: bold; position: absolute; left: 0; }
+    .enroll-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .enroll-form input { width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border); border-radius: 5px; font-size: 0.97rem; font-family: Georgia, serif; background: var(--cream); color: var(--text); transition: border-color 0.2s; }
+    .enroll-form input:focus { outline: none; border-color: var(--navy); }
     .enroll-form input::placeholder { color: #999; }
-
-    .btn-enroll {
-      background: var(--navy);
-      color: var(--white);
-      padding: 1rem;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.08rem;
-      font-weight: bold;
-      cursor: pointer;
-      font-family: Georgia, serif;
-      transition: background 0.2s;
-      margin-top: 0.25rem;
-    }
-
+    .btn-enroll { background: var(--navy); color: var(--white); padding: 1rem; border: none; border-radius: 5px; font-size: 1.08rem; font-weight: bold; cursor: pointer; font-family: Georgia, serif; transition: background 0.2s; margin-top: 0.25rem; }
     .btn-enroll:hover { background: var(--navy-dark); }
     .btn-enroll:disabled { opacity: 0.55; cursor: not-allowed; }
-
-    #enroll-error {
-      color: #c0392b;
-      font-size: 0.88rem;
-      display: none;
-      padding: 0.5rem 0;
-    }
-
-    .enroll-trust {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 1rem;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.55);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.83rem;
-      line-height: 1.8;
-    }
-
+    #enroll-error { color: #c0392b; font-size: 0.88rem; display: none; padding: 0.5rem 0; }
+    .enroll-trust { font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center; line-height: 1.5; }
+    footer { background: var(--navy-dark); color: rgba(255,255,255,0.55); text-align: center; padding: 2rem; font-size: 0.83rem; line-height: 1.8; }
     footer a { color: var(--gold); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-
-    /* RESPONSIVE */
     @media (max-width: 720px) {
-      .problem-grid { grid-template-columns: 1fr; }
-      .pillars-grid { grid-template-columns: 1fr; }
+      .problem-grid, .pillars-grid, .steps-grid { grid-template-columns: 1fr; }
       .author-grid { grid-template-columns: 1fr; text-align: center; }
-      .author-avatar { margin: 0 auto 1.5rem; }
       .cred-list { text-align: left; }
-      .steps-grid { grid-template-columns: 1fr; }
       .stats-bar { gap: 1.5rem; }
       .day-cell { width: 38px; height: 38px; font-size: 0.7rem; }
       .enroll-card { padding: 2rem 1.5rem; }
@@ -649,66 +125,49 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">30 Day <span>SAT</span> Math Plan</a>
-  <a href="#enroll" class="nav-cta">Enroll — $99</a>
+  <a href="#enroll" class="nav-cta">Enroll &mdash; $99</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container">
     <p class="hero-eyebrow">30-Day SAT Math Program</p>
     <h1>Find your child's <em>exact blind spots</em>.<br>Fix them before test day.</h1>
-    <p class="hero-sub">Most SAT prep teaches everything to everyone. This program starts with a precise diagnostic, identifies the specific gaps holding your child back, then targets only what needs work — in 30 structured days.</p>
+    <p class="hero-sub">Most SAT prep teaches everything to everyone. This program starts with a precise diagnostic, identifies the specific gaps holding your child back, then targets only what needs work &mdash; in 30 structured days.</p>
     <div class="hero-actions">
-      <a href="#enroll" class="btn-primary">Enroll Now — $99</a>
+      <a href="#enroll" class="btn-primary">Enroll Now &mdash; $99</a>
       <a href="#how" class="btn-ghost">See How It Works</a>
     </div>
   </div>
 </section>
 
-<!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-number">4,700</span>
-    <span class="stat-label">Practice questions</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">70</span>
-    <span class="stat-label">SAT Math skills covered</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">271</span>
-    <span class="stat-label">Foundational skills cross-referenced</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">30</span>
-    <span class="stat-label">Structured days</span>
-  </div>
+  <div class="stat-item"><span class="stat-number">4,700</span><span class="stat-label">Practice questions</span></div>
+  <div class="stat-item"><span class="stat-number">70</span><span class="stat-label">SAT Math skills covered</span></div>
+  <div class="stat-item"><span class="stat-number">271</span><span class="stat-label">Foundational skills cross-referenced</span></div>
+  <div class="stat-item"><span class="stat-number">30</span><span class="stat-label">Structured days</span></div>
 </div>
 
-<!-- PROBLEM -->
 <section class="problem-section">
   <div class="container">
     <p class="section-eyebrow">The problem with most SAT prep</p>
     <h2 class="section-title">Generic prep wastes time on what your child already knows.</h2>
     <div class="problem-grid">
       <div class="problem-text">
-        <p>Most SAT courses cover every topic for every student — regardless of what they individually need. A student who already understands algebra spends weeks on it anyway. The gaps that actually cost them points go unaddressed.</p>
-        <p>SAT Math is also cumulative. A gap in a foundational concept doesn't just affect one question — it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
+        <p>Most SAT courses cover every topic for every student &mdash; regardless of what they individually need. A student who already understands algebra spends weeks on it anyway. The gaps that actually cost them points go unaddressed.</p>
+        <p>SAT Math is also cumulative. A gap in a foundational concept doesn't just affect one question &mdash; it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
         <p>This program starts with a full diagnostic before any studying begins. Your child's path through the 30 days is shaped entirely by their own results.</p>
       </div>
       <div class="problem-callout">
         <strong>SAT Math knowledge builds like Lego blocks.</strong><br><br>
-        If a foundational piece is missing, everything above it becomes unstable — no matter how much time a student spends on higher-level topics.<br><br>
+        If a foundational piece is missing, everything above it becomes unstable &mdash; no matter how much time a student spends on higher-level topics.<br><br>
         This program finds the missing pieces first. Then it fixes them specifically, not generally.
       </div>
     </div>
   </div>
 </section>
 
-<!-- PILLARS -->
 <section class="pillars-section">
   <div class="container">
     <p class="section-eyebrow">What makes this different</p>
@@ -717,7 +176,7 @@
       <div class="pillar-card">
         <div class="pillar-number">1</div>
         <div class="pillar-title">Solid Math Knowledge</div>
-        <p class="pillar-body">4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Every concept covered — not as a lecture, but through guided practice.</p>
+        <p class="pillar-body">4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Every concept covered &mdash; not as a lecture, but through guided practice.</p>
       </div>
       <div class="pillar-card">
         <div class="pillar-number">2</div>
@@ -727,50 +186,34 @@
       <div class="pillar-card">
         <div class="pillar-number">3</div>
         <div class="pillar-title">Real SAT Practice</div>
-        <p class="pillar-body">The final days of the program are full timed tests in the real Bluebook format — structured the same way as the actual exam. Students arrive at test day having already done this multiple times.</p>
+        <p class="pillar-body">The final days of the program are full timed tests in the real Bluebook format &mdash; structured the same way as the actual exam. Students arrive at test day having already done this multiple times.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section class="how-section" id="how">
   <div class="container">
     <p class="section-eyebrow">The 30-day structure</p>
     <h2 class="section-title">Every day has a specific job. Nothing is filler.</h2>
     <p class="section-body">Diagnostic tests on Days 1, 11, and 23 act as checkpoints that reshape what comes next. Practice days focus on the domains the real SAT tests most heavily. The final four days are full timed exams.</p>
-
     <div class="day-calendar" id="dayCalendar"></div>
-
     <div class="calendar-legend">
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--gold);"></div>
-        Diagnostic test
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:rgba(26,58,92,0.1); border:1px solid #bbb;"></div>
-        Review &amp; gap analysis
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--navy);"></div>
-        Targeted practice
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:var(--navy-dark);"></div>
-        Full timed tests
-      </div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div>Diagnostic test</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(26,58,92,0.1);border:1px solid #bbb;"></div>Review &amp; gap analysis</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--navy);"></div>Targeted practice</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--navy-dark);"></div>Full timed tests</div>
     </div>
-
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-label">Day 1</div>
         <div class="step-title">Diagnostic Test</div>
-        <p class="step-body">A full 44-question diagnostic pinpoints exactly which skills are weak and which foundational concepts are missing — before any studying begins.</p>
+        <p class="step-body">A full 44-question diagnostic pinpoints exactly which skills are weak and which foundational concepts are missing &mdash; before any studying begins.</p>
       </div>
       <div class="step-card">
-        <div class="step-label">Days 2–10</div>
+        <div class="step-label">Days 2&ndash;10</div>
         <div class="step-title">Targeted Domain Practice</div>
-        <p class="step-body">Review every missed question with full worked solutions, then practice across all four SAT Math domains — weighted by how much each appears on the real test.</p>
+        <p class="step-body">Review every missed question with full worked solutions, then practice across all four SAT Math domains &mdash; weighted by how much each appears on the real test.</p>
       </div>
       <div class="step-card">
         <div class="step-label">Days 11 &amp; 23</div>
@@ -778,30 +221,29 @@
         <p class="step-body">Two more full diagnostic tests measure improvement and catch any remaining blind spots. The plan reshapes itself around what's still weak.</p>
       </div>
       <div class="step-card">
-        <div class="step-label">Days 27–30</div>
+        <div class="step-label">Days 27&ndash;30</div>
         <div class="step-title">Full Practice Tests</div>
-        <p class="step-body">Four complete timed tests in real SAT format. By test day, the exam format holds no surprises — your child has already done it four times.</p>
+        <p class="step-body">Four complete timed tests in real SAT format. By test day, the exam format holds no surprises &mdash; your child has already done it four times.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AUTHOR -->
 <section class="author-section">
   <div class="container">
     <div class="author-grid">
-      <img src="data:image/png;base64,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" alt="Daniel Brink" style="width:150px;height:150px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex-shrink:0;">
+      <img src="https://freepracticesat.com/Daniel%20Brink.jpg" alt="Daniel Brink" style="width:150px;height:150px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;flex-shrink:0;">
       <div>
         <p class="author-eyebrow">Meet the creator</p>
         <h2 class="author-name">Daniel Brink, Ph.D.</h2>
-        <p class="author-title">Ph.D. in Mathematics Education — University of Georgia</p>
-        <p class="author-body">I built this program because I've spent 32 years watching students struggle — not because they can't do math, but because nobody ever found the specific gaps holding them back. The right diagnosis changes everything. This plan does that systematically, for every student who uses it.</p>
+        <p class="author-title">Ph.D. in Mathematics Education &mdash; University of Georgia</p>
+        <p class="author-body">I built this program because I've spent 32 years watching students struggle &mdash; not because they can't do math, but because nobody ever found the specific gaps holding them back. The right diagnosis changes everything. This plan does that systematically, for every student who uses it.</p>
         <ul class="cred-list">
           <li>Ph.D. in Mathematics Education, University of Georgia</li>
           <li>32 years teaching math and breaking it down for students at every level</li>
           <li>17 years training math teachers</li>
-          <li>Founder of Cloud School — 117,000+ students</li>
-          <li>Founder of School Support Center — 6,000+ members</li>
+          <li>Founder of Cloud School &mdash; 117,000+ students</li>
+          <li>Founder of School Support Center &mdash; 6,000+ members</li>
         </ul>
         <a href="https://freepracticesat.com/about/" class="author-link" target="_blank">Full background and credentials</a>
       </div>
@@ -809,37 +251,22 @@
   </div>
 </section>
 
-<!-- BLOG TEASER -->
 <section class="blog-section">
   <div class="container">
     <p class="section-eyebrow">From the blog</p>
     <h2 class="section-title">For parents getting ready for test day</h2>
     <a href="/blog/7-things-boost-sat-score/" class="blog-card">
-      <div class="blog-card-icon">📖</div>
+      <div class="blog-card-icon">&#128214;</div>
       <div>
         <p class="blog-card-meta">For Parents &middot; June 2026</p>
         <p class="blog-card-title">7 Surprising Things That Can Boost Your Teen's SAT Score</p>
-        <p class="blog-card-desc">Seven free, simple habits that move the needle more than another practice book — and why the phone sits at the center of all of them.</p>
+        <p class="blog-card-desc">Seven free, simple habits that move the needle more than another practice book &mdash; and why the phone sits at the center of all of them.</p>
       </div>
-      <div class="blog-card-arrow">→</div>
+      <div class="blog-card-arrow">&#8594;</div>
     </a>
   </div>
 </section>
-<!-- BLOG -->
-<section style="background:#fff;padding:4.5rem 2rem;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <p style="font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:#d4a04a;margin-bottom:0.75rem;">From the blog</p>
-    <h2 style="font-size:1.8rem;color:#1a3a5c;margin-bottom:2rem;">For parents getting ready for test day</h2>
-    <a href="/blog/7-things-boost-sat-score/" style="display:flex;align-items:center;gap:2rem;background:#f8f7f4;border:1px solid #e0ddd5;border-left:5px solid #d4a04a;border-radius:6px;padding:2rem 2.5rem;max-width:780px;text-decoration:none;">
-      <div>
-        <p style="font-size:0.75rem;color:#d4a04a;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.4rem;">For Parents &middot; June 2026</p>
-        <p style="font-size:1.15rem;color:#1a3a5c;font-weight:bold;margin-bottom:0.5rem;">7 Surprising Things That Can Boost Your Teen's SAT Score</p>
-        <p style="font-size:0.9rem;color:#5a6a7a;">Seven free, simple habits that move the needle more than another practice book.</p>
-      </div>
-    </a>
-  </div>
-</section>
-<!-- ENROLL -->
+
 <section class="enroll-section" id="enroll">
   <div class="container">
     <div class="enroll-intro">
@@ -847,10 +274,8 @@
       <h2 class="section-title">30 days. A clear plan. Measurable results.</h2>
     </div>
     <div class="enroll-card">
-      <div class="price-row">
-        <div class="price-display">$99</div>
-      </div>
-      <p class="price-compare">Includes everything in the full Tier 3 diagnostic and remediation program — at a fraction of traditional tutoring costs.</p>
+      <div class="price-row"><div class="price-display">$99</div></div>
+      <p class="price-compare">Includes everything in the full Tier 3 diagnostic and remediation program &mdash; at a fraction of traditional tutoring costs.</p>
       <hr class="price-divider">
       <ul class="price-includes">
         <li>3 full diagnostic tests with complete gap analysis</li>
@@ -865,26 +290,23 @@
         <input type="email" id="parentEmail" placeholder="Parent's email address" autocomplete="email">
         <input type="email" id="studentEmail" placeholder="Student's email address (receives login link)" autocomplete="off">
         <div id="enroll-error"></div>
-        <button class="btn-enroll" id="enrollBtn" onclick="startCheckout()">Enroll Now — $99</button>
+        <button class="btn-enroll" id="enrollBtn" onclick="startCheckout()">Enroll Now &mdash; $99</button>
       </div>
       <p class="enroll-trust">Secure payment via Stripe. The student receives a login link by email immediately after purchase.</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>30 Day SAT Math Plan — created by <a href="https://freepracticesat.com/about/" target="_blank">Daniel Brink, Ph.D.</a></p>
-  <p style="margin-top:0.4rem;">Free diagnostic practice at <a href="https://freepracticesat.com" target="_blank">freepracticesat.com</a> &nbsp;|&nbsp; <a href="/blog/7-things-boost-sat-score/">Blog</a> &nbsp;|&nbsp; <a href="/blog/7-things-boost-sat-score/">Blog</a> &nbsp;|&nbsp; Questions: <a href="mailto:dasbrink@gmail.com">dasbrink@gmail.com</a>
+  <p>30 Day SAT Math Plan &mdash; created by <a href="https://freepracticesat.com/about/" target="_blank">Daniel Brink, Ph.D.</a></p>
+  <p style="margin-top:0.4rem;">Free diagnostic practice at <a href="https://freepracticesat.com" target="_blank">freepracticesat.com</a> &nbsp;|&nbsp; <a href="/blog/7-things-boost-sat-score/">Blog</a> &nbsp;|&nbsp; Questions: <a href="mailto:dasbrink@gmail.com">dasbrink@gmail.com</a></p>
 </footer>
 
 <script>
-  // Build the 30-day calendar
   const calendar = document.getElementById('dayCalendar');
-  const diagnosticDays = [1, 11, 23];
-  const reviewDays = [2, 12, 24];
-  const fulltestDays = [27, 28, 29, 30];
-
+  const diagnosticDays = [1,11,23];
+  const reviewDays = [2,12,24];
+  const fulltestDays = [27,28,29,30];
   for (let d = 1; d <= 30; d++) {
     const cell = document.createElement('div');
     cell.className = 'day-cell';
@@ -894,47 +316,37 @@
     else if (!reviewDays.includes(d)) cell.classList.add('practice');
     calendar.appendChild(cell);
   }
-
-  // Stripe checkout
   async function startCheckout() {
     const btn = document.getElementById('enrollBtn');
     const errorEl = document.getElementById('enroll-error');
     const parentEmail = document.getElementById('parentEmail').value.trim();
     const studentEmail = document.getElementById('studentEmail').value.trim();
-
     errorEl.style.display = 'none';
     errorEl.textContent = '';
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!parentEmail || !studentEmail) {
       errorEl.textContent = 'Please enter both email addresses.';
       errorEl.style.display = 'block';
       return;
     }
-
     if (!emailRegex.test(parentEmail) || !emailRegex.test(studentEmail)) {
       errorEl.textContent = 'Please enter valid email addresses.';
       errorEl.style.display = 'block';
       return;
     }
-
     btn.disabled = true;
     btn.textContent = 'Redirecting to payment…';
-
     try {
       const res = await fetch('https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/create-checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           priceId: 'price_1Tg1XmPpsYZtWdw8pfFj8CRu',
           parent_email: parentEmail,
           student_email: studentEmail
         })
       });
-
       const data = await res.json();
-
       if (data.url) {
         window.location.href = data.url;
       } else {
