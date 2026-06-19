@@ -41,7 +41,7 @@
       line-height: 1.7;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       background: var(--navy);
       padding: 0 2rem;
@@ -74,7 +74,7 @@
     }
     .nav-enroll:hover { background: var(--gold-light); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       background: var(--navy);
       color: var(--white);
@@ -102,7 +102,7 @@
     .hero h1 em { color: var(--gold); font-style: italic; }
     .hero p {
       font-size: 1.05rem;
-      max-width: 580px;
+      max-width: 560px;
       margin: 0 auto 2.5rem;
       opacity: 0.88;
       line-height: 1.7;
@@ -134,7 +134,7 @@
     }
     .btn-outline:hover { border-color: var(--white); }
 
-    /* ── STATS BAR ── */
+    /* STATS BAR */
     .stats-bar {
       background: var(--white);
       border-bottom: 1px solid var(--border);
@@ -163,7 +163,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* ── SECTIONS ── */
+    /* SECTIONS */
     section { padding: 4rem 1.5rem; }
     .container { max-width: 860px; margin: 0 auto; }
     .section-tag {
@@ -191,7 +191,24 @@
       margin-bottom: 2rem;
     }
 
-    /* ── PROBLEM SECTION ── */
+    /* READ MORE */
+    .read-more-preview { color: var(--text-mid); font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .read-more-dots { color: var(--text-mid); }
+    .read-more-full { display: none; }
+    .read-more-full.open { display: block; }
+    .read-more-toggle {
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0.4rem;
+      text-decoration: underline;
+    }
+
+    /* PROBLEM */
     .problem { background: var(--white); }
     .problem-body p { margin-bottom: 1.1rem; color: var(--text-mid); }
     .lego-callout {
@@ -204,7 +221,26 @@
     .lego-callout p { margin: 0; color: var(--text); }
     .lego-callout strong { color: var(--navy); }
 
-    /* ── PILLARS ── */
+    /* RESEARCH BOX */
+    .research-box {
+      background: #eef3f8;
+      border: 1px solid #c0d0e0;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0 0;
+    }
+    .research-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: bold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .research-box p { font-size: 0.93rem; color: #2a2a2a; margin: 0; }
+
+    /* PILLARS */
     .pillars { background: var(--bg); }
     .pillars-grid {
       display: grid;
@@ -234,7 +270,7 @@
     .pillar-card h3 { color: var(--navy); margin-bottom: 0.6rem; font-size: 1.05rem; }
     .pillar-card p { color: var(--text-mid); font-size: 0.95rem; }
 
-    /* ── CALENDAR ── */
+    /* CALENDAR */
     .calendar-section { background: var(--white); }
     .cal-legend {
       display: flex;
@@ -249,11 +285,7 @@
       font-size: 0.88rem;
       color: var(--text-mid);
     }
-    .cal-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-    }
+    .cal-dot { width: 12px; height: 12px; border-radius: 3px; }
     .dot-diag { background: #e8553a; }
     .dot-review { background: #3a7bd5; }
     .dot-practice { background: #3aa861; }
@@ -288,7 +320,6 @@
       margin-top: 2rem;
       color: var(--white);
     }
-    .cal-highlight p { opacity: 0.88; margin: 0; }
     .cal-highlights-list {
       margin-top: 1rem;
       display: grid;
@@ -296,15 +327,10 @@
       gap: 0.75rem;
     }
     @media (max-width: 500px) { .cal-highlights-list { grid-template-columns: 1fr; } }
-    .cal-hl-item {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 0.9rem;
-      align-items: flex-start;
-    }
+    .cal-hl-item { display: flex; gap: 0.6rem; font-size: 0.9rem; align-items: flex-start; }
     .cal-hl-item strong { color: var(--gold); min-width: 3rem; }
 
-    /* ── BIO ── */
+    /* BIO */
     .bio-section { background: var(--bg); }
     .bio-card {
       background: var(--white);
@@ -340,7 +366,7 @@
     }
     .bio-name { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.25rem; }
     .bio-title { color: var(--gold); font-size: 0.92rem; margin-bottom: 1rem; }
-    .bio-body p { color: var(--text-mid); font-size: 0.97rem; margin-bottom: 1rem; }
+    .bio-body p { color: var(--text-mid); font-size: 0.97rem; margin-bottom: 0.75rem; }
     .bio-creds { list-style: none; margin: 1rem 0; }
     .bio-creds li {
       padding: 0.35rem 0;
@@ -352,15 +378,11 @@
       align-items: flex-start;
     }
     .bio-creds li::before { content: "✓"; color: var(--gold); font-weight: bold; flex-shrink: 0; }
-    .bio-link {
-      color: var(--navy);
-      font-size: 0.9rem;
-      text-decoration: underline;
-      opacity: 0.7;
-    }
+    .bio-link { color: var(--navy); font-size: 0.9rem; text-decoration: underline; opacity: 0.7; }
 
-    /* ── BLOG ── */
+    /* BLOG */
     .blog-section { background: var(--white); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
     .blog-card {
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -369,16 +391,14 @@
       color: inherit;
       display: block;
       background: var(--bg);
-      transition: border-color 0.2s;
-      max-width: 620px;
     }
     .blog-card:hover { border-color: var(--navy); }
     .blog-meta { font-size: 0.8rem; color: var(--text-mid); margin-bottom: 0.5rem; }
-    .blog-card h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .blog-card h3 { color: var(--navy); font-size: 1.05rem; margin-bottom: 0.5rem; }
     .blog-card p { font-size: 0.93rem; color: var(--text-mid); }
-    .blog-card .read-more { color: var(--gold); font-size: 0.88rem; margin-top: 0.75rem; display: block; }
+    .blog-read { color: var(--gold); font-size: 0.88rem; margin-top: 0.75rem; display: block; }
 
-    /* ── ENROLL ── */
+    /* ENROLL */
     .enroll-section {
       background: linear-gradient(160deg, var(--navy) 0%, #0d2647 100%);
       color: var(--white);
@@ -392,22 +412,11 @@
       max-width: 560px;
       margin-top: 2rem;
     }
-    .price-tag {
-      font-size: 3rem;
-      font-weight: bold;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
+    .price-tag { font-size: 3rem; font-weight: bold; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
     .price-desc { opacity: 0.78; font-size: 0.95rem; margin-bottom: 1.5rem; }
     .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 1.5rem 0; }
     .features { list-style: none; margin-bottom: 1.5rem; }
-    .features li {
-      padding: 0.4rem 0;
-      font-size: 0.95rem;
-      display: flex;
-      gap: 0.6rem;
-    }
+    .features li { padding: 0.4rem 0; font-size: 0.95rem; display: flex; gap: 0.6rem; }
     .features li::before { content: "✓"; color: var(--gold); font-weight: bold; flex-shrink: 0; }
     .enroll-btn {
       width: 100%;
@@ -424,7 +433,7 @@
     .enroll-btn:hover { background: var(--gold-light); }
     .enroll-note { font-size: 0.82rem; opacity: 0.6; margin-top: 0.75rem; text-align: center; }
 
-    /* ── MODAL ── */
+    /* MODAL */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -445,13 +454,7 @@
     }
     .modal h3 { color: var(--navy); font-size: 1.2rem; margin-bottom: 0.5rem; }
     .modal p { color: var(--text-mid); font-size: 0.93rem; margin-bottom: 1.5rem; }
-    .modal label {
-      display: block;
-      font-size: 0.88rem;
-      color: var(--text-mid);
-      margin-bottom: 0.3rem;
-      margin-top: 1rem;
-    }
+    .modal label { display: block; font-size: 0.88rem; color: var(--text-mid); margin-bottom: 0.3rem; margin-top: 1rem; }
     .modal input {
       width: 100%;
       padding: 0.7rem 0.9rem;
@@ -475,22 +478,10 @@
       margin-top: 1.5rem;
     }
     .modal-submit:hover { background: var(--gold-light); }
-    .modal-close {
-      position: absolute;
-      top: 1rem; right: 1.2rem;
-      background: none; border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      color: var(--text-mid);
-    }
-    .modal-error {
-      color: #c0392b;
-      font-size: 0.88rem;
-      margin-top: 0.5rem;
-      display: none;
-    }
+    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-mid); }
+    .modal-error { color: #c0392b; font-size: 0.88rem; margin-top: 0.5rem; display: none; }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       background: var(--navy-dark);
       color: rgba(255,255,255,0.55);
@@ -505,80 +496,88 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="/">30 Day SAT Math Plan</a>
   <button class="nav-enroll" onclick="openModal()">Enroll — $99</button>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero" id="top">
   <span class="hero-tag">30-Day SAT Math Program</span>
-  <h1>Find your child's <em>exact blind spots</em>.&nbsp; Fix them before test day.</h1>
-  <p>Most SAT prep teaches everything to everyone. This program starts with a precise diagnostic, identifies the specific gaps holding your child back, then targets only what needs work — in 30 structured days.</p>
+  <h1>Find your child's <em>exact blind spots</em>. Fix them before test day.</h1>
+  <p>Most SAT prep teaches everything to everyone. This program starts with a precise diagnostic, finds the specific gaps holding your child back, then fixes only what needs fixing.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
     <a class="btn-outline" href="#how">See How It Works</a>
   </div>
 </section>
 
-<!-- ── STATS BAR ── -->
+<!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat"><span class="stat-number">4,700</span><span class="stat-label">Practice questions</span></div>
-  <div class="stat"><span class="stat-number">70</span><span class="stat-label">SAT Math skills covered</span></div>
-  <div class="stat"><span class="stat-number">271</span><span class="stat-label">Foundational skills cross-referenced</span></div>
+  <div class="stat"><span class="stat-number">70</span><span class="stat-label">SAT Math skills</span></div>
+  <div class="stat"><span class="stat-number">271</span><span class="stat-label">Foundational concepts mapped</span></div>
   <div class="stat"><span class="stat-number">30</span><span class="stat-label">Structured days</span></div>
 </div>
 
-<!-- ── PROBLEM ── -->
+<!-- PROBLEM -->
 <section class="problem" id="how">
   <div class="container">
     <span class="section-tag">The problem with most SAT prep</span>
-    <h2>Generic prep wastes time on what your child already knows.</h2>
-    <div class="problem-body">
-      <p>Most SAT courses cover every topic for every student — regardless of what they individually need. A student who already understands algebra spends weeks on it anyway. The gaps that actually cost them points go unaddressed.</p>
-      <p>SAT Math is also cumulative. A gap in a foundational concept doesn't just affect one question — it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
-      <p>This program starts with a full diagnostic before any studying begins. Your child's path through the 30 days is shaped entirely by their own results.</p>
+    <h2>More practice tests will not close the gaps.</h2>
+
+    <p class="read-more-preview">Generic prep wastes time on what your child already knows. The gaps that actually cost them points go unaddressed.<span class="read-more-dots">…</span></p>
+
+    <div class="read-more-full" id="problemMore">
+      <div class="problem-body">
+        <p>SAT Math is cumulative. A gap in a foundational concept does not just affect one question — it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
+        <p>This program starts with a full diagnostic before any studying begins. Your child's path through the 30 days is shaped entirely by their own results — not a generic syllabus.</p>
+      </div>
       <div class="lego-callout">
         <p><strong>SAT Math knowledge builds like Lego blocks.</strong><br>
-        If a foundational piece is missing, everything above it becomes unstable — no matter how much time a student spends on higher-level topics.<br>
-        This program finds the missing pieces first. Then it fixes them specifically, not generally.</p>
+        If a foundational piece is missing, everything above it becomes unstable — no matter how much time a student spends on higher topics. This program finds the missing pieces first. Then it fixes them specifically, not generally.</p>
+      </div>
+      <div class="research-box">
+        <div class="research-label">What the research says</div>
+        <p>Anders Ericsson's landmark research at Florida State University, published in <em>Psychological Review</em> (1993), established that improvement does not come from more repetition — it comes from identifying specific weaknesses and targeting them directly. He called this deliberate practice. Taking another full practice test without fixing identified gaps is not deliberate practice. It is repetition without progress. This program is built entirely on that principle.</p>
       </div>
     </div>
+    <button class="read-more-toggle" onclick="toggleMore('problemMore', this)">Read more</button>
   </div>
 </section>
 
-<!-- ── PILLARS ── -->
+<!-- PILLARS -->
 <section class="pillars">
   <div class="container">
     <span class="section-tag">What makes this different</span>
-    <h2>Three things every student needs to score well. All three are here.</h2>
+    <h2>Three things every student needs. All three are here.</h2>
     <div class="pillars-grid">
       <div class="pillar-card">
         <div class="pillar-num">1</div>
-        <h3>Solid Math Knowledge</h3>
-        <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Every concept covered — not as a lecture, but through guided practice.</p>
+        <h3>Precise Diagnosis</h3>
+        <p>Three full diagnostic tests identify exactly which skills are weak and which foundational concepts are missing. Everything else flows from that.</p>
       </div>
       <div class="pillar-card">
         <div class="pillar-num">2</div>
-        <h3>Surgical Gap-Finding</h3>
-        <p>Three full diagnostic tests built into the program track exactly which skills are weak and which foundational concepts are missing. The rest of the plan rebuilds itself around those specific blind spots.</p>
+        <h3>Targeted Practice</h3>
+        <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Practice is directed at gaps, not wasted on strengths.</p>
       </div>
       <div class="pillar-card">
         <div class="pillar-num">3</div>
-        <h3>Real SAT Practice</h3>
-        <p>The final days of the program are full timed tests in the real Bluebook format — structured the same way as the actual exam. Students arrive at test day having already done this multiple times.</p>
+        <h3>Real SAT Conditions</h3>
+        <p>The final four days are full timed tests in the real Bluebook format. Students arrive at test day having already done this multiple times.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CALENDAR ── -->
+<!-- CALENDAR -->
 <section class="calendar-section">
   <div class="container">
     <span class="section-tag">The 30-day structure</span>
     <h2>Every day has a specific job. Nothing is filler.</h2>
-    <p class="intro-text">Diagnostic tests on Days 1, 11, and 23 act as checkpoints that reshape what comes next. Practice days focus on the domains the real SAT tests most heavily. The final four days are full timed exams.</p>
+    <p class="intro-text">Three diagnostic checkpoints reshape what comes next. Practice days cover all four SAT Math domains. The final four days are full timed exams.</p>
 
     <div class="cal-legend">
       <span class="cal-legend-item"><span class="cal-dot dot-diag"></span>Diagnostic test</span>
@@ -623,16 +622,16 @@
 
     <div class="cal-highlight">
       <div class="cal-highlights-list">
-        <div class="cal-hl-item"><strong>Day 1</strong><span>Diagnostic Test — a full 44-question diagnostic pinpoints exactly which skills are weak and which foundational concepts are missing before any studying begins.</span></div>
-        <div class="cal-hl-item"><strong>Days 2–10</strong><span>Targeted Domain Practice — review every missed question with full worked solutions, then practice across all four SAT Math domains.</span></div>
-        <div class="cal-hl-item"><strong>Days 11 &amp; 23</strong><span>Progress Diagnostics — two more full diagnostic tests measure improvement and catch any remaining blind spots.</span></div>
-        <div class="cal-hl-item"><strong>Days 27–30</strong><span>Full Practice Tests — four complete timed tests in real SAT format. By test day, the exam format holds no surprises.</span></div>
+        <div class="cal-hl-item"><strong>Day 1</strong><span>Full diagnostic — pinpoints exact weak skills and missing foundational concepts before any studying begins.</span></div>
+        <div class="cal-hl-item"><strong>Days 2–10</strong><span>Targeted domain practice — every missed question reviewed with worked solutions, then directed practice across all four domains.</span></div>
+        <div class="cal-hl-item"><strong>Days 11 &amp; 23</strong><span>Progress diagnostics — two more full tests measure improvement and catch remaining blind spots.</span></div>
+        <div class="cal-hl-item"><strong>Days 27–30</strong><span>Full timed tests — four complete exams in real SAT format. No surprises on test day.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── BIO ── -->
+<!-- BIO -->
 <section class="bio-section">
   <div class="container">
     <span class="section-tag">Meet the creator</span>
@@ -641,36 +640,50 @@
       <div class="bio-photo-placeholder" style="display:none;">DB</div>
       <div class="bio-body">
         <div class="bio-name">Daniel Brink, Ph.D.</div>
-        <div class="bio-title">Ph.D. in Mathematics Education — University of Georgia</div>
-        <p>I built this program because I've spent 32 years watching students struggle — not because they can't do math, but because nobody ever found the specific gaps holding them back. The right diagnosis changes everything. This plan does that systematically, for every student who uses it.</p>
-        <ul class="bio-creds">
-          <li>Ph.D. in Mathematics Education, University of Georgia</li>
-          <li>32 years teaching math and breaking it down for students at every level</li>
-          <li>17 years training math teachers</li>
-          <li>Founder of Cloud School — 117,000+ students</li>
-          <li>Founder of School Support Center — 6,000+ members</li>
-        </ul>
-        <a class="bio-link" href="https://freepracticesat.com/about/">Full background and credentials</a>
+        <div class="bio-title">Ph.D. in Mathematics Education — University of Georgia · 32 years teaching experience</div>
+
+        <p class="read-more-preview">I built this program because I have spent 32 years watching students struggle — not because they cannot do math, but because nobody ever found the specific gaps holding them back.<span class="read-more-dots">…</span></p>
+
+        <div class="read-more-full" id="bioMore">
+          <p>The right diagnosis changes everything. This plan does that systematically, for every student who uses it. I am not a recent graduate with a high SAT score and no classroom experience. I have spent three decades inside mathematics classrooms, watching exactly how and where students get lost — and exactly what fixes it.</p>
+          <ul class="bio-creds">
+            <li>Ph.D. in Mathematics Education, University of Georgia</li>
+            <li>32 years teaching math at every level</li>
+            <li>17 years training math teachers</li>
+            <li>Founder of Cloud School — 117,000+ students</li>
+            <li>Founder of School Support Center — 6,000+ members</li>
+          </ul>
+          <a class="bio-link" href="https://freepracticesat.com/about/">Full background and credentials</a>
+        </div>
+        <button class="read-more-toggle" onclick="toggleMore('bioMore', this)">Read more</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── BLOG ── -->
+<!-- BLOG -->
 <section class="blog-section">
   <div class="container">
     <span class="section-tag">From the blog</span>
     <h2>For parents getting ready for test day</h2>
-    <a class="blog-card" href="https://30daysatplan.com/blog/7-things-boost-sat-score/">
-      <div class="blog-meta">📖 For Parents &nbsp;·&nbsp; June 2026</div>
-      <h3>7 Surprising Things That Can Boost Your Teen's SAT Score</h3>
-      <p>Seven free, simple habits that move the needle more than another practice book — and why the phone sits at the center of all of them.</p>
-      <span class="read-more">Read →</span>
-    </a>
+    <div class="blog-grid">
+      <a class="blog-card" href="https://freepracticesat.com/blog/dont-rush-algebra/">
+        <div class="blog-meta">Opinion &nbsp;·&nbsp; June 2026</div>
+        <h3>"The Sooner, the Better" Is Bad Advice for When Your Child Should Start Algebra</h3>
+        <p>A Ph.D. educator with 32 years of experience argues that rushing algebra does permanent damage — and explains what great schools do instead.</p>
+        <span class="blog-read">Read the article</span>
+      </a>
+      <a class="blog-card" href="https://30daysatplan.com/blog/7-things-boost-sat-score/">
+        <div class="blog-meta">For Parents &nbsp;·&nbsp; June 2026</div>
+        <h3>7 Surprising Things That Can Boost Your Teen's SAT Score</h3>
+        <p>Seven free, simple habits that move the needle more than another practice book — and why the phone sits at the center of all of them.</p>
+        <span class="blog-read">Read the article</span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ── ENROLL ── -->
+<!-- ENROLL -->
 <section class="enroll-section" id="enroll">
   <div class="container">
     <span class="section-tag" style="background:rgba(212,160,74,0.15);border-color:rgba(212,160,74,0.4);">Get started today</span>
@@ -694,17 +707,17 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <div>30 Day SAT Math Plan — created by <a href="https://freepracticesat.com/about/">Daniel Brink, Ph.D.</a></div>
   <div class="footer-links">
     <a href="https://freepracticesat.com">Free diagnostic practice at freepracticesat.com</a>
-    <a href="https://30daysatplan.com/blog/7-things-boost-sat-score/">Blog</a>
+    <a href="https://freepracticesat.com/blog/">Blog</a>
     <a href="mailto:dasbrink@gmail.com">Questions: dasbrink@gmail.com</a>
   </div>
 </footer>
 
-<!-- ── ENROLL MODAL ── -->
+<!-- ENROLL MODAL -->
 <div class="modal-overlay" id="enrollModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -733,6 +746,14 @@
   document.getElementById('enrollModal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
+
+  function toggleMore(id, btn) {
+    const el = document.getElementById(id);
+    const isOpen = el.classList.toggle('open');
+    btn.textContent = isOpen ? 'Read less' : 'Read more';
+    const dots = btn.previousElementSibling ? btn.previousElementSibling.querySelector('.read-more-dots') : null;
+    if (dots) dots.style.display = isOpen ? 'none' : '';
+  }
 
   async function startCheckout() {
     const parentEmail  = document.getElementById('parentEmail').value.trim();
