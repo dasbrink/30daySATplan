@@ -75,6 +75,30 @@ nav .nav-enroll:hover { background: #a87020; }
   margin: 0 auto 36px;
   line-height: 1.6;
 }
+/* ── HERO BLOCKS ── */
+.hero-blocks {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-block {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 22px 20px;
+  font-size: 16px;
+  color: white;
+  line-height: 1.4;
+}
+
 .btn-primary {
   display: inline-block;
   background: var(--gold);
@@ -376,7 +400,12 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 <!-- HERO -->
 <section class="hero">
   <h1>Give your child this <em>30-day SAT study plan</em></h1>
-  <p>This plan will find and fix your child's math blind spots before test day.</p>
+  <p style="font-size:clamp(20px,3.5vw,32px);color:white;font-weight:normal;margin-bottom:28px;line-height:1.3;">With this plan, your child will ...</p>
+  <div class="hero-blocks">
+    <div class="hero-block">Have structure as they prepare for the SAT</div>
+    <div class="hero-block">Do at least 5 full SAT tests</div>
+    <div class="hero-block">Have their blind spots identified and fixed</div>
+  </div>
   <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
 </section>
 
