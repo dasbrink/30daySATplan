@@ -1,807 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>30 Day SAT Math Plan — Targeted Prep That Actually Works</title>
-  <meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99. Starts the day you enroll." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Day SAT Math Plan — Targeted Prep That Actually Works</title>
+<meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99. Starts the day you enroll.">
 
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="32x32" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- Google Ads conversion tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242816022"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18242816022');
+</script>
 
-  <!-- Google Ads -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242816022"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-18242816022');
-  </script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:  #1a3a5c;
+  --navy2: #0f2540;
+  --gold:  #c9902a;
+  --bg:    #f5f5f0;
+  --white: #ffffff;
+  --text:  #1a1a1a;
+  --muted: #555;
+}
 
-    :root {
-      --navy: #1a3a5c;
-      --navy-dark: #0f2540;
-      --gold: #d4a04a;
-      --gold-light: #e8b96a;
-      --bg: #f5f5f0;
-      --white: #ffffff;
-      --text: #1a1a1a;
-      --text-mid: #444;
-      --border: #e0e0e0;
-    }
+body {
+  font-family: Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
 
-    body {
-      font-family: Georgia, serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
+/* ── NAV ── */
+nav {
+  background: var(--navy);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav .brand { color: white; font-size: 17px; font-weight: bold; text-decoration: none; }
+nav .nav-enroll {
+  background: var(--gold); color: white; border: none;
+  padding: 10px 22px; border-radius: 6px; font-size: 15px;
+  font-family: Georgia, serif; cursor: pointer;
+}
+nav .nav-enroll:hover { background: #a87020; }
 
-    /* NAV */
-    nav {
-      background: var(--navy);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo {
-      color: var(--white);
-      font-size: 1.05rem;
-      font-weight: bold;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-    .nav-enroll {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 0.45rem 1.2rem;
-      border-radius: 4px;
-      font-family: Georgia, serif;
-      font-size: 0.95rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .nav-enroll:hover { background: var(--gold-light); }
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 64px 24px 56px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 44px);
+  line-height: 1.25;
+  margin-bottom: 18px;
+  font-weight: normal;
+}
+.hero h1 em {
+  color: var(--gold);
+  font-style: normal;
+}
+.hero p {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: rgba(255,255,255,0.85);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.6;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #a87020; }
 
-    /* HERO */
-    .hero {
-      background: var(--navy);
-      color: var(--white);
-      text-align: center;
-      padding: 5rem 1.5rem 4rem;
-    }
-    .hero-tag {
-      display: inline-block;
-      background: rgba(212,160,74,0.15);
-      border: 1px solid rgba(212,160,74,0.4);
-      color: var(--gold);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
-      line-height: 1.25;
-      max-width: 700px;
-      margin: 0 auto 1.25rem;
-    }
-    .hero h1 em { color: var(--gold); font-style: italic; }
-    .hero p {
-      font-size: 1.05rem;
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-      opacity: 0.88;
-      line-height: 1.7;
-    }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 0.75rem 2rem;
-      border-radius: 4px;
-      font-family: Georgia, serif;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-primary:hover { background: var(--gold-light); }
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 0.75rem 2rem;
-      border-radius: 4px;
-      font-family: Georgia, serif;
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-outline:hover { border-color: var(--white); }
+/* ── STATS BAR ── */
+.stats {
+  background: white;
+  border-bottom: 3px solid var(--gold);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.stat {
+  padding: 24px 36px;
+  text-align: center;
+  border-right: 1px solid #e5e5e5;
+}
+.stat:last-child { border-right: none; }
+.stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--navy);
+  line-height: 1;
+}
+.stat-label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
 
-    /* STATS BAR */
-    .stats-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0;
-    }
-    .stat {
-      padding: 1.5rem 2.5rem;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-number {
-      display: block;
-      font-size: 1.9rem;
-      font-weight: bold;
-      color: var(--navy);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--text-mid);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+/* ── CREDENTIALS STRIP ── */
+.credentials {
+  background: var(--navy2);
+  color: white;
+  text-align: center;
+  padding: 20px 24px;
+  font-size: 15px;
+}
+.credentials strong { color: var(--gold); }
 
-    /* SECTIONS */
-    section { padding: 4rem 1.5rem; }
-    .container { max-width: 860px; margin: 0 auto; }
-    .section-tag {
-      display: inline-block;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      background: rgba(212,160,74,0.1);
-      border: 1px solid rgba(212,160,74,0.3);
-      padding: 0.25rem 0.8rem;
-      border-radius: 20px;
-      margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: var(--navy);
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-    .intro-text {
-      font-size: 1.05rem;
-      color: var(--text-mid);
-      max-width: 660px;
-      margin-bottom: 2rem;
-    }
+/* ── TESTIMONIAL ── */
+.testimonial {
+  background: #fff;
+  border-left: 4px solid var(--gold);
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.testimonial blockquote {
+  font-size: 17px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.testimonial cite {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: normal;
+}
 
-    /* READ MORE */
-    .read-more-preview { color: var(--text-mid); font-size: 1.05rem; margin-bottom: 0.5rem; }
-    .read-more-dots { color: var(--text-mid); }
-    .read-more-full { display: none; }
-    .read-more-full.open { display: block; }
-    .read-more-toggle {
-      background: none;
-      border: none;
-      color: var(--gold);
-      font-family: Georgia, serif;
-      font-size: 0.95rem;
-      cursor: pointer;
-      padding: 0;
-      margin-top: 0.4rem;
-      text-decoration: underline;
-    }
+/* ── FIND OUT MORE TOGGLE ── */
+.toggle-wrap {
+  text-align: center;
+  padding: 32px 24px 16px;
+}
+.toggle-wrap p {
+  color: var(--muted);
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+.btn-toggle {
+  background: none;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-toggle:hover { background: var(--navy); color: white; }
 
-    /* PROBLEM */
-    .problem { background: var(--white); }
-    .problem-body p { margin-bottom: 1.1rem; color: var(--text-mid); }
-    .lego-callout {
-      border-left: 4px solid var(--gold);
-      padding: 1.25rem 1.5rem;
-      background: rgba(212,160,74,0.06);
-      margin: 2rem 0;
-      border-radius: 0 6px 6px 0;
-    }
-    .lego-callout p { margin: 0; color: var(--text); }
-    .lego-callout strong { color: var(--navy); }
+/* ── EXPANDABLE CONTENT ── */
+#more-content { display: none; }
+#more-content.open { display: block; }
 
-    /* RESEARCH BOX */
-    .research-box {
-      background: #eef3f8;
-      border: 1px solid #c0d0e0;
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0 0;
-    }
-    .research-label {
-      font-family: Arial, sans-serif;
-      font-size: 0.72rem;
-      font-weight: bold;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-    }
-    .research-box p { font-size: 0.93rem; color: #2a2a2a; margin: 0; }
+/* ── SECTION STYLES (reused from original) ── */
+.section { padding: 64px 24px; }
+.section-inner { max-width: 860px; margin: 0 auto; }
+.section-label {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px; display: block;
+}
+.section h2 {
+  font-size: clamp(22px, 4vw, 34px);
+  color: var(--navy);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+.section p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+.section p:last-child { margin-bottom: 0; }
 
-    /* PILLARS */
-    .pillars { background: var(--bg); }
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .pillar-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.75rem;
-    }
-    .pillar-num {
-      width: 36px;
-      height: 36px;
-      background: var(--navy);
-      color: var(--white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-    .pillar-card h3 { color: var(--navy); margin-bottom: 0.6rem; font-size: 1.05rem; }
-    .pillar-card p { color: var(--text-mid); font-size: 0.95rem; }
+.section-alt { background: white; }
 
-    /* CALENDAR */
-    .calendar-section { background: var(--white); }
-    .cal-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem 2rem;
-      margin: 1.5rem 0;
-    }
-    .cal-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.88rem;
-      color: var(--text-mid);
-    }
-    .cal-dot { width: 12px; height: 12px; border-radius: 3px; }
-    .dot-diag { background: #e8553a; }
-    .dot-review { background: #3a7bd5; }
-    .dot-practice { background: #3aa861; }
-    .dot-full { background: #7b52ab; }
-    .dot-weakness { background: #e8a23a; }
+/* ── PROBLEM SECTION ── */
+.problem-box {
+  background: var(--bg);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin-top: 24px;
+}
+.problem-box p { margin-bottom: 0; }
 
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-top: 1.5rem;
-    }
-    @media (max-width: 500px) { .cal-grid { grid-template-columns: repeat(3, 1fr); } }
-    .cal-day {
-      border-radius: 6px;
-      padding: 0.6rem 0.4rem;
-      text-align: center;
-      font-size: 0.78rem;
-      line-height: 1.3;
-    }
-    .cal-day .d-num { font-weight: bold; font-size: 0.9rem; display: block; }
-    .cal-diag    { background: #fdecea; border: 1px solid #e8553a; color: #b33; }
-    .cal-review  { background: #e8f0fb; border: 1px solid #3a7bd5; color: #1a4a9c; }
-    .cal-practice{ background: #e8f5ee; border: 1px solid #3aa861; color: #1a6633; }
-    .cal-full    { background: #f0ecf9; border: 1px solid #7b52ab; color: #4a2278; }
-    .cal-weakness{ background: #fef4e6; border: 1px solid #e8a23a; color: #7a4c00; }
+/* ── THREE PILLARS ── */
+.pillars { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 32px; }
+.pillar {
+  flex: 1; min-width: 220px;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 28px 24px;
+  border-top: 4px solid var(--gold);
+}
+.pillar h3 { color: var(--navy); font-size: 18px; margin-bottom: 10px; }
+.pillar p  { font-size: 15px; color: var(--muted); margin: 0; }
 
-    .cal-highlight {
-      background: var(--navy);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      color: var(--white);
-    }
-    .cal-highlights-list {
-      margin-top: 1rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-    @media (max-width: 500px) { .cal-highlights-list { grid-template-columns: 1fr; } }
-    .cal-hl-item { display: flex; gap: 0.6rem; font-size: 0.9rem; align-items: flex-start; }
-    .cal-hl-item strong { color: var(--gold); min-width: 3rem; }
+/* ── CALENDAR ── */
+.cal-summary {
+  background: #eef2f7;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--text);
+}
+.cal-summary strong { color: var(--navy); }
 
-    /* BIO */
-    .bio-section { background: var(--bg); }
-    .bio-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2.5rem;
-      display: flex;
-      gap: 2.5rem;
-      align-items: flex-start;
-    }
-    @media (max-width: 640px) { .bio-card { flex-direction: column; align-items: center; text-align: center; } }
-    .bio-photo {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--gold);
-      flex-shrink: 0;
-    }
-    .bio-photo-placeholder {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: var(--navy);
-      border: 4px solid var(--gold);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      font-size: 2.5rem;
-      font-weight: bold;
-    }
-    .bio-name { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.25rem; }
-    .bio-title { color: var(--gold); font-size: 0.92rem; margin-bottom: 1rem; }
-    .bio-body p { color: var(--text-mid); font-size: 0.97rem; margin-bottom: 0.75rem; }
-    .bio-creds { list-style: none; margin: 1rem 0; }
-    .bio-creds li {
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.92rem;
-      color: var(--text-mid);
-      display: flex;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-    .bio-creds li::before { content: "✓"; color: var(--gold); font-weight: bold; flex-shrink: 0; }
-    .bio-link { color: var(--navy); font-size: 0.9rem; text-decoration: underline; opacity: 0.7; }
+.calendar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+.day {
+  width: 52px; height: 52px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: bold; color: white;
+}
+.day-diag  { background: #1a3a5c; }
+.day-rev   { background: #2e6da4; }
+.day-alg   { background: #2563eb; }
+.day-adv   { background: #7c3aed; }
+.day-data  { background: #0891b2; }
+.day-geo   { background: #0d9488; }
+.day-weak  { background: #d97706; }
+.day-test  { background: #dc2626; }
 
-    /* BLOG */
-    .blog-section { background: var(--white); }
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
-    .blog-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem 1.75rem;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      background: var(--bg);
-    }
-    .blog-card:hover { border-color: var(--navy); }
-    .blog-meta { font-size: 0.8rem; color: var(--text-mid); margin-bottom: 0.5rem; }
-    .blog-card h3 { color: var(--navy); font-size: 1.05rem; margin-bottom: 0.5rem; }
-    .blog-card p { font-size: 0.93rem; color: var(--text-mid); }
-    .blog-read { color: var(--gold); font-size: 0.88rem; margin-top: 0.75rem; display: block; }
+.cal-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.legend-dot  { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
 
-    /* ENROLL */
-    .enroll-section {
-      background: linear-gradient(160deg, var(--navy) 0%, #0d2647 100%);
-      color: var(--white);
-    }
-    .enroll-section h2 { color: var(--white); }
-    .enroll-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 10px;
-      padding: 2.5rem;
-      max-width: 560px;
-      margin-top: 2rem;
-    }
-    .price-tag { font-size: 3rem; font-weight: bold; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
-    .price-desc { opacity: 0.78; font-size: 0.95rem; margin-bottom: 1.5rem; }
-    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 1.5rem 0; }
-    .features { list-style: none; margin-bottom: 1.5rem; }
-    .features li { padding: 0.4rem 0; font-size: 0.95rem; display: flex; gap: 0.6rem; }
-    .features li::before { content: "✓"; color: var(--gold); font-weight: bold; flex-shrink: 0; }
-    .enroll-btn {
-      width: 100%;
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 1rem;
-      border-radius: 5px;
-      font-family: Georgia, serif;
-      font-size: 1.05rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .enroll-btn:hover { background: var(--gold-light); }
-    .enroll-note { font-size: 0.82rem; opacity: 0.6; margin-top: 0.75rem; text-align: center; }
+.cal-notes { display: flex; flex-direction: column; gap: 12px; }
+.cal-note  { display: flex; gap: 14px; font-size: 15px; color: var(--muted); }
+.cal-note strong { color: var(--navy); white-space: nowrap; }
 
-    /* MODAL */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--white);
-      border-radius: 10px;
-      padding: 2.5rem;
-      max-width: 440px;
-      width: 90%;
-      position: relative;
-    }
-    .modal h3 { color: var(--navy); font-size: 1.2rem; margin-bottom: 0.5rem; }
-    .modal p { color: var(--text-mid); font-size: 0.93rem; margin-bottom: 1.5rem; }
-    .modal label { display: block; font-size: 0.88rem; color: var(--text-mid); margin-bottom: 0.3rem; margin-top: 1rem; }
-    .modal input {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-family: Georgia, serif;
-      font-size: 0.97rem;
-    }
-    .modal input:focus { outline: 2px solid var(--gold); }
-    .modal-submit {
-      width: 100%;
-      background: var(--gold);
-      color: var(--navy);
-      border: none;
-      padding: 0.85rem;
-      border-radius: 5px;
-      font-family: Georgia, serif;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 1.5rem;
-    }
-    .modal-submit:hover { background: var(--gold-light); }
-    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-mid); }
-    .modal-error { color: #c0392b; font-size: 0.88rem; margin-top: 0.5rem; display: none; }
+/* ── AUTHOR BIO ── */
+.bio-wrap {
+  display: flex; gap: 36px; align-items: flex-start; flex-wrap: wrap;
+}
+.bio-photo {
+  width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
+  border: 4px solid var(--gold); flex-shrink: 0;
+}
+.bio-photo-fallback {
+  width: 130px; height: 130px; border-radius: 50%;
+  background: var(--navy); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; font-weight: bold; flex-shrink: 0;
+  border: 4px solid var(--gold);
+}
+.bio-text h3 { color: var(--navy); font-size: 22px; margin-bottom: 4px; }
+.bio-text .bio-title { color: var(--gold); font-size: 14px; margin-bottom: 14px; display: block; }
+.bio-text p { font-size: 15px; color: var(--muted); margin-bottom: 12px; }
+.bio-list { list-style: none; padding: 0; }
+.bio-list li {
+  padding: 6px 0; border-bottom: 1px solid #eee;
+  font-size: 14px; color: var(--muted);
+}
+.bio-list li:last-child { border-bottom: none; }
 
-    /* FOOTER */
-    footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.55);
-      text-align: center;
-      padding: 1.75rem 1.5rem;
-      font-size: 0.88rem;
-    }
-    footer a { color: rgba(255,255,255,0.7); text-decoration: underline; }
-    footer a:hover { color: var(--white); }
-    footer .footer-links { margin-top: 0.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-  </style>
+/* ── BLOG CARDS ── */
+.blog-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 28px; }
+.blog-card {
+  flex: 1; min-width: 260px; background: var(--bg);
+  border: 1px solid #ddd; border-radius: 10px; padding: 24px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.blog-card:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.blog-tag { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
+.blog-card h3 { font-size: 16px; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
+.blog-card p  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ── ENROLL SECTION ── */
+.enroll-section {
+  background: var(--navy);
+  color: white;
+  padding: 64px 24px;
+  text-align: center;
+}
+.enroll-section h2 { font-size: clamp(22px, 4vw, 34px); margin-bottom: 8px; }
+.enroll-section .price {
+  font-size: 48px; font-weight: bold; color: var(--gold);
+  margin: 16px 0 8px;
+}
+.enroll-section .price-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+.feature-list {
+  list-style: none; padding: 0; max-width: 480px;
+  margin: 0 auto 36px; text-align: left;
+}
+.feature-list li {
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 15px; color: rgba(255,255,255,0.85);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li::before { content: '✓'; color: var(--gold); font-weight: bold; flex-shrink: 0; }
+.enroll-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 16px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6); z-index: 999;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: 12px;
+  padding: 40px 36px; width: 90%; max-width: 460px;
+  position: relative;
+}
+.modal h3 { color: var(--navy); font-size: 22px; margin-bottom: 8px; }
+.modal p  { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+.modal label { display: block; font-size: 13px; color: #555; margin-bottom: 5px; }
+.modal input {
+  width: 100%; padding: 12px; border: 1px solid #ccc;
+  border-radius: 6px; font-size: 15px; margin-bottom: 14px;
+  font-family: Georgia, serif;
+}
+.modal .error { color: #dc2626; font-size: 13px; margin-bottom: 12px; display: none; }
+.modal-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; font-size: 22px;
+  cursor: pointer; color: #999;
+}
+.modal-close:hover { color: #333; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy2);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+}
+footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+footer a:hover { color: white; }
+footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+
+@media (max-width: 600px) {
+  .stat { padding: 18px 20px; }
+  .stat-number { font-size: 24px; }
+  .bio-wrap { flex-direction: column; align-items: center; }
+  .pillars { flex-direction: column; }
+}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="/">30 Day SAT Math Plan</a>
+  <a class="brand" href="https://30daysatplan.com/">30 Day SAT Math Plan</a>
   <button class="nav-enroll" onclick="openModal()">Enroll — $99</button>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="top">
-  <span class="hero-tag">30-Day SAT Math Program</span>
-  <h1>Find your child's <em>exact blind spots</em>. Fix them before test day.</h1>
-  <p>Most SAT prep teaches everything to everyone. This program starts with a precise diagnostic, finds the specific gaps holding your child back, then fixes only what needs fixing.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
-    <a class="btn-outline" href="#how">See How It Works</a>
-  </div>
+<section class="hero">
+  <h1>Give your child this <em>30-day SAT study plan</em></h1>
+  <p>This plan will find and fix your child's math blind spots before test day.</p>
+  <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
 </section>
 
 <!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat"><span class="stat-number">4,700</span><span class="stat-label">Practice questions</span></div>
-  <div class="stat"><span class="stat-number">70</span><span class="stat-label">SAT Math skills</span></div>
-  <div class="stat"><span class="stat-number">271</span><span class="stat-label">Foundational concepts mapped</span></div>
-  <div class="stat"><span class="stat-number">30</span><span class="stat-label">Structured days</span></div>
+<div class="stats">
+  <div class="stat">
+    <span class="stat-number">4,700</span>
+    <span class="stat-label">Practice questions</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">70</span>
+    <span class="stat-label">SAT Math skills</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">271</span>
+    <span class="stat-label">Foundational concepts</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">30</span>
+    <span class="stat-label">Structured days</span>
+  </div>
 </div>
 
-<!-- PROBLEM -->
-<section class="problem" id="how">
-  <div class="container">
-    <span class="section-tag">The problem with most SAT prep</span>
-    <h2>More practice tests will not close the gaps.</h2>
+<!-- CREDENTIALS STRIP -->
+<div class="credentials">
+  Created by <strong>Daniel Brink, Ph.D.</strong> &nbsp;·&nbsp; Mathematics Education, University of Georgia &nbsp;·&nbsp; 32 years teaching experience
+</div>
 
-    <p class="read-more-preview">Generic prep wastes time on what your child already knows. The gaps that actually cost them points go unaddressed.<span class="read-more-dots">…</span></p>
+<!-- FIND OUT MORE TOGGLE -->
+<div class="toggle-wrap">
+  <p>Want to know exactly how it works?</p>
+  <button class="btn-toggle" onclick="toggleMore(this)">Find out more</button>
+</div>
 
-    <div class="read-more-full" id="problemMore">
-      <div class="problem-body">
+<!-- EXPANDABLE CONTENT -->
+<div id="more-content">
+
+  <!-- PROBLEM -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <span class="section-label">The problem with most SAT prep</span>
+      <h2>More practice tests will not close the gaps.</h2>
+      <p>Generic prep wastes time on what your child already knows. The gaps that actually cost them points go unaddressed.</p>
+      <div class="problem-box">
         <p>SAT Math is cumulative. A gap in a foundational concept does not just affect one question — it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
-        <p>This program starts with a full diagnostic before any studying begins. Your child's path through the 30 days is shaped entirely by their own results — not a generic syllabus.</p>
-      </div>
-      <div class="lego-callout">
-        <p><strong>SAT Math knowledge builds like Lego blocks.</strong><br>
-        If a foundational piece is missing, everything above it becomes unstable — no matter how much time a student spends on higher topics. This program finds the missing pieces first. Then it fixes them specifically, not generally.</p>
-      </div>
-      <div class="research-box">
-        <div class="research-label">What the research says</div>
-        <p>Anders Ericsson's landmark research at Florida State University, published in <em>Psychological Review</em> (1993), established that improvement does not come from more repetition — it comes from identifying specific weaknesses and targeting them directly. He called this deliberate practice. Taking another full practice test without fixing identified gaps is not deliberate practice. It is repetition without progress. This program is built entirely on that principle.</p>
+        <p style="margin-top:14px;"><strong>SAT Math knowledge builds like Lego blocks.</strong> If a foundational piece is missing, everything above it becomes unstable — no matter how much time a student spends on higher topics. This program finds the missing pieces first. Then it fixes them specifically, not generally.</p>
       </div>
     </div>
-    <button class="read-more-toggle" onclick="toggleMore('problemMore', this)">Read more</button>
-  </div>
-</section>
+  </section>
 
-<!-- PILLARS -->
-<section class="pillars">
-  <div class="container">
-    <span class="section-tag">What makes this different</span>
-    <h2>Three things every student needs. All three are here.</h2>
-    <div class="pillars-grid">
-      <div class="pillar-card">
-        <div class="pillar-num">1</div>
-        <h3>Precise Diagnosis</h3>
-        <p>Three full diagnostic tests identify exactly which skills are weak and which foundational concepts are missing. Everything else flows from that.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-num">2</div>
-        <h3>Targeted Practice</h3>
-        <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Practice is directed at gaps, not wasted on strengths.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-num">3</div>
-        <h3>Real SAT Conditions</h3>
-        <p>The final four days are full timed tests in the real Bluebook format. Students arrive at test day having already done this multiple times.</p>
-      </div>
+  <!-- WHAT THE RESEARCH SAYS -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">What the research says</span>
+      <p>Anders Ericsson's landmark research at Florida State University established that improvement does not come from more repetition — it comes from identifying specific weaknesses and targeting them directly. He called this deliberate practice. Taking another full practice test without fixing identified gaps is not deliberate practice. It is repetition without progress. This program is built entirely on that principle.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CALENDAR -->
-<section class="calendar-section">
-  <div class="container">
-    <span class="section-tag">The 30-day structure</span>
-    <h2>Every day has a specific job. Nothing is filler.</h2>
-    <p class="intro-text">Three diagnostic checkpoints reshape what comes next. Practice days cover all four SAT Math domains. The final four days are full timed exams.</p>
-
-    <div class="cal-legend">
-      <span class="cal-legend-item"><span class="cal-dot dot-diag"></span>Diagnostic test</span>
-      <span class="cal-legend-item"><span class="cal-dot dot-review"></span>Review &amp; gap analysis</span>
-      <span class="cal-legend-item"><span class="cal-dot dot-practice"></span>Targeted practice</span>
-      <span class="cal-legend-item"><span class="cal-dot dot-weakness"></span>Weakness focus</span>
-      <span class="cal-legend-item"><span class="cal-dot dot-full"></span>Full timed tests</span>
-    </div>
-
-    <div class="cal-grid">
-      <div class="cal-day cal-diag">    <span class="d-num">1</span>Diagnostic</div>
-      <div class="cal-day cal-review">  <span class="d-num">2</span>Review</div>
-      <div class="cal-day cal-practice"><span class="d-num">3</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">4</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">5</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">6</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">7</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">8</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">9</span>Data</div>
-      <div class="cal-day cal-practice"><span class="d-num">10</span>Geometry</div>
-      <div class="cal-day cal-diag">    <span class="d-num">11</span>Diagnostic</div>
-      <div class="cal-day cal-review">  <span class="d-num">12</span>Review</div>
-      <div class="cal-day cal-weakness"><span class="d-num">13</span>Weakness</div>
-      <div class="cal-day cal-weakness"><span class="d-num">14</span>Weakness</div>
-      <div class="cal-day cal-practice"><span class="d-num">15</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">16</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">17</span>Algebra</div>
-      <div class="cal-day cal-practice"><span class="d-num">18</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">19</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">20</span>Adv Math</div>
-      <div class="cal-day cal-practice"><span class="d-num">21</span>Data</div>
-      <div class="cal-day cal-practice"><span class="d-num">22</span>Geometry</div>
-      <div class="cal-day cal-diag">    <span class="d-num">23</span>Diagnostic</div>
-      <div class="cal-day cal-review">  <span class="d-num">24</span>Review</div>
-      <div class="cal-day cal-weakness"><span class="d-num">25</span>Weakness</div>
-      <div class="cal-day cal-weakness"><span class="d-num">26</span>Weakness</div>
-      <div class="cal-day cal-full">    <span class="d-num">27</span>Full Test</div>
-      <div class="cal-day cal-full">    <span class="d-num">28</span>Full Test</div>
-      <div class="cal-day cal-full">    <span class="d-num">29</span>Full Test</div>
-      <div class="cal-day cal-full">    <span class="d-num">30</span>Full Test</div>
-    </div>
-
-    <div class="cal-highlight">
-      <div class="cal-highlights-list">
-        <div class="cal-hl-item"><strong>Day 1</strong><span>Full diagnostic — pinpoints exact weak skills and missing foundational concepts before any studying begins.</span></div>
-        <div class="cal-hl-item"><strong>Days 2–10</strong><span>Targeted domain practice — every missed question reviewed with worked solutions, then directed practice across all four domains.</span></div>
-        <div class="cal-hl-item"><strong>Days 11 &amp; 23</strong><span>Progress diagnostics — two more full tests measure improvement and catch remaining blind spots.</span></div>
-        <div class="cal-hl-item"><strong>Days 27–30</strong><span>Full timed tests — four complete exams in real SAT format. No surprises on test day.</span></div>
+  <!-- THREE PILLARS -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <span class="section-label">What makes this different</span>
+      <h2>Three things every student needs. All three are here.</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3>Precise Diagnosis</h3>
+          <p>Three full diagnostic tests identify exactly which skills are weak and which foundational concepts are missing. Everything else flows from that.</p>
+        </div>
+        <div class="pillar">
+          <h3>Targeted Practice</h3>
+          <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Practice is directed at gaps, not wasted on strengths.</p>
+        </div>
+        <div class="pillar">
+          <h3>Real SAT Conditions</h3>
+          <p>The final four days are full timed tests in the real Bluebook format. Students arrive at test day having already done this multiple times.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- BIO -->
-<section class="bio-section">
-  <div class="container">
-    <span class="section-tag">Meet the creator</span>
-    <div class="bio-card">
-      <img class="bio-photo" src="daniel-brink.jpg" alt="Daniel Brink, Ph.D." onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-      <div class="bio-photo-placeholder" style="display:none;">DB</div>
-      <div class="bio-body">
-        <div class="bio-name">Daniel Brink, Ph.D.</div>
-        <div class="bio-title">Ph.D. in Mathematics Education — University of Georgia · 32 years teaching experience</div>
+  <!-- CALENDAR -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">The 30-day structure</span>
+      <h2>Every day has a specific job. Nothing is filler.</h2>
 
-        <p class="read-more-preview">I built this program because I have spent 32 years watching students struggle — not because they cannot do math, but because nobody ever found the specific gaps holding them back.<span class="read-more-dots">…</span></p>
+      <div class="cal-summary">
+        <strong>Day 1:</strong> Diagnostic test to find your child's exact gaps.<br>
+        <strong>Days 2–26:</strong> Targeted practice on exactly those gaps, across all four SAT Math domains.<br>
+        <strong>Days 27–30:</strong> Four full timed practice tests in real SAT format.
+      </div>
 
-        <div class="read-more-full" id="bioMore">
-          <p>The right diagnosis changes everything. This plan does that systematically, for every student who uses it. I am not a recent graduate with a high SAT score and no classroom experience. I have spent three decades inside mathematics classrooms, watching exactly how and where students get lost — and exactly what fixes it.</p>
-          <ul class="bio-creds">
+      <div class="calendar">
+        <div class="day day-diag">1</div>
+        <div class="day day-rev">2</div>
+        <div class="day day-alg">3</div><div class="day day-alg">4</div><div class="day day-alg">5</div>
+        <div class="day day-adv">6</div><div class="day day-adv">7</div><div class="day day-adv">8</div>
+        <div class="day day-data">9</div>
+        <div class="day day-geo">10</div>
+        <div class="day day-diag">11</div>
+        <div class="day day-rev">12</div>
+        <div class="day day-weak">13</div><div class="day day-weak">14</div>
+        <div class="day day-alg">15</div><div class="day day-alg">16</div><div class="day day-alg">17</div>
+        <div class="day day-adv">18</div><div class="day day-adv">19</div><div class="day day-adv">20</div>
+        <div class="day day-data">21</div>
+        <div class="day day-geo">22</div>
+        <div class="day day-diag">23</div>
+        <div class="day day-rev">24</div>
+        <div class="day day-weak">25</div><div class="day day-weak">26</div>
+        <div class="day day-test">27</div><div class="day day-test">28</div><div class="day day-test">29</div><div class="day day-test">30</div>
+      </div>
+
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c;"></div>Diagnostic</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2e6da4;"></div>Review</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>Algebra</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7c3aed;"></div>Advanced Math</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0891b2;"></div>Data Analysis</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>Geometry</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d97706;"></div>Weakness Focus</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626;"></div>Full Test</div>
+      </div>
+
+      <div class="cal-notes">
+        <div class="cal-note"><strong>Day 1</strong><span>Full diagnostic — pinpoints exact weak skills and missing foundational concepts before any studying begins.</span></div>
+        <div class="cal-note"><strong>Days 2–10</strong><span>Targeted domain practice — every missed question reviewed with worked solutions, then directed practice across all four domains.</span></div>
+        <div class="cal-note"><strong>Days 11 &amp; 23</strong><span>Progress diagnostics — two more full tests measure improvement and catch remaining blind spots.</span></div>
+        <div class="cal-note"><strong>Days 27–30</strong><span>Full timed tests — four complete exams in real SAT format. No surprises on test day.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHOR BIO -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <span class="section-label">Meet the creator</span>
+      <div class="bio-wrap">
+        <img class="bio-photo" src="daniel-brink.jpg" alt="Daniel Brink, Ph.D."
+          onerror="this.style.display='none';document.getElementById('bio-fallback').style.display='flex';">
+        <div class="bio-photo-fallback" id="bio-fallback" style="display:none;">DB</div>
+        <div class="bio-text">
+          <h3>Daniel Brink, Ph.D.</h3>
+          <span class="bio-title">Ph.D. in Mathematics Education — University of Georgia &nbsp;·&nbsp; 32 years teaching experience</span>
+          <p>I built this program because I have spent 32 years watching students struggle — not because they cannot do math, but because nobody ever found the specific gaps holding them back.</p>
+          <p>The right diagnosis changes everything. This plan does that systematically, for every student who uses it.</p>
+          <ul class="bio-list">
             <li>Ph.D. in Mathematics Education, University of Georgia</li>
             <li>32 years teaching math at every level</li>
             <li>17 years training math teachers</li>
             <li>Founder of Cloud School — 117,000+ students</li>
             <li>Founder of School Support Center — 6,000+ members</li>
           </ul>
-          <a class="bio-link" href="https://freepracticesat.com/about/">Full background and credentials</a>
+          <a href="https://freepracticesat.com/about/" style="color:var(--gold);font-size:14px;">Full background and credentials</a>
         </div>
-        <button class="read-more-toggle" onclick="toggleMore('bioMore', this)">Read more</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- BLOG -->
-<section class="blog-section">
-  <div class="container">
-    <span class="section-tag">From the blog</span>
-    <h2>For parents getting ready for test day</h2>
-    <div class="blog-grid">
-      <a class="blog-card" href="https://freepracticesat.com/blog/dont-rush-algebra/">
-        <div class="blog-meta">Opinion &nbsp;·&nbsp; June 2026</div>
-        <h3>"The Sooner, the Better" Is Bad Advice for When Your Child Should Start Algebra</h3>
-        <p>A Ph.D. educator with 32 years of experience argues that rushing algebra does permanent damage — and explains what great schools do instead.</p>
-        <span class="blog-read">Read the article</span>
-      </a>
-      <a class="blog-card" href="https://30daysatplan.com/blog/7-things-boost-sat-score/">
-        <div class="blog-meta">For Parents &nbsp;·&nbsp; June 2026</div>
-        <h3>7 Surprising Things That Can Boost Your Teen's SAT Score</h3>
-        <p>Seven free, simple habits that move the needle more than another practice book — and why the phone sits at the center of all of them.</p>
-        <span class="blog-read">Read the article</span>
-      </a>
+  <!-- BLOG -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">From the blog</span>
+      <h2>For parents getting ready for test day</h2>
+      <div class="blog-grid">
+        <a class="blog-card" href="https://freepracticesat.com/blog/dont-rush-algebra/">
+          <span class="blog-tag">Opinion · June 2026</span>
+          <h3>"The Sooner, the Better" Is Bad Advice for When Your Child Should Start Algebra</h3>
+          <p>A Ph.D. educator with 32 years of experience argues that rushing algebra does permanent damage — and explains what great schools do instead.</p>
+        </a>
+        <a class="blog-card" href="https://30daysatplan.com/blog/7-things-boost-sat-score/">
+          <span class="blog-tag">For Parents · June 2026</span>
+          <h3>7 Surprising Things That Can Boost Your Teen's SAT Score</h3>
+          <p>Seven free, simple habits that move the needle more than another practice book.</p>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ENROLL -->
-<section class="enroll-section" id="enroll">
-  <div class="container">
-    <span class="section-tag" style="background:rgba(212,160,74,0.15);border-color:rgba(212,160,74,0.4);">Get started today</span>
-    <h2>30 days. A clear plan. Measurable results.</h2>
-    <div class="enroll-card">
-      <div class="price-tag">$99</div>
-      <div class="price-desc">Includes everything in the full Tier 3 diagnostic and remediation program — at a fraction of traditional tutoring costs.</div>
-      <hr class="divider" />
-      <ul class="features">
-        <li>3 full diagnostic tests with complete gap analysis</li>
-        <li>30 structured practice days, personalised to your child's results</li>
-        <li>4,700 questions across all 70 SAT Math skills</li>
-        <li>Worked solutions and tutorials for every missed question</li>
-        <li>4 full timed practice tests in real SAT format</li>
-        <li>Access from day of enrollment through to test day</li>
-      </ul>
-      <hr class="divider" />
-      <button class="enroll-btn" onclick="openModal()">Enroll Now — $99</button>
-      <p class="enroll-note">Secure payment via Stripe. The student receives a login link by email immediately after purchase.</p>
-    </div>
-  </div>
+</div><!-- end #more-content -->
+
+<!-- ENROLL SECTION -->
+<section class="enroll-section">
+  <h2>30 days. A clear plan. Measurable results.</h2>
+  <div class="price">$99</div>
+  <div class="price-sub">One-time payment. Access from enrollment through test day.</div>
+  <ul class="feature-list">
+    <li>3 full diagnostic tests with complete gap analysis</li>
+    <li>30 structured practice days, personalised to your child's results</li>
+    <li>4,700 questions across all 70 SAT Math skills</li>
+    <li>Worked solutions and tutorials for every missed question</li>
+    <li>4 full timed practice tests in real SAT format</li>
+  </ul>
+  <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
+  <p class="enroll-note">Secure payment via Stripe. Your child receives a login link by email immediately after purchase.</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div>30 Day SAT Math Plan — created by <a href="https://freepracticesat.com/about/">Daniel Brink, Ph.D.</a></div>
   <div class="footer-links">
-    <a href="https://freepracticesat.com">Free diagnostic practice at freepracticesat.com</a>
-    <a href="https://freepracticesat.com/blog/">Blog</a>
+    <a href="https://freepracticesat.com">Free diagnostic practice</a>
+    <a href="https://30daysatplan.com/blog/7-things-boost-sat-score/">Blog</a>
     <a href="mailto:dasbrink@gmail.com">Questions: dasbrink@gmail.com</a>
   </div>
+  <div>30 Day SAT Math Plan — created by <a href="https://freepracticesat.com/about/">Daniel Brink, Ph.D.</a></div>
 </footer>
 
 <!-- ENROLL MODAL -->
-<div class="modal-overlay" id="enrollModal">
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Enroll in the 30-Day Plan</h3>
     <p>Enter your email and your child's email. You'll pay $99 via Stripe, then your child receives a login link immediately.</p>
-    <label for="parentEmail">Your email (parent)</label>
-    <input type="email" id="parentEmail" placeholder="parent@example.com" />
-    <label for="studentEmail">Student's email</label>
-    <input type="email" id="studentEmail" placeholder="student@example.com" />
-    <div class="modal-error" id="modalError">Please enter both email addresses.</div>
-    <button class="modal-submit" id="enrollSubmit" onclick="startCheckout()">Continue to Payment</button>
+    <label>Your email (parent)</label>
+    <input type="email" id="parent-email" placeholder="parent@email.com">
+    <label>Student's email</label>
+    <input type="email" id="student-email" placeholder="student@email.com">
+    <div class="error" id="modal-error">Please enter both email addresses.</div>
+    <button class="btn-primary" style="width:100%;text-align:center;" onclick="startCheckout()">Continue to Payment</button>
   </div>
 </div>
 
 <script>
-  const CHECKOUT_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/create-checkout';
-  const PRICE_ID = 'price_1Tg1XmPpsYZtWdw8pfFj8CRu';
+// ── Toggle more content ──
+function toggleMore(btn) {
+  const content = document.getElementById('more-content');
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open');
+  btn.textContent = isOpen ? 'Find out more' : 'Show less';
+}
 
-  function openModal() {
-    document.getElementById('enrollModal').classList.add('open');
-    document.getElementById('parentEmail').focus();
+// ── Modal ──
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+// ── Checkout ──
+const CHECKOUT_FN_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/create-checkout';
+
+async function startCheckout() {
+  const parentEmail  = document.getElementById('parent-email').value.trim();
+  const studentEmail = document.getElementById('student-email').value.trim();
+  const errEl = document.getElementById('modal-error');
+
+  if (!parentEmail || !studentEmail) {
+    errEl.style.display = 'block';
+    return;
   }
-  function closeModal() {
-    document.getElementById('enrollModal').classList.remove('open');
-  }
-  document.getElementById('enrollModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
+  errEl.style.display = 'none';
 
-  function toggleMore(id, btn) {
-    const el = document.getElementById(id);
-    const isOpen = el.classList.toggle('open');
-    btn.textContent = isOpen ? 'Read less' : 'Read more';
-    const dots = btn.previousElementSibling ? btn.previousElementSibling.querySelector('.read-more-dots') : null;
-    if (dots) dots.style.display = isOpen ? 'none' : '';
-  }
-
-  async function startCheckout() {
-    const parentEmail  = document.getElementById('parentEmail').value.trim();
-    const studentEmail = document.getElementById('studentEmail').value.trim();
-    const errEl = document.getElementById('modalError');
-
-    if (!parentEmail || !studentEmail) {
+  try {
+    const res = await fetch(CHECKOUT_FN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ parentEmail, studentEmail })
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      errEl.textContent = 'Something went wrong. Please try again.';
       errEl.style.display = 'block';
-      errEl.textContent = 'Please enter both email addresses.';
-      return;
     }
-    if (!parentEmail.includes('@') || !studentEmail.includes('@')) {
-      errEl.style.display = 'block';
-      errEl.textContent = 'Please enter valid email addresses.';
-      return;
-    }
-    errEl.style.display = 'none';
-
-    const btn = document.getElementById('enrollSubmit');
-    btn.textContent = 'Redirecting to Stripe…';
-    btn.disabled = true;
-
-    try {
-      const res = await fetch(CHECKOUT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId:      PRICE_ID,
-          parentEmail:  parentEmail,
-          studentEmail: studentEmail,
-          successUrl:   'https://30daysatplan.com/success',
-          cancelUrl:    'https://30daysatplan.com/'
-        })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error(data.error || 'No checkout URL returned');
-      }
-    } catch (err) {
-      errEl.style.display = 'block';
-      errEl.textContent = 'Something went wrong. Please try again or email dasbrink@gmail.com.';
-      btn.textContent = 'Continue to Payment';
-      btn.disabled = false;
-    }
+  } catch(e) {
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.style.display = 'block';
   }
+}
 </script>
-
 </body>
 </html>
