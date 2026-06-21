@@ -283,6 +283,18 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
+// ── NEW: Fetch Desmos Video URLs from Airtable for a list of question IDs ──
+async function fetchDesmosVideoUrls(questionIds) {
+  if (!questionIds || questionIds.length === 0) return new Map();
+  const recs = await fetchRecordsByIds('Questions', questionIds);
+  const map = new Map();
+  for (const rec of recs) {
+    const url = rec.fields['Desmos Video URL'] || '';
+    if (url) map.set(rec.id, url);
+  }
+  return map;
+}
+
 function toggleStudyReveal(id, btn, kind) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -358,7 +370,6 @@ function renderPracticeProblemHTML(rec, idx) {
   </div>`;
 }
 
-// ── UPDATED: Desmos video button added ──
 function reportQuestionBlockHTML(qn, uid, questionNumber) {
   const solId = 'sol-' + uid, mountId = 'qm-' + uid;
   const sol = renderField(qn.solution || '');
@@ -417,7 +428,6 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
     NOT(RECORD_ID()='${excludeQId || ''}')
   )`;
   const recs = await fetchTable('Questions', formula, 30);
-  console.log(`[PP] skill "${skillName}" -> ${recs.length} questions`);
   const byDiff = { Easy: [], Medium: [], Hard: [] };
   for (const r of recs) {
     const d = r.fields['Difficulty'] || '';
@@ -425,9 +435,7 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   }
   const pick = arr => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   let chosen = [pick(byDiff['Easy']), pick(byDiff['Medium']), pick(byDiff['Hard'])].filter(Boolean);
-  if (chosen.length === 0 && recs.length > 0) {
-    chosen = fisherYatesShuffle(recs).slice(0, 3);
-  }
+  if (chosen.length === 0 && recs.length > 0) chosen = fisherYatesShuffle(recs).slice(0, 3);
   const allDistIds = new Set();
   chosen.forEach(r => (r.fields['Distractors'] || []).forEach(id => allDistIds.add(id)));
   if (allDistIds.size > 0) {
@@ -447,6 +455,17 @@ async function renderSpecificMistakes(missed) {
     return;
   }
   panel.innerHTML = `<div class="state-box"><h3>Loading ${missed.length} missed questions…</h3><p>This may take a few seconds.</p></div>`;
+
+  // ── Fetch Desmos Video URLs live from Airtable ──
+  const questionIds = missed.map(m => m.q && m.q.id).filter(Boolean);
+  const desmosUrlMap = await fetchDesmosVideoUrls(questionIds);
+  // Attach URLs to question objects
+  missed.forEach(m => {
+    if (m.q && m.q.id && desmosUrlMap.has(m.q.id)) {
+      m.q.desmosVideoUrl = desmosUrlMap.get(m.q.id);
+    }
+  });
+
   const qToMisc = new Map(), miscIds = new Set();
   missed.forEach((m, i) => {
     let mId = null;
@@ -479,7 +498,6 @@ async function renderSpecificMistakes(missed) {
       }));
       if (i + 2 < fetchJobs.length) await sleep(300);
     }
-
     missed.forEach((m, i) => {
       const block = reportQuestionBlockHTML(m.q, uid++, i + 1);
       mountJobs.push({ mountId: block.mountId, qn: m.q });
@@ -521,14 +539,12 @@ function renderGapCard(rec, count) {
   const easy    = renderField(f['Practice Easy'] || '');
   const medium  = renderField(f['Practice Medium'] || '');
   const hard    = renderField(f['Practice Hard'] || '');
-
   let html = `<div class="gap-card">
     <div class="gap-card-header">
       <div class="gap-card-title">${escHTML(name)}</div>
       <div class="gap-card-count">appeared in ${count} missed question${count > 1 ? 's' : ''}</div>
     </div>
     <div class="gap-card-body">`;
-
   if (concept) html += `<div class="gap-section-label">The Concept</div><div class="gap-content">${concept}</div>`;
   if (worked)  html += `<div class="gap-section-label">Worked Example</div><div class="gap-example-box gap-content">${worked}</div>`;
   if (easy || medium || hard) {
@@ -568,19 +584,16 @@ async function renderFoundationalGaps(missedIds) {
     const topIds = [...tally.entries()].sort((a,b) => b[1]-a[1]).slice(0, 8).map(([nid]) => nid);
     const nodeRecs = await fetchRecordsByIds('Prerequisites', topIds);
     const nodeMap = new Map(nodeRecs.map(r => [r.id, r]));
-
     let html = `<div class="study-intro">
       <div class="study-intro-head">Foundational gaps — Day 1 preview</div>
       <p>These are the foundational concepts that appeared most often in your Day 1 missed questions.</p>
       <p>Study each concept, work through the examples, then try the practice problems. A full cross-test analysis unlocks after your Day 11 diagnostic.</p>
     </div>`;
-
     topIds.forEach(nid => {
       const rec = nodeMap.get(nid);
       if (!rec) return;
       html += renderGapCard(rec, tally.get(nid));
     });
-
     panel.innerHTML = html;
     setTimeout(() => renderMath(panel), 50);
   } catch (e) {
@@ -643,10 +656,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  const missed      = snapshot.missed || [];
+  const missed       = snapshot.missed || [];
   const totalCorrect = snapshot.totalCorrect;
-  const total       = snapshot.total || 44;
-  const missedCount = missed.length;
+  const total        = snapshot.total || 44;
+  const missedCount  = missed.length;
 
   const banner = document.getElementById('score-banner');
   banner.style.display = 'flex';
