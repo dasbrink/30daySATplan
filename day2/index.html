@@ -16,384 +16,77 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --navy: #1a3a5c;
-  --navy-dark: #0f2540;
-  --gold: #c9902a;
-  --cream: #f5f5f0;
-  --white: #ffffff;
-  --ink: #1a1a1a;
-  --green: #1a7a4c;
-  --red: #c65d4e;
-  --border: #e0e0e0;
+  --navy: #1a3a5c; --navy-dark: #0f2540; --gold: #c9902a; --cream: #f5f5f0;
+  --white: #ffffff; --ink: #1a1a1a; --green: #1a7a4c; --red: #c65d4e; --border: #e0e0e0;
 }
-
-body {
-  font-family: Georgia, 'Times New Roman', serif;
-  background: var(--cream);
-  color: var(--ink);
-  min-height: 100vh;
-}
-
-.topbar {
-  background: var(--navy);
-  padding: 0 24px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.topbar-logo {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: white;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
+body { font-family: Georgia, 'Times New Roman', serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+.topbar { background: var(--navy); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.topbar-logo { font-size: 0.95rem; font-weight: 700; color: white; font-family: -apple-system, Segoe UI, sans-serif; }
 .topbar-logo span { color: var(--gold); }
 .topbar-right { display: flex; align-items: center; gap: 16px; }
-.topbar-day {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
-.topbar-back {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.6);
-  font-family: -apple-system, Segoe UI, sans-serif;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.page-body {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 20px 60px;
-}
-
-.page-heading {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.page-subheading {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 28px;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
-
-.score-banner {
-  background: var(--navy);
-  border-radius: 10px;
-  padding: 20px 24px;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.score-banner-num {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-}
-.score-banner-detail {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  color: rgba(255,255,255,0.8);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
+.topbar-day { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); font-family: -apple-system, Segoe UI, sans-serif; }
+.topbar-back { font-size: 0.82rem; color: rgba(255,255,255,0.6); font-family: -apple-system, Segoe UI, sans-serif; background: none; border: none; cursor: pointer; text-decoration: underline; }
+.page-body { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+.page-heading { font-size: 1.8rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+.page-subheading { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 28px; font-family: -apple-system, Segoe UI, sans-serif; }
+.score-banner { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.score-banner-num { font-size: 3rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.score-banner-detail { font-family: -apple-system, Segoe UI, sans-serif; color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.6; }
 .score-banner-detail strong { color: white; }
-
-.tab-bar {
-  display: flex;
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 28px;
-}
-.tab-btn {
-  padding: 12px 20px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #888;
-  cursor: pointer;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  transition: color 0.15s;
-  white-space: nowrap;
-}
+.tab-bar { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 28px; }
+.tab-btn { padding: 12px 20px; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; font-size: 0.95rem; font-weight: 600; color: #888; cursor: pointer; font-family: -apple-system, Segoe UI, sans-serif; transition: color 0.15s; white-space: nowrap; }
 .tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
-
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-
-.state-box {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 40px;
-  text-align: center;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  color: #666;
-  line-height: 1.6;
-}
+.state-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 40px; text-align: center; font-family: -apple-system, Segoe UI, sans-serif; color: #666; line-height: 1.6; }
 .state-box h3 { color: var(--navy); margin-bottom: 8px; font-size: 1.1rem; }
-.state-box a {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 10px 22px;
-  background: var(--navy);
-  color: white;
-  border-radius: 7px;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.study-intro {
-  background: var(--navy);
-  color: white;
-  border-radius: 10px;
-  padding: 16px 18px;
-  margin-bottom: 14px;
-}
-.study-intro-head {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 800;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
+.state-box a { display: inline-block; margin-top: 16px; padding: 10px 22px; background: var(--navy); color: white; border-radius: 7px; font-weight: 700; text-decoration: none; font-size: 0.9rem; }
+.study-intro { background: var(--navy); color: white; border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+.study-intro-head { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; }
 .study-intro p { margin: 0 0 8px; line-height: 1.55; font-size: 0.95rem; }
 .study-intro p:last-child { margin-bottom: 0; }
-
-.study-misc {
-  border: 1px solid #e2e2dc;
-  border-radius: 10px;
-  margin-top: 20px;
-  background: white;
-  overflow: hidden;
-}
-.study-misc-header {
-  background: var(--navy);
-  color: white;
-  padding: 8px 18px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
+.study-misc { border: 1px solid #e2e2dc; border-radius: 10px; margin-top: 20px; background: white; overflow: hidden; }
+.study-misc-header { background: var(--navy); color: white; padding: 8px 18px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-family: -apple-system, Segoe UI, sans-serif; }
 .study-misc-body { padding: 16px 18px; }
-
-.study-practice-header {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--green);
-  font-family: -apple-system, Segoe UI, sans-serif;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 2px solid #e8f5ee;
-}
-
-.study-q {
-  border: 1px solid #ececec;
-  border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  background: #fafafa;
-}
+.study-practice-header { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); font-family: -apple-system, Segoe UI, sans-serif; margin-top: 16px; padding-top: 14px; border-top: 2px solid #e8f5ee; }
+.study-q { border: 1px solid #ececec; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; background: #fafafa; }
 .study-q-mount { margin-bottom: 8px; line-height: 1.55; }
 .study-q-mount .inline-desmos-graph { width: 100%; max-width: 420px; height: 300px; margin: 0 auto 8px; display: block; }
 .study-q-mount .visual-container { margin-bottom: 8px; }
 .study-q-mount .visual-container svg { max-width: 300px; height: auto; }
 .study-q-mount .question-body-text { line-height: 1.55; }
-
-.study-tut-label {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 700;
-  color: var(--green);
-  font-size: 0.85rem;
-  margin: 10px 0 4px;
-}
+.study-tut-label { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; color: var(--green); font-size: 0.85rem; margin: 10px 0 4px; }
 .study-tut-body { line-height: 1.55; margin-bottom: 6px; white-space: pre-wrap; }
-
 .study-pp { border-top: 1px dashed #ccc; padding-top: 12px; margin-top: 12px; }
 .study-pp-q { font-weight: 600; margin-bottom: 6px; }
-.study-pp-diff {
-  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.04em; color: #8a6515; background: #fbf2dd;
-  padding: 2px 8px; border-radius: 10px; margin-left: 8px;
-}
+.study-pp-diff { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #8a6515; background: #fbf2dd; padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
 .study-pp-choices { margin: 6px 0 8px 1.1em; line-height: 1.5; }
-
-.study-reveal-btn {
-  background: var(--navy);
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  font-family: -apple-system, Segoe UI, sans-serif;
-}
-.study-answer {
-  display: none;
-  margin-top: 8px;
-  padding: 10px 12px;
-  background: #eef8f1;
-  border-radius: 6px;
-  white-space: pre-wrap;
-}
+.study-reveal-btn { background: var(--navy); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-family: -apple-system, Segoe UI, sans-serif; }
+.study-answer { display: none; margin-top: 8px; padding: 10px 12px; background: #eef8f1; border-radius: 6px; white-space: pre-wrap; }
 .study-answer.show { display: block; }
 .study-answer .ans-correct { color: var(--green); font-weight: 700; }
 .study-empty { color: #666; font-style: italic; }
-
-.gap-card {
-  border: 1px solid #e2e2dc;
-  border-radius: 10px;
-  margin-top: 20px;
-  background: white;
-  overflow: hidden;
-}
-.gap-card-header {
-  background: var(--navy);
-  color: white;
-  padding: 12px 18px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.gap-card-title {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-.gap-card-count {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-size: 0.75rem;
-  color: var(--gold);
-  font-weight: 600;
-  white-space: nowrap;
-  margin-top: 2px;
-}
-.gap-card-body {
-  padding: 16px 18px;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: #333;
-}
-.gap-section-label {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--navy);
-  margin: 14px 0 6px;
-}
+.gap-card { border: 1px solid #e2e2dc; border-radius: 10px; margin-top: 20px; background: white; overflow: hidden; }
+.gap-card-header { background: var(--navy); color: white; padding: 12px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.gap-card-title { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.95rem; line-height: 1.4; }
+.gap-card-count { font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.75rem; color: var(--gold); font-weight: 600; white-space: nowrap; margin-top: 2px; }
+.gap-card-body { padding: 16px 18px; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; color: #333; }
+.gap-section-label { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin: 14px 0 6px; }
 .gap-section-label:first-child { margin-top: 0; }
-.gap-content {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: #333;
-  white-space: pre-wrap;
-}
-.gap-example-box {
-  background: #f5f5f0;
-  border-left: 3px solid var(--gold);
-  border-radius: 0 6px 6px 0;
-  padding: 10px 14px;
-  margin: 8px 0;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  white-space: pre-wrap;
-}
-.gap-practice-label {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--green);
-  margin: 16px 0 8px;
-  padding-top: 14px;
-  border-top: 2px solid #e8f5ee;
-}
-.gap-pp {
-  background: #fafafa;
-  border: 1px solid #ececec;
-  border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  font-family: -apple-system, Segoe UI, sans-serif;
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-.gap-pp-difficulty {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 2px 8px;
-  border-radius: 10px;
-  margin-bottom: 8px;
-}
+.gap-content { font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; color: #333; white-space: pre-wrap; }
+.gap-example-box { background: #f5f5f0; border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 10px 14px; margin: 8px 0; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.65; white-space: pre-wrap; }
+.gap-practice-label { font-family: -apple-system, Segoe UI, sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin: 16px 0 8px; padding-top: 14px; border-top: 2px solid #e8f5ee; }
+.gap-pp { background: #fafafa; border: 1px solid #ececec; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; font-family: -apple-system, Segoe UI, sans-serif; font-size: 0.92rem; line-height: 1.6; }
+.gap-pp-difficulty { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
 .gap-pp-difficulty.easy   { background: #e8f5e9; color: #1b5e20; }
 .gap-pp-difficulty.medium { background: #fff8e1; color: #8a6515; }
 .gap-pp-difficulty.hard   { background: #fce4ec; color: #880e4f; }
-
-.done-section {
-  margin-top: 36px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
-.done-section p {
-  font-family: -apple-system, Segoe UI, sans-serif;
-  color: #555;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
-}
-.btn-done {
-  padding: 14px 32px;
-  background: var(--green);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: Georgia, serif;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.done-section { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; }
+.done-section p { font-family: -apple-system, Segoe UI, sans-serif; color: #555; margin-bottom: 16px; font-size: 0.9rem; }
+.btn-done { padding: 14px 32px; background: var(--green); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; font-family: Georgia, serif; cursor: pointer; transition: background 0.2s; }
 .btn-done:hover { background: #145c38; }
 .btn-done:disabled { background: #ccc; cursor: default; }
-
 @media (max-width: 600px) {
   .page-body { padding: 20px 14px 40px; }
   .page-heading { font-size: 1.4rem; }
@@ -458,7 +151,6 @@ const TEST_NUMBER = 1;
 let currentUser = null;
 let inlineGraphInstances = [];
 
-// ── MATH RENDERING ──
 let mathQueue = Promise.resolve();
 function renderMath(el) {
   if (!el) return;
@@ -495,10 +187,7 @@ function stripComments(s) { return String(s || '').replace(/<!--[\s\S]*?-->/g, '
 function renderField(raw) {
   if (!raw) return '';
   return stripComments(raw)
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"');
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/&quot;/g, '"');
 }
 
 function safeParseJSON(raw) {
@@ -566,7 +255,6 @@ async function fetchTable(tableName, filterByFormula, maxRecords) {
     if (offset) params.set('offset', offset);
     const qs = params.toString();
     const url = `${AIRTABLE_API}/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}${qs ? '?' + qs : ''}`;
-    // Retry on 429 (Airtable rate limit: 5 req/sec) with backoff
     let data = null;
     for (let attempt = 0; attempt < 5; attempt++) {
       const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
@@ -595,8 +283,6 @@ async function fetchRecordsByIds(table, ids) {
   return flat;
 }
 
-
-
 function toggleStudyReveal(id, btn, kind) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -609,7 +295,6 @@ function toggleStudyReveal(id, btn, kind) {
 
 const STUDY_DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
 
-// Normalise a raw Questions record into the shape renderQuestionContent expects
 function normaliseBankQuestion(rec) {
   const f = rec.fields || {};
   return {
@@ -626,8 +311,6 @@ function normaliseBankQuestion(rec) {
   };
 }
 
-// Renders a practice problem from the MAIN question bank (Questions table fields).
-// Returns { html, mountId, question } so the caller can render the graph/text into the mount.
 function renderMainBankPP(rec, idx) {
   const f = rec.fields || {};
   const correct = f['Correct Answer'] || '';
@@ -675,9 +358,13 @@ function renderPracticeProblemHTML(rec, idx) {
   </div>`;
 }
 
+// ── UPDATED: Desmos video button added ──
 function reportQuestionBlockHTML(qn, uid, questionNumber) {
   const solId = 'sol-' + uid, mountId = 'qm-' + uid;
   const sol = renderField(qn.solution || '');
+  const desmosBtn = (qn.desmosVideoUrl && qn.desmosVideoUrl.trim())
+    ? `<div style="margin-top:10px;"><a href="${escHTML(qn.desmosVideoUrl)}" target="_blank" rel="noopener" style="display:inline-block;padding:9px 18px;background:#1a6fbd;color:#fff;border-radius:6px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:0.85rem;font-weight:700;text-decoration:none;">Watch the Desmos solution</a></div>`
+    : '';
   let html = `<div class="study-misc">
     <div class="study-misc-header">Question ${questionNumber} — You got this wrong</div>
     <div class="study-misc-body">
@@ -686,7 +373,7 @@ function reportQuestionBlockHTML(qn, uid, questionNumber) {
     html += `<button class="study-reveal-btn" onclick="toggleStudyReveal('${solId}',this,'sol')">Show worked solution</button>`;
     html += `<div class="study-answer" id="${solId}"><div class="ans-correct">Answer: ${renderField(qn.correctAnswer)}</div><div style="margin-top:6px;">${sol}</div></div>`;
   }
-  html += `</div>`;
+  html += desmosBtn + `</div>`;
   return { html, mountId };
 }
 
@@ -706,8 +393,6 @@ async function fetchTeachingByMisconceptions(miscIds) {
   miscRecs.forEach(m => {
     const t = m.fields['Tutorials'] || [];
     miscToTut.set(m.id, t[0] || null);
-    // Skill field returns linked record IDs; ARRAYJOIN in formula uses skill name.
-    // Store the raw skill record IDs for filtering.
     miscToSkillName.set(m.id, (m.fields['Skill'] || [])[0] || null);
     t.forEach(id => tutIds.add(id));
   });
@@ -719,16 +404,12 @@ async function fetchTeachingByMisconceptions(miscIds) {
   };
 }
 
-// Fetch 1 Easy + 1 Medium + 1 Hard from the main 4,700-question bank
-// for the skill linked to a misconception, excluding the question already seen.
 async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   if (!skillRecId) { console.log('[PP] no skillRecId for a missed question'); return []; }
-  // Step 1: Fetch the skill record to get its name (primary field)
   const skillRecs = await fetchRecordsByIds('Skills', [skillRecId]);
   if (!skillRecs.length) { console.log('[PP] skill record not found:', skillRecId); return []; }
   const skillName = skillRecs[0].fields['Skill Name'] || '';
   if (!skillName) { console.log('[PP] skill has no name:', skillRecId); return []; }
-  // Step 2: Filter Questions where ARRAYJOIN({Skill}) contains the skill name
   const esc = skillName.replace(/'/g, "\\'");
   const formula = `AND(
     FIND('${esc}', ARRAYJOIN({Skill})),
@@ -747,7 +428,6 @@ async function fetchMainBankPPBySkillId(skillRecId, excludeQId) {
   if (chosen.length === 0 && recs.length > 0) {
     chosen = fisherYatesShuffle(recs).slice(0, 3);
   }
-  // Attach distractor text to each chosen question (main-bank distractors are linked records)
   const allDistIds = new Set();
   chosen.forEach(r => (r.fields['Distractors'] || []).forEach(id => allDistIds.add(id)));
   if (allDistIds.size > 0) {
@@ -782,8 +462,6 @@ async function renderSpecificMistakes(missed) {
       <p>Each question below comes with a worked solution and practice problems targeting the exact same concept.</p>
       <p>Try the practice problems yourself first, then tap to see the answer.</p>
     </div>`;
-    // Pre-fetch practice problems from main bank, throttled to avoid Airtable 429.
-    // Process 2 at a time with a small delay between batches.
     const ppByMiscId = new Map();
     const fetchJobs = [];
     missed.forEach((m, i) => {
@@ -835,7 +513,6 @@ async function renderSpecificMistakes(missed) {
   }
 }
 
-// ── UPDATED: renderGapCard now takes pre-fetched main-bank questions ──
 function renderGapCard(rec, count) {
   const f = rec.fields || {};
   const name    = f['Name'] || '(unnamed)';
@@ -860,7 +537,6 @@ function renderGapCard(rec, count) {
     if (medium) html += `<div class="gap-pp"><span class="gap-pp-difficulty medium">Medium</span><div style="margin-top:8px;" class="gap-content">${medium}</div></div>`;
     if (hard)   html += `<div class="gap-pp"><span class="gap-pp-difficulty hard">Hard</span><div style="margin-top:8px;" class="gap-content">${hard}</div></div>`;
   }
-
   html += `</div></div>`;
   return html;
 }
