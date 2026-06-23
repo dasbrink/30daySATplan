@@ -702,7 +702,6 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
         </div>
       </div>
       <!-- Body -->
-      <!-- Body -->
       <div class="test-body">
         <div class="test-sidebar">
           <div class="sidebar-heading">Questions</div>
@@ -801,7 +800,6 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
 
 <script>
 // ── CONFIGURATION ──────────────────────────────────────────────
-// TODO: Replace with 30-day plan Supabase credentials
 const SUPABASE_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -812,8 +810,8 @@ const AIRTABLE_API = 'https://api.airtable.com/v0';
 
 const FULL_TEST_QUESTIONS = 44;
 const MODULE_SECONDS = 35 * 60;
-const BREAK_SECONDS = 3; // Break bypassed — Module 2 unlocks immediately
-const THIS_TEST_NUMBER = 1; // Day 1 diagnostic
+const BREAK_SECONDS = 3;
+const THIS_TEST_NUMBER = 1;
 
 // ── AUTH ───────────────────────────────────────────────────────
 let currentUser = null;
@@ -863,7 +861,6 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
 }
 
-// ── FISHER-YATES ───────────────────────────────────────────────
 // ── OPEN-ENDED HELPERS ────────────────────────────────────────
 function isCleanInteger(answer) {
   if (!answer) return false;
@@ -891,7 +888,7 @@ function normaliseAnswer(s) {
 function checkOpenEndedAnswer(typed, correct) {
   const t = normaliseAnswer(typed);
   const c = normaliseAnswer(correct);
-  if (t === '' ) return null; // unanswered
+  if (t === '') return null; // unanswered
   const tn = Number(t), cn = Number(c);
   if (!isNaN(tn) && !isNaN(cn)) return tn === cn;
   return t.toLowerCase() === c.toLowerCase();
@@ -1095,7 +1092,6 @@ function initFormulaSheetDragging() {
   resizeHandle.addEventListener('touchstart', onResizeStart, { passive: false });
 }
 
-// formula sheet dragging initialized in main DOMContentLoaded below
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && formulaSheetOpen) toggleFormulaSheet(); });
 
 // ── INLINE DESMOS ──────────────────────────────────────────────
@@ -1258,14 +1254,26 @@ async function completeTestSession(sessionId, score, total) {
   } catch (e) {}
 }
 
-async function saveAnswers(moduleQuestions, moduleAnswers, moduleShuffledChoices) {
+// ── FIX 1: saveAnswers now handles open-ended questions ────────
+async function saveAnswers(moduleQuestions, moduleAnswers, moduleShuffledChoices, moduleOEMap, moduleOEAnswers) {
   if (!currentUser) return;
   const rows = [], now = new Date().toISOString();
   moduleQuestions.forEach((q, i) => {
-    const ai = moduleAnswers[i];
-    const choices = moduleShuffledChoices[i] || [];
     let answerText = null, isCorrect = false;
-    if (ai !== undefined && choices[ai]) { answerText = choices[ai].text; isCorrect = choices[ai].isCorrect === true; }
+    if (moduleOEMap && moduleOEMap[i]) {
+      // Open-ended question — record the typed answer and whether it was correct
+      const typed = (moduleOEAnswers && moduleOEAnswers[i]) || '';
+      const result = checkOpenEndedAnswer(typed, q.correctAnswer);
+      answerText = typed || null;
+      isCorrect = result === true;
+    } else {
+      const ai = moduleAnswers[i];
+      const choices = moduleShuffledChoices[i] || [];
+      if (ai !== undefined && choices[ai]) {
+        answerText = choices[ai].text;
+        isCorrect = choices[ai].isCorrect === true;
+      }
+    }
     rows.push({ user_id: currentUser.id, question_id: q.id, answer_given: answerText, is_correct: isCorrect, seen_at: now });
   });
   try { await supabaseClient.from('questions_seen').insert(rows); } catch (e) {}
@@ -1284,9 +1292,9 @@ let currentQuestionIndex = 0;
 let studentAnswers = {}, module1Answers = {}, module1ShuffledChoices = {};
 let markedQuestions = {}, shuffledChoices = {}, struckChoices = {};
 let lastResultsMissed = [];
-let openEndedMap = {};        // index -> true if this question is open-ended this session
-let openEndedAnswers = {};    // index -> string typed by student
-let oeModuleCount = 0;        // how many OE questions assigned so far this module
+let openEndedMap = {};
+let openEndedAnswers = {};
+let oeModuleCount = 0;
 const OE_PROBABILITY = 0.25;
 const OE_MAX_PER_MODULE = 6;
 let currentSessionId = null;
@@ -1306,14 +1314,9 @@ async function startTest(untimed) {
     '<p style="margin:0;">Assembling 44 questions from the question bank. This usually takes 10–20 seconds.</p></div>';
   document.getElementById('answer-choices').innerHTML = '';
   try {
-    // Always Test A for Day 1
     const qRecords = await fetchTable('Questions', `OR({diagnostic_module}='m1', {diagnostic_module}='m2_hard')`);
     allQuestions = qRecords.map(normaliseQuestion).filter(q => q.replacementStatus !== 'rebuild');
 
-    module1Questions = fisherYatesShuffle(allQuestions.filter(q => (q.diagnosticModule || '').toLowerCase() === 'm1' || (qRecords.find(r => r.id === q.id)?.fields['diagnostic_module'] || '').toLowerCase() === 'm1'));
-    module2Questions = fisherYatesShuffle(allQuestions.filter(q => (q.diagnosticModule || '').toLowerCase() === 'm2_hard' || (qRecords.find(r => r.id === q.id)?.fields['diagnostic_module'] || '').toLowerCase() === 'm2_hard'));
-
-    // Re-normalise with diagnostic_module in place
     const withDiag = qRecords.map(r => ({ ...normaliseQuestion(r), diagnosticModule: (r.fields['diagnostic_module'] || '').toLowerCase() }));
     module1Questions = fisherYatesShuffle(withDiag.filter(q => q.diagnosticModule === 'm1'));
     module2Questions = fisherYatesShuffle(withDiag.filter(q => q.diagnosticModule === 'm2_hard'));
@@ -1381,7 +1384,11 @@ function updateQuestionGrid() {
     if (!btn || !wrapper) return;
     btn.className = 'q-num-btn';
     if (i === currentQuestionIndex) btn.classList.add('current');
-    if (studentAnswers[i] !== undefined || (openEndedMap[i] && openEndedAnswers[i])) btn.classList.add('answered');
+    // FIX: treat OE question as answered if something is typed
+    const isAnswered = isOE(i)
+      ? (openEndedAnswers[i] && openEndedAnswers[i].trim() !== '')
+      : (studentAnswers[i] !== undefined);
+    if (isAnswered) btn.classList.add('answered');
     let flag = wrapper.querySelector('.q-flag');
     if (markedQuestions[i]) { if (!flag) { flag = document.createElement('span'); flag.className = 'q-flag'; flag.textContent = '⚑'; wrapper.appendChild(flag); } }
     else { if (flag) flag.remove(); }
@@ -1416,7 +1423,6 @@ function showQuestion() {
   choicesEl.innerHTML = '';
 
   if (isOE(currentQuestionIndex)) {
-    // ── Open-ended input ──
     const badge = document.createElement('div');
     badge.className = 'oe-badge';
     badge.textContent = 'Student-produced response';
@@ -1429,19 +1435,17 @@ function showQuestion() {
     input.value = getOEAnswer(currentQuestionIndex);
     input.addEventListener('input', () => {
       setOEAnswer(currentQuestionIndex, input.value);
-      document.getElementById('btn-submit') && (document.getElementById('btn-submit').disabled = input.value.trim() === '');
     });
-    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && input.value.trim()) document.getElementById('btn-submit')?.click(); });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') goForward(); });
     row.appendChild(input);
     choicesEl.appendChild(row);
 
     const hint = document.createElement('div'); hint.className = 'oe-hint';
-    hint.textContent = 'Type your answer and click Submit Answer. Enter numbers only (e.g. 7, 42).';
+    hint.textContent = 'Type your answer. Enter numbers only (e.g. 7, 42).';
     choicesEl.appendChild(hint);
 
     setTimeout(() => { const el = document.getElementById('oe-input'); if (el) el.focus(); }, 50);
   } else {
-    // ── Multiple choice ──
     const choices = shuffledChoices[currentQuestionIndex] || [];
     const struck = getStruckSet(currentQuestionIndex);
     choices.forEach((choice, i) => {
@@ -1465,14 +1469,6 @@ function showQuestion() {
   document.getElementById('next-btn').style.display = isLast ? 'none' : 'inline-block';
   document.getElementById('inline-submit-btn').style.display = isLast ? 'inline-block' : 'none';
 
-  // Disable submit for OE until something is typed
-  const submitBtn = document.getElementById('btn-submit');
-  if (submitBtn && isOE(currentQuestionIndex)) {
-    submitBtn.disabled = getOEAnswer(currentQuestionIndex).trim() === '';
-  } else if (submitBtn) {
-    submitBtn.disabled = false; // MC — always enabled (selection handled by selectAnswer)
-  }
-
   updateQuestionGrid();
 }
 
@@ -1492,10 +1488,17 @@ function toggleMark() {
 function goBack() { if (currentQuestionIndex > 0) { currentQuestionIndex--; showQuestion(); } }
 function goForward() { if (currentQuestionIndex < currentModuleQuestions.length - 1) { currentQuestionIndex++; showQuestion(); } }
 
-// ── SUBMIT CONFIRMATION ────────────────────────────────────────
+// ── FIX 2: confirmSubmit counts OE answers correctly ──────────
 function confirmSubmit() {
   const total = currentModuleQuestions.length;
-  const answered = Object.keys(studentAnswers).length;
+  let answered = 0;
+  for (let i = 0; i < total; i++) {
+    if (isOE(i)) {
+      if (getOEAnswer(i).trim() !== '') answered++;
+    } else {
+      if (studentAnswers[i] !== undefined) answered++;
+    }
+  }
   const unanswered = total - answered;
   const marked = Object.keys(markedQuestions).length;
   let html = `<div class="confirm-stat"><span>${answered}</span> of ${total} questions answered</div>`;
@@ -1540,7 +1543,8 @@ async function submitModule() {
     module1OEMap = { ...openEndedMap };
     module1ShuffledChoices = {};
     Object.keys(shuffledChoices).forEach(idx => { module1ShuffledChoices[idx] = shuffledChoices[idx]; });
-    saveAnswers(module1Questions, module1Answers, module1ShuffledChoices);
+    // FIX: pass OE map and answers to saveAnswers
+    saveAnswers(module1Questions, module1Answers, module1ShuffledChoices, module1OEMap, module1OEAnswers);
     let correct = 0;
     currentModuleQuestions.forEach((q, i) => {
       if (module1OEMap[i]) {
@@ -1554,7 +1558,8 @@ async function submitModule() {
     startBreak();
   } else {
     disableNavigationWarning(); exitFullscreen();
-    saveAnswers(module2Questions, studentAnswers, shuffledChoices);
+    // FIX: pass OE map and answers for module 2 as well
+    saveAnswers(module2Questions, studentAnswers, shuffledChoices, openEndedMap, openEndedAnswers);
     showResults();
   }
 }
@@ -1705,8 +1710,6 @@ async function countCompletedTests() {
 async function computeFoundationalDiagnosis() {
   if (!currentUser) return null;
   const [completedTests, allMissedIds] = await Promise.all([countCompletedTests(), fetchAllMissedIdsForUser()]);
-  // After this test we have 1 completed test — not enough for foundational (needs 2+)
-  // So this will always return locked on Day 1, which is correct.
   if (completedTests < 2 || allMissedIds.length < 30) {
     return { status: 'locked', completedTests, distinctMisses: allMissedIds.length, needed: { tests: 2, misses: 30 } };
   }
@@ -1761,7 +1764,6 @@ async function showResults() {
 
   module1Questions.forEach((q, i) => {
     if (module1OEMap[i]) {
-      // Open-ended question
       const typed = module1OEAnswers[i] || '';
       const result = checkOpenEndedAnswer(typed, q.correctAnswer);
       if (result === null) {
@@ -1786,10 +1788,13 @@ async function showResults() {
   });
 
   let m2Correct = 0;
+  // FIX: use the module 2 OE state (openEndedMap/openEndedAnswers are still set for module 2 at this point)
+  const m2OEMap = { ...openEndedMap };
+  const m2OEAnswers = { ...openEndedAnswers };
+
   module2Questions.forEach((q, i) => {
-    if (openEndedMap[i]) {
-      // Open-ended question in module 2
-      const typed = openEndedAnswers[i] || '';
+    if (m2OEMap[i]) {
+      const typed = m2OEAnswers[i] || '';
       const result = checkOpenEndedAnswer(typed, q.correctAnswer);
       if (result === null) {
         lastResultsMissed.push({ q, choices: [], chosenIndex: null, isOE: true, typedAnswer: typed });
@@ -1817,7 +1822,6 @@ async function showResults() {
   const estimatedScore = convertToSATScore(totalCorrect);
   completeTestSession(currentSessionId, estimatedScore, total);
 
-  // Save to Supabase
   try {
     await supabaseClient.from('test_results').insert({
       user_id: currentUser.id, score: estimatedScore, test_number: 1,
@@ -1892,7 +1896,6 @@ function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct, mis
     </div>
   `;
 
-  // Add responsive grid styles
   if (!document.getElementById('rb-grid-style')) {
     const s = document.createElement('style');
     s.id = 'rb-grid-style';
@@ -1900,7 +1903,6 @@ function renderResultsPage(score, totalCorrect, total, m1Correct, m2Correct, mis
     document.head.appendChild(s);
   }
 
-  // Run diagnosis async and fill in cells
   runDiagnosis(missedIds, answeredIds);
 }
 
@@ -1950,7 +1952,7 @@ function updateSpecificCell(diag, missedIds, answeredIds) {
   cell.innerHTML = inner;
 }
 
-// ── WORKED SOLUTIONS (printout, same as freepracticesat.com) ───
+// ── WORKED SOLUTIONS ───────────────────────────────────────────
 function escForPrint(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderPrintItem(it) {
@@ -1958,7 +1960,6 @@ function renderPrintItem(it) {
   const qText = questionTextContainsHTML(q.text) ? stripComments(q.text) : escForPrint(stripComments(q.text));
   const letters = ['A','B','C','D','E','F','G','H'];
 
-  // Open-ended missed question
   if (it.isOE) {
     const typed = it.typedAnswer || '(no answer)';
     const sol = q.solution && q.solution.trim() ? `<div class="solution"><div class="sol-label">Worked solution</div><div class="sol-body">${stripComments(q.solution).replace(/\n/g,'<br>')}</div></div>` : '';
@@ -1986,10 +1987,9 @@ async function openWorkedSolutions() {
   if (!win) { alert('Please allow pop-ups so the review sheet can open.'); return; }
   win.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Preparing…</title></head><body style="font-family:-apple-system,Segoe UI,sans-serif;padding:48px;color:#1a3a5c;"><h2>Preparing your review sheet…</h2><p>Please keep this tab open.</p></body></html>');
   win.document.close();
-  const items = lastResultsMissed.map((m, idx) => ({ number: idx + 1, q: m.q, choices: m.choices, chosenIndex: m.chosenIndex, figureHTML: '' }));
+  const items = lastResultsMissed.map((m, idx) => ({ number: idx + 1, q: m.q, choices: m.choices, chosenIndex: m.chosenIndex, isOE: m.isOE || false, typedAnswer: m.typedAnswer || null, figureHTML: '' }));
   await Promise.all(items.map(async (it) => {
     if ((it.q.graphType || '').toLowerCase() === 'desmos') {
-      // Capture desmos as data URI
       const uri = await captureDesmosDataURI(it.q);
       if (uri) it.figureHTML = `<img class="fig-img" src="${uri}" alt="graph">`;
     } else if (it.q.visualSvg && it.q.visualSvg.trim()) { it.figureHTML = it.q.visualSvg; }
@@ -2029,8 +2029,7 @@ async function captureDesmosDataURI(question) {
   });
 }
 
-// ── STUDY REPORTS (Foundational + Specific — same as freepracticesat.com) ──
-
+// ── STUDY REPORTS ──────────────────────────────────────────────
 function closeStudyPanel() {
   const overlay = document.getElementById('study-overlay');
   if (overlay) overlay.classList.remove('open');
@@ -2106,15 +2105,12 @@ async function openFoundationalReport() {
   document.getElementById('study-overlay').classList.add('open');
   body.innerHTML = `<div class="study-loading">Building your foundational report…</div>`;
 
-  // Same as freepracticesat.com's openFoundationalReport but simplified for Day 1
-  // Foundational requires 2+ tests so on Day 1 this will show the locked message
   const allMissedIds = await fetchAllMissedIdsForUser();
   const completedTests = await countCompletedTests();
   if (completedTests < 2 || allMissedIds.length < 30) {
     body.innerHTML = `<div class="study-intro"><div class="study-intro-head">Foundational gaps</div><p>We need data from at least 2 tests to identify your foundational gaps. Your Day 1 data is saved. After you complete more tests — starting with the Day 11 diagnostic — this report fills in automatically.</p><p>Come back to this on Day 2 to review your specific mistakes from today, and again after Day 11 for your full foundational analysis.</p></div>`;
     return;
   }
-  // (If somehow 2+ tests exist, run the full report)
   try {
     const critMap = await fetchCriticalsForQuestions(allMissedIds);
     const tally = new Map();
@@ -2176,7 +2172,7 @@ async function openSpecificReport() {
   }
 }
 
-// ── VIEW SAVED RESULTS (rebuild from snapshot — diagnostics are view-only) ──
+// ── VIEW SAVED RESULTS ─────────────────────────────────────────
 let savedResultSnapshot = null;
 
 async function fetchSavedResult() {
