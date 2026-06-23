@@ -693,6 +693,11 @@ async function startCheckout() {
   }
   errEl.style.display = 'none';
 
+  // Google Ads — fire "Started Enrollment" conversion on checkout start
+  try {
+    gtag('event', 'conversion', { 'send_to': 'AW-18242816022/EvhqCLa7i8QcEJaQ7fpD' });
+  } catch (e) {}
+
   try {
     const res = await fetch(CHECKOUT_FN_URL, {
       method: 'POST',
