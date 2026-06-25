@@ -688,6 +688,7 @@ async function startCheckout() {
   const errEl = document.getElementById('modal-error');
 
   if (!parentEmail || !studentEmail) {
+    errEl.textContent = 'Please enter both email addresses.';
     errEl.style.display = 'block';
     return;
   }
@@ -702,7 +703,7 @@ async function startCheckout() {
     const res = await fetch(CHECKOUT_FN_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ parentEmail, studentEmail })
+      body: JSON.stringify({ student_email: studentEmail, parent_email: parentEmail })
     });
     const data = await res.json();
     if (data.url) {
