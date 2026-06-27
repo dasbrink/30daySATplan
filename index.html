@@ -64,24 +64,52 @@ nav .nav-enroll:hover { background: #a87020; }
   margin-bottom: 18px;
   font-weight: normal;
 }
-.hero h1 em {
-  color: var(--gold);
-  font-style: normal;
+.hero h1 .countdown {
+  color: #e53e3e;
+  font-weight: bold;
 }
-.hero p {
+.hero p.hero-sub {
   font-size: clamp(16px, 2.5vw, 20px);
   color: rgba(255,255,255,0.85);
   max-width: 580px;
-  margin: 0 auto 36px;
+  margin: 0 auto 28px;
   line-height: 1.6;
 }
+
+/* ── QUOTE ── */
+.hero-quote {
+  max-width: 480px;
+  margin: 0 auto 32px;
+  text-align: right;
+}
+.hero-quote p {
+  font-size: 13px;
+  color: var(--gold);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+.hero-quote cite {
+  font-size: 12px;
+  color: rgba(201,144,42,0.75);
+  font-style: normal;
+}
+
 /* ── HERO BLOCKS ── */
+.hero-blocks-wrap {
+  margin-top: 36px;
+}
+.hero-blocks-heading {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 16px;
+  font-style: italic;
+}
 .hero-blocks {
   display: flex;
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 36px;
   max-width: 860px;
   margin-left: auto;
   margin-right: auto;
@@ -166,28 +194,6 @@ nav .nav-enroll:hover { background: #a87020; }
 }
 .credentials strong { color: var(--gold); }
 
-/* ── TESTIMONIAL ── */
-.testimonial {
-  background: #fff;
-  border-left: 4px solid var(--gold);
-  max-width: 640px;
-  margin: 40px auto;
-  padding: 24px 28px;
-  border-radius: 0 8px 8px 0;
-}
-.testimonial blockquote {
-  font-size: 17px;
-  font-style: italic;
-  color: var(--text);
-  line-height: 1.7;
-  margin-bottom: 10px;
-}
-.testimonial cite {
-  font-size: 14px;
-  color: var(--muted);
-  font-style: normal;
-}
-
 /* ── FIND OUT MORE TOGGLE ── */
 .toggle-wrap {
   text-align: center;
@@ -215,7 +221,7 @@ nav .nav-enroll:hover { background: #a87020; }
 #more-content { display: none; }
 #more-content.open { display: block; }
 
-/* ── SECTION STYLES (reused from original) ── */
+/* ── SECTION STYLES ── */
 .section { padding: 64px 24px; }
 .section-inner { max-width: 860px; margin: 0 auto; }
 .section-label {
@@ -230,7 +236,6 @@ nav .nav-enroll:hover { background: #a87020; }
 }
 .section p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
 .section p:last-child { margin-bottom: 0; }
-
 .section-alt { background: white; }
 
 /* ── PROBLEM SECTION ── */
@@ -379,7 +384,6 @@ nav .nav-enroll:hover { background: #a87020; }
 .modal h3 { color: var(--navy); font-size: 22px; margin-bottom: 8px; }
 .modal p  { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
 .modal label { display: block; font-size: 13px; color: #555; margin-bottom: 5px; }
-.modal .optional-note { font-size: 12px; color: #888; margin-top: -10px; margin-bottom: 14px; }
 .modal input {
   width: 100%; padding: 12px; border: 1px solid #ccc;
   border-radius: 6px; font-size: 15px; margin-bottom: 6px;
@@ -423,17 +427,27 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 
 <!-- HERO -->
 <section class="hero">
-  <h1>A strong SAT score opens doors. <em>Don't leave it to chance.</em></h1>
-  <p>A good score widens your choices — better colleges, scholarships, and the opportunities that follow. Walking in unprepared puts that at risk. This 30-day plan removes the guesswork: it finds exactly what is holding your math score back, fixes those specific gaps, and gets you to test day ready.</p>
-  <div class="hero-blocks">
-    <div class="hero-block">Know exactly what is holding your score back</div>
-    <div class="hero-block">Fix those specific gaps — no time wasted on what you already know</div>
-    <div class="hero-block">Walk into test day having done 5 full SAT tests</div>
+  <h1>The August 22 SAT is <span class="countdown" id="countdown-days"></span>. Don't let summer slip by.</h1>
+  <p class="hero-sub">Your child gets one summer before August 22. This 30-day plan makes sure it counts — structured preparation that fits into summer life without taking it over.</p>
+
+  <div class="hero-quote">
+    <p>"If you fail to prepare, you are preparing to fail."</p>
+    <cite>— Benjamin Franklin</cite>
   </div>
+
   <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
   <div class="hero-guarantee">
     <span>&#10003;</span>
     <span><strong>7-day money-back guarantee.</strong> Full refund if it is not the right fit.</span>
+  </div>
+
+  <div class="hero-blocks-wrap">
+    <p class="hero-blocks-heading">This 30-day plan...</p>
+    <div class="hero-blocks">
+      <div class="hero-block">helps you know what is holding back your score</div>
+      <div class="hero-block">fixes your personal blind spots</div>
+      <div class="hero-block">makes you walk into the next SAT fully prepared</div>
+    </div>
   </div>
 </section>
 
@@ -652,7 +666,7 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
     <p>Enter your email below. You'll pay $99 via Stripe, then receive your login link immediately.</p>
     <label for="student-email">Your email (student or parent enrolling for yourself)</label>
     <input type="email" id="student-email" placeholder="your@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
-    <label for="parent-email">Parent's email <span style="color:#888;font-weight:normal;">(optional — receives a free bonus resource)</span></label>
+    <label for="parent-email">Parent's email <span style="color:#888;font-weight:normal;">(optional — receives a helpful article for supporting your child's prep)</span></label>
     <input type="email" id="parent-email" placeholder="parent@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
     <div class="error" id="modal-error">Please enter your email address.</div>
     <p class="modal-guarantee">Covered by a 7-day money-back guarantee — a full refund if it is not the right fit.</p>
@@ -661,6 +675,18 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 </div>
 
 <script>
+// ── Countdown to August 22 ──
+(function() {
+  const target = new Date('2026-08-22T00:00:00');
+  const today  = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+  const el = document.getElementById('countdown-days');
+  if (el) {
+    el.textContent = diff > 0 ? diff + ' days away' : 'here';
+  }
+})();
+
 // ── Toggle more content ──
 function toggleMore(btn) {
   const content = document.getElementById('more-content');
