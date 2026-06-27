@@ -663,13 +663,14 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Enroll in the 30-Day Plan</h3>
-    <p>Enter your email below. You'll pay $99 via Stripe, then receive your login link immediately.</p>
-    <label for="student-email">Your email (student or parent enrolling for yourself)</label>
+    <p>You'll pay $99 via Stripe, then receive your login link immediately.</p>
+    <label for="student-email">Student Email Address</label>
     <input type="email" id="student-email" placeholder="your@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
-    <label for="parent-email">Parent's email <span style="color:#888;font-weight:normal;">(optional — receives a helpful article for supporting your child's prep)</span></label>
+    <label for="parent-email">Parent Email Address — Optional</label>
+    <p style="font-size:12px;color:#888;margin-top:-2px;margin-bottom:14px;">(Parent will receive confirmation of payment as well as a helpful article on how to support your student on their SAT journey.)</p>
     <input type="email" id="parent-email" placeholder="parent@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
     <div class="error" id="modal-error">Please enter your email address.</div>
-    <p class="modal-guarantee">Covered by a 7-day money-back guarantee — a full refund if it is not the right fit.</p>
+    <p class="modal-guarantee"><span style="color:#dc2626;">7-day</span> money-back guarantee — full refund if it is not the right fit. Checkout is powered by Stripe, trusted by millions of businesses. Your card information is encrypted and never touches this website.</p>
     <button class="btn-primary" style="width:100%;text-align:center;" onclick="startCheckout()">Continue to Payment</button>
   </div>
 </div>
