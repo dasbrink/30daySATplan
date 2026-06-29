@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>30 Day SAT Math Plan — Targeted Prep That Actually Works</title>
-<meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99. Starts the day you enroll.">
+<meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99 lifetime access. Starts the day you enroll.">
 
 <!-- Google Ads conversion tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18242816022"></script>
@@ -64,16 +64,12 @@ nav .nav-enroll:hover { background: #a87020; }
   margin-bottom: 18px;
   font-weight: normal;
 }
-.hero h1 .countdown {
-  color: #e53e3e;
-  font-weight: bold;
-}
 .hero p.hero-sub {
-  font-size: clamp(16px, 2.5vw, 20px);
+  font-size: clamp(15px, 2.5vw, 18px);
   color: rgba(255,255,255,0.85);
-  max-width: 580px;
+  max-width: 620px;
   margin: 0 auto 28px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* ── QUOTE ── */
@@ -96,9 +92,7 @@ nav .nav-enroll:hover { background: #a87020; }
 }
 
 /* ── HERO BLOCKS ── */
-.hero-blocks-wrap {
-  margin-top: 36px;
-}
+.hero-blocks-wrap { margin-top: 36px; }
 .hero-blocks-heading {
   font-size: 16px;
   color: rgba(255,255,255,0.85);
@@ -154,6 +148,64 @@ nav .nav-enroll:hover { background: #a87020; }
   flex-wrap: wrap;
 }
 .hero-guarantee strong { color: white; }
+
+/* ── SAT COUNTDOWN SECTION ── */
+.sat-dates {
+  background: var(--navy2);
+  padding: 32px 24px;
+  text-align: center;
+}
+.sat-dates-heading {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.sat-dates-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.sat-date-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(201,144,42,0.4);
+  border-radius: 10px;
+  padding: 20px 28px;
+  min-width: 180px;
+  text-align: center;
+}
+.sat-date-card .date-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+}
+.sat-date-card .date-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8px;
+}
+.sat-date-card .days-left {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--gold);
+  line-height: 1;
+}
+.sat-date-card .days-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+.sat-dates-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 18px;
+  font-style: italic;
+}
 
 /* ── STATS BAR ── */
 .stats {
@@ -343,7 +395,7 @@ nav .nav-enroll:hover { background: #a87020; }
 .enroll-section h2 { font-size: clamp(22px, 4vw, 34px); margin-bottom: 8px; }
 .enroll-section .price {
   font-size: 48px; font-weight: bold; color: var(--gold);
-  margin: 16px 0 8px;
+  margin: 16px 0 4px;
 }
 .enroll-section .price-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
 .feature-list {
@@ -414,6 +466,8 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   .stat-number { font-size: 24px; }
   .bio-wrap { flex-direction: column; align-items: center; }
   .pillars { flex-direction: column; }
+  .sat-dates-grid { flex-direction: column; align-items: center; }
+  .sat-date-card { width: 100%; max-width: 280px; }
 }
 </style>
 </head>
@@ -427,8 +481,8 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 
 <!-- HERO -->
 <section class="hero">
-  <h1>The August 22 SAT is <span class="countdown" id="countdown-days"></span>. Don't let summer slip by.</h1>
-  <p class="hero-sub">Your child gets one summer before August 22. This 30-day plan makes sure it counts — structured preparation that fits into summer life without taking it over.</p>
+  <h1>30 days from now, your child will be a different SAT Math student.</h1>
+  <p class="hero-sub">Diagnostic tests. Unlimited targeted practice. Worked solutions. Desmos Strategies. Built by Daniel Brink, Ph.D. &nbsp;·&nbsp; $99 lifetime access.</p>
 
   <div class="hero-quote">
     <p>"If you fail to prepare, you are preparing to fail."</p>
@@ -444,12 +498,38 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <div class="hero-blocks-wrap">
     <p class="hero-blocks-heading">This 30-day plan...</p>
     <div class="hero-blocks">
-      <div class="hero-block">helps you know what is holding back your score</div>
-      <div class="hero-block">fixes your personal blind spots</div>
-      <div class="hero-block">makes you walk into the next SAT fully prepared</div>
+      <div class="hero-block">finds exactly what is holding back your child's score</div>
+      <div class="hero-block">fixes their personal blind spots with targeted practice</div>
+      <div class="hero-block">makes them walk into test day fully prepared</div>
     </div>
   </div>
 </section>
+
+<!-- SAT DATE COUNTDOWNS -->
+<div class="sat-dates">
+  <p class="sat-dates-heading">Next SAT test dates — how much time do you have?</p>
+  <div class="sat-dates-grid">
+    <div class="sat-date-card">
+      <div class="date-label">Next SAT</div>
+      <div class="date-name">August 22, 2026</div>
+      <div class="days-left" id="days-aug"></div>
+      <div class="days-label">days away</div>
+    </div>
+    <div class="sat-date-card">
+      <div class="date-label">Following SAT</div>
+      <div class="date-name">September 12, 2026</div>
+      <div class="days-left" id="days-sep"></div>
+      <div class="days-label">days away</div>
+    </div>
+    <div class="sat-date-card">
+      <div class="date-label">After that</div>
+      <div class="date-name">October 3, 2026</div>
+      <div class="days-left" id="days-oct"></div>
+      <div class="days-label">days away</div>
+    </div>
+  </div>
+  <p class="sat-dates-note">30 days of focused preparation is enough time to make a real difference — for any of these dates.</p>
+</div>
 
 <!-- STATS BAR -->
 <div class="stats">
@@ -632,13 +712,15 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 <section class="enroll-section">
   <h2>30 days. A clear plan. Measurable results.</h2>
   <div class="price">$99</div>
-  <div class="price-sub">One-time payment. Access from enrollment through test day.</div>
+  <div class="price-sub">One-time payment. Lifetime access. Starts the day you enroll.</div>
   <ul class="feature-list">
     <li>3 full diagnostic tests with complete gap analysis</li>
     <li>30 structured practice days, personalised to your results</li>
     <li>4,700 questions across all 70 SAT Math skills</li>
     <li>Worked solutions and tutorials for every missed question</li>
+    <li>Desmos Strategies for eligible questions</li>
     <li>4 full timed practice tests in real SAT format</li>
+    <li>Lifetime access — use it for every SAT you take</li>
   </ul>
   <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
   <div class="enroll-guarantee">
@@ -676,16 +758,23 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 </div>
 
 <script>
-// ── Countdown to August 22 ──
+// ── SAT Date Countdowns ──
 (function() {
-  const target = new Date('2026-08-22T00:00:00');
-  const today  = new Date();
+  const today = new Date();
   today.setHours(0,0,0,0);
-  const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
-  const el = document.getElementById('countdown-days');
-  if (el) {
-    el.textContent = diff > 0 ? diff + ' days away' : 'here';
-  }
+
+  const dates = [
+    { id: 'days-aug', date: new Date('2026-08-22T00:00:00') },
+    { id: 'days-sep', date: new Date('2026-09-12T00:00:00') },
+    { id: 'days-oct', date: new Date('2026-10-03T00:00:00') }
+  ];
+
+  dates.forEach(function(d) {
+    const el = document.getElementById(d.id);
+    if (!el) return;
+    const diff = Math.ceil((d.date - today) / (1000 * 60 * 60 * 24));
+    el.textContent = diff > 0 ? diff : '0';
+  });
 })();
 
 // ── Toggle more content ──
@@ -722,7 +811,6 @@ async function startCheckout() {
   }
   errEl.style.display = 'none';
 
-  // Google Ads — fire "Started Enrollment" conversion on checkout start
   try {
     gtag('event', 'conversion', { 'send_to': 'AW-18242816022/EvhqCLa7i8QcEJaQ7fpD' });
   } catch (e) {}
