@@ -149,6 +149,43 @@ nav .nav-enroll:hover { background: #a87020; }
 }
 .hero-guarantee strong { color: white; }
 
+/* ── HERO CALENDAR PREVIEW ── */
+.hero-calendar-wrap {
+  margin-top: 32px;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-calendar-heading {
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+  font-style: italic;
+}
+.hero-calendar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+.hcal-day {
+  border-radius: 8px;
+  padding: 9px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  line-height: 1.2;
+}
+.hcal-num   { font-size: 10px; opacity: 0.65; }
+.hcal-icon  { font-size: 16px; }
+.hcal-label { font-size: 9px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; }
+.hcal-diag { background: #dbeafe; color: #1a3a5c; }
+.hcal-rev  { background: #ede9fe; color: #5b21b6; }
+.hcal-prac { background: #dcfce7; color: #15803d; }
+.hcal-weak { background: #fed7aa; color: #c2410c; }
+.hcal-test { background: #fce7f3; color: #be185d; }
+
 /* ── SAT COUNTDOWN SECTION ── */
 .sat-dates {
   background: var(--navy2);
@@ -468,6 +505,7 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   .pillars { flex-direction: column; }
   .sat-dates-grid { flex-direction: column; align-items: center; }
   .sat-date-card { width: 100%; max-width: 280px; }
+  .hero-calendar { grid-template-columns: repeat(5, 1fr); }
 }
 </style>
 </head>
@@ -493,6 +531,46 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <div class="hero-guarantee">
     <span>&#10003;</span>
     <span><strong>7-day money-back guarantee.</strong> Full refund if it is not the right fit.</span>
+  </div>
+
+  <div class="hero-calendar-wrap">
+    <p class="hero-calendar-heading">This is the actual 30-day calendar your child will follow:</p>
+    <div class="hero-calendar">
+      <div class="hcal-day hcal-diag"><span class="hcal-num">Day 1</span><span class="hcal-icon">&#127919;</span><span class="hcal-label">Diagnostic</span></div>
+      <div class="hcal-day hcal-rev"><span class="hcal-num">Day 2</span><span class="hcal-icon">&#128214;</span><span class="hcal-label">Review</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 3</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 4</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 5</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 6</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 7</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 8</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 9</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Data Analysis</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 10</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Geometry</span></div>
+      <div class="hcal-day hcal-diag"><span class="hcal-num">Day 11</span><span class="hcal-icon">&#127919;</span><span class="hcal-label">Diagnostic</span></div>
+      <div class="hcal-day hcal-rev"><span class="hcal-num">Day 12</span><span class="hcal-icon">&#128214;</span><span class="hcal-label">Review</span></div>
+
+      <div class="hcal-day hcal-weak"><span class="hcal-num">Day 13</span><span class="hcal-icon">&#128293;</span><span class="hcal-label">Weakness</span></div>
+      <div class="hcal-day hcal-weak"><span class="hcal-num">Day 14</span><span class="hcal-icon">&#128293;</span><span class="hcal-label">Weakness</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 15</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 16</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 17</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Algebra</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 18</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 19</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 20</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Adv Math</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 21</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Data Analysis</span></div>
+      <div class="hcal-day hcal-prac"><span class="hcal-num">Day 22</span><span class="hcal-icon">&#9999;&#65039;</span><span class="hcal-label">Geometry</span></div>
+      <div class="hcal-day hcal-diag"><span class="hcal-num">Day 23</span><span class="hcal-icon">&#127919;</span><span class="hcal-label">Diagnostic</span></div>
+      <div class="hcal-day hcal-rev"><span class="hcal-num">Day 24</span><span class="hcal-icon">&#128214;</span><span class="hcal-label">Review</span></div>
+
+      <div class="hcal-day hcal-weak"><span class="hcal-num">Day 25</span><span class="hcal-icon">&#128293;</span><span class="hcal-label">Weakness</span></div>
+      <div class="hcal-day hcal-weak"><span class="hcal-num">Day 26</span><span class="hcal-icon">&#128293;</span><span class="hcal-label">Weakness</span></div>
+      <div class="hcal-day hcal-test"><span class="hcal-num">Day 27</span><span class="hcal-icon">&#128196;</span><span class="hcal-label">Full Test</span></div>
+      <div class="hcal-day hcal-test"><span class="hcal-num">Day 28</span><span class="hcal-icon">&#128196;</span><span class="hcal-label">Full Test</span></div>
+      <div class="hcal-day hcal-test"><span class="hcal-num">Day 29</span><span class="hcal-icon">&#128196;</span><span class="hcal-label">Full Test</span></div>
+      <div class="hcal-day hcal-test"><span class="hcal-num">Day 30</span><span class="hcal-icon">&#128196;</span><span class="hcal-label">Full Test</span></div>
+    </div>
   </div>
 
   <div class="hero-blocks-wrap">
