@@ -836,6 +836,26 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 </div>
 
 <script>
+// ── Page view tracking (Supabase) ──
+(function() {
+  try {
+    fetch('https://ehfrwwswzfyrtmeektdb.supabase.co/rest/v1/page_views', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg',
+        'Authorization': 'Bearer sb_publishable_fnhX2wBi4UMaLcinNi5Mdw_xjFAv0Fg'
+      },
+      body: JSON.stringify({
+        page: window.location.pathname,
+        referrer: document.referrer || null,
+        gclid: new URLSearchParams(window.location.search).get('gclid'),
+        user_agent: navigator.userAgent
+      })
+    }).catch(function(){});
+  } catch (e) {}
+})();
+
 // ── SAT Date Countdowns ──
 (function() {
   const today = new Date();
