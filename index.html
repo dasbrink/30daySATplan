@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>30 Day SAT Math Plan — Targeted Prep That Actually Works</title>
-<meta name="description" content="A 30-day SAT Math program that diagnoses exactly what your child doesn't know and fixes it before test day. $99 lifetime access. Starts the day you enroll.">
+<title>30 Day SAT Math Plan — Find Your Gaps. Fix Them. Score Higher.</title>
+<meta name="description" content="A 30-day SAT Math program that finds exactly what's holding back your score and fixes it before test day. $99 lifetime access. Starts the day you enroll.">
 
 <!-- Meta Pixel base code -->
 <script>
@@ -85,28 +85,43 @@ nav .nav-enroll:hover { background: #a87020; }
 .hero p.hero-sub {
   font-size: clamp(15px, 2.5vw, 18px);
   color: rgba(255,255,255,0.85);
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto 28px;
   line-height: 1.7;
 }
 
-/* ── QUOTE ── */
-.hero-quote {
-  max-width: 480px;
+/* ── AUDIENCE CARDS ── */
+.audience-cards {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 680px;
   margin: 0 auto 32px;
-  text-align: right;
 }
-.hero-quote p {
-  font-size: 13px;
+.audience-card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 320px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 18px 20px;
+  text-align: left;
+}
+.audience-card .ac-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   color: var(--gold);
-  font-style: italic;
-  line-height: 1.5;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
+  display: block;
 }
-.hero-quote cite {
-  font-size: 12px;
-  color: rgba(201,144,42,0.75);
-  font-style: normal;
+.audience-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.55;
+  margin: 0;
 }
 
 /* ── HERO BLOCKS ── */
@@ -524,6 +539,7 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   .sat-dates-grid { flex-direction: column; align-items: center; }
   .sat-date-card { width: 100%; max-width: 280px; }
   .hero-calendar { grid-template-columns: repeat(5, 1fr); }
+  .audience-cards { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
@@ -537,18 +553,29 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Your child's best SAT Math score is still ahead of them.</h1>
-  <p class="hero-sub">First, we find exactly what is holding it back. Then we fix it — skill by skill, gap by gap. Built by Daniel Brink, Ph.D. &nbsp;·&nbsp; $99 lifetime access.</p>
+  <h1>Relax. Your best SAT Math score is coming.</h1>
+  <p class="hero-sub">And when it does, your dream college gets a lot more possible.</p>
+
+  <div class="audience-cards">
+    <div class="audience-card">
+      <span class="ac-label">Taking it for the first time?</span>
+      <p>Start with a clear picture of exactly where you stand — and a day-by-day plan that builds you up from there.</p>
+    </div>
+    <div class="audience-card">
+      <span class="ac-label">Score didn't move last time?</span>
+      <p>The problem is almost never effort. It's practicing the wrong things. This plan finds what's actually costing you points.</p>
+    </div>
+  </div>
 
   <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
   <div class="hero-guarantee">
     <span>&#10003;</span>
     <span><strong>7-day money-back guarantee.</strong> Full refund if it is not the right fit.</span>
   </div>
-  <p style="margin-top:12px;font-size:14px;"><a href="#testimonials" style="color:rgba(255,255,255,0.75);text-decoration:underline;">Read what students say about the program</a></p>
+  <p style="margin-top:12px;font-size:14px;"><a href="#testimonials" style="color:rgba(255,255,255,0.75);text-decoration:underline;">Read what other students say about the program</a></p>
 
   <div class="hero-calendar-wrap">
-    <p class="hero-calendar-heading">This is the actual 30-day calendar your child will follow:</p>
+    <p class="hero-calendar-heading">This is the actual 30-day calendar you will follow:</p>
     <div class="hero-calendar">
       <div class="hcal-day hcal-diag"><span class="hcal-num">Day 1</span><span class="hcal-icon">&#127919;</span><span class="hcal-label">Diagnostic</span></div>
       <div class="hcal-day hcal-rev"><span class="hcal-num">Day 2</span><span class="hcal-icon">&#128214;</span><span class="hcal-label">Review</span></div>
@@ -590,16 +617,16 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <div class="hero-blocks-wrap">
     <p class="hero-blocks-heading">This 30-day plan...</p>
     <div class="hero-blocks">
-      <div class="hero-block">finds exactly what is holding back your child's score</div>
-      <div class="hero-block">fixes their personal blind spots with targeted practice</div>
-      <div class="hero-block">makes them walk into test day fully prepared</div>
+      <div class="hero-block">finds exactly what is holding back your score</div>
+      <div class="hero-block">fixes your personal blind spots — nothing wasted</div>
+      <div class="hero-block">walks you into test day fully prepared</div>
     </div>
   </div>
 </section>
 
 <!-- SAT DATE COUNTDOWNS -->
 <div class="sat-dates">
-  <p class="sat-dates-heading">Next SAT test dates — how much time do you have?</p>
+  <p class="sat-dates-heading">Your next SAT — how much time do you have?</p>
   <div class="sat-dates-grid">
     <div class="sat-date-card">
       <div class="date-label">Next SAT</div>
@@ -661,11 +688,11 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <section class="section section-alt">
     <div class="section-inner">
       <span class="section-label">The problem with most SAT prep</span>
-      <h2>More practice tests will not close the gaps.</h2>
-      <p>Generic prep wastes time on what you already know. The gaps that actually cost points go unaddressed.</p>
+      <h2>Doing more practice questions will not raise your score.</h2>
+      <p>If you have taken practice tests and your score barely moved, the problem is not effort — it is that you are working on the wrong things. The gaps that are actually costing you points keep going unaddressed.</p>
       <div class="problem-box">
         <p>SAT Math is cumulative. A gap in a foundational concept does not just affect one question — it affects every question built on top of it. Finding and fixing that one gap can unlock an entire category of problems.</p>
-        <p style="margin-top:14px;"><strong>SAT Math knowledge builds like Lego blocks.</strong> If a foundational piece is missing, everything above it becomes unstable — no matter how much time is spent on higher topics. This program finds the missing pieces first. Then it fixes them specifically, not generally.</p>
+        <p style="margin-top:14px;"><strong>SAT Math knowledge builds like Lego blocks.</strong> If a foundational piece is missing, everything above it becomes unstable — no matter how much time you spend on higher topics. This program finds your missing pieces first. Then it fixes them specifically, not generally.</p>
       </div>
     </div>
   </section>
@@ -686,19 +713,19 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
       <div class="pillars">
         <div class="pillar">
           <h3>Precise Diagnosis</h3>
-          <p>Three full diagnostic tests identify exactly which skills are weak and which foundational concepts are missing. Everything else flows from that.</p>
+          <p>Three full diagnostic tests identify exactly which skills are weak and which foundational concepts are missing. Everything else flows from that — nothing is guessed at.</p>
         </div>
         <div class="pillar">
           <h3>Targeted Practice</h3>
-          <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Practice is directed at gaps, not wasted on strengths.</p>
+          <p>4,700 questions across every SAT Math skill, with worked solutions and tutorials for every wrong answer. Practice is directed at your gaps, not wasted on what you already know.</p>
         </div>
         <div class="pillar">
           <h3>Real SAT Conditions</h3>
-          <p>The final four days are full timed tests in the real Bluebook format. You arrive at test day having already done this multiple times.</p>
+          <p>The final four days are full timed tests in real Bluebook format. You walk into test day having already done this multiple times. No surprises.</p>
         </div>
         <div class="pillar">
           <h3>Desmos — The Built-In SAT Calculator</h3>
-          <p>Desmos is the free graphing calculator built into the real SAT. Most students never learn to use it properly. With the right strategies, Desmos solves 30–50% of SAT Math problems instantly — no formulas needed, no working backwards. Every eligible question in this program includes a video showing exactly how.</p>
+          <p>Desmos is the free graphing calculator built into the real SAT. Most students never learn to use it properly. With the right strategies, Desmos solves 30–50% of SAT Math problems instantly — no formulas needed. Every eligible question in this program includes a video showing exactly how.</p>
         </div>
       </div>
     </div>
@@ -748,9 +775,9 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
       </div>
 
       <div class="cal-notes">
-        <div class="cal-note"><strong>Day 1</strong><span>Full diagnostic — pinpoints exact weak skills and missing foundational concepts before any studying begins.</span></div>
+        <div class="cal-note"><strong>Day 1</strong><span>Full diagnostic — pinpoints your exact weak skills and missing foundational concepts before any studying begins.</span></div>
         <div class="cal-note"><strong>Days 2–10</strong><span>Targeted domain practice — every missed question reviewed with worked solutions, then directed practice across all four domains.</span></div>
-        <div class="cal-note"><strong>Days 11 &amp; 23</strong><span>Progress diagnostics — two more full tests measure improvement and catch remaining blind spots.</span></div>
+        <div class="cal-note"><strong>Days 11 &amp; 23</strong><span>Progress diagnostics — two more full tests measure your improvement and catch remaining blind spots.</span></div>
         <div class="cal-note"><strong>Days 27–30</strong><span>Full timed tests — four complete exams in real SAT format. No surprises on test day.</span></div>
       </div>
     </div>
@@ -759,7 +786,7 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <!-- AUTHOR BIO -->
   <section class="section section-alt">
     <div class="section-inner">
-      <span class="section-label">Meet the creator</span>
+      <span class="section-label">Who built this</span>
       <div class="bio-wrap">
         <img class="bio-photo" src="daniel-brink.jpg" alt="Daniel Brink, Ph.D."
           onerror="this.style.display='none';document.getElementById('bio-fallback').style.display='flex';">
@@ -787,16 +814,16 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
   <section class="section">
     <div class="section-inner">
       <span class="section-label">From the blog</span>
-      <h2>For parents and students getting ready for test day</h2>
+      <h2>For students getting ready for test day</h2>
       <div class="blog-grid">
         <a class="blog-card" href="https://freepracticesat.com/blog/dont-rush-algebra/">
-          <span class="blog-tag">Opinion · June 2026</span>
-          <h3>"The Sooner, the Better" Is Bad Advice for When Your Child Should Start Algebra</h3>
+          <span class="blog-tag">SAT Math · June 2026</span>
+          <h3>"The Sooner, the Better" Is Bad Advice for When Students Should Start Algebra</h3>
           <p>A Ph.D. educator with 32 years of experience argues that rushing algebra does permanent damage — and explains what great schools do instead.</p>
         </a>
         <a class="blog-card" href="https://30daysatplan.com/blog/7-things-boost-sat-score/">
-          <span class="blog-tag">For Parents · June 2026</span>
-          <h3>7 Surprising Things That Can Boost Your Teen's SAT Score</h3>
+          <span class="blog-tag">SAT Strategy · June 2026</span>
+          <h3>7 Surprising Things That Can Boost Your SAT Score</h3>
           <p>Seven free, simple habits that move the needle more than another practice book.</p>
         </a>
       </div>
@@ -825,7 +852,7 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 
 <!-- ENROLL SECTION -->
 <section class="enroll-section">
-  <h2>30 days. A clear plan. Measurable results.</h2>
+  <h2>30 days from now, you could have a score you are proud of.</h2>
   <div class="price">$99</div>
   <div class="price-sub">One-time payment. Lifetime access. Starts the day you enroll.</div>
   <p style="font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:24px;">A single hour with a private SAT tutor costs $80–150. This is $99 for everything — and it never expires.</p>
@@ -834,12 +861,12 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
     <li>30 structured practice days, personalised to your results</li>
     <li>4,700 questions across all 70 SAT Math skills</li>
     <li>Worked solutions and tutorials for every missed question</li>
-    <li>Desmos calculator strategies — the built-in SAT tool that solves 30–50% of problems instantly, without formulas or working backwards</li>
+    <li>Desmos calculator strategies — the built-in SAT tool that solves 30–50% of problems instantly, without formulas</li>
     <li>4 full timed practice tests in real SAT format</li>
     <li>Lifetime access — use it for every SAT you take</li>
   </ul>
   <button class="btn-primary" onclick="openModal()">Enroll Now — $99</button>
-  <div class="enroll-guarantee">
+  <div class="enroll-guarantee" style="margin-top:28px;">
     <span class="eg-badge">&#10003;</span>
     <span class="eg-text"><strong>7-day money-back guarantee.</strong> Try the entire program. If it is not the right fit, email Daniel personally at <a href="mailto:dasbrink@gmail.com">dasbrink@gmail.com</a> within 7 days for a full refund — no questions asked. He reads every message himself.</span>
   </div>
@@ -862,10 +889,10 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
     <button class="modal-close" onclick="closeModal()">×</button>
     <h3>Enroll in the 30-Day Plan</h3>
     <p>You'll pay $99 via Stripe, then receive your login link immediately.</p>
-    <label for="student-email">Student Email Address</label>
+    <label for="student-email">Your Email Address</label>
     <input type="email" id="student-email" placeholder="your@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
-    <label for="parent-email">Parent Email Address — Optional</label>
-    <p style="font-size:12px;color:#888;margin-top:-2px;margin-bottom:14px;">(Parent will receive confirmation of payment as well as a helpful article on how to support your student on their SAT journey.)</p>
+    <label for="parent-email">Parent Email — Optional</label>
+    <p style="font-size:12px;color:#888;margin-top:-2px;margin-bottom:14px;">(Your parent will receive payment confirmation and a guide on how to support you on your SAT journey.)</p>
     <input type="email" id="parent-email" placeholder="parent@email.com" autocomplete="off" autocorrect="off" autocapitalize="off">
     <div class="error" id="modal-error">Please enter your email address.</div>
     <p class="modal-guarantee"><span style="color:#dc2626;">7-day</span> money-back guarantee — full refund if it is not the right fit. Checkout is powered by Stripe, trusted by millions of businesses.</p>
