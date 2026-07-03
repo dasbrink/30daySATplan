@@ -24,7 +24,7 @@
   .auth-btn:hover{background:#0f2540}
   .auth-btn-secondary{background:none;border:none;color:#1a3a5c;font-size:0.85rem;cursor:pointer;margin-top:14px;text-decoration:underline}
   .auth-msg{font-size:0.85rem;margin-top:12px;min-height:20px}
-  #code-input{text-align:center;font-size:1.4rem;letter-spacing:0.35em;font-weight:600}
+  #code-input{text-align:center;font-size:1.3rem;letter-spacing:0.22em;font-weight:600}
 
   /* DASHBOARD */
   #screen-dash{display:none;padding:28px 20px;max-width:860px;margin:0 auto}
@@ -101,7 +101,7 @@
     <!-- STEP 1: email -->
     <div id="auth-step-email">
       <h2>Sign In</h2>
-      <p>Enter your email address and we'll send you a 6-digit sign-in code.</p>
+      <p>Enter your email address and we'll send you a sign-in code.</p>
       <input type="email" id="auth-email" placeholder="your@email.com" autocomplete="email">
       <button class="auth-btn" id="btn-send-code">Send Code</button>
     </div>
@@ -109,8 +109,8 @@
     <!-- STEP 2: code -->
     <div id="auth-step-code" style="display:none;">
       <h2>Enter Your Code</h2>
-      <p>We emailed a 6-digit code to <strong id="code-sent-to"></strong>. Type it below. Use the code from the newest email.</p>
-      <input type="text" id="code-input" placeholder="000000" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+      <p>We emailed a sign-in code to <strong id="code-sent-to"></strong>. Type it below. Use the code from the newest email.</p>
+      <input type="text" id="code-input" placeholder="Enter code" inputmode="numeric" autocomplete="one-time-code" maxlength="10">
       <button class="auth-btn" id="btn-verify-code">Sign In</button>
       <button class="auth-btn-secondary" id="btn-resend">Send a new code</button>
     </div>
@@ -247,9 +247,9 @@ async function verifyCode() {
   const code = document.getElementById('code-input').value.trim();
   const msg = document.getElementById('auth-msg');
 
-  if (code.length !== 6) {
+  if (code.length < 6) {
     msg.style.color = '#c62828';
-    msg.textContent = 'Please enter the full 6-digit code.';
+    msg.textContent = 'Please enter the full code from the email.';
     return;
   }
 
