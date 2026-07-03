@@ -22,7 +22,9 @@
   .auth-card input:focus{border-color:#1a3a5c}
   .auth-btn{background:#1a3a5c;color:#fff;border:none;padding:13px;width:100%;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:background 0.2s}
   .auth-btn:hover{background:#0f2540}
+  .auth-btn-secondary{background:none;border:none;color:#1a3a5c;font-size:0.85rem;cursor:pointer;margin-top:14px;text-decoration:underline}
   .auth-msg{font-size:0.85rem;margin-top:12px;min-height:20px}
+  #code-input{text-align:center;font-size:1.4rem;letter-spacing:0.35em;font-weight:600}
 
   /* DASHBOARD */
   #screen-dash{display:none;padding:28px 20px;max-width:860px;margin:0 auto}
@@ -95,10 +97,24 @@
 <!-- AUTH SCREEN -->
 <div id="screen-auth" style="display:none;">
   <div class="auth-card">
-    <h2>Sign In</h2>
-    <p>Enter your email address and we'll send you a sign-in link.</p>
-    <input type="email" id="auth-email" placeholder="your@email.com">
-    <button class="auth-btn" id="btn-signin">Send Sign-In Link</button>
+
+    <!-- STEP 1: email -->
+    <div id="auth-step-email">
+      <h2>Sign In</h2>
+      <p>Enter your email address and we'll send you a 6-digit sign-in code.</p>
+      <input type="email" id="auth-email" placeholder="your@email.com" autocomplete="email">
+      <button class="auth-btn" id="btn-send-code">Send Code</button>
+    </div>
+
+    <!-- STEP 2: code -->
+    <div id="auth-step-code" style="display:none;">
+      <h2>Enter Your Code</h2>
+      <p>We emailed a 6-digit code to <strong id="code-sent-to"></strong>. Type it below. Use the code from the newest email.</p>
+      <input type="text" id="code-input" placeholder="000000" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+      <button class="auth-btn" id="btn-verify-code">Sign In</button>
+      <button class="auth-btn-secondary" id="btn-resend">Send a new code</button>
+    </div>
+
     <div class="auth-msg" id="auth-msg"></div>
   </div>
 </div>
@@ -194,38 +210,99 @@ const TEST_NUMBER_TO_DAY = { 1:1, 2:11, 3:23, 4:27, 5:28, 6:29, 7:30 };
 let currentUser = null;
 let completedDays = new Set();
 let enrollmentDate = null;
+let pendingEmail = '';
 
-// ── AUTH ──────────────────────────────────────────────────────────────────────
-document.getElementById('btn-signin').onclick = async () => {
-  const email = document.getElementById('auth-email').value.trim();
+// ── AUTH: STEP 1 — send the 6-digit code ────────────────────────────────────
+async function sendCode() {
+  const email = document.getElementById('auth-email').value.trim() || pendingEmail;
   if (!email) return;
-  document.getElementById('btn-signin').disabled = true;
-  const { error } = await sb.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: 'https://30daysatplan.com/dashboard/' }
-  });
+  pendingEmail = email;
+
+  const sendBtn = document.getElementById('btn-send-code');
+  const resendBtn = document.getElementById('btn-resend');
+  sendBtn.disabled = true;
+  resendBtn.disabled = true;
+
+  const { error } = await sb.auth.signInWithOtp({ email });
+
   const msg = document.getElementById('auth-msg');
   if (error) {
     msg.style.color = '#c62828';
-    msg.textContent = error.message || 'Something went wrong.';
+    msg.textContent = error.message || 'Something went wrong. Please try again.';
   } else {
     msg.style.color = '#2e7d32';
-    msg.textContent = 'Check your email for a sign-in link!';
+    msg.textContent = 'Code sent! Check your email.';
+    document.getElementById('code-sent-to').textContent = email;
+    document.getElementById('auth-step-email').style.display = 'none';
+    document.getElementById('auth-step-code').style.display = 'block';
+    document.getElementById('code-input').value = '';
+    document.getElementById('code-input').focus();
   }
-  document.getElementById('btn-signin').disabled = false;
-};
+  sendBtn.disabled = false;
+  resendBtn.disabled = false;
+}
+
+// ── AUTH: STEP 2 — verify the code ──────────────────────────────────────────
+async function verifyCode() {
+  const code = document.getElementById('code-input').value.trim();
+  const msg = document.getElementById('auth-msg');
+
+  if (code.length !== 6) {
+    msg.style.color = '#c62828';
+    msg.textContent = 'Please enter the full 6-digit code.';
+    return;
+  }
+
+  const verifyBtn = document.getElementById('btn-verify-code');
+  verifyBtn.disabled = true;
+  msg.style.color = '#666';
+  msg.textContent = 'Checking…';
+
+  const { data, error } = await sb.auth.verifyOtp({
+    email: pendingEmail,
+    token: code,
+    type: 'email'
+  });
+
+  if (error || !data || !data.session) {
+    msg.style.color = '#c62828';
+    msg.textContent = 'That code is not valid. Check for a newer email, or request a new code.';
+    verifyBtn.disabled = false;
+    return;
+  }
+
+  currentUser = data.session.user;
+  msg.textContent = '';
+  document.getElementById('loading-overlay').classList.add('show');
+  await loadDashboard();
+  verifyBtn.disabled = false;
+}
+
+document.getElementById('btn-send-code').onclick = sendCode;
+document.getElementById('btn-resend').onclick = sendCode;
+document.getElementById('btn-verify-code').onclick = verifyCode;
+document.getElementById('code-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') verifyCode();
+});
+document.getElementById('auth-email').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendCode();
+});
 
 document.getElementById('btn-logout').onclick = async () => {
   await sb.auth.signOut();
   currentUser = null;
+  pendingEmail = '';
   document.getElementById('screen-dash').style.display = 'none';
+  document.getElementById('auth-step-email').style.display = 'block';
+  document.getElementById('auth-step-code').style.display = 'none';
+  document.getElementById('auth-msg').textContent = '';
   document.getElementById('screen-auth').style.display = 'flex';
 };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 (async function init() {
 
-  // Handle magic link token in URL query params
+  // Handle old-style magic link token in URL query params (backwards compatibility)
   const urlParams = new URLSearchParams(window.location.search);
   const tokenParam = urlParams.get('token');
   const typeParam  = urlParams.get('type');
@@ -242,14 +319,14 @@ document.getElementById('btn-logout').onclick = async () => {
     } catch(e) {}
   }
 
-  // Handle hash-based tokens
+  // Handle hash-based tokens (backwards compatibility with old link emails)
   const hash = window.location.hash;
   if (hash.includes('access_token')) {
     // Supabase JS client handles this automatically
     window.history.replaceState({}, document.title, '/dashboard/');
   }
 
-  // Get session from Supabase JS client (works for password login, magic links, localStorage)
+  // Get session from Supabase JS client (works for code login and localStorage sessions)
   const { data: { session } } = await sb.auth.getSession();
 
   if (session && session.user) {
