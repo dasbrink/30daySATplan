@@ -502,6 +502,8 @@ nav .nav-enroll:hover { background: #a87020; }
   background: white; border-radius: 12px;
   padding: 40px 36px; width: 90%; max-width: 460px;
   position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 .modal h3 { color: var(--navy); font-size: 22px; margin-bottom: 8px; }
 .modal p  { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
@@ -518,6 +520,47 @@ nav .nav-enroll:hover { background: #a87020; }
   cursor: pointer; color: #999;
 }
 .modal-close:hover { color: #333; }
+
+/* ── EMAIL-ME-A-LINK BOX (mobile only) ── */
+.email-link-box {
+  display: none;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e5e5;
+}
+@media (max-width: 700px) {
+  .email-link-box { display: block; }
+}
+.email-link-box .elb-heading {
+  font-size: 14px;
+  color: var(--navy);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.email-link-box .elb-sub {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
+}
+.email-link-box .btn-elb {
+  width: 100%;
+  background: none;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  padding: 11px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: Georgia, serif;
+  cursor: pointer;
+}
+.email-link-box .btn-elb:hover { background: var(--navy); color: white; }
+.email-link-box .elb-status {
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
+}
+.email-link-box .elb-status.ok  { color: #1a7a4c; display: block; }
+.email-link-box .elb-status.err { color: #dc2626; display: block; }
 
 /* ── FOOTER ── */
 footer {
@@ -897,6 +940,14 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
     <div class="error" id="modal-error">Please enter your email address.</div>
     <p class="modal-guarantee"><span style="color:#dc2626;">7-day</span> money-back guarantee — full refund if it is not the right fit. Checkout is powered by Stripe, trusted by millions of businesses.</p>
     <button class="btn-primary" style="width:100%;text-align:center;" onclick="startCheckout()">Continue to Payment</button>
+
+    <!-- EMAIL-ME-A-LINK (visible on phones only) -->
+    <div class="email-link-box">
+      <p class="elb-heading">Prefer to finish on your computer?</p>
+      <p class="elb-sub">Enter your email above and we will send you a link to complete your enrollment later.</p>
+      <button class="btn-elb" onclick="sendCheckoutLink()">Email me the link</button>
+      <p class="elb-status" id="elb-status"></p>
+    </div>
   </div>
 </div>
 
@@ -959,6 +1010,13 @@ function handleOverlayClick(e) {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 }
 
+// ── Resume from email link: auto-open the enroll modal ──
+(function() {
+  if (new URLSearchParams(window.location.search).get('resume') === 'checkout') {
+    window.addEventListener('DOMContentLoaded', openModal);
+  }
+})();
+
 // ── Checkout ──
 const CHECKOUT_FN_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/create-checkout';
 
@@ -994,6 +1052,45 @@ async function startCheckout() {
   } catch(e) {
     errEl.textContent = 'Connection error. Please try again.';
     errEl.style.display = 'block';
+  }
+}
+
+// ── Email me the checkout link ──
+const EMAIL_LINK_FN_URL = 'https://ehfrwwswzfyrtmeektdb.supabase.co/functions/v1/email-checkout-link';
+
+async function sendCheckoutLink() {
+  const email = document.getElementById('student-email').value.trim();
+  const statusEl = document.getElementById('elb-status');
+
+  statusEl.className = 'elb-status';
+  statusEl.textContent = '';
+
+  if (!email) {
+    statusEl.textContent = 'Please enter your email address in the field above first.';
+    statusEl.className = 'elb-status err';
+    return;
+  }
+
+  statusEl.textContent = 'Sending...';
+  statusEl.className = 'elb-status ok';
+
+  try {
+    const res = await fetch(EMAIL_LINK_FN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      statusEl.textContent = 'Sent. Check your inbox — the link will be waiting for you.';
+      statusEl.className = 'elb-status ok';
+    } else {
+      statusEl.textContent = data.error || 'Could not send the email. Please try again.';
+      statusEl.className = 'elb-status err';
+    }
+  } catch(e) {
+    statusEl.textContent = 'Connection error. Please try again.';
+    statusEl.className = 'elb-status err';
   }
 }
 </script>
