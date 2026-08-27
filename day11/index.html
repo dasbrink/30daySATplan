@@ -1824,7 +1824,7 @@ async function showResults() {
 
   try {
     await supabaseClient.from('test_results').insert({
-      user_id: currentUser.id, score: estimatedScore, test_number: 1,
+      user_id: currentUser.id, score: estimatedScore, test_number: THIS_TEST_NUMBER,
       snapshot: { estimatedScore, totalCorrect, total, m1Correct, m2Correct, missedIds, answeredIds,
         missed: lastResultsMissed.map(m => ({
           chosenIndex: m.chosenIndex, isOE: m.isOE || false, typedAnswer: m.typedAnswer || null,
@@ -2126,7 +2126,7 @@ async function openFoundationalReport() {
 
 async function openSpecificReport() {
   const body = document.getElementById('study-body');
-  document.getElementById('study-title').textContent = 'Specific mistakes — Day 112 prep';
+  document.getElementById('study-title').textContent = 'Specific mistakes — Day 12 prep';
   document.getElementById('study-overlay').classList.add('open');
   body.innerHTML = `<div class="study-loading">Building your report…</div>`;
 
