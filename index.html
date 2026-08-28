@@ -598,23 +598,23 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 <div class="sat-dates">
   <p class="sat-dates-heading">Your next SAT — how much time do you have?</p>
   <div class="sat-dates-grid">
-    <div class="sat-date-card">
+    <div class="sat-date-card" id="sat-card-0">
       <div class="date-label">Next SAT</div>
-      <div class="date-name">August 22, 2026</div>
-      <div class="days-left" id="days-aug"></div>
-      <div class="days-label">days away</div>
+      <div class="date-name" id="sat-name-0"></div>
+      <div class="days-left" id="sat-days-0"></div>
+      <div class="days-label" id="sat-unit-0">days away</div>
     </div>
-    <div class="sat-date-card">
+    <div class="sat-date-card" id="sat-card-1">
       <div class="date-label">Following SAT</div>
-      <div class="date-name">September 12, 2026</div>
-      <div class="days-left" id="days-sep"></div>
-      <div class="days-label">days away</div>
+      <div class="date-name" id="sat-name-1"></div>
+      <div class="days-left" id="sat-days-1"></div>
+      <div class="days-label" id="sat-unit-1">days away</div>
     </div>
-    <div class="sat-date-card">
+    <div class="sat-date-card" id="sat-card-2">
       <div class="date-label">After that</div>
-      <div class="date-name">October 3, 2026</div>
-      <div class="days-left" id="days-oct"></div>
-      <div class="days-label">days away</div>
+      <div class="date-name" id="sat-name-2"></div>
+      <div class="days-left" id="sat-days-2"></div>
+      <div class="days-label" id="sat-unit-2">days away</div>
     </div>
   </div>
   <p class="sat-dates-note">30 days of focused preparation is enough time to make a real difference — for any of these dates.</p>
@@ -973,22 +973,60 @@ footer .footer-links { display: flex; justify-content: center; gap: 20px; flex-w
 })();
 
 // ── SAT Date Countdowns ──
-(function() {
-  const today = new Date();
-  today.setHours(0,0,0,0);
+// Single source of truth for SAT dates. Add new dates to the end of this list
+// as College Board publishes them. Past dates drop off automatically, so the
+// three cards always show the next three sittings with no edit needed.
+var SAT_DATES = [
+  '2026-08-22',
+  '2026-09-12',
+  '2026-10-03',
+  '2026-11-07',
+  '2026-12-05',
+  '2027-03-06',
+  '2027-05-01',
+  '2027-06-05'
+];
 
-  const dates = [
-    { id: 'days-aug', date: new Date('2026-08-22T00:00:00') },
-    { id: 'days-sep', date: new Date('2026-09-12T00:00:00') },
-    { id: 'days-oct', date: new Date('2026-10-03T00:00:00') }
-  ];
+function satDatesUpcoming() {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var out = [];
+  for (var i = 0; i < SAT_DATES.length; i++) {
+    var parts = SAT_DATES[i].split('-');
+    var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    d.setHours(0, 0, 0, 0);
+    if (d >= today) out.push(d);
+  }
+  return out;
+}
 
-  dates.forEach(function(d) {
-    const el = document.getElementById(d.id);
-    if (!el) return;
-    const diff = Math.ceil((d.date - today) / (1000 * 60 * 60 * 24));
-    el.textContent = diff > 0 ? diff : '0';
-  });
+function satFormatDate(d) {
+  var months = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function satDaysUntil(d) {
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.round((d - today) / 86400000);
+}
+
+(function renderSatDateCards() {
+  var upcoming = satDatesUpcoming();
+  for (var i = 0; i < 3; i++) {
+    var card = document.getElementById('sat-card-' + i);
+    var nameEl = document.getElementById('sat-name-' + i);
+    var daysEl = document.getElementById('sat-days-' + i);
+    var unitEl = document.getElementById('sat-unit-' + i);
+    if (!card || !nameEl || !daysEl || !unitEl) continue;
+    if (i >= upcoming.length) { card.style.display = 'none'; continue; }
+    var d = upcoming[i];
+    var n = satDaysUntil(d);
+    nameEl.textContent = satFormatDate(d);
+    if (n === 0) { daysEl.textContent = 'Today'; unitEl.textContent = 'good luck'; }
+    else { daysEl.textContent = n; unitEl.textContent = (n === 1 ? 'day away' : 'days away'); }
+  }
 })();
 
 // ── Toggle more content ──
