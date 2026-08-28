@@ -651,7 +651,7 @@ button { font-family: Georgia, 'Times New Roman', serif; cursor: pointer; }
   <div class="welcome-card">
     <div class="welcome-day-badge">Day 11 of 30</div>
     <h1>Your Second Diagnostic Test</h1>
-    <p>This test measures your progress since Day 1. Your results will update your diagnosis and shape the next phase of your program.</p>
+    <p>This test measures your progress since Day 1. It uses a fresh set of questions you have not seen before, built to the same mix of difficulty and topics as your Day 1 test, so the two scores can be compared fairly.</p>
     <div class="welcome-details">
       <div><span>Format</span> 2 modules × 22 questions</div>
       <div><span>Break</span> 10 minutes between modules</div>
@@ -1301,6 +1301,87 @@ let currentSessionId = null;
 let sessionStartTime = null;
 let untimedMode = false;
 
+// ── DAY 11 FORM HELPERS ───────────────────────────────────────
+const DAY11_CACHE_TTL_MS = 60 * 60 * 1000;
+
+function setBuildStatus(msg) {
+  const el = document.getElementById('question-text');
+  if (el) el.innerHTML = '<div class="loading"><p style="font-weight:600;margin-bottom:8px;">Building your Day 11 test\u2026</p><p style="margin:0;">' + msg + '</p></div>';
+}
+
+async function fetchSkillDomainMap() {
+  const map = new Map();
+  try {
+    let records = null;
+    try {
+      const raw = localStorage.getItem('cache_day11_skills');
+      if (raw) {
+        const cached = JSON.parse(raw);
+        if (Date.now() - cached.ts < DAY11_CACHE_TTL_MS) records = cached.records;
+      }
+    } catch (e) {}
+    if (!records) {
+      records = await fetchTable('Skills');
+      try { localStorage.setItem('cache_day11_skills', JSON.stringify({ ts: Date.now(), records })); } catch (e) {}
+    }
+    records.forEach(r => {
+      const d = String(r.fields['Domain'] || '').trim();
+      if (d) map.set(r.id, d);
+    });
+  } catch (e) { console.warn('Domain map unavailable, falling back to difficulty only.', e); }
+  return map;
+}
+
+function domainOfQuestion(q, skillDomain) {
+  for (const sid of (q.skillIds || [])) {
+    const d = skillDomain.get(sid);
+    if (d) return d;
+  }
+  return '';
+}
+
+async function fetchAllSeenIdsForUser() {
+  const seen = new Set();
+  if (!currentUser) return seen;
+  try {
+    let from = 0;
+    while (true) {
+      const { data, error } = await supabaseClient.from('questions_seen')
+        .select('question_id').eq('user_id', currentUser.id).range(from, from + 999);
+      if (error || !data || data.length === 0) break;
+      data.forEach(r => seen.add(r.question_id));
+      if (data.length < 1000) break;
+      from += 1000;
+    }
+  } catch (e) {}
+  return seen;
+}
+
+// Fills a list of blueprint cells. Tries hardest match first, then relaxes.
+// Order: exact cell unseen, difficulty unseen, domain unseen, any unseen,
+// then finally allows a repeat rather than delivering a short test.
+function fillBlueprint(targets, pool, seenIds, used) {
+  const picked = [];
+  const tryPick = (predicate) => {
+    const candidates = pool.filter(q => !used.has(q.id) && predicate(q));
+    if (candidates.length === 0) return null;
+    const q = candidates[Math.floor(Math.random() * candidates.length)];
+    used.add(q.id);
+    return q;
+  };
+  for (const t of targets) {
+    const q =
+      tryPick(x => !seenIds.has(x.id) && x.difficulty === t.difficulty && x.domain === t.domain) ||
+      tryPick(x => !seenIds.has(x.id) && x.difficulty === t.difficulty) ||
+      tryPick(x => !seenIds.has(x.id) && x.domain === t.domain) ||
+      tryPick(x => !seenIds.has(x.id)) ||
+      tryPick(x => x.difficulty === t.difficulty) ||
+      tryPick(() => true);
+    if (q) picked.push(q);
+  }
+  return picked;
+}
+
 // ── START TEST ─────────────────────────────────────────────────
 async function startTest(untimed) {
   untimedMode = untimed === true;
@@ -1309,18 +1390,65 @@ async function startTest(untimed) {
   requestFullscreen();
   enableNavigationWarning();
   showScreen('screen-test');
-  document.getElementById('question-text').innerHTML =
-    '<div class="loading"><p style="font-weight:600; margin-bottom:8px;">Building your diagnostic test…</p>' +
-    '<p style="margin:0;">Assembling 44 questions from the question bank. This usually takes 10–20 seconds.</p></div>';
+  setBuildStatus('Reading your Day 1 blueprint…');
   document.getElementById('answer-choices').innerHTML = '';
   try {
-    const qRecords = await fetchTable('Questions', `OR({diagnostic_module}='m1', {diagnostic_module}='m2_hard')`);
-    allQuestions = qRecords.map(normaliseQuestion).filter(q => q.replacementStatus !== 'rebuild');
+    // ── DAY 11 FORM CONSTRUCTION ────────────────────────────────
+    // Day 11 copies the Day 1 blueprint cell by cell (difficulty AND domain)
+    // but fills every cell with a question this student has not seen before.
 
-    const withDiag = qRecords.map(r => ({ ...normaliseQuestion(r), diagnosticModule: (r.fields['diagnostic_module'] || '').toLowerCase() }));
-    module1Questions = fisherYatesShuffle(withDiag.filter(q => q.diagnosticModule === 'm1'));
-    module2Questions = fisherYatesShuffle(withDiag.filter(q => q.diagnosticModule === 'm2_hard'));
-    allQuestions = withDiag;
+    // Step 1: read the Day 1 blueprint.
+    const blueprintRecords = await fetchTable('Questions', `OR({diagnostic_module}='m1', {diagnostic_module}='m2_hard')`);
+
+    // Step 2: skill to domain lookup.
+    setBuildStatus('Matching topic coverage\u2026');
+    const skillDomain = await fetchSkillDomainMap();
+
+    // Step 3: the full reviewed bank, cached for an hour.
+    setBuildStatus('Loading the question bank. This can take up to a minute the first time\u2026');
+    let bankRecords = null;
+    try {
+      const raw = localStorage.getItem('cache_day11_questions');
+      if (raw) {
+        const cached = JSON.parse(raw);
+        if (Date.now() - cached.ts < DAY11_CACHE_TTL_MS) bankRecords = cached.records;
+      }
+    } catch (e) {}
+    if (!bankRecords) {
+      bankRecords = await fetchTable('Questions', `{Review Status}='Reviewed - OK'`);
+      try { localStorage.setItem('cache_day11_questions', JSON.stringify({ ts: Date.now(), records: bankRecords })); } catch (e) {}
+    }
+
+    // Step 4: everything this student has already answered, on any day.
+    setBuildStatus('Checking which questions you have already seen\u2026');
+    const seenIds = await fetchAllSeenIdsForUser();
+
+    // Step 5: usable pool. Needs at least 3 distractors, not flagged for rebuild.
+    const pool = bankRecords
+      .filter(r => (r.fields['Distractors'] || []).length >= 3)
+      .map(r => { const q = normaliseQuestion(r); q.domain = domainOfQuestion(q, skillDomain); return q; })
+      .filter(q => q.replacementStatus !== 'rebuild');
+
+    // Step 6: build the target cells from Day 1, module by module.
+    setBuildStatus('Assembling your 44 questions\u2026');
+    const blueprint = blueprintRecords.map(r => {
+      const q = normaliseQuestion(r);
+      return {
+        module: (r.fields['diagnostic_module'] || '').toLowerCase(),
+        difficulty: q.difficulty,
+        domain: domainOfQuestion(q, skillDomain)
+      };
+    });
+    const m1Targets = blueprint.filter(b => b.module === 'm1');
+    const m2Targets = blueprint.filter(b => b.module === 'm2_hard');
+
+    // Day 1's own questions are never reused on Day 11.
+    const used = new Set(blueprintRecords.map(r => r.id));
+    module1Questions = fisherYatesShuffle(fillBlueprint(m1Targets, pool, seenIds, used));
+    module2Questions = fisherYatesShuffle(fillBlueprint(m2Targets, pool, seenIds, used));
+    allQuestions = pool;
+
+    const qRecords = bankRecords;
 
     const selectedIds = new Set([...module1Questions, ...module2Questions].map(q => q.id));
     const selectedRaw = qRecords.filter(r => selectedIds.has(r.id));
