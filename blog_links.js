@@ -28,6 +28,11 @@
 
       var posts = [
         {
+          href: 'https://freepracticesat.com/blog/how-to-choose-an-sat-math-tutor.html',
+          title: 'Does Your SAT Tutor Have Mathematical Knowledge for Teaching?',
+          blurb: 'For parents: what a good SAT math tutor needs to know beyond a high score, and three questions to ask before you hire one.'
+        },
+        {
           href: '/blog/twenty-mile-march/',
           title: 'The 20-Mile March: Why a Little SAT Math Every Day Beats Cramming on Saturdays',
           blurb: 'The polar-explorer lesson on why consistency beats the big Saturday session that never happens.'
