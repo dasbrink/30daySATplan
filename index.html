@@ -1,0 +1,963 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Practice SAT</title>
+
+  <link rel="canonical" href="https://freepracticesat.com/">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Typefaces: Source Serif 4 for things that speak, IBM Plex Sans for things you click -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+  <meta property="og:title" content="Free Practice SAT: Unlimited SAT Math Practice">
+  <meta property="og:description" content="The free SAT math diagnostic that pinpoints your exact weak skills. Unlimited full-length practice tests, built by a math Ph.D.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Practice SAT: Unlimited SAT Math Practice">
+  <meta name="twitter:description" content="The free SAT math diagnostic that pinpoints your exact weak skills. Unlimited full-length practice tests, built by a math Ph.D.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <meta name="description" content="The free SAT math diagnostic that pinpoints your exact weak skills. Unlimited full-length practice tests, built by a math Ph.D.">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      svg: {fontCache: 'global'},
+      startup: { typeset: false }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=2f23c0c34b08448e8e167dba1a6c32c4"></script>
+
+  <!-- Page view tracking (Supabase) -->
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       TYPOGRAPHY
+       Two faces doing two jobs. Source Serif 4 carries the voice:
+       headings, buttons a student is meant to press, the score.
+       IBM Plex Sans carries the machinery: labels, notes, small print.
+       Scoped to the two landing screens so nothing inside a live test
+       shifts. The reset rule uses an id selector so it outranks the
+       class-level Georgia rules in style.css.
+       ══════════════════════════════════════════════════════════ */
+    #screen-auth, #screen-welcome {
+      font-family: 'IBM Plex Sans', -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    #screen-auth *, #screen-welcome * { font-family: inherit; }
+
+    #screen-auth h1, #screen-auth h2, #screen-auth h3,
+    #screen-welcome h1, #screen-welcome h2, #screen-welcome h3,
+    #screen-auth .fps-form-heading,
+    #screen-auth .fps-cd-days,
+    #screen-auth .fps-quote-text,
+    #screen-auth .fps-cell-title,
+    #screen-auth .fps-service-cell-title,
+    #screen-auth .fps-match-title,
+    #screen-auth .brag-headline, #screen-welcome .brag-headline,
+    #screen-auth .btn-primary, #screen-welcome .btn-primary,
+    #screen-auth .btn-secondary, #screen-welcome .btn-secondary,
+    #screen-auth .fps-foundations-btn, #screen-welcome .fps-foundations-btn,
+    #screen-auth .fps-quick-test-btn,
+    #screen-auth .auth-tab,
+    #screen-welcome .tools-heading,
+    #screen-welcome .ds-heading,
+    #screen-welcome .ds-btn-label,
+    #screen-welcome .wo-title,
+    #screen-welcome .wo-name,
+    #screen-welcome .wo-n,
+    #screen-welcome .wo-btn {
+      font-family: 'Source Serif 4', Georgia, serif;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       WELCOME SCREEN LAYOUT
+       Two equal columns. The offer panel stretches to the full height
+       of the left column so its bottom edge lines up with the level
+       picker rather than floating high. The start buttons sit below
+       both columns, centred, because starting a test is the one action
+       on this screen that belongs to the whole page.
+       ══════════════════════════════════════════════════════════ */
+    #screen-welcome .landing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+      width: 100%;
+    }
+    #screen-welcome .landing-right { display: flex; }
+    #screen-welcome .welcome-info { margin-bottom: 16px; }
+    #screen-welcome .info-item { line-height: 1.65; }
+    #screen-welcome .tools-heading { margin-top: 22px; }
+
+    .wo-start-row {
+      width: 100%;
+      max-width: 460px;
+      margin: 34px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .wo-start-row .btn-primary,
+    .wo-start-row .btn-secondary {
+      display: block;
+      width: 100%;
+      font-size: 1.08rem;
+      padding: 15px 18px;
+    }
+
+    @media (max-width: 760px) {
+      #screen-welcome .landing-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ── Hero above the registration form ───────────────────── */
+    .fps-hero {
+      width: 100%;
+      text-align: center;
+      margin: 4px 0 26px;
+      font-family: Georgia, serif;
+    }
+    .fps-hero h1 {
+      font-size: 2.1rem;
+      line-height: 1.22;
+      color: #1a3a5c;
+      margin: 0 0 12px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .fps-hero p {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.6;
+      color: #444;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .fps-hero .fps-hero-free {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: #1a7a4c;
+      padding: 5px 16px;
+      border-radius: 20px;
+    }
+    @media (max-width: 620px) { .fps-hero h1 { font-size: 1.55rem; } }
+
+    /* ── Two answers the ads promise, sitting above the form ── */
+    .fps-match-band {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-left: 5px solid #1a3a5c;
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 0 0 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 36px;
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .fps-match-title {
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin: 0 0 5px;
+    }
+    .fps-match-text {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #444;
+      margin: 0;
+    }
+    @media (max-width: 620px) {
+      .fps-match-band { grid-template-columns: 1fr; gap: 16px; padding: 16px 18px; }
+    }
+
+    .fps-form-heading {
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+      color: #1a3a5c;
+      margin: 0 0 10px;
+    }
+    .fps-form-note {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.84rem;
+      color: #777;
+      line-height: 1.5;
+      margin: 10px 0 0;
+    }
+
+    /* ── SAT date countdown band ────────────────────────────── */
+    .fps-countdown-band {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-top: 3px solid #c9902a;
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin: 0 0 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 34px;
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .fps-cd-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+    .fps-cd-item { text-align: center; line-height: 1.25; }
+    .fps-cd-days { font-family: Georgia, serif; font-size: 1.75rem; font-weight: 700; color: #c0392b; }
+    .fps-cd-unit { font-size: 0.82rem; color: #666; }
+    .fps-cd-date { font-size: 0.9rem; color: #1a3a5c; font-weight: 700; margin-top: 2px; }
+    .fps-cd-today .fps-cd-days { font-size: 1.15rem; }
+    @media (max-width: 560px) { .fps-countdown-band { gap: 10px 22px; } .fps-cd-days { font-size: 1.4rem; } }
+
+    /* ── Existing page furniture ────────────────────────────── */
+    .fps-linkrow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      margin: 14px 0 0;
+      font-family: Georgia, serif;
+    }
+    .fps-cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 16px 18px;
+      text-decoration: none;
+      background: #1a3a5c;
+      color: #ffffff;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .fps-cell:hover { background: #0f2540; }
+    .fps-cell-title { font-weight: normal; font-size: 1.05rem; }
+    .fps-cell-sub { font-size: 0.9rem; color: #d9e2ec; margin-top: 3px; }
+
+    .fps-divider { width: 100%; margin: 34px 0 26px; }
+    .fps-divider-gold { height: 3px; background: #c9902a; }
+    .fps-divider-navy { height: 2px; background: #1a3a5c; }
+
+    .fps-testimonials { width: 100%; margin: 40px 0 8px; font-family: Georgia, serif; }
+    .fps-testimonials h2 { text-align: left; color: #1a3a5c; font-size: 1.4rem; margin-bottom: 18px; }
+    .fps-quote {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-left: 4px solid #c9902a;
+      border-radius: 6px;
+      padding: 20px 24px;
+      width: 100%;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+    .fps-quote-text { font-size: 1.05rem; font-style: italic; }
+    .fps-quote-author { margin-top: 12px; text-align: right; font-weight: bold; color: #1a3a5c; }
+
+    .fps-foundations-banner {
+      width: 100%;
+      background: #1a3a5c;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 0 0 24px;
+      font-family: Georgia, serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .fps-foundations-text h2 { font-size: 1.2rem; color: #fff; margin-bottom: 6px; }
+    .fps-foundations-text p { font-size: 0.92rem; color: #d9e2ec; line-height: 1.55; max-width: 640px; }
+    .fps-foundations-btn {
+      display: inline-block;
+      background: #c9902a;
+      color: #fff;
+      border-radius: 6px;
+      padding: 12px 22px;
+      text-decoration: none;
+      font-size: 0.98rem;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .fps-foundations-btn:hover { background: #a87320; }
+
+    .fps-plan-promo {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-top: 4px solid #c9902a;
+      border-radius: 8px;
+      padding: 22px 26px;
+      margin: 0 0 20px;
+      font-family: Georgia, serif;
+      color: #1a1a1a;
+    }
+    .fps-plan-eyebrow {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c9902a;
+      margin: 0 0 6px;
+    }
+    .fps-plan-countdown {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      margin: 0 0 10px;
+      color: #1a3a5c;
+      font-weight: 700;
+    }
+    .fps-plan-countdown .fps-cd-num { color: #c0392b; }
+    .fps-plan-promo h2 { font-size: 1.35rem; color: #1a3a5c; margin: 0 0 8px; }
+    .fps-plan-lead {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #333;
+      margin: 0 0 14px;
+      max-width: none;
+    }
+    .fps-plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+    .fps-plan-features li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #1a1a1a;
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .fps-plan-features li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: #1a7a4c;
+      font-weight: 700;
+    }
+    .fps-plan-btn {
+      display: inline-block;
+      background: #c9902a;
+      color: #fff;
+      border-radius: 6px;
+      padding: 12px 26px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .fps-plan-btn:hover { background: #a87320; }
+    @media (max-width: 560px) { .fps-plan-features { grid-template-columns: 1fr; } }
+
+    .fps-quick-test-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 18px;
+      background: #c9902a;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 1.05rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .fps-quick-test-btn:hover { background: #a87320; }
+
+    /* Quick test screen */
+    #screen-quick { font-family: Georgia, serif; }
+    .quick-container { max-width: 680px; margin: 0 auto; padding: 40px 20px; }
+    .quick-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .quick-counter { font-size: 0.9rem; color: #666; font-family: -apple-system, Segoe UI, Roboto, sans-serif; }
+    .quick-question { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
+    .quick-choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .quick-choice {
+      padding: 12px 16px;
+      border: 2px solid #d0d0d0;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .quick-choice:hover { border-color: #1a3a5c; background: #f0f4f8; }
+    .quick-choice.selected { border-color: #1a3a5c; background: #e8f0f8; }
+    .quick-choice.correct { border-color: #1a7a4c; background: #eef8f1; }
+    .quick-choice.wrong { border-color: #c65d4e; background: #fbecea; }
+    .quick-oe-input {
+      width: 180px;
+      padding: 10px 14px;
+      font-size: 1.1rem;
+      border: 2px solid #1a3a5c;
+      border-radius: 8px;
+      font-family: Georgia, serif;
+      outline: none;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .quick-oe-badge {
+      display: inline-block;
+      background: #d4a04a;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .quick-nav { display: flex; gap: 12px; }
+    .quick-btn-next {
+      padding: 10px 24px;
+      background: #1a3a5c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .quick-btn-next:hover { background: #0f2540; }
+    .quick-results { text-align: center; padding: 20px 0; }
+    .quick-score-num { font-size: 3rem; font-weight: 700; color: #1a3a5c; }
+    .quick-score-sub { font-size: 1rem; color: #666; margin-bottom: 24px; }
+    .quick-cta { background: #1a3a5c; color: #fff; border-radius: 10px; padding: 20px 24px; margin: 24px 0; text-align: left; }
+    .quick-cta h3 { margin: 0 0 8px; font-size: 1.2rem; color: #fff; }
+    .quick-cta p { margin: 0 0 16px; font-size: 0.95rem; color: #e8e8e8; line-height: 1.5; }
+    .quick-missed h3 { color: #1a3a5c; margin-bottom: 14px; font-size: 1.1rem; font-weight: normal; }
+    .quick-cta p { margin: 0 0 16px; font-size: 0.95rem; opacity: 0.9; line-height: 1.5; }
+    .quick-cta-btn {
+      display: inline-block;
+      background: #c9902a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 22px;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .quick-cta-btn:hover { background: #a87320; }
+    .quick-missed { margin-top: 28px; text-align: left; }
+    .quick-missed h3 { color: #1a3a5c; margin-bottom: 14px; }
+    .quick-missed-item { border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+    .quick-missed-q { font-size: 0.95rem; margin-bottom: 8px; line-height: 1.5; }
+    .quick-missed-ans { font-size: 0.88rem; font-family: -apple-system, Segoe UI, Roboto, sans-serif; }
+    .quick-missed-correct { color: #1a7a4c; font-weight: 700; }
+    .quick-missed-yours { color: #c65d4e; }
+
+    @media (max-width: 560px) { .fps-linkrow { grid-template-columns: 1fr; } }
+
+    /* Bottom service navigation (gold) */
+    .fps-service-heading {
+      width: 100%;
+      margin: 44px 0 4px;
+      font-family: Georgia, serif;
+      color: #1a3a5c;
+      font-size: 1.4rem;
+      text-align: left;
+    }
+    .fps-servicerow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      margin: 14px 0 0;
+      font-family: Georgia, serif;
+    }
+    .fps-service-cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px 18px;
+      text-decoration: none;
+      background: #c9902a;
+      color: #ffffff;
+      border-radius: 4px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .fps-service-cell:hover { background: #a87320; }
+    .fps-service-cell-title { font-weight: normal; font-size: 1.05rem; line-height: 1.35; }
+
+    .fps-utility-footer {
+      width: 100%;
+      margin: 26px 0 8px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+    }
+    .fps-utility-footer a { color: #1a3a5c; text-decoration: none; }
+    .fps-utility-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 560px) { .fps-servicerow { grid-template-columns: 1fr; } }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Free Practice SAT",
+  "url": "https://freepracticesat.com/",
+  "description": "The free SAT math diagnostic that pinpoints your exact weak skills.",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "jobTitle": "Ph.D. in Mathematics Education"
+  }
+}
+</script>
+</head>
+
+<body>
+
+  <!-- SCREEN 0: Auth -->
+  <div id="screen-auth" class="screen active">
+    <div class="landing-container">
+      <img src="Logo2.png" alt="Free Practice SAT" class="brand-logo">
+
+      <!-- Hero: one promise, then straight into the form -->
+      <div class="fps-hero">
+        <h1>Find out exactly what is costing you SAT Math points.</h1>
+        <p>The free SAT math diagnostic that pinpoints your exact weak skills. Take a full-length practice test, then get told the specific mistakes you made, not just which questions were wrong. Register below and start in under a minute.</p>
+        <span class="fps-hero-free">Free. Unlimited tests. No credit card.</span>
+      </div>
+
+      <!-- Answers the two things the ads promise, before the form -->
+      <div class="fps-match-band">
+        <div class="fps-match-item">
+          <p class="fps-match-title">Run out of practice tests?</p>
+          <p class="fps-match-text">Take unlimited full-length tests here, and pick your level: easy, medium, hard, or mixed. You choose it on the screen right after you log in.</p>
+        </div>
+        <div class="fps-match-item">
+          <p class="fps-match-title">Stuck at the same score?</p>
+          <p class="fps-match-text">Every test names the specific mistakes behind the questions you missed, and the basics underneath them, so you know what to work on next.</p>
+        </div>
+      </div>
+
+      <!-- Days until the next SAT test dates -->
+      <div class="fps-countdown-band" id="fps-countdown-band"></div>
+
+      <script>
+        // Days until the next three SAT test dates.
+        // Add new dates to the end of this list as College Board publishes them.
+        // Past dates drop off automatically and the next three always show.
+        (function () {
+          var SAT_DATES = [
+            { label: 'Aug 22',  date: new Date('2026-08-22T00:00:00') },
+            { label: 'Sept 12', date: new Date('2026-09-12T00:00:00') },
+            { label: 'Oct 3',   date: new Date('2026-10-03T00:00:00') },
+            { label: 'Nov 7',   date: new Date('2026-11-07T00:00:00') },
+            { label: 'Dec 5',   date: new Date('2026-12-05T00:00:00') }
+          ];
+          var band = document.getElementById('fps-countdown-band');
+          if (!band) return;
+
+          var now = new Date();
+          var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+          var upcoming = [];
+          SAT_DATES.forEach(function (d) {
+            var days = Math.round((d.date - today) / 86400000);
+            if (days >= 0) upcoming.push({ label: d.label, days: days });
+          });
+          upcoming = upcoming.slice(0, 3);
+
+          if (upcoming.length === 0) { band.style.display = 'none'; return; }
+
+          var html = '<div class="fps-cd-label">Days until the next SAT</div>';
+          upcoming.forEach(function (u) {
+            if (u.days === 0) {
+              html += '<div class="fps-cd-item fps-cd-today">' +
+                        '<div class="fps-cd-days">Today</div>' +
+                        '<div class="fps-cd-date">' + u.label + '</div>' +
+                      '</div>';
+            } else {
+              html += '<div class="fps-cd-item">' +
+                        '<div class="fps-cd-days">' + u.days + '</div>' +
+                        '<div class="fps-cd-unit">' + (u.days === 1 ? 'day' : 'days') + '</div>' +
+                        '<div class="fps-cd-date">' + u.label + '</div>' +
+                      '</div>';
+            }
+          });
+          band.innerHTML = html;
+        })();
+      </script>
+
+      <!-- Registration first, everything else below -->
+      <div class="landing-grid">
+
+        <div class="landing-left">
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-register" onclick="switchTab('register')">Register</button>
+            <button class="auth-tab" id="tab-login" onclick="switchTab('login')">Log In</button>
+          </div>
+
+          <div id="auth-register" class="auth-form">
+            <p class="fps-form-heading">Create your free account</p>
+
+            <label for="register-name" class="auth-label">Your name</label>
+            <input type="text" id="register-name" name="name" autocomplete="name" placeholder="First name" class="auth-input">
+
+            <label for="register-email" class="auth-label">Email address</label>
+            <input type="email" id="register-email" name="email" autocomplete="email" placeholder="you@example.com" class="auth-input">
+
+            <label for="register-password" class="auth-label">Password</label>
+            <input type="password" id="register-password" name="password" autocomplete="new-password" placeholder="At least 6 characters" class="auth-input">
+
+            <button class="btn-primary" onclick="handleRegister()">Create Account</button>
+            <p id="register-error" class="auth-error"></p>
+            <p id="register-success" class="auth-success"></p>
+            <p class="fps-form-note">We send one email to confirm your address. That is it.</p>
+          </div>
+
+          <div id="auth-login" class="auth-form" style="display:none">
+            <p class="fps-form-heading">Welcome back</p>
+
+            <label for="login-email" class="auth-label">Email address</label>
+            <input type="email" id="login-email" name="email" autocomplete="email" placeholder="you@example.com" class="auth-input">
+
+            <label for="login-password" class="auth-label">Password</label>
+            <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Your password" class="auth-input">
+
+            <button class="btn-primary" onclick="handleLogin()">Log In</button>
+            <p id="login-error" class="auth-error"></p>
+          </div>
+
+          <button class="fps-quick-test-btn" onclick="startQuickTest()">Not ready? Try 5 questions with no account</button>
+        </div>
+
+        <div class="landing-right">
+          <ul class="brag-list">
+            <li class="brag-item">
+              <div class="brag-headline">4,700+ practice questions</div>
+              <div class="brag-sub">Covering all SAT Math skills</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Exact SAT test format</div>
+              <div class="brag-sub">2 timed modules with 10-minute break</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Choose your difficulty</div>
+              <div class="brag-sub">Easy, medium, hard, or mixed. Set it before every test.</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Built-in Desmos calculator</div>
+              <div class="brag-sub">The same one you'll use on test day</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Your mistakes, named</div>
+              <div class="brag-sub">Not just a score. We tell you the exact error behind each question you missed.</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Unlimited free tests &amp; results</div>
+              <div class="brag-sub">No credit card. Unlock worked solutions and personalized diagnosis when you're ready.</div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="fps-divider">
+        <div class="fps-divider-gold"></div>
+        <div class="fps-divider-navy"></div>
+      </div>
+
+      <div class="fps-foundations-banner">
+        <div class="fps-foundations-text">
+          <h2>Stuck around 500 in Math?</h2>
+          <p>The problem usually is not the SAT questions. It is the basics underneath them. The free Foundations course finds and fixes your wobbly fundamentals in 4 days: 275 quick concept checks covering everything the SAT assumes you already know.</p>
+        </div>
+        <a class="fps-foundations-btn" href="/foundations/">Start the Free Foundations Course</a>
+      </div>
+
+      <div class="fps-testimonials">
+        <h2>What actual users say about the website</h2>
+        <div class="fps-quote">
+          <p class="fps-quote-text">"I finished two tests on the website. I did both untimed and made a 640 on both. For feedback, I feel constructive criticism would be the most valuable, but to be completely honest, I really don't have any. It felt very similar to the real SAT, the website ran smoothly, and it's by far the best resource out of the few study tools I've used so far in prep. I'll definitely use it more when prepping for this October."</p>
+          <p class="fps-quote-author">Butler</p>
+        </div>
+      </div>
+
+      <div class="fps-linkrow" style="margin-top:32px;">
+        <a class="fps-cell" href="/about/">
+          <span class="fps-cell-title">Meet the creator</span>
+          <span class="fps-cell-sub">Daniel Brink, Ph.D.</span>
+        </a>
+        <a class="fps-cell" href="/sat-math/">
+          <span class="fps-cell-title">Topics covered by this website</span>
+        </a>
+        <a class="fps-cell" href="/blog/">
+          <span class="fps-cell-title">Blog</span>
+        </a>
+        <a class="fps-cell" href="/contact/">
+          <span class="fps-cell-title">Contact us</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 1: Welcome -->
+  <div id="screen-welcome" class="screen">
+    <button class="btn-signout btn-signout-floating" onclick="handleSignOut()">Sign Out</button>
+    <div class="landing-container">
+      <img src="Logo2.png" alt="Free Practice SAT" class="brand-logo">
+
+      <div class="fps-foundations-banner">
+        <div class="fps-foundations-text">
+          <h2>Stuck around 500 in Math?</h2>
+          <p>The problem usually is not the SAT questions. It is the basics underneath them. The free Foundations course finds and fixes your wobbly fundamentals in 4 days: 275 quick concept checks covering everything the SAT assumes you already know.</p>
+        </div>
+        <a class="fps-foundations-btn" href="/foundations/">Start the Free Foundations Course</a>
+      </div>
+
+      <div class="landing-grid">
+        <div class="landing-left">
+          <ul class="welcome-info">
+            <li class="info-item">Two modules, 22 questions each.</li>
+            <li class="info-item"><strong>Timed</strong>: 35 minutes per module, with a 10-minute break. <strong>Untimed</strong>: take as long as you need.</li>
+          </ul>
+
+          <h3 class="tools-heading">Test Tools</h3>
+          <ul class="welcome-info welcome-info-tools">
+            <li class="info-item">Desmos graphing calculator, formula sheet, flag a question for review, cross out wrong choices, and exit anytime.</li>
+          </ul>
+        </div>
+
+        <div class="landing-right">
+          <ul class="brag-list">
+            <li class="brag-item">
+              <div class="brag-headline">4,700+ practice questions</div>
+              <div class="brag-sub">Covering all SAT Math skills</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Exact SAT test format</div>
+              <div class="brag-sub">2 timed modules with 10-minute break</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Built-in Desmos calculator</div>
+              <div class="brag-sub">The same one you'll use on test day</div>
+            </li>
+            <li class="brag-item">
+              <div class="brag-headline">Unlimited free tests &amp; results</div>
+              <div class="brag-sub">No credit card. Unlock worked solutions and personalized diagnosis when you're ready.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Start buttons live below both columns, centred on the page -->
+      <div class="start-buttons wo-start-row">
+        <button class="btn-primary btn-primary-block" onclick="startTest(false)">Start Timed Test</button>
+        <button class="btn-secondary btn-secondary-block" onclick="startTest(true)">Start Untimed Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: Quick Test -->
+  <div id="screen-quick" class="screen">
+    <div class="quick-container">
+      <div id="quick-content"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Test -->
+  <div id="screen-test" class="screen">
+    <div class="test-layout" id="test-layout">
+      <div class="side-panel">
+        <div class="module-label" id="module-label">Module 1</div>
+        <div class="timer-box" id="timer-box">
+          <div class="timer-label">Time Remaining</div>
+          <div id="timer-display" class="timer-display">35:00</div>
+        </div>
+        <button class="btn-calculator" onclick="toggleCalculator()">📈 Calculator</button>
+        <button class="btn-formula-sheet" onclick="toggleFormulaSheet()">📐 Formula Sheet</button>
+        <div class="side-panel-title">Questions</div>
+        <div id="question-grid" class="question-grid"></div>
+        <div class="side-panel-legend">
+          <div class="legend-item"><span class="legend-dot"></span> Answered</div>
+          <div class="legend-item"><span class="legend-flag">⚑</span> Marked</div>
+        </div>
+        <button class="btn-submit" onclick="confirmSubmit()">Submit Module</button>
+        <button class="btn-exit" onclick="confirmExit()">Exit Test</button>
+      </div>
+      <div class="test-main">
+        <p id="question-counter" class="question-counter"></p>
+        <div id="question-text" class="question-text"></div>
+        <div id="answer-choices" class="answer-choices"></div>
+        <div class="test-actions">
+          <button class="btn-mark" id="mark-btn" onclick="toggleMark()">⚑ Mark for Review</button>
+        </div>
+        <div class="test-nav">
+          <button class="btn-nav" id="back-btn" onclick="goBack()">Back</button>
+          <button class="btn-nav" id="next-btn" onclick="goForward()">Next</button>
+          <button class="btn-nav btn-nav-submit" id="inline-submit-btn" onclick="confirmSubmit()" style="display:none;">Submit Module</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="calculator-panel" class="calculator-panel">
+      <div class="calculator-resize-handle" id="calculator-resize-handle" title="Drag to resize"></div>
+      <div class="calculator-header" id="calculator-header">
+        <span class="calculator-title">Graphing Calculator (drag edge to resize)</span>
+        <button class="calculator-close" onclick="toggleCalculator()" aria-label="Close calculator">&times;</button>
+      </div>
+      <div id="calculator-mount" class="calculator-mount"></div>
+    </div>
+
+    <div id="formula-sheet-panel" class="formula-sheet-panel">
+      <div class="formula-sheet-header" id="formula-sheet-header">
+        <span class="formula-sheet-title">Formula Sheet (drag to move)</span>
+        <button class="formula-sheet-close" onclick="toggleFormulaSheet()" aria-label="Close formula sheet">&times;</button>
+      </div>
+      <div class="formula-sheet-body">
+        <img src="formula_sheet.png" alt="SAT Math Reference Sheet" class="formula-sheet-image">
+      </div>
+      <div class="formula-sheet-resize" id="formula-sheet-resize" title="Drag to resize"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2b: Submit Confirmation -->
+  <div id="screen-confirm" class="screen">
+    <div class="container confirm-container">
+      <h2 id="confirm-title">Submit Module 1?</h2>
+      <p class="confirm-text">Are you sure you want to submit? Make sure you have no unanswered or flagged questions before continuing.</p>
+      <div id="confirm-summary" class="confirm-summary"></div>
+      <div class="confirm-actions">
+        <button class="btn-back-confirm" onclick="showScreen('screen-test')">Go Back</button>
+        <button class="btn-confirm-submit" onclick="submitModule()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2c: Exit Test Confirmation -->
+  <div id="screen-exit-confirm" class="screen">
+    <div class="container confirm-container">
+      <h2>Exit Test?</h2>
+      <p class="confirm-text">If you exit, this attempt won't be saved. You'll return to the welcome screen and can start a fresh test whenever you're ready.</p>
+      <div class="confirm-actions">
+        <button class="btn-back-confirm" onclick="cancelExit()">Keep Going</button>
+        <button class="btn-exit-confirm" onclick="exitTest()">Exit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Mandatory Break -->
+  <div id="screen-break" class="screen">
+    <div class="container break-container">
+      <div class="break-icon">☕</div>
+      <h2 id="break-title">Mandatory Break</h2>
+      <p class="break-text" id="break-text">Great work on Module 1! You must take a 10-minute break before starting Module 2.</p>
+      <div class="break-timer-box" id="break-timer-box">
+        <div class="break-timer-label">Break ends in</div>
+        <div id="break-timer-display" class="break-timer-display">10:00</div>
+      </div>
+      <p class="break-note" id="break-note">Module 2 will unlock automatically when the break ends.</p>
+      <button class="btn-primary" id="start-module2-btn" onclick="startModule2()" disabled style="opacity:0.4;cursor:not-allowed;">Start Module 2</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Results -->
+  <div id="screen-results" class="screen">
+    <div class="container">
+      <div id="score-summary"></div>
+      <div id="prereq-diagnosis" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div id="screen-tutorial" class="screen"><div class="container"></div></div>
+  <div id="screen-practice" class="screen"><div class="container"></div></div>
+  <div id="screen-complete" class="screen"><div class="container"></div></div>
+
+  <script src="airtable_shim.js"></script>
+  <script src="script.js"></script>
+  <script src="quick_test.js"></script>
+  <script src="results_v2.js"></script>
+<script src="results_free_cell.js"></script>
+  <script src="test_events.js"></script>
+  <script src="break_screen.js"></script>
+  <script src="desmos_library.js"></script>
+  <script src="welcome_offer.js"></script>
+  <script src="difficulty_select.js"></script>
+  <script src="parent_pay.js"></script>
+  <script src="checkout_guard.js"></script>
+  <script src="question_provenance.js"></script>
+  <script src="adaptive_test.js"></script>
+</body>
+</html>
