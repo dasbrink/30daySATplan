@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Systems of Equations: Methods and Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/systems-of-equations/">
+
+  <meta name="description" content="Solve SAT systems of linear equations by substitution or elimination, set up word problems, and spot no solution or infinitely many. 10 practice questions.">
+
+  <meta property="og:title" content="SAT Systems of Equations: Substitution, Elimination and Practice">
+  <meta property="og:description" content="Solve SAT systems of linear equations by substitution or elimination, set up word problems, and spot no solution or infinitely many. 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/systems-of-equations/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Systems of Equations: Substitution, Elimination and Practice">
+  <meta name="twitter:description" content="Solve SAT systems of linear equations by substitution or elimination, set up word problems, and spot no solution or infinitely many. 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Systems of Equations: Substitution, Elimination and Practice",
+  "description": "Systems of linear equations on the SAT: substitution, elimination, clearing decimals, finding x + y directly, ticket and mixture word problems, and systems with no solution or infinitely many solutions. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/systems-of-equations/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should I use substitution instead of elimination?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use substitution when one equation is already solved for a variable. Use elimination when coefficients match or can be made to match by multiplying."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does a system of linear equations have no solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When the two lines are parallel: the same slope but different intercepts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Desmos for systems on the SAT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Graph both equations and click the intersection point. For word problems you still have to write the equations first."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Systems of Equations"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "If x + y = 10 and x - y = 4, what is x?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If 2x + y = 11 and y = x + 2, what is y?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If 3x + 2y = 16 and x - 2y = 0, what is x + y?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "6."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Adult tickets cost 12 dollars and child tickets 7 dollars. 50 tickets cost 475 dollars. How many adult tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "25."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many solutions does 2x + 3y = 6 and 4x + 6y = 12 have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Infinitely many."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "For what k does kx + 2y = 5 and 3x + y = 1 have no solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "6."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If 0.2x + 0.5y = 4.1 and x + y = 13, what is x - y?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If 5x - 3y = 1 and 3x + 2y = 12, what is x + y?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "3x - ky = 6 and ax + 4y = -12 have infinitely many solutions. What is a + k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "-4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mix 30 percent and 60 percent acid to get 12 liters at 50 percent. How many liters of 30 percent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4 liters."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Systems of Equations
+      </nav>
+
+      <h1>Systems of Linear Equations on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Algebra &middot; Updated October 2026</p>
+
+      <p class="lede">Systems come up several times on every SAT, both as plain equations and as word problems about tickets, mixtures and prices. Desmos is a big help with the plain ones: graph both lines and click the point where they cross. Word problems still need you to write the two equations yourself.</p>
+
+      <div class="answer-box">
+        <p>A system of two linear equations asks for the one point that makes both of them true. Use substitution when one equation already says $y = \ldots$ or $x = \ldots$. Use elimination when adding or subtracting the equations will make one variable disappear.</p>
+        <p>Before you start solving, read what the question wants. It often asks for $x + y$ or $x - y$, and sometimes you can get that straight from adding or subtracting the equations without finding $x$ and $y$ separately.</p>
+      </div>
+
+      <h2 id="solve">Three worked examples</h2>
+      <div class="worked">
+        <h3>Example 1: elimination after multiplying</h3>
+        <p>Solve $5x - 3y = 1$ and $3x + 2y = 12$.</p>
+        <ol>
+          <li>Multiply the first equation by $2$ and the second by $3$: $10x - 6y = 2$ and $9x + 6y = 36$.</li>
+          <li>Add: $19x = 38$, so $x = 2$.</li>
+          <li>Substitute: $3(2) + 2y = 12$, so $y = 3$. The solution is $(2, 3)$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: a word problem</h3>
+        <p>Adult tickets cost \$12 and child tickets cost \$7. A group bought $50$ tickets for \$475. How many adult tickets did they buy?</p>
+        <ol>
+          <li>Count: $a + c = 50$. Cost: $12a + 7c = 475$.</li>
+          <li>Substitute $c = 50 - a$: $12a + 350 - 7a = 475$, so $5a = 125$.</li>
+          <li>$a = 25$ adult tickets.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: a system with no solution</h3>
+        <p>For what value of $k$ does the system $kx + 2y = 5$ and $3x + y = 1$ have no solution?</p>
+        <ol>
+          <li>Multiply the second equation by $2$: $6x + 2y = 2$.</li>
+          <li>With $k = 6$, the left sides match but the right sides are $5$ and $2$. That can never happen, so there is no solution.</li>
+          <li>$k = 6$.</li>
+        </ol>
+      </div>
+
+      <h2 id="tests">Substitution, elimination and the special cases</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>One equation solved for a variable</td><td>Substitute it into the other equation.</td></tr>
+          <tr><td>Matching or opposite coefficients</td><td>Add or subtract the equations to eliminate a variable.</td></tr>
+          <tr><td>Coefficients that don't match</td><td>Multiply one or both equations first, then eliminate.</td></tr>
+          <tr><td>Decimals</td><td>Multiply by $10$ or $100$ to clear them before you start.</td></tr>
+          <tr><td>"No solution"</td><td>Same slope, different intercepts. Set the ratios of the $x$ and $y$ coefficients equal.</td></tr>
+          <tr><td>"Infinitely many solutions"</td><td>One equation is a multiple of the other, constants included.</td></tr>
+          <tr><td>Two things, two totals (a count and a cost)</td><td>One equation for the count, one for the cost.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="mistakes">Mistakes I see often</h2>
+      <p><strong>Multiplying only one side of an equation.</strong> When you multiply to line up coefficients, every term on both sides gets multiplied.</p>
+      <p><strong>Subtracting when you meant to add.</strong> Subtracting a negative changes its sign. Write the subtraction out term by term.</p>
+      <p><strong>Stopping at $x$ when the question asks for $y$.</strong> Or for $x + y$. Reread the last line.</p>
+      <p><strong>Mixing up "no solution" and "infinitely many".</strong> When the left sides match but the constants don't, there is no solution. When everything matches, including the constants, there are infinitely many.</p>
+      <p><strong>Putting the price in the count equation.</strong> In word problems, one equation counts things and the other adds up their values.</p>
+
+
+      <h2 id="practice">Try these</h2>
+      <p>For the word problems, write both equations before you solve anything.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">If $x + y = 10$ and $x - y = 4$, what is the value of $x$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$3$</li>
+          <li><span class="lbl">B</span>$7$</li>
+          <li><span class="lbl">C</span>$10$</li>
+          <li><span class="lbl">D</span>$14$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Add the equations: $2x = 14$, so $x = 7$. Choice A is the value of $y$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $2x + y = 11$ and $y = x + 2$, what is the value of $y$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $5$.</span> Substitute: $2x + x + 2 = 11$, so $3x = 9$ and $x = 3$. Then $y = 3 + 2 = 5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $3x + 2y = 16$ and $x - 2y = 0$, what is the value of $x + y$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $6$.</span> Add the equations: $4x = 16$, so $x = 4$. Then $4 - 2y = 0$ gives $y = 2$, and $x + y = 6$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Adult tickets to a show cost \$12 each and child tickets cost \$7 each. A group bought $50$ tickets for a total of \$475. How many adult tickets did the group buy?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$20$</li>
+          <li><span class="lbl">B</span>$30$</li>
+          <li><span class="lbl">C</span>$35$</li>
+          <li><span class="lbl">D</span>$25$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> $a + c = 50$ and $12a + 7c = 475$. Substituting $c = 50 - a$ gives $5a + 350 = 475$, so $a = 25$. Check: $25 \cdot 12 + 25 \cdot 7 = 300 + 175 = 475$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">How many solutions does the system $2x + 3y = 6$ and $4x + 6y = 12$ have?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Zero</li>
+          <li><span class="lbl">B</span>Exactly one</li>
+          <li><span class="lbl">C</span>Exactly two</li>
+          <li><span class="lbl">D</span>Infinitely many</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> The second equation is the first one multiplied by $2$, so both describe the same line. Every point on that line is a solution.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">In the system $kx + 2y = 5$ and $3x + y = 1$, $k$ is a constant. For what value of $k$ does the system have no solution?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $6$.</span> Doubling the second equation gives $6x + 2y = 2$. With $k = 6$ the left sides match but the constants $5$ and $2$ do not, so the lines are parallel and there is no solution.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $0.2x + 0.5y = 4.1$ and $x + y = 13$, what is the value of $x - y$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $3$.</span> Multiply the first equation by $5$: $x + 2.5y = 20.5$. Subtract $x + y = 13$: $1.5y = 7.5$, so $y = 5$ and $x = 8$. $x - y = 3$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">If $5x - 3y = 1$ and $3x + 2y = 12$, what is the value of $x + y$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$5$</li>
+          <li><span class="lbl">B</span>$3$</li>
+          <li><span class="lbl">C</span>$2$</li>
+          <li><span class="lbl">D</span>$6$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> Multiply to eliminate $y$: $10x - 6y = 2$ and $9x + 6y = 36$. Adding gives $19x = 38$, so $x = 2$, and then $y = 3$. $x + y = 5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">In the system $3x - ky = 6$ and $ax + 4y = -12$, $a$ and $k$ are constants. If the system has infinitely many solutions, what is the value of $a + k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-4$.</span> The second equation must be a multiple of the first. Since $-12 = -2 \cdot 6$, the second is the first times $-2$: $-6x + 2ky = -12$. So $a = -6$ and $2k = 4$, $k = 2$. $a + k = -4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A chemist mixes a $30\%$ acid solution with a $60\%$ acid solution to make $12$ liters of a $50\%$ acid solution. How many liters of the $30\%$ solution does she use?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$8$</li>
+          <li><span class="lbl">B</span>$4$</li>
+          <li><span class="lbl">C</span>$6$</li>
+          <li><span class="lbl">D</span>$3$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $x + y = 12$ and $0.3x + 0.6y = 0.5 \cdot 12 = 6$. Substituting $y = 12 - x$: $0.3x + 7.2 - 0.6x = 6$, so $0.3x = 1.2$ and $x = 4$. Choice A is the amount of the $60\%$ solution.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>How do you do on word problems?</h2>
+        <p>A free practice test shows which kinds of questions you miss, and the mistakes behind them.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#solve">Three worked examples</a></li>
+          <li><a href="#tests">Substitution, elimination and the special cases</a></li>
+          <li><a href="#mistakes">Mistakes I see often</a></li>
+          <li><a href="#practice">Try these</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/graphing-systems-of-equations/">Graphing systems of equations</a></li>
+          <li><a href="/sat-math/linear-quadratic-systems/">Linear-quadratic systems</a></li>
+          <li><a href="/sat-math/linear-equations/">Linear equations</a></li>
+          <li><a href="/sat-math/translating-word-problems/">Translating word problems</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

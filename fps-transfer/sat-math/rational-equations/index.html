@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Rational Equations and Extraneous Solutions</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/rational-equations/">
+
+  <meta name="description" content="Solve SAT rational equations by clearing fractions, then catch extraneous solutions. Worked examples, common mistakes, and 10 practice questions.">
+
+  <meta property="og:title" content="SAT Rational Equations and Extraneous Solutions: Steps and Practice">
+  <meta property="og:description" content="Solve SAT rational equations by clearing fractions, then catch extraneous solutions. Worked examples, common mistakes, and 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/rational-equations/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Rational Equations and Extraneous Solutions: Steps and Practice">
+  <meta name="twitter:description" content="Solve SAT rational equations by clearing fractions, then catch extraneous solutions. Worked examples, common mistakes, and 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Rational Equations and Extraneous Solutions: Steps and Practice",
+  "description": "How to solve rational equations on the SAT: list restrictions, clear fractions, solve, and check for extraneous solutions. Worked examples, common mistakes, and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/rational-equations/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you solve a rational equation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "List the values that make a denominator 0, multiply every term by the least common denominator to clear the fractions, solve, and reject any answer on the restriction list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an extraneous solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A value that solves the equation after the fractions are cleared but makes a denominator 0 in the original equation, so it is not a real solution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does a rational equation have no solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When every value you find is extraneous, or when the variable cancels and leaves a false statement."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Rational Equations"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "What value of x satisfies 4/x = 2/5?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the solution to 2/(x + 3) = 1/(x - 1)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the solution to 1/x + 1/(2x) = 3/4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many solutions does 2x/(x - 4) = 8/(x - 4) + 3 have?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zero. The only candidate, x = 4, makes the denominators 0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The equation k/(x + 2) = 3/(x - 1) has the solution x = 4. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 6."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The equation k/(x^2 - 4) = 3/(x - 2) has the solution x = 5. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 21."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are all the solutions to x/(x - 1) - 2/(x + 1) = 4/(x^2 - 1)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 2 only. x = -1 is extraneous."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "For what value of a does (x + a)/(x - 2) = 3 have no solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "a = -2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The equation 2/(x - k) + 3/(x + k) = (k + 11)/(x^2 - k^2) has the solution x = 4, where k is positive. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 4.5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pipe A fills a tank in 6 hours and pipe B in 3 hours. How long do they take together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2 hours."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Rational Equations
+      </nav>
+
+      <h1>Solving Rational Equations</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <p class="lede">A rational equation has the variable in a denominator. You may be asked to solve one, to say how many solutions it has, to find a missing constant from a given solution, or to find the value that leaves no solution at all.</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Before you solve anything</p>
+        <p>Write down the values of $x$ that make a denominator $0$. Those values can never be answers, no matter what your algebra says later.</p>
+        <p>Then clear the fractions by multiplying every term by the least common denominator, solve what is left, and cross off any answer that is on your list. That crossed-off answer is called an extraneous solution, and the SAT usually includes it among the answer choices.</p>
+      </div>
+
+      <h2 id="solve">Worked examples</h2>
+      <div class="worked">
+        <h3>One fraction on each side</h3>
+        <p>Solve $\dfrac{3}{x - 2} = \dfrac{6}{x + 1}$.</p>
+        <ol>
+          <li>Restrictions: $x \neq 2$ and $x \neq -1$.</li>
+          <li>Cross-multiply: $3(x + 1) = 6(x - 2)$, so $3x + 3 = 6x - 12$.</li>
+          <li>$15 = 3x$, so $x = 5$. It is not on the restriction list, so $x = 5$ is the solution. Check: $\dfrac{3}{3} = 1$ and $\dfrac{6}{6} = 1$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>The answer that is not allowed</h3>
+        <p>Solve $\dfrac{x}{x - 3} = \dfrac{3}{x - 3} + 2$.</p>
+        <ol>
+          <li>Restriction: $x \neq 3$.</li>
+          <li>Multiply every term by $x - 3$: $x = 3 + 2(x - 3)$, so $x = 2x - 3$.</li>
+          <li>That gives $x = 3$, which is on the restriction list. The equation has no solution.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>A quadratic with one extraneous root</h3>
+        <p>Solve $\dfrac{x}{x - 1} - \dfrac{2}{x + 1} = \dfrac{4}{x^2 - 1}$.</p>
+        <ol>
+          <li>Factor $x^2 - 1 = (x - 1)(x + 1)$. Restrictions: $x \neq 1$ and $x \neq -1$.</li>
+          <li>Multiply every term by $(x - 1)(x + 1)$: $x(x + 1) - 2(x - 1) = 4$.</li>
+          <li>Expand: $x^2 + x - 2x + 2 = 4$, so $x^2 - x - 2 = 0$ and $(x - 2)(x + 1) = 0$.</li>
+          <li>$x = 2$ or $x = -1$. Cross off $x = -1$. The only solution is $x = 2$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Finding a constant from a given solution</h3>
+        <p>The equation $\dfrac{k}{x + 2} = \dfrac{3}{x - 1}$ has the solution $x = 4$. What is $k$?</p>
+        <ol>
+          <li>Substitute $x = 4$: $\dfrac{k}{6} = \dfrac{3}{3}$.</li>
+          <li>The right side is $1$, so $\dfrac{k}{6} = 1$ and $k = 6$.</li>
+          <li>Substituting first is faster than solving for $x$ in terms of $k$.</li>
+        </ol>
+      </div>
+
+      <h2 id="tests">How these questions are asked</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>Step</th><th>What to do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1. List the restrictions</td><td>Set each denominator equal to $0$. Factor first: $x^2 - 9 = (x - 3)(x + 3)$ rules out $x = 3$ and $x = -3$.</td></tr>
+          <tr><td>2. Clear the fractions</td><td>With one fraction on each side, cross-multiply. Otherwise multiply every term on both sides by the least common denominator.</td></tr>
+          <tr><td>3. Solve</td><td>What is left is a linear or quadratic equation. Solve it the usual way.</td></tr>
+          <tr><td>4. Check</td><td>Cross off any answer from your restriction list. If every answer is crossed off, the equation has no solution.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="mistakes">Mistakes I see often</h2>
+      <p><strong>Skipping the check.</strong> An answer that makes any denominator $0$ is not a solution, even though your algebra produced it.</p>
+      <p><strong>Multiplying only some terms by the denominator.</strong> Every term on both sides gets multiplied, including whole numbers like the $2$ in Example 2.</p>
+      <p><strong>Dropping the minus sign across a numerator.</strong> $-\dfrac{x - 3}{x + 1}$ becomes $-(x - 3) = -x + 3$ after clearing, not $-x - 3$.</p>
+      <p><strong>Cancelling across addition.</strong> In $\dfrac{x + 4}{x}$ you cannot cancel the $x$ terms. You can only cancel factors.</p>
+      <p><strong>Not factoring the denominator.</strong> $x^2 - 4$ is $(x - 2)(x + 2)$. If you miss this, you miss a restriction and the least common denominator.</p>
+
+
+      <h2 id="practice">Try these</h2>
+      <p>Work each question on paper, and check every answer against the denominators before you open the solution.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">What value of $x$ satisfies $\dfrac{4}{x} = \dfrac{2}{5}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\dfrac{8}{5}$</li>
+          <li><span class="lbl">B</span>$10$</li>
+          <li><span class="lbl">C</span>$\dfrac{5}{2}$</li>
+          <li><span class="lbl">D</span>$20$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Cross-multiply: $2x = 20$, so $x = 10$. Check: $\dfrac{4}{10} = \dfrac{2}{5}$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">What is the solution to $\dfrac{2}{x + 3} = \dfrac{1}{x - 1}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x = 1$</li>
+          <li><span class="lbl">B</span>$x = -3$</li>
+          <li><span class="lbl">C</span>$x = 5$</li>
+          <li><span class="lbl">D</span>$x = -5$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> Cross-multiply: $2(x - 1) = x + 3$, so $2x - 2 = x + 3$ and $x = 5$. It is not $-3$ or $1$, so it is allowed. Check: $\dfrac{2}{8} = \dfrac{1}{4}$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the solution to $\dfrac{1}{x} + \dfrac{1}{2x} = \dfrac{3}{4}$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $2$.</span> Combine the left side over $2x$: $\dfrac{2}{2x} + \dfrac{1}{2x} = \dfrac{3}{2x}$. Then $\dfrac{3}{2x} = \dfrac{3}{4}$, so $2x = 4$ and $x = 2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">How many solutions does the equation $\dfrac{2x}{x - 4} = \dfrac{8}{x - 4} + 3$ have?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Zero</li>
+          <li><span class="lbl">B</span>Exactly one</li>
+          <li><span class="lbl">C</span>Exactly two</li>
+          <li><span class="lbl">D</span>Infinitely many</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The restriction is $x \neq 4$. Multiply every term by $x - 4$: $2x = 8 + 3(x - 4) = 3x - 4$, so $x = 4$. That value makes the denominators $0$, so it is extraneous and the equation has no solution.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The equation $\dfrac{k}{x + 2} = \dfrac{3}{x - 1}$ has the solution $x = 4$, where $k$ is a constant. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $6$.</span> Substitute $x = 4$: $\dfrac{k}{6} = \dfrac{3}{3} = 1$, so $k = 6$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The equation $\dfrac{k}{x^2 - 4} = \dfrac{3}{x - 2}$ has the solution $x = 5$, where $k$ is a constant. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $21$.</span> Substitute $x = 5$: $\dfrac{k}{25 - 4} = \dfrac{3}{3}$, so $\dfrac{k}{21} = 1$ and $k = 21$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">What are all the solutions to $\dfrac{x}{x - 1} - \dfrac{2}{x + 1} = \dfrac{4}{x^2 - 1}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x = -1$ only</li>
+          <li><span class="lbl">B</span>$x = 2$ and $x = -1$</li>
+          <li><span class="lbl">C</span>No solution</li>
+          <li><span class="lbl">D</span>$x = 2$ only</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> Multiply every term by $(x - 1)(x + 1)$: $x(x + 1) - 2(x - 1) = 4$, which simplifies to $x^2 - x - 2 = 0$, or $(x - 2)(x + 1) = 0$. The value $x = -1$ makes two denominators $0$, so it is extraneous. Only $x = 2$ works.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">For what value of the constant $a$ does the equation $\dfrac{x + a}{x - 2} = 3$ have no solution?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-6$</li>
+          <li><span class="lbl">B</span>$-2$</li>
+          <li><span class="lbl">C</span>$2$</li>
+          <li><span class="lbl">D</span>$6$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Multiply by $x - 2$: $x + a = 3x - 6$, so $x = \dfrac{a + 6}{2}$. That is a valid solution unless it equals the restricted value $2$. Setting $\dfrac{a + 6}{2} = 2$ gives $a = -2$. Check: with $a = -2$, the left side is $\dfrac{x - 2}{x - 2} = 1$, which never equals $3$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The equation $\dfrac{2}{x - k} + \dfrac{3}{x + k} = \dfrac{k + 11}{x^2 - k^2}$ has the solution $x = 4$, where $k$ is a positive constant. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4.5$ (or $\dfrac{9}{2}$).</span> Multiply every term by $x^2 - k^2 = (x - k)(x + k)$: $2(x + k) + 3(x - k) = k + 11$, so $5x - k = k + 11$ and $5x = 2k + 11$. With $x = 4$: $20 = 2k + 11$, so $k = 4.5$. Check that $x = 4$ is allowed: it is not $\pm 4.5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Pipe A can fill a tank in $6$ hours. Pipe B can fill the same tank in $3$ hours. Working together, the pipes fill the tank in $t$ hours, where $\dfrac{1}{6} + \dfrac{1}{3} = \dfrac{1}{t}$. What is the value of $t$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$4.5$</li>
+          <li><span class="lbl">B</span>$9$</li>
+          <li><span class="lbl">C</span>$2$</li>
+          <li><span class="lbl">D</span>$1.5$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $\dfrac{1}{6} + \dfrac{2}{6} = \dfrac{3}{6} = \dfrac{1}{2}$, so $\dfrac{1}{t} = \dfrac{1}{2}$ and $t = 2$. Choice A is the average of $6$ and $3$, but working together must be faster than the faster pipe alone.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find out where your algebra slips</h2>
+        <p>Take a free practice test and see which question types are costing you points.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#solve">Worked examples</a></li>
+          <li><a href="#tests">How these questions are asked</a></li>
+          <li><a href="#mistakes">Mistakes I see often</a></li>
+          <li><a href="#practice">Try these</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/radical-equations/">Radical equations</a></li>
+          <li><a href="/sat-math/negative-and-fractional-exponents/">Negative &amp; fractional exponents</a></li>
+          <li><a href="/sat-math/function-notation/">Function notation</a></li>
+          <li><a href="/sat-math/factoring-quadratics/">Factoring quadratics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Exponential Growth and Decay: Models, Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/exponential-growth-and-decay/">
+
+  <meta name="description" content="Write and read SAT exponential models: growth and decay factors, percent rates, doubling, half-life and equivalent forms, with 10 practice questions.">
+
+  <meta property="og:title" content="SAT Exponential Growth and Decay: Models, Rates and Practice">
+  <meta property="og:description" content="Write and read SAT exponential models: growth and decay factors, percent rates, doubling, half-life and equivalent forms, with 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/exponential-growth-and-decay/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Exponential Growth and Decay: Models, Rates and Practice">
+  <meta name="twitter:description" content="Write and read SAT exponential models: growth and decay factors, percent rates, doubling, half-life and equivalent forms, with 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Exponential Growth and Decay: Models, Rates and Practice",
+  "description": "Exponential growth and decay on the SAT: the form a times b to the t, turning percent rates into factors, doubling and half-life periods, finding a and b from two values, rewriting models with exponent rules, and telling linear from exponential. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/exponential-growth-and-decay/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you tell exponential growth from decay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In y = a times b to the t, it is growth when b is greater than 1 and decay when b is between 0 and 1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you turn a percent rate into a factor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For growth, add the rate to 1: 4 percent growth is 1.04. For decay, subtract it from 1: 15 percent decay is 0.85."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between linear and exponential change?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Linear change adds the same amount each period. Exponential change multiplies by the same factor each period."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Exponential Growth and Decay"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "If V(t) = 500(1.04)^t, by what percent does the value grow each year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4 percent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A population of 200 doubles every year. How many after 3 years?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1,600."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A 24,000 dollar car loses 15 percent of its value each year. Which function gives its value after t years?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "V(t) = 24,000(0.85)^t."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "50 bacteria triple every 4 hours. Which function gives the number after h hours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "N(h) = 50 times 3 to the power h/4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 3(2)^x, what is f(4) - f(3)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "24."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "80 grams with a half-life of 5 days. How much is left after 15 days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 grams."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to 1,000(1.21)^t?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1,000(1.1)^(2t)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "2,500 dollars grows by 6 percent a year. What is it worth after 10 years?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About 4,477 dollars."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = a times b^x, f(0) = 5 and f(2) = 45, what is f(3)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "135."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If P(t) = 300(0.9)^(t/2), which statement about the population is true?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It decreases by 10 percent every 2 years."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Exponential Growth and Decay
+      </nav>
+
+      <h1>Exponential Growth and Decay on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Before you start</p>
+        <p>Every exponential model on the SAT has the form $y = a \cdot b^t$. The number $a$ is the starting amount, and $b$ is what the amount is multiplied by each time period.</p>
+        <p>If $b$ is greater than $1$, the amount grows, and the rate is $b - 1$: a factor of $1.04$ means $4\%$ growth. If $b$ is between $0$ and $1$, it decays, and the rate is $1 - b$: a factor of $0.85$ means $15\%$ decay.</p>
+      </div>
+
+      <p class="lede">Exponential questions come in a few forms that repeat from test to test. You may need to read the starting value and the rate off a formula, write the formula from a story, or decide whether a situation is linear or exponential. The slip I see most often is mixing up the rate and the factor.</p>      <div class="figure">
+        <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two curves on the same axes. The growth curve starts low and rises faster and faster. The decay curve starts high and falls, flattening out toward zero.">
+          <rect x="0" y="0" width="480" height="260" fill="#ffffff"/>
+          <line x1="60" y1="220" x2="450" y2="220" stroke="#1a3a5c" stroke-width="1.5"/>
+          <line x1="60" y1="220" x2="60" y2="20" stroke="#1a3a5c" stroke-width="1.5"/>
+          <polyline points="60.0,202.7 67.6,201.9 75.2,201.0 82.8,200.1 90.4,199.2 98.0,198.2 105.6,197.1 113.2,196.0 120.8,194.8 128.4,193.6 136.0,192.4 143.6,191.0 151.2,189.6 158.8,188.2 166.4,186.6 174.0,185.0 181.6,183.4 189.2,181.6 196.8,179.7 204.4,177.8 212.0,175.8 219.6,173.7 227.2,171.4 234.8,169.1 242.4,166.6 250.0,164.1 257.6,161.4 265.2,158.6 272.8,155.6 280.4,152.5 288.0,149.3 295.6,145.8 303.2,142.3 310.8,138.5 318.4,134.6 326.0,130.5 333.6,126.2 341.2,121.7 348.8,117.0 356.4,112.0 364.0,106.8 371.6,101.4 379.2,95.6 386.8,89.7 394.4,83.4 402.0,76.8 409.6,69.9 417.2,62.7 424.8,55.1 432.4,47.2 440.0,38.9" fill="none" stroke="#1a9e63" stroke-width="3"/>
+          <polyline points="60.0,47.3 67.6,55.9 75.2,64.0 82.8,71.8 90.4,79.2 98.0,86.2 105.6,92.9 113.2,99.2 120.8,105.2 128.4,110.9 136.0,116.4 143.6,121.5 151.2,126.4 158.8,131.1 166.4,135.5 174.0,139.7 181.6,143.7 189.2,147.5 196.8,151.1 204.4,154.6 212.0,157.8 219.6,160.9 227.2,163.9 234.8,166.7 242.4,169.3 250.0,171.8 257.6,174.2 265.2,176.5 272.8,178.7 280.4,180.7 288.0,182.7 295.6,184.5 303.2,186.3 310.8,188.0 318.4,189.6 326.0,191.1 333.6,192.5 341.2,193.9 348.8,195.2 356.4,196.4 364.0,197.6 371.6,198.7 379.2,199.8 386.8,200.8 394.4,201.8 402.0,202.7 409.6,203.5 417.2,204.3 424.8,205.1 432.4,205.9 440.0,206.6" fill="none" stroke="#c9564a" stroke-width="3"/>
+          <g font-family="Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">
+            <line x1="60" y1="220" x2="60" y2="225" stroke="#1a3a5c"/><text x="60" y="241">0</text><line x1="136" y1="220" x2="136" y2="225" stroke="#1a3a5c"/><text x="136" y="241">1</text><line x1="212" y1="220" x2="212" y2="225" stroke="#1a3a5c"/><text x="212" y="241">2</text><line x1="288" y1="220" x2="288" y2="225" stroke="#1a3a5c"/><text x="288" y="241">3</text><line x1="364" y1="220" x2="364" y2="225" stroke="#1a3a5c"/><text x="364" y="241">4</text><line x1="440" y1="220" x2="440" y2="225" stroke="#1a3a5c"/><text x="440" y="241">5</text>
+            <text x="250" y="258">years</text>
+          </g>
+          <g font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+            <text x="352" y="62" fill="#1a9e63">growth</text>
+            <text x="120" y="70" fill="#c9564a">decay</text>
+          </g>
+        </svg>
+        <p class="caption">Growth: $y = 10(1.6)^t$, up $60\%$ each year. Decay: $y = 100(0.6)^t$, down $40\%$ each year. Both change by the same factor every year, so neither is a straight line.</p>
+      </div>
+
+      <h2 id="tests">Reading the question</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>"Increases by $4\%$ each year"</td><td>Multiply by $1 + 0.04 = 1.04$ each year: $a(1.04)^t$.</td></tr>
+          <tr><td>"Decreases by $15\%$ each year"</td><td>Multiply by $1 - 0.15 = 0.85$ each year: $a(0.85)^t$.</td></tr>
+          <tr><td>"Doubles every $5$ years"</td><td>$a \cdot 2^{\frac{t}{5}}$. The exponent counts how many $5$-year periods have passed.</td></tr>
+          <tr><td>"Half-life of $5$ days"</td><td>$a \cdot \left(\dfrac{1}{2}\right)^{\frac{t}{5}}$. Or count halvings: $15$ days is $3$ halvings.</td></tr>
+          <tr><td>"Which situation is exponential?"</td><td>Linear changes by the same <em>amount</em> each step. Exponential changes by the same <em>percent</em> or factor each step.</td></tr>
+          <tr><td>Two forms of one model</td><td>Use exponent rules: $(1.1)^{2t} = \left((1.1)^2\right)^t = (1.21)^t$.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to work through them</h2>
+      <div class="worked">
+        <h3>Example 1: writing a decay model</h3>
+        <p>A car is worth \$24,000 and loses $15\%$ of its value each year. Write its value after $t$ years.</p>
+        <ol>
+          <li>Losing $15\%$ leaves $85\%$, so the yearly factor is $0.85$.</li>
+          <li>The starting value is $24{,}000$.</li>
+          <li>$V(t) = 24{,}000(0.85)^t$. Using $0.15$ as the factor would mean the car keeps only $15\%$ of its value each year.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: a growth period longer than one unit</h3>
+        <p>A culture of $50$ bacteria triples every $4$ hours. How many are there after $12$ hours?</p>
+        <ol>
+          <li>The model is $N(h) = 50 \cdot 3^{\frac{h}{4}}$.</li>
+          <li>After $12$ hours, $\dfrac{12}{4} = 3$ tripling periods have passed.</li>
+          <li>$N(12) = 50 \cdot 3^3 = 50 \cdot 27 = 1{,}350$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: finding $a$ and $b$ from two values</h3>
+        <p>For $f(x) = a \cdot b^x$ with $b &gt; 0$, $f(0) = 5$ and $f(2) = 45$. What is $f(3)$?</p>
+        <ol>
+          <li>$f(0) = a \cdot b^0 = a$, so $a = 5$.</li>
+          <li>$f(2) = 5b^2 = 45$, so $b^2 = 9$ and $b = 3$.</li>
+          <li>$f(3) = 5 \cdot 3^3 = 135$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 4: reading a model with a fraction in the exponent</h3>
+        <p>A town's population is modeled by $P(t) = 300(0.9)^{\frac{t}{2}}$, where $t$ is in years. What does the model say?</p>
+        <ol>
+          <li>The factor $0.9$ means a $10\%$ decrease.</li>
+          <li>The exponent $\dfrac{t}{2}$ goes up by $1$ every $2$ years.</li>
+          <li>So the population decreases by $10\%$ every $2$ years, starting from $300$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">Common mistakes</h2>
+      <p><strong>Using the rate as the factor.</strong> $15\%$ decay is a factor of $0.85$, not $0.15$. $4\%$ growth is $1.04$, not $0.04$ or $4$.</p>
+      <p><strong>Treating repeated percent changes as simple addition.</strong> $6\%$ a year for $10$ years is not $60\%$. It is $(1.06)^{10} \approx 1.79$, about $79\%$.</p>
+      <p><strong>Ignoring the time period in the exponent.</strong> "Every $4$ hours" means the exponent is $\dfrac{h}{4}$, not $h$ or $4h$.</p>
+      <p><strong>Calling any curve exponential.</strong> Look for a constant factor. A table that adds $6$ each time is linear, even if the numbers get big.</p>
+      <p><strong>Multiplying before applying the exponent.</strong> In $3(2)^4$, find $2^4 = 16$ first, then multiply by $3$. It is $48$, not $6^4$.</p>
+
+
+      <h2 id="practice">Ten questions to try</h2>
+      <p>Write down the starting value and the factor before you do anything else.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">The value of an investment, in dollars, after $t$ years is modeled by $V(t) = 500(1.04)^t$. By what percent does the value grow each year?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$0.04\%$</li>
+          <li><span class="lbl">B</span>$4\%$</li>
+          <li><span class="lbl">C</span>$40\%$</li>
+          <li><span class="lbl">D</span>$104\%$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> The factor is $1.04 = 1 + 0.04$, so the value grows by $0.04 = 4\%$ each year. Choice D is the factor written as a percent: each year's value is $104\%$ of the year before.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">A population of $200$ insects doubles every year. How many insects are there after $3$ years?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $1{,}600$.</span> $200 \cdot 2^3 = 200 \cdot 8 = 1{,}600$. Adding $200$ each year would give only $800$, which is linear growth.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A car is bought for \$24,000. Its value decreases by $15\%$ each year. Which function gives the value $V$, in dollars, after $t$ years?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$V(t) = 24{,}000(0.15)^t$</li>
+          <li><span class="lbl">B</span>$V(t) = 24{,}000 - 0.15t$</li>
+          <li><span class="lbl">C</span>$V(t) = 24{,}000(1.15)^t$</li>
+          <li><span class="lbl">D</span>$V(t) = 24{,}000(0.85)^t$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> Each year the car keeps $100\% - 15\% = 85\%$ of its value, so the factor is $0.85$. Choice A keeps only $15\%$ each year, and choice C is a $15\%$ increase.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A culture starts with $50$ bacteria, and the number triples every $4$ hours. Which function gives the number of bacteria $h$ hours after the start?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$N(h) = 50 \cdot 3^{4h}$</li>
+          <li><span class="lbl">B</span>$N(h) = 50 \cdot 3^{\frac{h}{4}}$</li>
+          <li><span class="lbl">C</span>$N(h) = 50 \cdot 4^{\frac{h}{3}}$</li>
+          <li><span class="lbl">D</span>$N(h) = 150^{\frac{h}{4}}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> The amount is multiplied by $3$ once every $4$ hours, so the number of triplings after $h$ hours is $\dfrac{h}{4}$. Check: after $4$ hours, $50 \cdot 3^1 = 150$. Choice A would triple the culture $4$ times every hour.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">For the function $f(x) = 3(2)^x$, what is the value of $f(4) - f(3)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $24$.</span> $f(4) = 3 \cdot 16 = 48$ and $f(3) = 3 \cdot 8 = 24$. The difference is $48 - 24 = 24$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A sample of a radioactive substance has a mass of $80$ grams. Its half-life is $5$ days. What is the mass of the sample after $15$ days?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$40$ grams</li>
+          <li><span class="lbl">B</span>$20$ grams</li>
+          <li><span class="lbl">C</span>$10$ grams</li>
+          <li><span class="lbl">D</span>$5$ grams</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $15$ days is $\dfrac{15}{5} = 3$ half-lives. $80 \to 40 \to 20 \to 10$. So $10$ grams remain. Choice A stops after one half-life.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Which expression is equivalent to $1{,}000(1.21)^t$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$1{,}000(1.1)^{2t}$</li>
+          <li><span class="lbl">B</span>$1{,}000(1.105)^{2t}$</li>
+          <li><span class="lbl">C</span>$1{,}000(1.21)^{2t}$</li>
+          <li><span class="lbl">D</span>$1{,}000(1.1)^{\frac{t}{2}}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $(1.1)^2 = 1.21$, so $(1.1)^{2t} = \left((1.1)^2\right)^t = (1.21)^t$. Choice B splits the $21\%$ in half, but compounding does not work that way: $(1.105)^2 \approx 1.221$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">An investment of \$2,500 grows by $6\%$ each year. To the nearest dollar, what is its value after $10$ years?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>\$4,000</li>
+          <li><span class="lbl">B</span>\$4,477</li>
+          <li><span class="lbl">C</span>\$2,650</li>
+          <li><span class="lbl">D</span>\$26,500</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $2{,}500(1.06)^{10} \approx 2{,}500 \cdot 1.7908 \approx 4{,}477$. Choice A adds $6\%$ of the original amount every year, which is simple interest. Choice C is the value after one year.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The function $f$ is defined by $f(x) = a \cdot b^x$, where $a$ and $b$ are positive constants. If $f(0) = 5$ and $f(2) = 45$, what is the value of $f(3)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $135$.</span> $f(0) = a = 5$. Then $5b^2 = 45$, so $b^2 = 9$ and $b = 3$. $f(3) = 5 \cdot 27 = 135$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">The population of a town is modeled by $P(t) = 300(0.9)^{\frac{t}{2}}$, where $t$ is the number of years since 2020. Which statement is true according to the model?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The population decreases by $10\%$ every year.</li>
+          <li><span class="lbl">B</span>The population decreases by $5\%$ every year.</li>
+          <li><span class="lbl">C</span>The population decreases by $10\%$ every $2$ years.</li>
+          <li><span class="lbl">D</span>The population decreases by $90\%$ every $2$ years.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The factor $0.9$ is a $10\%$ decrease, and the exponent $\dfrac{t}{2}$ increases by $1$ every $2$ years. So the population drops by $10\%$ every $2$ years. Choice B halves the rate, but two drops of $5\%$ leave $0.95^2 = 0.9025$, not $0.9$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Check your Advanced Math</h2>
+        <p>A free practice test shows which Advanced Math questions you are missing and which mistakes are behind them.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">Reading the question</a></li>
+          <li><a href="#solve">How to work through them</a></li>
+          <li><a href="#mistakes">Common mistakes</a></li>
+          <li><a href="#practice">Ten questions to try</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/percent-increase-and-decrease/">Percent increase and decrease</a></li>
+          <li><a href="/sat-math/successive-percent-changes/">Successive percent changes</a></li>
+          <li><a href="/sat-math/exponent-rules/">Exponent rules</a></li>
+          <li><a href="/sat-math/function-notation/">Function notation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

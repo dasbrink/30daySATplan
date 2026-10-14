@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Factoring Quadratics: Methods and Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/factoring-quadratics/">
+
+  <meta name="description" content="Factor SAT quadratics with the product and sum method, factoring by grouping, and the difference of squares. Worked examples and 10 practice questions.">
+
+  <meta property="og:title" content="SAT Factoring Quadratics: Methods, Patterns and Practice Questions">
+  <meta property="og:description" content="Factor SAT quadratics with the product and sum method, factoring by grouping, and the difference of squares. Worked examples and 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/factoring-quadratics/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Factoring Quadratics: Methods, Patterns and Practice Questions">
+  <meta name="twitter:description" content="Factor SAT quadratics with the product and sum method, factoring by grouping, and the difference of squares. Worked examples and 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Factoring Quadratics: Methods, Patterns and Practice Questions",
+  "description": "How to factor quadratic expressions on the SAT: common factors, the product and sum method, the ac method with factoring by grouping, the difference of squares and perfect squares. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/factoring-quadratics/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you factor x^2 + bx + c?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Find two numbers that multiply to c and add to b, then write (x + first)(x + second)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you factor a quadratic when the leading coefficient is not 1?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the ac method: find two numbers that multiply to a times c and add to b, split the middle term with them, and factor by grouping."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference of squares?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "a^2 - b^2 = (a - b)(a + b). A sum of squares such as x^2 + 9 does not factor over the real numbers."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Factoring Quadratics"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to x^2 + 7x + 12?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(x + 3)(x + 4)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to x^2 - 49?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(x - 7)(x + 7)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to x^2 - 5x - 24?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(x - 8)(x + 3)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to 6x^2 + x - 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(2x - 1)(3x + 2)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the complete factorization of 2x^2 - 50?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2(x - 5)(x + 5)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If x^2 + kx + 15 = (x + 3)(x + 5) for all x, what is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 8."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If x^2 + kx - 12 = (x - 2)(x + m) for all x, what is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which of the following is a factor of 3x^2 - 11x - 4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x - 4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which expression is equivalent to 9x^2 - 12x + 4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(3x - 2)^2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If (ax - 1)(3x + b) = 6x^2 + 7x - 5 for all x, what is a + b?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "7."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Factoring Quadratics
+      </nav>
+
+      <h1>Factoring Quadratic Expressions</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Start here</p>
+        <p>Always look for a common factor first. Then, for $x^2 + bx + c$, find two numbers that multiply to $c$ and add to $b$. When the leading coefficient is not $1$, split the middle term and factor by grouping.</p>
+        <p>Two patterns are worth knowing by sight: the difference of squares, $a^2 - b^2 = (a - b)(a + b)$, and perfect squares such as $x^2 + 10x + 25 = (x + 5)^2$.</p>
+      </div>
+
+      <p class="lede">On the SAT you are usually asked to choose an equivalent factored form, to find a factor, or to find a missing constant when two forms are equal for all $x$. Whatever the question, you can check a factored answer by multiplying it back out, and I encourage students to do that whenever they have the time.</p>
+
+      <h2 id="solve">Four examples</h2>
+      <div class="worked">
+        <h3>Example 1: a negative constant</h3>
+        <p>Factor $x^2 - 5x - 24$.</p>
+        <ol>
+          <li>You need a product of $-24$ and a sum of $-5$. The product is negative, so the signs are opposite.</li>
+          <li>The pairs for $24$ are $1 \cdot 24$, $2 \cdot 12$, $3 \cdot 8$, $4 \cdot 6$. The pair $-8$ and $3$ sums to $-5$.</li>
+          <li>$x^2 - 5x - 24 = (x - 8)(x + 3)$. Check: $x^2 + 3x - 8x - 24 = x^2 - 5x - 24$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: factoring by grouping</h3>
+        <p>Factor $6x^2 + x - 2$.</p>
+        <ol>
+          <li>Multiply $a \cdot c = 6 \cdot (-2) = -12$. Find two numbers with product $-12$ and sum $1$: $4$ and $-3$.</li>
+          <li>Split the middle term: $6x^2 + 4x - 3x - 2$.</li>
+          <li>Group: $2x(3x + 2) - 1(3x + 2)$.</li>
+          <li>Factor out $3x + 2$: $(2x - 1)(3x + 2)$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: common factor, then a pattern</h3>
+        <p>Factor $2x^2 - 50$ completely.</p>
+        <ol>
+          <li>Take out the common factor $2$: $2(x^2 - 25)$.</li>
+          <li>$x^2 - 25$ is a difference of squares: $(x - 5)(x + 5)$.</li>
+          <li>$2x^2 - 50 = 2(x - 5)(x + 5)$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 4: finding a missing constant</h3>
+        <p>If $x^2 + kx - 12 = (x - 2)(x + m)$ for all values of $x$, what is $k$?</p>
+        <ol>
+          <li>Expand the right side: $x^2 + mx - 2x - 2m = x^2 + (m - 2)x - 2m$.</li>
+          <li>Match the constants: $-2m = -12$, so $m = 6$.</li>
+          <li>Match the $x$ terms: $k = m - 2 = 4$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">What goes wrong</h2>
+      <p><strong>Skipping the common factor.</strong> $2x^2 - 50$ is not fully factored until the $2$ comes out.</p>
+      <p><strong>Getting the signs backwards.</strong> $(x + 8)(x - 3)$ multiplies to $x^2 + 5x - 24$, not $x^2 - 5x - 24$. Multiplying back out will catch this.</p>
+      <p><strong>Factoring a sum of squares.</strong> $x^2 + 9$ does not factor over the real numbers. Only a difference of squares does.</p>
+      <p><strong>Confusing factors and zeros.</strong> The factor $(x - 3)$ means the zero is $x = 3$, not $x = -3$.</p>
+      <p><strong>Forgetting the leading coefficient.</strong> $3x^2 - 11x - 4$ is not $(x - 4)(x + 1)$. The $3$ has to appear in one of the factors.</p>
+
+      <h2 id="tests">Quick reference</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>Form</th><th>Method</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Common factor</td><td>Take out the greatest common factor</td><td>$3x^2 + 12x = 3x(x + 4)$</td></tr>
+          <tr><td>$x^2 + bx + c$</td><td>Two numbers with product $c$ and sum $b$</td><td>$x^2 + 7x + 12 = (x + 3)(x + 4)$</td></tr>
+          <tr><td>$ax^2 + bx + c$</td><td>Two numbers with product $ac$ and sum $b$, then group</td><td>$2x^2 + 7x + 3 = (2x + 1)(x + 3)$</td></tr>
+          <tr><td>Difference of squares</td><td>$a^2 - b^2 = (a - b)(a + b)$</td><td>$x^2 - 49 = (x - 7)(x + 7)$</td></tr>
+          <tr><td>Perfect square</td><td>$a^2 + 2ab + b^2 = (a + b)^2$</td><td>$x^2 + 10x + 25 = (x + 5)^2$</td></tr>
+        </tbody>
+      </table>
+      <p>A sign tip: if $c$ is positive, both numbers have the same sign as $b$. If $c$ is negative, the numbers have opposite signs, and the larger one carries the sign of $b$.</p>
+
+
+      <h2 id="practice">Your turn</h2>
+      <p>Factor each one on paper first. If you are not sure, multiply your answer back out before you check the solution.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Which expression is equivalent to $x^2 + 7x + 12$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(x + 2)(x + 6)$</li>
+          <li><span class="lbl">B</span>$(x + 3)(x + 4)$</li>
+          <li><span class="lbl">C</span>$(x + 1)(x + 12)$</li>
+          <li><span class="lbl">D</span>$(x - 3)(x - 4)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> You need two numbers with a product of $12$ and a sum of $7$: $3$ and $4$. Choice A multiplies to $12$ but adds to $8$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Which expression is equivalent to $x^2 - 49$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(x - 7)^2$</li>
+          <li><span class="lbl">B</span>$(x + 7)^2$</li>
+          <li><span class="lbl">C</span>$(x - 7)(x + 7)$</li>
+          <li><span class="lbl">D</span>$(x - 49)(x + 1)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> This is a difference of squares: $x^2 - 7^2 = (x - 7)(x + 7)$. Choice A expands to $x^2 - 14x + 49$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Which expression is equivalent to $x^2 - 5x - 24$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(x + 8)(x - 3)$</li>
+          <li><span class="lbl">B</span>$(x - 6)(x + 4)$</li>
+          <li><span class="lbl">C</span>$(x - 12)(x + 2)$</li>
+          <li><span class="lbl">D</span>$(x - 8)(x + 3)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> You need a product of $-24$ and a sum of $-5$: $-8$ and $3$. Choice A has the signs reversed and expands to $x^2 + 5x - 24$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Which expression is equivalent to $6x^2 + x - 2$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(2x - 1)(3x + 2)$</li>
+          <li><span class="lbl">B</span>$(2x + 1)(3x - 2)$</li>
+          <li><span class="lbl">C</span>$(6x - 1)(x + 2)$</li>
+          <li><span class="lbl">D</span>$(3x - 1)(2x + 2)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> Use the $ac$ method: $6 \cdot (-2) = -12$, and $4$ and $-3$ multiply to $-12$ and add to $1$. Then $6x^2 + 4x - 3x - 2 = 2x(3x + 2) - 1(3x + 2) = (2x - 1)(3x + 2)$. Choice B expands to $6x^2 - x - 2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Which of the following is the complete factorization of $2x^2 - 50$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$2(x - 5)^2$</li>
+          <li><span class="lbl">B</span>$2(x - 5)(x + 5)$</li>
+          <li><span class="lbl">C</span>$(2x - 25)(x + 2)$</li>
+          <li><span class="lbl">D</span>$2(x^2 - 25)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Take out $2$: $2(x^2 - 25)$. Then factor the difference of squares: $2(x - 5)(x + 5)$. Choice D is equivalent but not completely factored.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $x^2 + kx + 15 = (x + 3)(x + 5)$ for all values of $x$, what is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $8$.</span> $(x + 3)(x + 5) = x^2 + 8x + 15$, so $k = 8$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $x^2 + kx - 12 = (x - 2)(x + m)$ for all values of $x$, where $k$ and $m$ are constants, what is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4$.</span> Expand: $(x - 2)(x + m) = x^2 + (m - 2)x - 2m$. Match the constants: $-2m = -12$, so $m = 6$. Then $k = m - 2 = 4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Which of the following is a factor of $3x^2 - 11x - 4$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x + 4$</li>
+          <li><span class="lbl">B</span>$3x - 1$</li>
+          <li><span class="lbl">C</span>$3x + 4$</li>
+          <li><span class="lbl">D</span>$x - 4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> $a \cdot c = -12$, and $-12$ and $1$ add to $-11$. So $3x^2 - 12x + x - 4 = 3x(x - 4) + 1(x - 4) = (3x + 1)(x - 4)$. Check with $x = 4$: $48 - 44 - 4 = 0$, so $x - 4$ is a factor.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Which expression is equivalent to $9x^2 - 12x + 4$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(3x - 2)^2$</li>
+          <li><span class="lbl">B</span>$(3x + 2)^2$</li>
+          <li><span class="lbl">C</span>$(9x - 2)(x - 2)$</li>
+          <li><span class="lbl">D</span>$(3x - 4)(3x - 1)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The first and last terms are perfect squares, $(3x)^2$ and $2^2$, and the middle term is $-2(3x)(2) = -12x$. So the expression is $(3x - 2)^2$. Choice B gives $+12x$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $(ax - 1)(3x + b) = 6x^2 + 7x - 5$ for all values of $x$, where $a$ and $b$ are constants, what is the value of $a + b$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $7$.</span> Expand: $3ax^2 + (ab - 3)x - b$. Match the $x^2$ terms: $3a = 6$, so $a = 2$. Match the constants: $-b = -5$, so $b = 5$. Check the middle: $ab - 3 = 10 - 3 = 7$. So $a + b = 7$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Is factoring costing you points?</h2>
+        <p>Take a free practice test and see which skills to work on first.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#solve">Four examples</a></li>
+          <li><a href="#mistakes">What goes wrong</a></li>
+          <li><a href="#tests">Quick reference</a></li>
+          <li><a href="#practice">Your turn</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/solving-quadratics-by-factoring/">Solving by factoring</a></li>
+          <li><a href="/sat-math/completing-the-square/">Completing the square</a></li>
+          <li><a href="/sat-math/polynomial-factors-and-zeros/">Factors &amp; zeros</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

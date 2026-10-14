@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Parallel and Perpendicular Lines: Slopes</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/parallel-and-perpendicular-lines/">
+
+  <meta name="description" content="Use slopes to find parallel and perpendicular lines on the SAT, from slope-intercept or standard form, with worked examples and 10 practice questions.">
+
+  <meta property="og:title" content="SAT Parallel and Perpendicular Lines: Slopes, Equations and Practice">
+  <meta property="og:description" content="Use slopes to find parallel and perpendicular lines on the SAT, from slope-intercept or standard form, with worked examples and 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/parallel-and-perpendicular-lines/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Parallel and Perpendicular Lines: Slopes, Equations and Practice">
+  <meta name="twitter:description" content="Use slopes to find parallel and perpendicular lines on the SAT, from slope-intercept or standard form, with worked examples and 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Parallel and Perpendicular Lines: Slopes, Equations and Practice",
+  "description": "Parallel and perpendicular lines on the SAT: equal slopes, negative reciprocal slopes, slopes from standard form, writing a line through a point, finding a constant, and systems with no solution. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/parallel-and-perpendicular-lines/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you tell if two lines are parallel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Parallel lines have the same slope and different y-intercepts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you find a perpendicular slope?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take the negative reciprocal: flip the fraction and change its sign. The two slopes multiply to -1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you find the slope of Ax + By = C?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The slope is -A/B. You can also solve the equation for y."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Parallel and Perpendicular Lines"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "Line k is parallel to y = 3x - 4. What is its slope?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Line p is perpendicular to y = (2/3)x + 1. What is its slope?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "-3/2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which line is parallel to y = -2x + 5 and passes through (3, 1)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "y = -2x + 7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which line through the origin is perpendicular to 2x + 5y = 10?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "y = (5/2)x."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "y = kx + 3 and y = 4x - 1 are parallel. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "3x + ky = 7 and 6x - 2y = 5 are parallel. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "-1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Line l goes through (1, 2) and (4, 8). Line n goes through (0, 5) and (6, a) and is perpendicular to l. What is a?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Line m is perpendicular to y = -(3/4)x + 2 and passes through (8, -1). What is its y-intercept?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "-35/3."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which system with y = 2x + 3 has no solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The one with 4x - 2y = 6."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which line is perpendicular to y = (3/4)x + 1?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4x + 3y = 12."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Parallel and Perpendicular Lines
+      </nav>
+
+      <h1>Parallel and Perpendicular Lines on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Algebra &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p>Parallel lines have the same slope. Perpendicular lines have slopes that are negative reciprocals: you flip the fraction and change the sign, so $\dfrac{2}{3}$ becomes $-\dfrac{3}{2}$. Multiply the two slopes and you always get $-1$.</p>
+        <p>So start by finding the slope of the line you are given. If it is written as $Ax + By = C$, solve for $y$, or use $m = -\dfrac{A}{B}$.</p>
+      </div>
+
+      <p class="lede">These questions are usually short. Students lose points in two places: they forget to change the sign when finding a perpendicular slope, or they read the slope straight off an equation that is not in slope-intercept form.</p>      <div class="figure">
+        <svg viewBox="0 0 480 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three lines on a coordinate grid. Two blue lines rise with the same steepness and never meet. A red line falls and crosses both blue lines at right angles.">
+          <rect x="0" y="0" width="480" height="400" fill="#ffffff"/>
+          <line x1="60.0" y1="380.0" x2="60.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="90.0" y1="380.0" x2="90.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="120.0" y1="380.0" x2="120.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="150.0" y1="380.0" x2="150.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="180.0" y1="380.0" x2="180.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="210.0" y1="380.0" x2="210.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="240.0" y1="380.0" x2="240.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="270.0" y1="380.0" x2="270.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="300.0" y1="380.0" x2="300.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="330.0" y1="380.0" x2="330.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="360.0" y1="380.0" x2="360.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="390.0" y1="380.0" x2="390.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="420.0" y1="380.0" x2="420.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="380.0" x2="420.0" y2="380.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="350.0" x2="420.0" y2="350.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="320.0" x2="420.0" y2="320.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="290.0" x2="420.0" y2="290.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="260.0" x2="420.0" y2="260.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="230.0" x2="420.0" y2="230.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="200.0" x2="420.0" y2="200.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="170.0" x2="420.0" y2="170.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="140.0" x2="420.0" y2="140.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="110.0" x2="420.0" y2="110.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="80.0" x2="420.0" y2="80.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="50.0" x2="420.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="20.0" x2="420.0" y2="20.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="200.0" x2="420.0" y2="200.0" stroke="#1a3a5c" stroke-width="1.5"/>
+          <line x1="240.0" y1="380.0" x2="240.0" y2="20.0" stroke="#1a3a5c" stroke-width="1.5"/>
+          <g font-family="Arial, sans-serif" font-size="12" fill="#555"><text x="60.0" y="216.0" text-anchor="middle">-6</text><text x="120.0" y="216.0" text-anchor="middle">-4</text><text x="180.0" y="216.0" text-anchor="middle">-2</text><text x="300.0" y="216.0" text-anchor="middle">2</text><text x="360.0" y="216.0" text-anchor="middle">4</text><text x="420.0" y="216.0" text-anchor="middle">6</text><text x="232.0" y="384.0" text-anchor="end">-6</text><text x="232.0" y="324.0" text-anchor="end">-4</text><text x="232.0" y="264.0" text-anchor="end">-2</text><text x="232.0" y="144.0" text-anchor="end">2</text><text x="232.0" y="84.0" text-anchor="end">4</text><text x="232.0" y="24.0" text-anchor="end">6</text></g>
+          <polyline points="135.6,378.8 137.4,375.2 139.2,371.6 141.0,368.0 142.8,364.4 144.6,360.8 146.4,357.2 148.2,353.6 150.0,350.0 151.8,346.4 153.6,342.8 155.4,339.2 157.2,335.6 159.0,332.0 160.8,328.4 162.6,324.8 164.4,321.2 166.2,317.6 168.0,314.0 169.8,310.4 171.6,306.8 173.4,303.2 175.2,299.6 177.0,296.0 178.8,292.4 180.6,288.8 182.4,285.2 184.2,281.6 186.0,278.0 187.8,274.4 189.6,270.8 191.4,267.2 193.2,263.6 195.0,260.0 196.8,256.4 198.6,252.8 200.4,249.2 202.2,245.6 204.0,242.0 205.8,238.4 207.6,234.8 209.4,231.2 211.2,227.6 213.0,224.0 214.8,220.4 216.6,216.8 218.4,213.2 220.2,209.6 222.0,206.0 223.8,202.4 225.6,198.8 227.4,195.2 229.2,191.6 231.0,188.0 232.8,184.4 234.6,180.8 236.4,177.2 238.2,173.6 240.0,170.0 241.8,166.4 243.6,162.8 245.4,159.2 247.2,155.6 249.0,152.0 250.8,148.4 252.6,144.8 254.4,141.2 256.2,137.6 258.0,134.0 259.8,130.4 261.6,126.8 263.4,123.2 265.2,119.6 267.0,116.0 268.8,112.4 270.6,108.8 272.4,105.2 274.2,101.6 276.0,98.0 277.8,94.4 279.6,90.8 281.4,87.2 283.2,83.6 285.0,80.0 286.8,76.4 288.6,72.8 290.4,69.2 292.2,65.6 294.0,62.0 295.8,58.4 297.6,54.8 299.4,51.2 301.2,47.6 303.0,44.0 304.8,40.4 306.6,36.8 308.4,33.2 310.2,29.6 312.0,26.0 313.8,22.4" fill="none" stroke="#2e6da4" stroke-width="3"/>
+          <polyline points="211.2,377.6 213.0,374.0 214.8,370.4 216.6,366.8 218.4,363.2 220.2,359.6 222.0,356.0 223.8,352.4 225.6,348.8 227.4,345.2 229.2,341.6 231.0,338.0 232.8,334.4 234.6,330.8 236.4,327.2 238.2,323.6 240.0,320.0 241.8,316.4 243.6,312.8 245.4,309.2 247.2,305.6 249.0,302.0 250.8,298.4 252.6,294.8 254.4,291.2 256.2,287.6 258.0,284.0 259.8,280.4 261.6,276.8 263.4,273.2 265.2,269.6 267.0,266.0 268.8,262.4 270.6,258.8 272.4,255.2 274.2,251.6 276.0,248.0 277.8,244.4 279.6,240.8 281.4,237.2 283.2,233.6 285.0,230.0 286.8,226.4 288.6,222.8 290.4,219.2 292.2,215.6 294.0,212.0 295.8,208.4 297.6,204.8 299.4,201.2 301.2,197.6 303.0,194.0 304.8,190.4 306.6,186.8 308.4,183.2 310.2,179.6 312.0,176.0 313.8,172.4 315.6,168.8 317.4,165.2 319.2,161.6 321.0,158.0 322.8,154.4 324.6,150.8 326.4,147.2 328.2,143.6 330.0,140.0 331.8,136.4 333.6,132.8 335.4,129.2 337.2,125.6 339.0,122.0 340.8,118.4 342.6,114.8 344.4,111.2 346.2,107.6 348.0,104.0 349.8,100.4 351.6,96.8 353.4,93.2 355.2,89.6 357.0,86.0 358.8,82.4 360.6,78.8 362.4,75.2 364.2,71.6 366.0,68.0 367.8,64.4 369.6,60.8 371.4,57.2 373.2,53.6 375.0,50.0 376.8,46.4 378.6,42.8 380.4,39.2 382.2,35.6 384.0,32.0 385.8,28.4 387.6,24.8 389.4,21.2" fill="none" stroke="#2e6da4" stroke-width="3"/>
+          <polyline points="60.0,80.0 61.8,80.9 63.6,81.8 65.4,82.7 67.2,83.6 69.0,84.5 70.8,85.4 72.6,86.3 74.4,87.2 76.2,88.1 78.0,89.0 79.8,89.9 81.6,90.8 83.4,91.7 85.2,92.6 87.0,93.5 88.8,94.4 90.6,95.3 92.4,96.2 94.2,97.1 96.0,98.0 97.8,98.9 99.6,99.8 101.4,100.7 103.2,101.6 105.0,102.5 106.8,103.4 108.6,104.3 110.4,105.2 112.2,106.1 114.0,107.0 115.8,107.9 117.6,108.8 119.4,109.7 121.2,110.6 123.0,111.5 124.8,112.4 126.6,113.3 128.4,114.2 130.2,115.1 132.0,116.0 133.8,116.9 135.6,117.8 137.4,118.7 139.2,119.6 141.0,120.5 142.8,121.4 144.6,122.3 146.4,123.2 148.2,124.1 150.0,125.0 151.8,125.9 153.6,126.8 155.4,127.7 157.2,128.6 159.0,129.5 160.8,130.4 162.6,131.3 164.4,132.2 166.2,133.1 168.0,134.0 169.8,134.9 171.6,135.8 173.4,136.7 175.2,137.6 177.0,138.5 178.8,139.4 180.6,140.3 182.4,141.2 184.2,142.1 186.0,143.0 187.8,143.9 189.6,144.8 191.4,145.7 193.2,146.6 195.0,147.5 196.8,148.4 198.6,149.3 200.4,150.2 202.2,151.1 204.0,152.0 205.8,152.9 207.6,153.8 209.4,154.7 211.2,155.6 213.0,156.5 214.8,157.4 216.6,158.3 218.4,159.2 220.2,160.1 222.0,161.0 223.8,161.9 225.6,162.8 227.4,163.7 229.2,164.6 231.0,165.5 232.8,166.4 234.6,167.3 236.4,168.2 238.2,169.1 240.0,170.0 241.8,170.9 243.6,171.8 245.4,172.7 247.2,173.6 249.0,174.5 250.8,175.4 252.6,176.3 254.4,177.2 256.2,178.1 258.0,179.0 259.8,179.9 261.6,180.8 263.4,181.7 265.2,182.6 267.0,183.5 268.8,184.4 270.6,185.3 272.4,186.2 274.2,187.1 276.0,188.0 277.8,188.9 279.6,189.8 281.4,190.7 283.2,191.6 285.0,192.5 286.8,193.4 288.6,194.3 290.4,195.2 292.2,196.1 294.0,197.0 295.8,197.9 297.6,198.8 299.4,199.7 301.2,200.6 303.0,201.5 304.8,202.4 306.6,203.3 308.4,204.2 310.2,205.1 312.0,206.0 313.8,206.9 315.6,207.8 317.4,208.7 319.2,209.6 321.0,210.5 322.8,211.4 324.6,212.3 326.4,213.2 328.2,214.1 330.0,215.0 331.8,215.9 333.6,216.8 335.4,217.7 337.2,218.6 339.0,219.5 340.8,220.4 342.6,221.3 344.4,222.2 346.2,223.1 348.0,224.0 349.8,224.9 351.6,225.8 353.4,226.7 355.2,227.6 357.0,228.5 358.8,229.4 360.6,230.3 362.4,231.2 364.2,232.1 366.0,233.0 367.8,233.9 369.6,234.8 371.4,235.7 373.2,236.6 375.0,237.5 376.8,238.4 378.6,239.3 380.4,240.2 382.2,241.1 384.0,242.0 385.8,242.9 387.6,243.8 389.4,244.7 391.2,245.6 393.0,246.5 394.8,247.4 396.6,248.3 398.4,249.2 400.2,250.1 402.0,251.0 403.8,251.9 405.6,252.8 407.4,253.7 409.2,254.6 411.0,255.5 412.8,256.4 414.6,257.3 416.4,258.2 418.2,259.1 420.0,260.0" fill="none" stroke="#c9564a" stroke-width="3"/>
+        </svg>
+        <p class="caption">The blue lines $y = 2x + 1$ and $y = 2x - 4$ have the same slope, so they are parallel. The red line $y = -\dfrac{1}{2}x + 1$ has slope $-\dfrac{1}{2}$, the negative reciprocal of $2$, so it is perpendicular to both.</p>
+      </div>
+
+      <h2 id="tests">What you will see</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>"Parallel to $y = 3x - 4$"</td><td>Same slope: $3$.</td></tr>
+          <tr><td>"Perpendicular to $y = \dfrac{2}{3}x + 1$"</td><td>Negative reciprocal: $-\dfrac{3}{2}$.</td></tr>
+          <tr><td>A line in the form $Ax + By = C$</td><td>Slope is $-\dfrac{A}{B}$. For $2x + 5y = 10$, the slope is $-\dfrac{2}{5}$.</td></tr>
+          <tr><td>"Passes through the point $(3, 1)$"</td><td>Use the new slope and the point: $y - 1 = m(x - 3)$, then simplify.</td></tr>
+          <tr><td>"No solution" for two linear equations</td><td>Same slope, different $y$-intercepts: parallel lines that never meet.</td></tr>
+          <tr><td>Two points on each line</td><td>Find each slope with $\dfrac{y_2 - y_1}{x_2 - x_1}$, then compare.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">Examples, step by step</h2>
+      <div class="worked">
+        <h3>Example 1: a parallel line through a point</h3>
+        <p>Find the line parallel to $y = -2x + 5$ that passes through $(3, 1)$.</p>
+        <ol>
+          <li>Parallel means the same slope: $m = -2$.</li>
+          <li>Use the point: $y - 1 = -2(x - 3)$, so $y - 1 = -2x + 6$.</li>
+          <li>$y = -2x + 7$. Check: $-2(3) + 7 = 1$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: a perpendicular line from standard form</h3>
+        <p>Find the line through the origin that is perpendicular to $2x + 5y = 10$.</p>
+        <ol>
+          <li>Slope of the given line: $-\dfrac{A}{B} = -\dfrac{2}{5}$.</li>
+          <li>Negative reciprocal: $\dfrac{5}{2}$.</li>
+          <li>Through the origin, the $y$-intercept is $0$: $y = \dfrac{5}{2}x$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: finding a constant</h3>
+        <p>The lines $3x + ky = 7$ and $6x - 2y = 5$ are parallel. Find $k$.</p>
+        <ol>
+          <li>Slope of the second line: $-\dfrac{6}{-2} = 3$.</li>
+          <li>Slope of the first line: $-\dfrac{3}{k}$.</li>
+          <li>Set them equal: $-\dfrac{3}{k} = 3$, so $k = -1$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">Where students slip</h2>
+      <ul class="plain">
+        <li><strong>Flipping without changing the sign.</strong> Perpendicular to slope $\dfrac{2}{3}$ is $-\dfrac{3}{2}$, not $\dfrac{3}{2}$.</li>
+        <li><strong>Changing the sign without flipping.</strong> $-\dfrac{2}{3}$ is not perpendicular to $\dfrac{2}{3}$. You have to flip the fraction and change the sign.</li>
+        <li><strong>Reading the slope from standard form.</strong> In $2x + 5y = 10$ the slope is not $2$. It is $-\dfrac{2}{5}$.</li>
+        <li><strong>Calling identical lines parallel.</strong> Same slope and same intercept is one line with infinitely many solutions, not two parallel lines.</li>
+        <li><strong>Sign slips with the point.</strong> Through $(8, -1)$, the point-slope form is $y + 1 = m(x - 8)$.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Find the slope of the given line first, every time. Then open the solution to check.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Line $k$ is parallel to the line $y = 3x - 4$. What is the slope of line $k$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-3$</li>
+          <li><span class="lbl">B</span>$3$</li>
+          <li><span class="lbl">C</span>$-\dfrac{1}{3}$</li>
+          <li><span class="lbl">D</span>$-4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Parallel lines have the same slope, so the slope is $3$. Choice C is the slope of a perpendicular line.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">Line $p$ is perpendicular to the line $y = \dfrac{2}{3}x + 1$. What is the slope of line $p$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-\dfrac{3}{2}$ (or $-1.5$).</span> Flip $\dfrac{2}{3}$ to get $\dfrac{3}{2}$ and change the sign: $-\dfrac{3}{2}$. Check: $\dfrac{2}{3} \cdot \left(-\dfrac{3}{2}\right) = -1$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Which equation represents the line that is parallel to $y = -2x + 5$ and passes through the point $(3, 1)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$y = \dfrac{1}{2}x - \dfrac{1}{2}$</li>
+          <li><span class="lbl">B</span>$y = -2x - 5$</li>
+          <li><span class="lbl">C</span>$y = -2x + 7$</li>
+          <li><span class="lbl">D</span>$y = -2x + 1$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The slope is $-2$. $y - 1 = -2(x - 3)$ gives $y = -2x + 7$. Choice A also passes through $(3, 1)$, but it is perpendicular, not parallel.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Which equation represents a line that passes through the origin and is perpendicular to the line $2x + 5y = 10$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$y = -\dfrac{2}{5}x$</li>
+          <li><span class="lbl">B</span>$y = \dfrac{2}{5}x$</li>
+          <li><span class="lbl">C</span>$y = -\dfrac{5}{2}x$</li>
+          <li><span class="lbl">D</span>$y = \dfrac{5}{2}x$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> The given line has slope $-\dfrac{2}{5}$. The negative reciprocal is $\dfrac{5}{2}$, and through the origin the line is $y = \dfrac{5}{2}x$. Choice A is parallel to the given line.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">In the $xy$-plane, the lines $y = kx + 3$ and $y = 4x - 1$ are parallel, where $k$ is a constant. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4$.</span> Parallel lines have equal slopes, so $k = 4$. The different intercepts, $3$ and $-1$, keep them from being the same line.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The lines $3x + ky = 7$ and $6x - 2y = 5$ are parallel, where $k$ is a constant. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-1$.</span> The second line has slope $-\dfrac{6}{-2} = 3$. The first has slope $-\dfrac{3}{k}$. So $-\dfrac{3}{k} = 3$ and $k = -1$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">Line $\ell$ passes through $(1, 2)$ and $(4, 8)$. Line $n$ passes through $(0, 5)$ and $(6, a)$, and line $n$ is perpendicular to line $\ell$. What is the value of $a$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $2$.</span> Line $\ell$ has slope $\dfrac{8 - 2}{4 - 1} = 2$, so line $n$ has slope $-\dfrac{1}{2}$. Then $\dfrac{a - 5}{6 - 0} = -\dfrac{1}{2}$, so $a - 5 = -3$ and $a = 2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Line $m$ is perpendicular to the line $y = -\dfrac{3}{4}x + 2$ and passes through the point $(8, -1)$. What is the $y$-intercept of line $m$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-\dfrac{35}{3}$</li>
+          <li><span class="lbl">B</span>$\dfrac{29}{3}$</li>
+          <li><span class="lbl">C</span>$-1$</li>
+          <li><span class="lbl">D</span>$\dfrac{35}{3}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The slope of line $m$ is $\dfrac{4}{3}$. $y + 1 = \dfrac{4}{3}(x - 8)$. At $x = 0$: $y = -1 - \dfrac{32}{3} = -\dfrac{35}{3}$. Choice B adds $\dfrac{32}{3}$ instead of subtracting it.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Each system below includes the equation $y = 2x + 3$. Which system has no solution?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$y = 2x + 3$ and $4x - 2y = -6$</li>
+          <li><span class="lbl">B</span>$y = 2x + 3$ and $2x + 4y = 6$</li>
+          <li><span class="lbl">C</span>$y = 2x + 3$ and $4x - 2y = 6$</li>
+          <li><span class="lbl">D</span>$y = 2x + 3$ and $y = 3x + 2$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $4x - 2y = 6$ becomes $y = 2x - 3$: same slope, different intercept, so the lines are parallel and never meet. Choice A becomes $y = 2x + 3$, the same line, so it has infinitely many solutions.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Which line is perpendicular to the line $y = \dfrac{3}{4}x + 1$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$3x - 4y = 8$</li>
+          <li><span class="lbl">B</span>$3x + 4y = 12$</li>
+          <li><span class="lbl">C</span>$4x - 3y = 12$</li>
+          <li><span class="lbl">D</span>$4x + 3y = 12$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> Perpendicular needs slope $-\dfrac{4}{3}$. For $4x + 3y = 12$, the slope is $-\dfrac{4}{3}$. Choice A has slope $\dfrac{3}{4}$ (parallel), and choice C has slope $\dfrac{4}{3}$ (sign not changed).</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What you will see</a></li>
+          <li><a href="#solve">Examples, step by step</a></li>
+          <li><a href="#mistakes">Where students slip</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/slope-rate-of-change/">Slope as rate of change</a></li>
+          <li><a href="/sat-math/linear-equation-point-slope/">Point-slope form</a></li>
+          <li><a href="/sat-math/standard-to-slope-intercept-form/">Standard to slope-intercept form</a></li>
+          <li><a href="/sat-math/systems-of-equations/">Systems of equations</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

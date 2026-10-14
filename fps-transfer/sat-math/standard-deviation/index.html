@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Standard Deviation: Rules, Examples, Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/standard-deviation/">
+
+  <meta name="description" content="Standard deviation on the SAT measures spread, not size. Learn the rules for shifts, scaling and outliers, the empirical rule, and 11 practice questions.">
+
+  <meta property="og:title" content="SAT Standard Deviation: Rules, Worked Examples and Practice Questions">
+  <meta property="og:description" content="Standard deviation on the SAT measures spread, not size. Learn the rules for shifts, scaling and outliers, the empirical rule, and 11 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/standard-deviation/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Standard Deviation: Rules, Worked Examples and Practice Questions">
+  <meta name="twitter:description" content="Standard deviation on the SAT measures spread, not size. Learn the rules for shifts, scaling and outliers, the empirical rule, and 11 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Standard Deviation: Rules, Worked Examples and Practice Questions",
+  "description": "Standard deviation on the SAT measures spread, not size. The rules for adding a constant, multiplying, and removing outliers, the empirical rule, worked examples with real numbers, and 11 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/standard-deviation/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does standard deviation measure on the SAT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard deviation measures how spread out the values are from the mean. A larger standard deviation means the values are more scattered. It says nothing about whether the average is high or low."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have to calculate standard deviation on the SAT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Almost never. SAT questions ask you to compare the spread of two data sets or to say what happens to the standard deviation when the data changes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens to standard deviation when you add the same number to every value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nothing. Every value and the mean move by the same amount, so the distances from the mean stay the same and the standard deviation does not change. Multiplying every value by k multiplies the standard deviation by the absolute value of k."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the empirical rule?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For data that is roughly bell-shaped, about 68% of values lie within 1 standard deviation of the mean, about 95% within 2 standard deviations, and about 99.7% within 3 standard deviations."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": { "@type": "Thing", "name": "Standard Deviation" },
+  "hasPart": [
+    { "@type": "Question", "name": "Dataset X has values 10, 10, 10, 10, 10. Dataset Y has values 2, 6, 10, 14, 18. Which dataset has the larger standard deviation?", "acceptedAnswer": { "@type": "Answer", "text": "Dataset Y. Its values are spread out around the mean of 10, while every value in Dataset X equals the mean, so Dataset X has a standard deviation of 0." } },
+    { "@type": "Question", "name": "Every value in a data set is 78. What is the standard deviation?", "acceptedAnswer": { "@type": "Answer", "text": "0. No value differs from the mean, so there is no spread." } },
+    { "@type": "Question", "name": "Group 1 has a mean of 45 minutes and a standard deviation of 20 minutes. Group 2 has a mean of 30 minutes and a standard deviation of 5 minutes. Which group's data is more spread out?", "acceptedAnswer": { "@type": "Answer", "text": "Group 1. Its standard deviation is larger. The means do not affect the comparison." } },
+    { "@type": "Question", "name": "A set of scores has a mean of 62 and a standard deviation of 4. A teacher adds 7 points to every score. What are the new mean and standard deviation?", "acceptedAnswer": { "@type": "Answer", "text": "The mean becomes 69 and the standard deviation stays 4." } },
+    { "@type": "Question", "name": "A data set is 12, 14, 15, 16, 43. The value 43 is removed. What happens to the mean and the standard deviation?", "acceptedAnswer": { "@type": "Answer", "text": "Both decrease. The mean drops from 20 to 14.25, and removing the value far from the mean reduces the spread." } },
+    { "@type": "Question", "name": "A data set has a standard deviation of 3. Every value is multiplied by 2. What is the new standard deviation?", "acceptedAnswer": { "@type": "Answer", "text": "6. Multiplying every value by 2 doubles every distance from the mean." } },
+    { "@type": "Question", "name": "List A is 1, 5, 9, 13, 17. List B is 6, 7, 9, 11, 12. Which statement is true?", "acceptedAnswer": { "@type": "Answer", "text": "The means are equal (both 9) and List A has the larger standard deviation." } },
+    { "@type": "Question", "name": "Scores are roughly bell-shaped with a mean of 500 and a standard deviation of 100. About what percent of scores fall between 400 and 600?", "acceptedAnswer": { "@type": "Answer", "text": "About 68%, because 400 to 600 is within 1 standard deviation of the mean." } },
+    { "@type": "Question", "name": "Battery life is roughly bell-shaped with a mean of 40 hours and a standard deviation of 5 hours. About what percent of batteries last longer than 50 hours?", "acceptedAnswer": { "@type": "Answer", "text": "About 2.5%. 50 hours is 2 standard deviations above the mean. About 5% of values lie more than 2 standard deviations away, split evenly between the two tails." } },
+    { "@type": "Question", "name": "Test scores are roughly bell-shaped with a mean of 70 and a standard deviation of 8. About 16% of students scored above what value?", "acceptedAnswer": { "@type": "Answer", "text": "78. About 32% of values lie more than 1 standard deviation from the mean, half of them above, and 70 + 8 = 78." } },
+    { "@type": "Question", "name": "Heights are roughly bell-shaped with a mean of 64 inches and a standard deviation of 3 inches. About 95% of heights fall between which two values?", "acceptedAnswer": { "@type": "Answer", "text": "58 and 70 inches, which is 2 standard deviations on each side of the mean." } }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Standard Deviation
+      </nav>
+
+      <h1>Interpreting Standard Deviation</h1>
+      <p class="meta-line">SAT Math &middot; Problem-Solving &amp; Data Analysis &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">What standard deviation tells you</p>
+        <p>Standard deviation measures how far the values in a data set are from the mean. The more scattered the values, the larger it is. It tells you nothing about whether the average itself is high or low.</p>
+        <p>On the SAT you will almost never have to calculate it. You compare the spread of two data sets, or you decide what happens to the standard deviation when the data changes. I teach this every year in AP Statistics, and the students who do well are the ones who picture the spread instead of reaching for a formula.</p>
+      </div>
+
+      <p class="lede">Standard deviation questions on the SAT come in three kinds: comparing two data sets, predicting what a change does to the spread, and reading the spread from a dot plot or a list. In every one of them, the question you are really answering is how far the values are from the middle.</p>
+
+      <h2 id="tests">Spread, and what changes it</h2>
+      <p>Tightly clustered data has a small standard deviation. Widely scattered data has a large one. Two data sets can have exactly the same mean and very different standard deviations. If every value is identical, the standard deviation is $0$.</p>
+      <p>Most SAT questions about standard deviation are really about change. Once you know the rules in this table, you can answer them without any arithmetic.</p>
+
+      <table class="rules">
+        <thead>
+          <tr><th>What happens to the data</th><th>Mean</th><th>Standard deviation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Add the same number $c$ to every value</td><td>Goes up by $c$</td><td>No change</td></tr>
+          <tr><td>Subtract the same number from every value</td><td>Goes down by that number</td><td>No change</td></tr>
+          <tr><td>Multiply every value by $k$</td><td>Multiplied by $k$</td><td>Multiplied by $|k|$</td></tr>
+          <tr><td>Remove a value far from the mean (an outlier)</td><td>Moves toward the rest of the data</td><td>Decreases</td></tr>
+          <tr><td>Add a value far from the mean</td><td>Moves toward the new value</td><td>Increases</td></tr>
+          <tr><td>Add a value equal to the mean</td><td>No change</td><td>Decreases slightly</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">Three examples</h2>
+
+      <div class="worked">
+        <h3>Example 1: two sets with the same mean</h3>
+        <p>Set A is $48, 49, 50, 51, 52$. Set B is $30, 40, 50, 60, 70$. Which has the larger standard deviation?</p>
+        <ol>
+          <li>Find the middle of each set. Both have a mean of $50$.</li>
+          <li>Look at the distances from $50$. Set A: $2, 1, 0, 1, 2$. Set B: $20, 10, 0, 10, 20$.</li>
+          <li>Set B's values are ten times farther from the mean, so Set B has the larger standard deviation. You don't need the formula for this.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: removing an outlier</h3>
+        <p>A data set is $12, 14, 15, 16, 43$. What happens to the mean and the standard deviation if $43$ is removed?</p>
+        <ol>
+          <li>The mean is $\dfrac{12 + 14 + 15 + 16 + 43}{5} = \dfrac{100}{5} = 20$.</li>
+          <li>Without $43$, the mean is $\dfrac{57}{4} = 14.25$. The mean decreases.</li>
+          <li>$43$ was the value farthest from the mean. The four values left are close together, so the standard deviation decreases too.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: adding the same amount to every value</h3>
+        <p>Quiz scores have a mean of $62$ and a standard deviation of $4$. The teacher adds $7$ points to every score.</p>
+        <ol>
+          <li>Every score moves up by $7$, so the mean becomes $62 + 7 = 69$.</li>
+          <li>Every score moves the same amount, so each score's distance from the mean is unchanged.</li>
+          <li>The standard deviation stays $4$. Moving the whole data set up does not spread it out.</li>
+        </ol>
+      </div>
+
+      <h2 id="empirical">The empirical rule</h2>
+      <p>When data is roughly bell-shaped (symmetric, with most values near the middle), the standard deviation tells you where the values fall:</p>
+      <ul class="plain">
+        <li>About $68\%$ of values lie within $1$ standard deviation of the mean.</li>
+        <li>About $95\%$ lie within $2$ standard deviations.</li>
+        <li>About $99.7\%$ lie within $3$ standard deviations.</li>
+      </ul>
+
+      <div class="figure">
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bell-shaped curve with about 68 percent of values within 1 standard deviation of the mean and about 95 percent within 2 standard deviations">
+          <rect x="0" y="0" width="480" height="200" fill="#ffffff"/>
+          <path d="M120.0,160 L120.0,141.1 L124.0,138.4 L128.0,135.5 L132.0,132.3 L136.0,128.8 L140.0,125.1 L144.0,121.1 L148.0,116.8 L152.0,112.2 L156.0,107.5 L160.0,102.4 L164.0,97.2 L168.0,91.9 L172.0,86.3 L176.0,80.7 L180.0,75.1 L184.0,69.4 L188.0,63.8 L192.0,58.3 L196.0,53.0 L200.0,47.9 L204.0,43.1 L208.0,38.6 L212.0,34.4 L216.0,30.8 L220.0,27.6 L224.0,24.9 L228.0,22.8 L232.0,21.2 L236.0,20.3 L240.0,20.0 L244.0,20.3 L248.0,21.2 L252.0,22.8 L256.0,24.9 L260.0,27.6 L264.0,30.8 L268.0,34.4 L272.0,38.6 L276.0,43.1 L280.0,47.9 L284.0,53.0 L288.0,58.3 L292.0,63.8 L296.0,69.4 L300.0,75.1 L304.0,80.7 L308.0,86.3 L312.0,91.9 L316.0,97.2 L320.0,102.4 L324.0,107.5 L328.0,112.2 L332.0,116.8 L336.0,121.1 L340.0,125.1 L344.0,128.8 L348.0,132.3 L352.0,135.5 L356.0,138.4 L360.0,141.1 L360.0,160 Z" fill="#f3e3c3"/>
+          <path d="M180.0,160 L180.0,75.1 L184.0,69.4 L188.0,63.8 L192.0,58.3 L196.0,53.0 L200.0,47.9 L204.0,43.1 L208.0,38.6 L212.0,34.4 L216.0,30.8 L220.0,27.6 L224.0,24.9 L228.0,22.8 L232.0,21.2 L236.0,20.3 L240.0,20.0 L244.0,20.3 L248.0,21.2 L252.0,22.8 L256.0,24.9 L260.0,27.6 L264.0,30.8 L268.0,34.4 L272.0,38.6 L276.0,43.1 L280.0,47.9 L284.0,53.0 L288.0,58.3 L292.0,63.8 L296.0,69.4 L300.0,75.1 L300.0,160 Z" fill="#d4a04a" fill-opacity="0.55"/>
+          <path d="M30.0,159.7 L37.0,159.5 L44.0,159.3 L51.0,159.0 L58.0,158.6 L65.0,158.0 L72.0,157.2 L79.0,156.2 L86.0,154.8 L93.0,153.0 L100.0,150.8 L107.0,148.0 L114.0,144.6 L121.0,140.4 L128.0,135.5 L135.0,129.7 L142.0,123.1 L149.0,115.7 L156.0,107.5 L163.0,98.6 L170.0,89.1 L177.0,79.3 L184.0,69.4 L191.0,59.7 L198.0,50.4 L205.0,41.9 L212.0,34.4 L219.0,28.3 L226.0,23.8 L233.0,20.9 L240.0,20.0 L247.0,20.9 L254.0,23.8 L261.0,28.3 L268.0,34.4 L275.0,41.9 L282.0,50.4 L289.0,59.7 L296.0,69.4 L303.0,79.3 L310.0,89.1 L317.0,98.6 L324.0,107.5 L331.0,115.7 L338.0,123.1 L345.0,129.7 L352.0,135.5 L359.0,140.4 L366.0,144.6 L373.0,148.0 L380.0,150.8 L387.0,153.0 L394.0,154.8 L401.0,156.2 L408.0,157.2 L415.0,158.0 L422.0,158.6 L429.0,159.0 L436.0,159.3 L443.0,159.5 L450.0,159.7" fill="none" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="20" y1="160" x2="460" y2="160" stroke="#1a3a5c" stroke-width="1.5"/>
+          <g stroke="#1a3a5c" stroke-width="1">
+            <line x1="60" y1="160" x2="60" y2="165"/><line x1="120" y1="160" x2="120" y2="165"/><line x1="180" y1="160" x2="180" y2="165"/><line x1="240" y1="20" x2="240" y2="100" stroke-dasharray="3 3"/><line x1="240" y1="148" x2="240" y2="165"/><line x1="300" y1="160" x2="300" y2="165"/><line x1="360" y1="160" x2="360" y2="165"/><line x1="420" y1="160" x2="420" y2="165"/>
+          </g>
+          <g font-family="Times New Roman, serif" font-style="italic" font-size="12" fill="#1a1a1a" text-anchor="middle">
+            <text x="60" y="179">&#8722;3 SD</text><text x="120" y="179">&#8722;2 SD</text><text x="180" y="179">&#8722;1 SD</text><text x="240" y="179">mean</text><text x="300" y="179">+1 SD</text><text x="360" y="179">+2 SD</text><text x="420" y="179">+3 SD</text>
+          </g>
+          <g font-family="Georgia, serif" font-size="14" font-weight="bold" text-anchor="middle">
+            <text x="240" y="122" fill="#1a3a5c">68%</text>
+            <text x="240" y="139" fill="#1a3a5c" font-size="11" font-weight="normal">within 1 SD</text>
+            <text x="153" y="152" fill="#1a3a5c" font-size="12">13.5%</text>
+            <text x="327" y="152" fill="#1a3a5c" font-size="12">13.5%</text>
+          </g>
+        </svg>
+        <p class="caption">The darker band holds about $68\%$ of the data. Add the two lighter bands and the whole shaded area, within $2$ standard deviations, holds about $68\% + 13.5\% + 13.5\% = 95\%$.</p>
+      </div>
+
+      <div class="worked">
+        <h3>Example 4: using the empirical rule</h3>
+        <p>Heights of a large group of students are roughly bell-shaped with a mean of $64$ inches and a standard deviation of $3$ inches.</p>
+        <ol>
+          <li>One standard deviation on each side: $64 - 3 = 61$ and $64 + 3 = 67$. About $68\%$ of heights are between $61$ and $67$ inches.</li>
+          <li>Two standard deviations on each side: $64 - 6 = 58$ and $64 + 6 = 70$. About $95\%$ are between $58$ and $70$ inches.</li>
+          <li>The other $5\%$ is split evenly between the two ends, so about $2.5\%$ of students are taller than $70$ inches.</li>
+        </ol>
+      </div>
+      <p>The SAT itself rarely asks about the empirical rule by name. It is still worth knowing: it turns "one standard deviation" into a picture you can use, and it is standard material in AP Statistics and on many state tests. It only works for data that is roughly bell-shaped, not for skewed data.</p>
+
+      <h2 id="mistakes">Mistakes I see often</h2>
+      <p><strong>Linking standard deviation to the mean.</strong> A higher standard deviation means more spread, not a higher average.</p>
+      <p><strong>Confusing standard deviation with range.</strong> Range uses only the two extreme values. Standard deviation reflects every value.</p>
+      <p><strong>Thinking a shift changes the spread.</strong> Adding or subtracting the same number from every value moves the mean but leaves the standard deviation unchanged.</p>
+      <p><strong>Ignoring outliers.</strong> One value far from the rest raises the standard deviation a lot. Removing it lowers the standard deviation.</p>
+      <p><strong>Using the empirical rule on skewed data.</strong> The $68\%$, $95\%$, $99.7\%$ pattern only holds when the data is roughly bell-shaped.</p>
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Most of these can be done without calculating anything. Picture the spread first, then open the solution to check your reasoning.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Dataset X has values $10, 10, 10, 10, 10$. Dataset Y has values $2, 6, 10, 14, 18$. Which dataset has the larger standard deviation?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Dataset X</li>
+          <li><span class="lbl">B</span>Dataset Y</li>
+          <li><span class="lbl">C</span>They have the same standard deviation</li>
+          <li><span class="lbl">D</span>It cannot be determined without calculating</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Both datasets have a mean of $10$. Every value in Dataset X equals the mean, so its standard deviation is $0$. Dataset Y's values sit as far as $8$ away from the mean, so it has the larger standard deviation.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">A teacher reports that every student in a class scored exactly $78$ on a quiz. What is the standard deviation of the scores?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$1$</li>
+          <li><span class="lbl">B</span>$78$</li>
+          <li><span class="lbl">C</span>$0$</li>
+          <li><span class="lbl">D</span>It cannot be determined from the information given</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The mean is $78$ and every score equals the mean. No score sits any distance from the mean, so there is no spread and the standard deviation is $0$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Two groups of students recorded their daily exercise time. Group 1 has a mean of $45$ minutes and a standard deviation of $20$ minutes. Group 2 has a mean of $30$ minutes and a standard deviation of $5$ minutes. Which group's data is more spread out?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Group 2</li>
+          <li><span class="lbl">B</span>They are equally spread out</li>
+          <li><span class="lbl">C</span>It cannot be determined without the data values</li>
+          <li><span class="lbl">D</span>Group 1</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> Standard deviation measures spread. Group 1's standard deviation of $20$ is four times Group 2's standard deviation of $5$. The means do not matter for this comparison.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A set of test scores has a mean of $62$ and a standard deviation of $4$. The teacher adds $7$ points to every score. What are the mean and standard deviation of the new scores?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Mean $62$, standard deviation $11$</li>
+          <li><span class="lbl">B</span>Mean $69$, standard deviation $4$</li>
+          <li><span class="lbl">C</span>Mean $69$, standard deviation $11$</li>
+          <li><span class="lbl">D</span>Mean $62$, standard deviation $4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Every score goes up by $7$, so the mean goes up by $7$ to $69$. Every score moves the same amount, so the distances from the mean do not change and the standard deviation stays $4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A data set consists of the values $12, 14, 15, 16, 43$. If the value $43$ is removed, what happens to the mean and the standard deviation?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The mean decreases and the standard deviation increases.</li>
+          <li><span class="lbl">B</span>The mean stays the same and the standard deviation decreases.</li>
+          <li><span class="lbl">C</span>Both increase.</li>
+          <li><span class="lbl">D</span>Both decrease.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> The mean drops from $\dfrac{100}{5} = 20$ to $\dfrac{57}{4} = 14.25$. The value $43$ was far from all the others, so removing it leaves values that are close together, and the standard deviation decreases.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A data set has a standard deviation of $3$. Each value in the data set is multiplied by $2$. What is the standard deviation of the new data set?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$3$</li>
+          <li><span class="lbl">B</span>$5$</li>
+          <li><span class="lbl">C</span>$6$</li>
+          <li><span class="lbl">D</span>$9$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> Multiplying every value by $2$ also multiplies the mean by $2$, so every distance from the mean doubles. The standard deviation doubles from $3$ to $6$. Choice B comes from adding $2$ instead of multiplying.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">List A is $1, 5, 9, 13, 17$. List B is $6, 7, 9, 11, 12$. Which statement is true?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The means are equal, and List B has the larger standard deviation.</li>
+          <li><span class="lbl">B</span>List A has the larger mean and the larger standard deviation.</li>
+          <li><span class="lbl">C</span>The means are equal, and List A has the larger standard deviation.</li>
+          <li><span class="lbl">D</span>The lists have the same mean and the same standard deviation.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> Both lists add to $45$, so both means are $\dfrac{45}{5} = 9$. List A's values sit $8, 4, 0, 4, 8$ from the mean. List B's sit $3, 2, 0, 2, 3$ from the mean. List A is more spread out, so it has the larger standard deviation.</div>
+        </details>
+      </div>
+
+      <h2 id="empirical-practice">Empirical rule practice</h2>
+      <p>For each question, the data is roughly bell-shaped, so the $68\%$, $95\%$, $99.7\%$ pattern applies.</p>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Scores on a practice test are roughly bell-shaped with a mean of $500$ and a standard deviation of $100$. About what percent of scores fall between $400$ and $600$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$34\%$</li>
+          <li><span class="lbl">B</span>$68\%$</li>
+          <li><span class="lbl">C</span>$95\%$</li>
+          <li><span class="lbl">D</span>$99.7\%$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $400 = 500 - 100$ and $600 = 500 + 100$, so the interval is $1$ standard deviation on each side of the mean. About $68\%$ of scores fall there. Choice A is only the half from $500$ to $600$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">Heights of a large group of students are roughly bell-shaped with a mean of $64$ inches and a standard deviation of $3$ inches. About $95\%$ of the heights fall between which two values?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$61$ and $67$ inches</li>
+          <li><span class="lbl">B</span>$58$ and $70$ inches</li>
+          <li><span class="lbl">C</span>$55$ and $73$ inches</li>
+          <li><span class="lbl">D</span>$62$ and $66$ inches</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> About $95\%$ of values lie within $2$ standard deviations of the mean. $64 - 2(3) = 58$ and $64 + 2(3) = 70$. Choice A is $1$ standard deviation ($68\%$) and choice C is $3$ standard deviations ($99.7\%$).</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">The battery life of a phone model is roughly bell-shaped with a mean of $40$ hours and a standard deviation of $5$ hours. About what percent of these batteries last longer than $50$ hours?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$2.5\%$</li>
+          <li><span class="lbl">B</span>$5\%$</li>
+          <li><span class="lbl">C</span>$16\%$</li>
+          <li><span class="lbl">D</span>$32\%$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $50 = 40 + 2(5)$, so $50$ hours is $2$ standard deviations above the mean. About $95\%$ of batteries fall within $2$ standard deviations, which leaves $5\%$ outside. That $5\%$ splits evenly between the two ends, so about $2.5\%$ last longer than $50$ hours.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Scores on a test are roughly bell-shaped with a mean of $70$ and a standard deviation of $8$. About $16\%$ of students scored above what value?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$62$</li>
+          <li><span class="lbl">B</span>$70$</li>
+          <li><span class="lbl">C</span>$78$</li>
+          <li><span class="lbl">D</span>$86$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> About $68\%$ of scores lie within $1$ standard deviation of the mean, so $100\% - 68\% = 32\%$ lie outside it. Half of that, $16\%$, is above the mean. One standard deviation above the mean is $70 + 8 = 78$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">Spread, and what changes it</a></li>
+          <li><a href="#solve">Three examples</a></li>
+          <li><a href="#empirical">The empirical rule</a></li>
+          <li><a href="#mistakes">Mistakes I see often</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+          <li><a href="#empirical-practice">Empirical rule practice</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/mean-median-range/">Mean, median, range</a></li>
+          <li><a href="/sat-math/comparing-distributions/">Comparing distributions</a></li>
+          <li><a href="/sat-math/scatterplots/">Scatterplots</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>
