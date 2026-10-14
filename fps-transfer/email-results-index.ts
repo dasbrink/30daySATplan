@@ -261,7 +261,7 @@ Deno.serve(async (req) => {
       });
     }
     if (!ok) console.error("brevo send failed:", brevo.status, detail);
-    return json({ sent: ok });
+    return json(preview ? { sent: ok, detail, to: user.email } : { sent: ok });
   } catch (e) {
     console.error("email-results error:", e);
     return json({ sent: false, reason: "error" }, 500);
