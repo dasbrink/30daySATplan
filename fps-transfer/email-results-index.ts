@@ -35,6 +35,7 @@ const SITE = "https://freepracticesat.com/";
 const PRICE_LABEL = "$29";
 const MIN_ANSWERED = 22;
 const MAX_AGE_MINUTES = 30;
+const OWNER_EMAIL = "dasbrink@gmail.com";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -184,27 +185,41 @@ Deno.serve(async (req) => {
     if (opt.ok && opt.data?.length) return json({ sent: false, reason: "opted out" });
 
     // Newest results for this student only.
-    const rows = await db(`test_results?user_id=eq.${user.id}&select=id,score,test_number,snapshot,created_at&order=created_at.desc&limit=8`);
+    // Owner preview: Danie can ask for a copy of the email for his own
+    // newest full test, as the free or the paid version. Nothing is
+    // recorded, so a preview never blocks a real send.
+    const preview = body.preview === true && String(user.email).toLowerCase() === OWNER_EMAIL;
+
+    const rows = await db(`test_results?user_id=eq.${user.id}&select=id,score,test_number,snapshot,created_at&order=created_at.desc&limit=${preview ? 40 : 8}`);
     if (!rows.ok || !rows.data?.length) return json({ sent: false, reason: "no result" });
-    const latest = rows.data[0];
+
+    let idx = 0;
+    if (preview) {
+      idx = rows.data.findIndex((r) => answeredCount(r.snapshot) >= MIN_ANSWERED);
+      if (idx < 0) return json({ sent: false, reason: "no full test to preview" });
+    }
+    const latest = rows.data[idx];
     const ageMin = (Date.now() - new Date(latest.created_at).getTime()) / 60000;
-    if (ageMin > MAX_AGE_MINUTES) return json({ sent: false, reason: "no recent result" });
+    if (!preview && ageMin > MAX_AGE_MINUTES) return json({ sent: false, reason: "no recent result" });
 
     const snap = latest.snapshot || {};
     if (answeredCount(snap) < MIN_ANSWERED) return json({ sent: false, reason: "test not finished" });
 
     // Claim this result. A second call for the same result stops here.
-    const claim = await db("results_emails_sent", {
-      method: "POST",
-      headers: { Prefer: "return=minimal" },
-      body: JSON.stringify({ test_result_id: latest.id, user_id: user.id }),
-    });
-    if (!claim.ok) return json({ sent: false, reason: "already sent" });
+    if (!preview) {
+      const claim = await db("results_emails_sent", {
+        method: "POST",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify({ test_result_id: latest.id, user_id: user.id }),
+      });
+      if (!claim.ok) return json({ sent: false, reason: "already sent" });
+    }
 
-    const prev = rows.data.slice(1).find((r) => answeredCount(r.snapshot) >= MIN_ANSWERED);
+    const prev = rows.data.slice(idx + 1).find((r) => answeredCount(r.snapshot) >= MIN_ANSWERED);
 
     const ent = await db(`entitlements?user_id=eq.${user.id}&select=tier`);
-    const tier = ent.ok && ent.data?.length ? Number(ent.data[0].tier) || 0 : 0;
+    let tier = ent.ok && ent.data?.length ? Number(ent.data[0].tier) || 0 : 0;
+    if (preview && typeof body.paid === "boolean") tier = body.paid ? 3 : 0;
 
     const { domains, mistakes } = await summarize(snap);
     const unsubscribeUrl = `${SITE}?unsub=${user.id}&sig=${await sign(user.id)}`;
@@ -238,11 +253,13 @@ Deno.serve(async (req) => {
 
     const ok = brevo.ok;
     const detail = ok ? null : (await brevo.text().catch(() => "")).slice(0, 300);
-    await db(`results_emails_sent?test_result_id=eq.${latest.id}`, {
-      method: "PATCH",
-      headers: { Prefer: "return=minimal" },
-      body: JSON.stringify({ ok, detail, paid: d.paid, score: d.score }),
-    });
+    if (!preview) {
+      await db(`results_emails_sent?test_result_id=eq.${latest.id}`, {
+        method: "PATCH",
+        headers: { Prefer: "return=minimal" },
+        body: JSON.stringify({ ok, detail, paid: d.paid, score: d.score }),
+      });
+    }
     if (!ok) console.error("brevo send failed:", brevo.status, detail);
     return json({ sent: ok });
   } catch (e) {
