@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Midpoint Formula: Endpoints, Circles, Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/midpoint-formula/">
+
+  <meta name="description" content="Use the SAT midpoint formula: average the coordinates, find a missing endpoint, and locate a circle&#x27;s center from a diameter. 10 practice questions.">
+
+  <meta property="og:title" content="SAT Midpoint Formula: Missing Endpoints, Circle Centers and Practice">
+  <meta property="og:description" content="Use the SAT midpoint formula: average the coordinates, find a missing endpoint, and locate a circle&#x27;s center from a diameter. 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/midpoint-formula/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Midpoint Formula: Missing Endpoints, Circle Centers and Practice">
+  <meta name="twitter:description" content="Use the SAT midpoint formula: average the coordinates, find a missing endpoint, and locate a circle&#x27;s center from a diameter. 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Midpoint Formula: Missing Endpoints, Circle Centers and Practice",
+  "description": "The midpoint formula on the SAT: averaging coordinates, finding a missing endpoint, the center and radius of a circle from a diameter, unknown coordinates, and points a fraction of the way along a segment. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/midpoint-formula/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the midpoint formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The midpoint of (x1, y1) and (x2, y2) is ((x1 + x2)/2, (y1 + y2)/2): the average of the x-coordinates and the average of the y-coordinates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you find a missing endpoint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For each coordinate, double the midpoint and subtract the known endpoint."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the midpoint used with circles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The center of a circle is the midpoint of any diameter."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Midpoint Formula"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "What is the midpoint of (2, 4) and (8, 10)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(5, 7)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the x-coordinate of the midpoint of (-3, 5) and (7, -1)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The midpoint is (4, 1) and one endpoint is (1, -3). What is the other endpoint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(7, 5)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A diameter has endpoints (-2, 6) and (4, -2). Where is the center?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(1, 2)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The midpoint of (a, 3) and (9, b) is (5, -1). What is a + b?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "-4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "M is the midpoint of AB, A = (-6, 2), M = (-1, 5). What is the y-coordinate of B?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "8."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A diameter has endpoints (-2, 6) and (4, -2). What is the radius?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "M is the midpoint of AB, A = (1, 1), M = (4, 5). How long is AB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "P is a quarter of the way from (0, 0) to (12, 8). Where is P?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(3, 2)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "The midpoint of (2k, 5) and (6, k + 1) lies on y = x. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "0."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Midpoint Formula
+      </nav>
+
+      <h1>The Midpoint Formula on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Geometry &amp; Trigonometry &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Where I would start</p>
+        <p>The midpoint is the average of the endpoints: average the $x$-coordinates, then average the $y$-coordinates. For $(x_1, y_1)$ and $(x_2, y_2)$ it is $\left(\dfrac{x_1 + x_2}{2}, \dfrac{y_1 + y_2}{2}\right)$.</p>
+        <p>When the question gives you the midpoint and one endpoint, think of the midpoint as halfway: the step from the first endpoint to the midpoint repeats once more to reach the other endpoint.</p>
+      </div>
+
+      <p class="lede">Midpoint questions are often quick points, and they also hide inside circle questions, where the center is the midpoint of a diameter. The common slip is subtracting the coordinates instead of averaging them.</p>
+      <p class="positioning">Reading the concept isn't enough. The score comes from practicing in the real digital SAT format and finding the exact mistakes you keep making.</p>      <div class="figure">
+        <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A segment on a grid from the point (2, 4) to the point (8, 10), with its midpoint (5, 7) marked halfway along.">
+          <rect x="0" y="0" width="480" height="420" fill="#ffffff"/>
+          <line x1="24.0" y1="410.0" x2="24.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="60.0" y1="410.0" x2="60.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="96.0" y1="410.0" x2="96.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="132.0" y1="410.0" x2="132.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="168.0" y1="410.0" x2="168.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="204.0" y1="410.0" x2="204.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="240.0" y1="410.0" x2="240.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="276.0" y1="410.0" x2="276.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="312.0" y1="410.0" x2="312.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="348.0" y1="410.0" x2="348.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="384.0" y1="410.0" x2="384.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="420.0" y1="410.0" x2="420.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="410.0" x2="420.0" y2="410.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="380.0" x2="420.0" y2="380.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="350.0" x2="420.0" y2="350.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="320.0" x2="420.0" y2="320.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="290.0" x2="420.0" y2="290.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="260.0" x2="420.0" y2="260.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="230.0" x2="420.0" y2="230.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="200.0" x2="420.0" y2="200.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="170.0" x2="420.0" y2="170.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="140.0" x2="420.0" y2="140.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="110.0" x2="420.0" y2="110.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="80.0" x2="420.0" y2="80.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="50.0" x2="420.0" y2="50.0" stroke="#e6e9ee" stroke-width="1"/>
+          <line x1="24.0" y1="380.0" x2="420.0" y2="380.0" stroke="#1a3a5c" stroke-width="1.5"/>
+          <line x1="60.0" y1="410.0" x2="60.0" y2="50.0" stroke="#1a3a5c" stroke-width="1.5"/>
+          <g font-family="Arial, sans-serif" font-size="12" fill="#555"><text x="132.0" y="396.0" text-anchor="middle">2</text><text x="204.0" y="396.0" text-anchor="middle">4</text><text x="276.0" y="396.0" text-anchor="middle">6</text><text x="348.0" y="396.0" text-anchor="middle">8</text><text x="420.0" y="396.0" text-anchor="middle">10</text><text x="52.0" y="324.0" text-anchor="end">2</text><text x="52.0" y="264.0" text-anchor="end">4</text><text x="52.0" y="204.0" text-anchor="end">6</text><text x="52.0" y="144.0" text-anchor="end">8</text><text x="52.0" y="84.0" text-anchor="end">10</text></g>
+          <line x1="132.0" y1="260.0" x2="348.0" y2="80.0" stroke="#2e6da4" stroke-width="3"/>
+          <line x1="132.0" y1="260.0" x2="348.0" y2="260.0" stroke="#c9902a" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <line x1="348.0" y1="260.0" x2="348.0" y2="80.0" stroke="#c9902a" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <circle cx="132.0" cy="260.0" r="6" fill="#1a3a5c"/>
+          <circle cx="348.0" cy="80.0" r="6" fill="#1a3a5c"/>
+          <circle cx="240.0" cy="170.0" r="7" fill="#c9564a"/>
+          <g font-family="Arial, sans-serif" font-size="13" fill="#1a1a1a">
+            <text x="142.0" y="280.0">A</text>
+            <text x="330.0" y="72.0">B</text>
+            <text x="210.0" y="164.0">M</text>
+          </g>
+        </svg>
+        <p class="caption">$A = (2, 4)$ and $B = (8, 10)$. The midpoint is $M = \left(\dfrac{2 + 8}{2}, \dfrac{4 + 10}{2}\right) = (5, 7)$. The dashed legs show the run of $6$ and rise of $6$, which the distance formula uses.</p>
+      </div>
+
+      <h2 id="tests">What the SAT tests here</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Two endpoints, find the midpoint</td><td>Average the $x$'s and average the $y$'s.</td></tr>
+          <tr><td>The midpoint and one endpoint</td><td>Other endpoint $= 2 \times$ midpoint $-$ known endpoint, for each coordinate.</td></tr>
+          <tr><td>The ends of a circle's diameter</td><td>The center is their midpoint. The radius is half the distance between them.</td></tr>
+          <tr><td>A midpoint with unknown letters</td><td>Write one equation for the $x$'s and one for the $y$'s.</td></tr>
+          <tr><td>A point a quarter of the way along</td><td>Start at the first point and add a quarter of the run and a quarter of the rise.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to solve one, step by step</h2>
+
+      <div class="worked">
+        <h3>Example 1: a missing endpoint</h3>
+        <p>The midpoint of a segment is $(4, 1)$ and one endpoint is $(1, -3)$. Find the other endpoint.</p>
+        <ol>
+          <li>From $x = 1$ to the midpoint $x = 4$ is a step of $3$. Another step of $3$ reaches $x = 7$.</li>
+          <li>From $y = -3$ to $y = 1$ is a step of $4$. Another step of $4$ reaches $y = 5$.</li>
+          <li>The other endpoint is $(7, 5)$. Check: $\left(\dfrac{1 + 7}{2}, \dfrac{-3 + 5}{2}\right) = (4, 1)$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: the center and radius of a circle</h3>
+        <p>A diameter of a circle has endpoints $(-2, 6)$ and $(4, -2)$. Find the center and the radius.</p>
+        <ol>
+          <li>Center: $\left(\dfrac{-2 + 4}{2}, \dfrac{6 + (-2)}{2}\right) = (1, 2)$.</li>
+          <li>Diameter length: $\sqrt{6^2 + 8^2} = 10$.</li>
+          <li>Radius: $5$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: unknown coordinates</h3>
+        <p>The midpoint of $(a, 3)$ and $(9, b)$ is $(5, -1)$. Find $a + b$.</p>
+        <ol>
+          <li>$x$: $\dfrac{a + 9}{2} = 5$, so $a = 1$.</li>
+          <li>$y$: $\dfrac{3 + b}{2} = -1$, so $b = -5$.</li>
+          <li>$a + b = -4$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">The mistakes that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Subtracting instead of adding.</strong> The midpoint averages the coordinates. The difference belongs to the distance formula.</li>
+        <li><strong>Forgetting to divide by $2$.</strong> $(2 + 8, 4 + 10) = (10, 14)$ is not the midpoint.</li>
+        <li><strong>Mixing up $x$ and $y$.</strong> Average the first coordinates together and the second coordinates together.</li>
+        <li><strong>Treating the midpoint as an endpoint.</strong> When one endpoint is missing, step past the midpoint, not back to it.</li>
+        <li><strong>Giving the diameter as the radius.</strong> The radius is half the distance between the endpoints of a diameter.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Try these the way you would on test day, then open the solution to check your method.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">What is the midpoint of the segment with endpoints $(2, 4)$ and $(8, 10)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(10, 14)$</li>
+          <li><span class="lbl">B</span>$(3, 3)$</li>
+          <li><span class="lbl">C</span>$(5, 7)$</li>
+          <li><span class="lbl">D</span>$(6, 6)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $\left(\dfrac{2 + 8}{2}, \dfrac{4 + 10}{2}\right) = (5, 7)$. Choice A forgets to divide by $2$, and choice B subtracts.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the $x$-coordinate of the midpoint of the segment with endpoints $(-3, 5)$ and $(7, -1)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $2$.</span> $\dfrac{-3 + 7}{2} = \dfrac{4}{2} = 2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">The midpoint of a segment is $(4, 1)$. One endpoint is $(1, -3)$. What is the other endpoint?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(2.5, -1)$</li>
+          <li><span class="lbl">B</span>$(7, 5)$</li>
+          <li><span class="lbl">C</span>$(3, 4)$</li>
+          <li><span class="lbl">D</span>$(-2, -7)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Other endpoint $= (2 \cdot 4 - 1, 2 \cdot 1 - (-3)) = (7, 5)$. Choice A is the midpoint of the two given points, and choice D steps backward.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A diameter of a circle has endpoints $(-2, 6)$ and $(4, -2)$. What are the coordinates of the center of the circle?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(1, 2)$</li>
+          <li><span class="lbl">B</span>$(3, -4)$</li>
+          <li><span class="lbl">C</span>$(2, 4)$</li>
+          <li><span class="lbl">D</span>$(-3, 4)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The center is the midpoint of a diameter: $\left(\dfrac{-2 + 4}{2}, \dfrac{6 - 2}{2}\right) = (1, 2)$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The midpoint of the segment with endpoints $(a, 3)$ and $(9, b)$ is $(5, -1)$. What is the value of $a + b$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-4$.</span> $\dfrac{a + 9}{2} = 5$ gives $a = 1$. $\dfrac{3 + b}{2} = -1$ gives $b = -5$. So $a + b = -4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">Point $M$ is the midpoint of segment $AB$. If $A = (-6, 2)$ and $M = (-1, 5)$, what is the $y$-coordinate of $B$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $8$.</span> From $A$ to $M$, $y$ goes up by $3$. Another $3$ reaches $8$. Or: $2 \cdot 5 - 2 = 8$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">A diameter of a circle has endpoints $(-2, 6)$ and $(4, -2)$. What is the radius of the circle?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $5$.</span> The diameter is $\sqrt{(4 - (-2))^2 + (-2 - 6)^2} = \sqrt{36 + 64} = 10$, so the radius is $5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">Point $M$ is the midpoint of segment $AB$. If $A = (1, 1)$ and $M = (4, 5)$, what is the length of segment $AB$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $10$.</span> $AM = \sqrt{3^2 + 4^2} = 5$. The midpoint is halfway, so $AB = 2 \cdot 5 = 10$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Point $P$ lies on the segment from $(0, 0)$ to $(12, 8)$, one quarter of the way from $(0, 0)$. What are the coordinates of $P$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(6, 4)$</li>
+          <li><span class="lbl">B</span>$(4, 3)$</li>
+          <li><span class="lbl">C</span>$(9, 6)$</li>
+          <li><span class="lbl">D</span>$(3, 2)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> A quarter of the run is $\dfrac{12}{4} = 3$ and a quarter of the rise is $\dfrac{8}{4} = 2$, so $P = (3, 2)$. Choice A is the midpoint, and choice C is three quarters of the way.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The midpoint of the segment with endpoints $(2k, 5)$ and $(6, k + 1)$ lies on the line $y = x$. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $0$.</span> The midpoint is $\left(k + 3, \dfrac{k + 6}{2}\right)$. On $y = x$, the coordinates are equal: $\dfrac{k + 6}{2} = k + 3$, so $k + 6 = 2k + 6$ and $k = 0$. Check: the endpoints are $(0, 5)$ and $(6, 1)$, with midpoint $(3, 3)$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What the SAT tests here</a></li>
+          <li><a href="#solve">How to solve one</a></li>
+          <li><a href="#mistakes">Mistakes that cost points</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/distance-formula/">Distance formula</a></li>
+          <li><a href="/sat-math/pythagorean-theorem/">Pythagorean theorem</a></li>
+          <li><a href="/sat-math/parallel-and-perpendicular-lines/">Parallel and perpendicular lines</a></li>
+          <li><a href="/sat-math/linear-equation-from-two-points/">Line from two points</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

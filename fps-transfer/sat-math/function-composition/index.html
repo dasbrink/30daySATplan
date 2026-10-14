@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Function Composition: f(g(x)) Explained</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/function-composition/">
+
+  <meta name="description" content="Work SAT composition questions from the inside out: f(g(4)), f(g(x)) as an expression, finding the outer function and domain, with 10 practice questions.">
+
+  <meta property="og:title" content="SAT Function Composition: f(g(x)), Order and Practice Questions">
+  <meta property="og:description" content="Work SAT composition questions from the inside out: f(g(4)), f(g(x)) as an expression, finding the outer function and domain, with 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/function-composition/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Function Composition: f(g(x)), Order and Practice Questions">
+  <meta name="twitter:description" content="Work SAT composition questions from the inside out: f(g(4)), f(g(x)) as an expression, finding the outer function and domain, with 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Function Composition: f(g(x)), Order and Practice Questions",
+  "description": "Function composition on the SAT: evaluating f(g(4)), writing f(g(x)) and g(f(x)), applying a function twice, finding the outer function from a composition, domain of a composition, and solving equations with a composition. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/function-composition/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does f(g(x)) mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Apply g first, then put the result into f. Work from the inside out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is f(g(x)) the same as g(f(x))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually not. The order changes the result, and the SAT often lists both as answer choices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is f(g(x)) the same as f(x) times g(x)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Composition feeds one function's output into the other. It is not multiplication."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Function Composition"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "If f(x) = x + 3 and g(x) = 2x, what is f(g(4))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "11."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = x^2 and g(x) = x - 5, what is g(f(3))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 2x + 1 and g(x) = x^2, what is f(g(x))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2x^2 + 1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 2x + 1 and g(x) = x^2, what is g(f(x))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4x^2 + 4x + 1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 3x - 2, what is f(f(2))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 3x + 1 and g(x) = x - 4, what is f(g(x))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3x - 11."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "g(x) = 2x + 1 and f(g(x)) = 6x + 5 with f linear. What is f(4)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "14."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "f(x) = square root of x and g(x) = x - 7. When is f(g(x)) defined?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x greater than or equal to 7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "f(x) = x^2 - 4, g(x) = x + 2. When is f(g(x)) = 0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 0 and x = -4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 2^x and g(x) = x + 3, what is g(f(2)) + f(g(-1))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "11."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Function Composition
+      </nav>
+
+      <h1>Function Composition on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Where I would start</p>
+        <p>$f(g(x))$ means: do $g$ first, then put the result into $f$. Always work from the inside out. With a number, find $g(4)$, then find $f$ of that answer.</p>
+        <p>With an expression, replace every $x$ in $f$ with the whole expression $g(x)$, in parentheses. Order matters: $f(g(x))$ and $g(f(x))$ are usually different.</p>
+      </div>
+
+      <p class="lede">Composition questions are short, and the SAT often puts both orders among the answer choices. Almost every wrong answer comes from doing the outer function first, or from substituting into only part of the rule.</p>
+      <p class="positioning">Reading the concept isn't enough. The score comes from practicing in the real digital SAT format and finding the exact mistakes you keep making.</p>
+
+      <h2 id="tests">What the SAT tests here</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$f(g(4))$</td><td>Find $g(4)$, then put that number into $f$.</td></tr>
+          <tr><td>$f(g(x))$ as an expression</td><td>Replace each $x$ in $f$ with $(g(x))$, then simplify.</td></tr>
+          <tr><td>$f(f(2))$</td><td>Apply $f$ twice: find $f(2)$, then $f$ of that.</td></tr>
+          <tr><td>$f(g(x))$ given, $g$ given, find $f$</td><td>Let $u = g(x)$ and rewrite the result in terms of $u$.</td></tr>
+          <tr><td>Domain of $f(g(x))$</td><td>The inside output must be a value $f$ accepts, such as $\ge 0$ under a square root.</td></tr>
+          <tr><td>Tables or graphs of $f$ and $g$</td><td>Read $g$ at the input first, then look up that output in $f$.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to solve one, step by step</h2>
+
+      <div class="worked">
+        <h3>Example 1: both orders</h3>
+        <p>$f(x) = 2x + 1$ and $g(x) = x^2$. Find $f(g(x))$ and $g(f(x))$.</p>
+        <ol>
+          <li>$f(g(x)) = 2(x^2) + 1 = 2x^2 + 1$.</li>
+          <li>$g(f(x)) = (2x + 1)^2 = 4x^2 + 4x + 1$.</li>
+          <li>The two are different, which is why the SAT likes to offer both.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: finding the outer function</h3>
+        <p>$g(x) = 2x + 1$ and $f(g(x)) = 6x + 5$, where $f$ is linear. Find $f(4)$.</p>
+        <ol>
+          <li>Write $6x + 5$ in terms of $2x + 1$: $6x + 5 = 3(2x + 1) + 2$.</li>
+          <li>So $f(u) = 3u + 2$.</li>
+          <li>$f(4) = 3(4) + 2 = 14$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: solving an equation with a composition</h3>
+        <p>$f(x) = x^2 - 4$ and $g(x) = x + 2$. For what values of $x$ is $f(g(x)) = 0$?</p>
+        <ol>
+          <li>$f(g(x)) = (x + 2)^2 - 4$.</li>
+          <li>Set it to $0$: $(x + 2)^2 = 4$, so $x + 2 = 2$ or $x + 2 = -2$.</li>
+          <li>$x = 0$ or $x = -4$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">The mistakes that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Working outside in.</strong> In $f(g(4))$, $g$ goes first.</li>
+        <li><strong>Treating composition as multiplication.</strong> $f(g(x))$ is not $f(x) \cdot g(x)$.</li>
+        <li><strong>Leaving out parentheses.</strong> $g(f(x))$ with $g(x) = x^2$ is $(2x + 1)^2$, not $2x^2 + 1$.</li>
+        <li><strong>Picking the other order.</strong> The answer choices often include $g(f(x))$ when the question asks for $f(g(x))$.</li>
+        <li><strong>Squaring a binomial term by term.</strong> $(2x + 1)^2 = 4x^2 + 4x + 1$, not $4x^2 + 1$.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Try these the way you would on test day, then open the solution to check your method.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">If $f(x) = x + 3$ and $g(x) = 2x$, what is the value of $f(g(4))$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$11$</li>
+          <li><span class="lbl">B</span>$14$</li>
+          <li><span class="lbl">C</span>$8$</li>
+          <li><span class="lbl">D</span>$24$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $g(4) = 8$, then $f(8) = 11$. Choice B is $g(f(4)) = g(7) = 14$, the other order.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $f(x) = x^2$ and $g(x) = x - 5$, what is the value of $g(f(3))$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4$.</span> $f(3) = 9$, then $g(9) = 9 - 5 = 4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">If $f(x) = 2x + 1$ and $g(x) = x^2$, which expression is equal to $f(g(x))$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$(2x + 1)^2$</li>
+          <li><span class="lbl">B</span>$2x^2 + 1$</li>
+          <li><span class="lbl">C</span>$4x^2 + 1$</li>
+          <li><span class="lbl">D</span>$2x^3 + x^2$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Replace $x$ in $f$ with $x^2$: $2(x^2) + 1 = 2x^2 + 1$. Choice A is $g(f(x))$, and choice D multiplies $f(x)$ by $g(x)$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">If $f(x) = 2x + 1$ and $g(x) = x^2$, which expression is equal to $g(f(x))$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$2x^2 + 1$</li>
+          <li><span class="lbl">B</span>$4x^2 + 1$</li>
+          <li><span class="lbl">C</span>$4x^2 + 4x + 1$</li>
+          <li><span class="lbl">D</span>$2x^2 + 4x + 1$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $g(f(x)) = (2x + 1)^2 = 4x^2 + 4x + 1$. Choice B squares each term separately and drops the middle term.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $f(x) = 3x - 2$, what is the value of $f(f(2))$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $10$.</span> $f(2) = 4$, then $f(4) = 12 - 2 = 10$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">If $f(x) = 3x + 1$ and $g(x) = x - 4$, which expression is equal to $f(g(x))$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$3x - 3$</li>
+          <li><span class="lbl">B</span>$3x - 11$</li>
+          <li><span class="lbl">C</span>$3x - 12$</li>
+          <li><span class="lbl">D</span>$4x - 3$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $f(g(x)) = 3(x - 4) + 1 = 3x - 12 + 1 = 3x - 11$. Choice A is $g(f(x))$, and choice C forgets the $+1$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The function $f$ is linear, $g(x) = 2x + 1$, and $f(g(x)) = 6x + 5$ for all values of $x$. What is the value of $f(4)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $14$.</span> $6x + 5 = 3(2x + 1) + 2$, so $f(u) = 3u + 2$. Then $f(4) = 14$. Check: $f(g(x)) = 3(2x + 1) + 2 = 6x + 5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Let $f(x) = \sqrt{x}$ and $g(x) = x - 7$. For which values of $x$ is $f(g(x))$ defined as a real number?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x \ge 0$</li>
+          <li><span class="lbl">B</span>$x \ge -7$</li>
+          <li><span class="lbl">C</span>All real numbers</li>
+          <li><span class="lbl">D</span>$x \ge 7$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> $f(g(x)) = \sqrt{x - 7}$, which needs $x - 7 \ge 0$, so $x \ge 7$. Choice A is the domain of $f$ alone.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Let $f(x) = x^2 - 4$ and $g(x) = x + 2$. What are all values of $x$ for which $f(g(x)) = 0$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$0$ and $-4$</li>
+          <li><span class="lbl">B</span>$2$ and $-2$</li>
+          <li><span class="lbl">C</span>$-2$ only</li>
+          <li><span class="lbl">D</span>$0$ and $4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $(x + 2)^2 - 4 = 0$ gives $x + 2 = \pm 2$, so $x = 0$ or $x = -4$. Choice B solves $f(x) = 0$ instead of $f(g(x)) = 0$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $f(x) = 2^x$ and $g(x) = x + 3$, what is the value of $g(f(2)) + f(g(-1))$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $11$.</span> $g(f(2)) = g(4) = 7$. $f(g(-1)) = f(2) = 4$. The sum is $11$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What the SAT tests here</a></li>
+          <li><a href="#solve">How to solve one</a></li>
+          <li><a href="#mistakes">Mistakes that cost points</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/function-notation/">Function notation</a></li>
+          <li><a href="/sat-math/exponential-growth-and-decay/">Exponential growth and decay</a></li>
+          <li><a href="/sat-math/quadratic-models/">Quadratic models</a></li>
+          <li><a href="/sat-math/polynomial-factors-and-zeros/">Factors &amp; zeros</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

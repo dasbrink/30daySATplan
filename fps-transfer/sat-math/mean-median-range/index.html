@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Mean, Median and Range: Rules and Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/mean-median-range/">
+
+  <meta name="description" content="Find the SAT mean, median and range, use totals for missing values and combined groups, and see how outliers change each one. 10 practice questions.">
+
+  <meta property="og:title" content="SAT Mean, Median and Range: Totals, Outliers and Practice">
+  <meta property="og:description" content="Find the SAT mean, median and range, use totals for missing values and combined groups, and see how outliers change each one. 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/mean-median-range/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Mean, Median and Range: Totals, Outliers and Practice">
+  <meta name="twitter:description" content="Find the SAT mean, median and range, use totals for missing values and combined groups, and see how outliers change each one. 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Mean, Median and Range: Totals, Outliers and Practice",
+  "description": "Mean, median and range on the SAT: finding each, using mean times count equals total, combining groups, medians from frequency tables, how outliers affect the mean and median, and what happens when every value changes. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/mean-median-range/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you find the median of an even number of values?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Put the values in order and average the two middle values."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does an outlier affect the mean and median?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An outlier pulls the mean toward it. The median usually changes very little."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you combine the means of two groups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply each mean by its group size to get totals, add the totals, and divide by the combined count."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Mean, Median and Range"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "What is the mean of 4, 8, 9, 11, 13?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "9."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the median of 12, 3, 7, 9, 15, 6?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "8."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Five numbers have mean 20. Four are 18, 22, 15 and 25. What is the fifth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "For 2, 4, 4, 5, 7, 30, which is true about the mean and median?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The mean is greater than the median."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "20 students average 75 and 30 students average 80. What is the combined mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "78."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the range of 14, 9, 22, 17, 5, 11?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "17."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "10 values have mean 12. If the value 30 is removed, what is the new mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "In 6, 7, 7, 8, 9, 40, the 40 is replaced by 10. What happens?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The mean decreases and the median stays the same."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "2 students scored 1, 5 scored 2, 8 scored 3, 5 scored 4. What is the median?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Every value in a data set increases by 5. What changes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The mean and median increase by 5; the range stays the same."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Mean, Median and Range
+      </nav>
+
+      <h1>Mean, Median and Range on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Problem-Solving &amp; Data Analysis &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Where I would start</p>
+        <p>The <strong>mean</strong> is the total divided by the count. The <strong>median</strong> is the middle value once the data is in order, or the average of the two middle values when the count is even. The <strong>range</strong> is the largest value minus the smallest.</p>
+        <p>The most useful single idea: mean $\times$ count $=$ total. Most of the harder mean questions are really questions about totals.</p>
+      </div>
+
+      <p class="lede">The SAT asks for these numbers directly, but it also asks how they change: what happens to the mean and the median when an outlier is removed, when a value is added, or when every value goes up by the same amount.</p>
+      <p class="positioning">Reading the concept isn't enough. The score comes from practicing in the real digital SAT format and finding the exact mistakes you keep making.</p>
+
+      <h2 id="tests">What the SAT tests here</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A missing value and a known mean</td><td>Total $=$ mean $\times$ count. Subtract the values you know.</td></tr>
+          <tr><td>Two groups with different means</td><td>Add the two totals, then divide by the combined count. Don't average the two means.</td></tr>
+          <tr><td>An outlier</td><td>It pulls the mean toward it. The median barely moves.</td></tr>
+          <tr><td>A frequency table</td><td>Count down to the middle position for the median. For the mean, multiply each value by its frequency and add.</td></tr>
+          <tr><td>Every value increased by $5$</td><td>Mean and median go up by $5$. Range and standard deviation stay the same.</td></tr>
+          <tr><td>Every value doubled</td><td>Mean, median and range all double.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to solve one, step by step</h2>
+
+      <div class="worked">
+        <h3>Example 1: a missing value</h3>
+        <p>Five numbers have a mean of $20$. Four of them are $18$, $22$, $15$ and $25$. Find the fifth.</p>
+        <ol>
+          <li>Total $= 20 \times 5 = 100$.</li>
+          <li>The four known values add to $80$.</li>
+          <li>The fifth number is $100 - 80 = 20$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: combining two groups</h3>
+        <p>A class of $20$ has a mean score of $75$. A class of $30$ has a mean score of $80$. What is the mean of all $50$ students?</p>
+        <ol>
+          <li>Totals: $20 \times 75 = 1{,}500$ and $30 \times 80 = 2{,}400$.</li>
+          <li>Combined: $\dfrac{3{,}900}{50} = 78$.</li>
+          <li>Averaging the two means gives $77.5$, which ignores that the second class is bigger.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: the median from a frequency table</h3>
+        <p>In a quiz, $2$ students scored $1$, $5$ scored $2$, $8$ scored $3$ and $5$ scored $4$. Find the median.</p>
+        <ol>
+          <li>There are $20$ scores, so the median is the average of the $10$th and $11$th in order.</li>
+          <li>Positions $1$ to $2$ are $1$'s, $3$ to $7$ are $2$'s, $8$ to $15$ are $3$'s.</li>
+          <li>The $10$th and $11$th are both $3$, so the median is $3$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">The mistakes that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Finding the median without sorting.</strong> Put the values in order first.</li>
+        <li><strong>Averaging two means.</strong> When the groups are different sizes, combine the totals instead.</li>
+        <li><strong>Using frequencies as values.</strong> In a frequency table, the frequency says how many times each value appears. It is not a data value.</li>
+        <li><strong>Forgetting the even-count rule.</strong> With $6$ values, the median is the average of the $3$rd and $4$th.</li>
+        <li><strong>Thinking an outlier moves the median a lot.</strong> It changes the mean much more than the median.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Try these the way you would on test day, then open the solution to check your method.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">What is the mean of the data set $4, 8, 9, 11, 13$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$9$</li>
+          <li><span class="lbl">B</span>$8$</li>
+          <li><span class="lbl">C</span>$11$</li>
+          <li><span class="lbl">D</span>$45$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The total is $45$ and there are $5$ values: $\dfrac{45}{5} = 9$. Choice D is the total, not the mean.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the median of the data set $12, 3, 7, 9, 15, 6$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $8$.</span> In order: $3, 6, 7, 9, 12, 15$. With six values, the median is the average of the $3$rd and $4$th: $\dfrac{7 + 9}{2} = 8$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The mean of five numbers is $20$. Four of the numbers are $18$, $22$, $15$ and $25$. What is the fifth number?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $20$.</span> The total of all five is $5 \times 20 = 100$. The four known numbers add to $80$, so the fifth is $20$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">For the data set $2, 4, 4, 5, 7, 30$, which statement is true?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The mean and the median are equal.</li>
+          <li><span class="lbl">B</span>The median is greater than the mean.</li>
+          <li><span class="lbl">C</span>The mean is greater than the median.</li>
+          <li><span class="lbl">D</span>The range is less than the mean.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The mean is $\dfrac{52}{6} \approx 8.7$ and the median is $\dfrac{4 + 5}{2} = 4.5$. The outlier $30$ pulls the mean up. The range is $28$, so choice D is false.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A class of $20$ students has a mean test score of $75$. Another class of $30$ students has a mean score of $80$. What is the mean score of all $50$ students?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$77.5$</li>
+          <li><span class="lbl">B</span>$79$</li>
+          <li><span class="lbl">C</span>$78$</li>
+          <li><span class="lbl">D</span>$76$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> Totals: $1{,}500$ and $2{,}400$. Combined mean: $\dfrac{3{,}900}{50} = 78$. Choice A averages the two means without weighting.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the range of the data set $14, 9, 22, 17, 5, 11$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $17$.</span> The largest value is $22$ and the smallest is $5$: $22 - 5 = 17$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A data set of $10$ values has a mean of $12$. When one value, $30$, is removed, what is the mean of the remaining values?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$10$</li>
+          <li><span class="lbl">B</span>$9$</li>
+          <li><span class="lbl">C</span>$11$</li>
+          <li><span class="lbl">D</span>$12$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The total is $120$. Without $30$ it is $90$, spread over $9$ values: $\dfrac{90}{9} = 10$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">The data set $6, 7, 7, 8, 9, 40$ is changed by replacing $40$ with $10$. Which statement describes the effect?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The mean and the median both decrease.</li>
+          <li><span class="lbl">B</span>The median decreases and the mean stays the same.</li>
+          <li><span class="lbl">C</span>The mean decreases and the median stays the same.</li>
+          <li><span class="lbl">D</span>Neither the mean nor the median changes.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The median is the average of the middle two values, $7$ and $8$, both before and after: $7.5$. The mean drops from $\dfrac{77}{6}$ to $\dfrac{47}{6}$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">In a quiz, $2$ students scored $1$ point, $5$ scored $2$ points, $8$ scored $3$ points, and $5$ scored $4$ points. What is the median score?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $3$.</span> There are $20$ scores. The $10$th and $11$th in order both fall in the group of $3$'s (positions $8$ to $15$), so the median is $3$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">Every value in a data set is increased by $5$. Which statement is true about the new data set?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>The mean and the range both increase by $5$.</li>
+          <li><span class="lbl">B</span>The mean and the median increase by $5$, and the range does not change.</li>
+          <li><span class="lbl">C</span>The mean increases by $5$, and the median does not change.</li>
+          <li><span class="lbl">D</span>Nothing changes, because every value moved by the same amount.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Adding $5$ to every value moves the whole data set up by $5$, so the mean and median each increase by $5$. The gap between the largest and smallest values stays the same, so the range does not change.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What the SAT tests here</a></li>
+          <li><a href="#solve">How to solve one</a></li>
+          <li><a href="#mistakes">Mistakes that cost points</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/standard-deviation/">Standard deviation</a></li>
+          <li><a href="/sat-math/comparing-distributions/">Comparing distributions</a></li>
+          <li><a href="/sat-math/scatterplots/">Scatterplots</a></li>
+          <li><a href="/sat-math/basic-probability/">Basic probability</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>
