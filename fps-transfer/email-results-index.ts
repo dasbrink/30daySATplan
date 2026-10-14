@@ -337,7 +337,7 @@ function scoreScale(score) {
 function section(title, inner) {
   return `
   <tr><td style="padding:26px 28px 0 28px;">
-    <div style="font:bold 18px Georgia,serif;color:${NAVY};margin:0 0 14px 0;">${title}</div>
+    <div style="font:bold 17px Arial,sans-serif;color:${INK};margin:0 0 14px 0;">${title}</div>
     ${inner}
   </td></tr>`;
 }
@@ -368,7 +368,7 @@ function buildResultsEmail(d) {
   const scoreBlock = `
   <tr><td style="padding:28px 28px 0 28px;">
     <div style="font:14px Arial,sans-serif;color:${MUTED};">Test ${esc(d.testNumber)}, estimated SAT Math score</div>
-    <div style="font:bold 54px Georgia,serif;color:${NAVY};line-height:1.1;margin:4px 0 2px 0;">${esc(d.score)}</div>
+    <div style="font:bold 44px Georgia,serif;color:${NAVY};line-height:1.1;margin:4px 0 2px 0;">${esc(d.score)}</div>
     <div style="font:14px Arial,sans-serif;color:${INK};">${esc(d.correct)} of ${esc(d.total)} questions right</div>
     ${delta}
     <div style="margin-top:16px;">${scoreScale(d.score)}</div>
@@ -392,7 +392,7 @@ function buildResultsEmail(d) {
   }).join("");
   const domainBlock = section("Where your points came from", `
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${rows}</table>
-    ${weakest ? `<div style="font:14px Arial,sans-serif;color:${INK};background:#fbf5ea;border-left:4px solid ${GOLD};padding:10px 12px;">
+    ${weakest ? `<div style="font:14px Arial,sans-serif;color:${INK};">
       Most room to grow: <b>${esc(weakest.name)}</b>, with ${weakest.missed} question${weakest.missed === 1 ? "" : "s"} missed.</div>` : ""}`);
 
   // ── Mistakes: one named, the rest hidden for free students ──
@@ -421,42 +421,22 @@ function buildResultsEmail(d) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${mRows}</table>
     ${(d.mistakes.length > top.length) ? `<div style="font:bold 14px Arial,sans-serif;color:${INK};">Plus ${d.mistakes.length - top.length} more mistake${d.mistakes.length - top.length === 1 ? "" : "s"} found on this test.</div>` : ""}`) : "";
 
-  // ── Offer (free students only) ──
-  const items = [
-    ["Every mistake, worked out", "A step-by-step solution for every question you miss, on every test."],
-    ["The mistakes you keep making", "Every one named, with why it happens and practice until it stops."],
-    ["The math underneath them", "The building blocks missing beneath those mistakes, rebuilt from easy to hard."],
-    ["The Desmos video library", "Walkthroughs sorted by topic, so you find the right one in seconds."],
-  ];
+  // ── Offer (free students only), written as a plain paragraph ──
   const offerBlock = d.paid ? "" : `
-  <tr><td style="padding:28px 28px 0 28px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${NAVY}" style="background:${NAVY};border-radius:10px;">
-      <tr><td style="padding:22px 22px 6px 22px;">
-        <div style="font:bold 19px Georgia,serif;color:#ffffff;">Fix these, and the score moves</div>
-        <div style="font:14px Arial,sans-serif;color:#d6e0ea;margin-top:6px;line-height:1.5;">
-          Full access unlocks the rest of what this test found, and does the same after every test you take.</div>
-      </td></tr>
-      ${items.map(([h, p]) => `
-      <tr><td style="padding:10px 22px 0 22px;">
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td valign="top" style="font:bold 15px Arial,sans-serif;color:${GOLD};padding-right:10px;">&#10003;</td>
-          <td style="font:14px Arial,sans-serif;color:#ffffff;line-height:1.45;"><b>${h}</b><br><span style="color:#c4d1de;">${p}</span></td>
-        </tr></table>
-      </td></tr>`).join("")}
-      <tr><td align="center" style="padding:22px 22px 8px 22px;">
-        <a href="${esc(site)}" style="display:inline-block;background:${GOLD};color:#ffffff;font:bold 16px Arial,sans-serif;text-decoration:none;padding:14px 26px;border-radius:8px;">Unlock everything, ${esc(price)} one time</a>
-      </td></tr>
-      <tr><td align="center" style="padding:0 22px 20px 22px;font:12px Arial,sans-serif;color:#c4d1de;">
-        One payment. No subscription. Sign in and open your results to unlock.</td></tr>
-    </table>
+  <tr><td style="padding:24px 28px 0 28px;font:15px Arial,sans-serif;color:${INK};line-height:1.6;">
+    If you want the rest of what this test found, full access is ${esc(price)}, one time, with no subscription.
+    It names every mistake you keep making and why it happens, works out every question you missed step by step,
+    rebuilds the math underneath those mistakes, and opens the Desmos video library. It does the same after every test you take.
+    <br><br>
+    <a href="${esc(site)}" style="color:${NAVY};font-weight:bold;">Sign in and unlock full access</a>
   </td></tr>`;
 
   const nextBlock = `
-  <tr><td style="padding:24px 28px 0 28px;font:14px Arial,sans-serif;color:${INK};line-height:1.55;">
+  <tr><td style="padding:24px 28px 0 28px;font:15px Arial,sans-serif;color:${INK};line-height:1.6;">
     ${d.paid
       ? `Your worked solutions and study plan for this test are on the site now. <a href="${esc(site)}" style="color:${NAVY};font-weight:bold;">Open my results</a>.`
-      : `Your score and four-area breakdown stay free on the site, and every practice test stays free. <a href="${esc(site)}" style="color:${NAVY};font-weight:bold;">See my results</a>.`}
-    <br><br>Keep going,<br><b>Dr. Brink</b><br>
+      : `Either way, your score and four-area breakdown stay free on the site, and so does every practice test.`}
+    <br><br>Keep going,<br>Dr. Brink<br>
     <span style="color:${MUTED};font-size:13px;">Ph.D., 32 years of mathematics education</span>
   </td></tr>`;
 
@@ -471,14 +451,12 @@ function buildResultsEmail(d) {
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your SAT Math results</title></head>
-<body style="margin:0;padding:0;background:#f2f4f7;">
-<div style="display:none;max-height:0;overflow:hidden;">Test ${esc(d.testNumber)}: ${esc(d.score)}. Here is where your points came from.</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f2f4f7" style="background:#f2f4f7;">
-<tr><td align="center" style="padding:20px 10px;">
-  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;max-width:600px;background:#ffffff;border-radius:10px;">
-    <tr><td bgcolor="${NAVY}" style="background:${NAVY};padding:18px 28px;border-radius:10px 10px 0 0;">
-      <span style="font:bold 20px Georgia,serif;color:#ffffff;">Free Practice SAT</span>
-      <span style="font:14px Arial,sans-serif;color:${GOLD};">&nbsp; Your results</span>
+<body style="margin:0;padding:0;background:#ffffff;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" style="padding:8px 4px;">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
+    <tr><td style="padding:16px 28px 0 28px;font:15px Arial,sans-serif;color:${INK};line-height:1.6;">
+      Hi${d.firstName ? " " + esc(d.firstName) : ""}, here is how Test ${esc(d.testNumber)} went.
     </td></tr>
     ${scoreBlock}
     ${domainBlock}
@@ -490,6 +468,6 @@ function buildResultsEmail(d) {
 </td></tr></table>
 </body></html>`;
 
-  const subject = `Your Test ${d.testNumber} result: ${d.score} in SAT Math`;
+  const subject = `Your Test ${d.testNumber} result`;
   return { subject, html };
 }
