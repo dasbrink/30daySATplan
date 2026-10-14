@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Radians and Degrees: Conversions and Arc Length</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/radians-and-degrees/">
+
+  <meta name="description" content="Convert between radians and degrees on the SAT, find arc length and sector area, and read the unit circle. Worked examples and 10 practice questions.">
+
+  <meta property="og:title" content="SAT Radians and Degrees: Conversions, Arc Length and Practice">
+  <meta property="og:description" content="Convert between radians and degrees on the SAT, find arc length and sector area, and read the unit circle. Worked examples and 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/radians-and-degrees/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Radians and Degrees: Conversions, Arc Length and Practice">
+  <meta name="twitter:description" content="Convert between radians and degrees on the SAT, find arc length and sector area, and read the unit circle. Worked examples and 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Radians and Degrees: Conversions, Arc Length and Practice",
+  "description": "How to convert between radians and degrees, use arc length and sector area formulas, and read unit circle points on the SAT. Worked examples, common mistakes, and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/radians-and-degrees/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you convert degrees to radians?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply by pi over 180. For example, 135 degrees times pi/180 is 3 pi / 4 radians."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you convert radians to degrees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply by 180 over pi. For example, 5 pi / 9 radians times 180/pi is 100 degrees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the arc length formula with radians?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Arc length equals radius times the central angle in radians: s = r times theta."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Radians and Degrees"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "An angle measures 5 pi / 9 radians. What is its measure in degrees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "100 degrees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which of the following is equal to 135 degrees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3 pi / 4 radians."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "An angle measures pi / 12 radians. What is its measure in degrees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "15 degrees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A circle has radius 6. What is the length of the arc cut off by a central angle of 2 pi / 3 radians?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4 pi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "An arc of length 10 lies on a circle of radius 4. What is the central angle in radians?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2.5 radians."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A sector of a circle with radius 10 has a central angle of pi / 5 radians. What is its area?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 pi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Through what angle in radians does the minute hand of a clock turn in 20 minutes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2 pi / 3 radians."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A wheel with radius 15 inches rotates through 240 degrees. How far does a point on its edge travel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "20 pi inches, about 62.8 inches."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "An angle measures 3 pi / k radians and also 54 degrees. What is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "k = 10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Point P on the unit circle is at an angle of 2 pi / 3 radians from the positive x-axis. What are its coordinates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "(-1/2, square root of 3 over 2)."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Radians and Degrees
+      </nav>
+
+      <h1>Radians and Degrees</h1>
+      <p class="meta-line">SAT Math &middot; Geometry &amp; Trigonometry &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Where I would start</p>
+        <p>Everything comes from one fact: $180^\circ = \pi$ radians. To turn degrees into radians, multiply by $\frac{\pi}{180}$. To turn radians into degrees, multiply by $\frac{180}{\pi}$.</p>
+        <p>Radians matter most for arcs: a central angle of $\theta$ radians in a circle of radius $r$ cuts off an arc of length $r\theta$.</p>
+      </div>
+
+      <p class="lede">The SAT asks you to convert between degrees and radians, to find arc lengths and sector areas, to find an angle from an arc, and to read points on the unit circle at angles like $\frac{2\pi}{3}$.</p>
+      <p class="positioning">Reading the concept isn't enough. The score comes from practicing in the real digital SAT format and finding the exact mistakes you keep making.</p>
+
+      <h2 id="tests">What the SAT tests here</h2>
+      <p>The SAT reference sheet reminds you that a full circle is $360^\circ$ or $2\pi$ radians. These are the angles that come up again and again. Knowing them saves a conversion every time.</p>
+
+      <table class="rules">
+        <thead>
+          <tr><th>Degrees</th><th>Radians</th><th>Degrees</th><th>Radians</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$30^\circ$</td><td>$\frac{\pi}{6}$</td><td>$135^\circ$</td><td>$\frac{3\pi}{4}$</td></tr>
+          <tr><td>$45^\circ$</td><td>$\frac{\pi}{4}$</td><td>$150^\circ$</td><td>$\frac{5\pi}{6}$</td></tr>
+          <tr><td>$60^\circ$</td><td>$\frac{\pi}{3}$</td><td>$180^\circ$</td><td>$\pi$</td></tr>
+          <tr><td>$90^\circ$</td><td>$\frac{\pi}{2}$</td><td>$270^\circ$</td><td>$\frac{3\pi}{2}$</td></tr>
+          <tr><td>$120^\circ$</td><td>$\frac{2\pi}{3}$</td><td>$360^\circ$</td><td>$2\pi$</td></tr>
+        </tbody>
+      </table>
+      <div class="figure">
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A circle of radius r with a central angle theta. The arc it cuts off has length s equal to r times theta when theta is in radians">
+          <rect x="0" y="0" width="480" height="200" fill="#ffffff"/>
+          <circle cx="130" cy="110" r="80" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+          <line x1="130" y1="110" x2="210" y2="110" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="130" y1="110" x2="166.3" y2="38.7" stroke="#1a3a5c" stroke-width="2"/>
+          <path d="M210,110 A80,80 0 0,0 166.3,38.7" fill="none" stroke="#d4a04a" stroke-width="5" stroke-linecap="round"/>
+          <path d="M152,110 A22,22 0 0,0 140,90.4" fill="none" stroke="#d4a04a" stroke-width="2"/>
+          <circle cx="130" cy="110" r="3" fill="#1a3a5c"/>
+          <g font-family="Times New Roman, serif" font-style="italic" font-size="17" fill="#1a1a1a" text-anchor="middle">
+            <text x="160" y="100">&#952;</text>
+            <text x="172" y="128">r</text>
+            <text x="216" y="58">s</text>
+          </g>
+          <g font-family="Times New Roman, serif" font-style="italic" fill="#1a1a1a">
+            <text x="280" y="92" font-size="24">s = r&#952;</text>
+          </g>
+          <g font-family="Georgia, serif" fill="#1a3a5c">
+            <text x="280" y="120" font-size="13">with &#952; measured in radians</text>
+          </g>
+        </svg>
+        <p class="caption">A central angle of $\theta$ radians cuts off an arc of length $s = r\theta$. One radian is the angle whose arc is exactly one radius long, about $57.3^\circ$.</p>
+      </div>
+      <table class="rules">
+        <thead>
+          <tr><th>Quantity</th><th>Angle in radians</th><th>Angle in degrees</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Arc length</td><td>$s = r\theta$</td><td>$s = \frac{n}{360} \cdot 2\pi r$</td></tr>
+          <tr><td>Sector area</td><td>$A = \frac{1}{2}r^2\theta$</td><td>$A = \frac{n}{360} \cdot \pi r^2$</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to solve one, step by step</h2>
+
+      <div class="worked">
+        <h3>Example 1: radians to degrees</h3>
+        <p>An angle measures $\frac{5\pi}{9}$ radians. What is its measure in degrees?</p>
+        <ol>
+          <li>Multiply by $\frac{180}{\pi}$: $\frac{5\pi}{9} \cdot \frac{180}{\pi}$.</li>
+          <li>The $\pi$ cancels: $\frac{5 \cdot 180}{9} = 5 \cdot 20 = 100$.</li>
+          <li>The angle is $100^\circ$. A quick check: $\frac{5}{9}$ of $\pi$ is a little more than half of $180^\circ$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: degrees to radians</h3>
+        <p>Convert $225^\circ$ to radians.</p>
+        <ol>
+          <li>Multiply by $\frac{\pi}{180}$: $225 \cdot \frac{\pi}{180} = \frac{225\pi}{180}$.</li>
+          <li>Both numbers divide by $45$: $\frac{5\pi}{4}$.</li>
+          <li>Leave $\pi$ in the answer unless the question asks for a decimal.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: arc length</h3>
+        <p>A circle has radius $6$. A central angle of $\frac{2\pi}{3}$ radians cuts off an arc. How long is the arc?</p>
+        <ol>
+          <li>The angle is already in radians, so use $s = r\theta$.</li>
+          <li>$s = 6 \cdot \frac{2\pi}{3} = 4\pi$.</li>
+          <li>Check with degrees: $\frac{2\pi}{3} = 120^\circ$, a third of the circle, and a third of the circumference $12\pi$ is $4\pi$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 4: the angle from the arc</h3>
+        <p>An arc of length $10$ is on a circle of radius $4$. What is the central angle in radians?</p>
+        <ol>
+          <li>Rearrange $s = r\theta$ to get $\theta = \frac{s}{r}$.</li>
+          <li>$\theta = \frac{10}{4} = 2.5$ radians.</li>
+          <li>That is about $143^\circ$. Notice there is no $\pi$ here. A radian measure does not have to include $\pi$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">The mistakes that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Using the wrong fraction.</strong> Degrees to radians uses $\frac{\pi}{180}$. Radians to degrees uses $\frac{180}{\pi}$. If $\pi$ is not cancelling when you go to degrees, you used the wrong one.</li>
+        <li><strong>Putting degrees into $s = r\theta$.</strong> This formula only works with radians. With $120^\circ$, convert first, or use $\frac{n}{360} \cdot 2\pi r$.</li>
+        <li><strong>Thinking a full circle is $\pi$ radians.</strong> A full circle is $2\pi$ radians. $\pi$ radians is a half circle.</li>
+        <li><strong>Treating $\theta = 2.5$ as $2.5\pi$.</strong> A radian measure can be a plain number. $2.5$ radians is about $143^\circ$, while $2.5\pi$ radians is $450^\circ$.</li>
+        <li><strong>Forgetting the $\frac{1}{2}$ in sector area.</strong> With radians, the sector area is $\frac{1}{2}r^2\theta$, not $r^2\theta$.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Try these the way you would on test day, then open the solution to check your method.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">An angle measures $\frac{5\pi}{9}$ radians. What is the measure of the angle in degrees?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$50^\circ$</li>
+          <li><span class="lbl">B</span>$100^\circ$</li>
+          <li><span class="lbl">C</span>$162^\circ$</li>
+          <li><span class="lbl">D</span>$900^\circ$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $\frac{5\pi}{9} \cdot \frac{180}{\pi} = \frac{900}{9} = 100$. The angle is $100^\circ$. Choice D forgets to divide by $9$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Which of the following is equal to $135^\circ$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\frac{2\pi}{3}$ radians</li>
+          <li><span class="lbl">B</span>$\frac{4\pi}{3}$ radians</li>
+          <li><span class="lbl">C</span>$\frac{3\pi}{4}$ radians</li>
+          <li><span class="lbl">D</span>$\frac{3\pi}{2}$ radians</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $135 \cdot \frac{\pi}{180} = \frac{135\pi}{180} = \frac{3\pi}{4}$, after dividing both numbers by $45$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">An angle measures $\frac{\pi}{12}$ radians. What is the measure of the angle in degrees?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $15$.</span> $\frac{\pi}{12} \cdot \frac{180}{\pi} = \frac{180}{12} = 15$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A circle has a radius of $6$. A central angle of $\frac{2\pi}{3}$ radians cuts off an arc of the circle. What is the length of the arc?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$2\pi$</li>
+          <li><span class="lbl">B</span>$4$</li>
+          <li><span class="lbl">C</span>$12\pi$</li>
+          <li><span class="lbl">D</span>$4\pi$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> $s = r\theta = 6 \cdot \frac{2\pi}{3} = 4\pi$. Choice C is the whole circumference.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">An arc of length $10$ lies on a circle of radius $4$. What is the measure, in radians, of the central angle that cuts off the arc?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $2.5$ (or $\frac{5}{2}$).</span> $\theta = \frac{s}{r} = \frac{10}{4} = 2.5$ radians.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A sector of a circle with radius $10$ has a central angle of $\frac{\pi}{5}$ radians. What is the area of the sector?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$10\pi$</li>
+          <li><span class="lbl">B</span>$2\pi$</li>
+          <li><span class="lbl">C</span>$20\pi$</li>
+          <li><span class="lbl">D</span>$100\pi$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $A = \frac{1}{2}r^2\theta = \frac{1}{2}(100)\left(\frac{\pi}{5}\right) = 10\pi$. Choice C forgets the $\frac{1}{2}$, and choice D is the whole circle.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">The minute hand of a clock turns for $20$ minutes. Through what angle, in radians, does it turn?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\frac{\pi}{3}$</li>
+          <li><span class="lbl">B</span>$\frac{2\pi}{3}$</li>
+          <li><span class="lbl">C</span>$\frac{\pi}{20}$</li>
+          <li><span class="lbl">D</span>$20\pi$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $20$ minutes is $\frac{20}{60} = \frac{1}{3}$ of a full turn. A full turn is $2\pi$ radians, so the angle is $\frac{1}{3} \cdot 2\pi = \frac{2\pi}{3}$, which is $120^\circ$. Choice A uses $\pi$ for a full turn.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A wheel with a radius of $15$ inches rotates through an angle of $240^\circ$. How far does a point on the edge of the wheel travel, in inches?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$10\pi$</li>
+          <li><span class="lbl">B</span>$20\pi$</li>
+          <li><span class="lbl">C</span>$40\pi$</li>
+          <li><span class="lbl">D</span>$3{,}600\pi$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Convert first: $240 \cdot \frac{\pi}{180} = \frac{4\pi}{3}$. Then $s = r\theta = 15 \cdot \frac{4\pi}{3} = 20\pi$, about $62.8$ inches. Choice D comes from putting $240$ straight into $s = r\theta$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">An angle has a measure of $\frac{3\pi}{k}$ radians, where $k$ is a positive constant. The same angle measures $54^\circ$. What is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $10$.</span> Convert the radian measure to degrees: $\frac{3\pi}{k} \cdot \frac{180}{\pi} = \frac{540}{k}$. Set $\frac{540}{k} = 54$, so $k = 10$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">In the $xy$-plane, point $P$ lies on the circle $x^2 + y^2 = 1$. The ray from the origin through $P$ makes an angle of $\frac{2\pi}{3}$ radians, measured counterclockwise from the positive $x$-axis. What are the coordinates of $P$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\left(\frac{1}{2}, \frac{\sqrt{3}}{2}\right)$</li>
+          <li><span class="lbl">B</span>$\left(-\frac{\sqrt{3}}{2}, \frac{1}{2}\right)$</li>
+          <li><span class="lbl">C</span>$\left(-\frac{1}{2}, -\frac{\sqrt{3}}{2}\right)$</li>
+          <li><span class="lbl">D</span>$\left(-\frac{1}{2}, \frac{\sqrt{3}}{2}\right)$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> $\frac{2\pi}{3}$ radians is $120^\circ$, which is in the second quadrant, so $x$ is negative and $y$ is positive. The reference angle is $60^\circ$, and the coordinates are $(\cos 120^\circ, \sin 120^\circ) = \left(-\frac{1}{2}, \frac{\sqrt{3}}{2}\right)$. Choice A is the point at $60^\circ$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What the SAT tests here</a></li>
+          <li><a href="#solve">How to solve one</a></li>
+          <li><a href="#mistakes">Mistakes that cost points</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/complementary-angle-trig/">Complementary-angle trig</a></li>
+          <li><a href="/sat-math/circle-equations/">Circle equations</a></li>
+          <li><a href="/sat-math/special-right-triangles/">Special right triangles</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>
