@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Function Notation: Inputs, Outputs, Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/function-notation/">
+
+  <meta name="description" content="Read SAT function notation correctly: evaluate f(4), solve f(a) = 19, find a constant, and handle f(2a) and f(g(x)). Includes 10 practice questions.">
+
+  <meta property="og:title" content="SAT Function Notation: Inputs, Outputs and Practice Questions">
+  <meta property="og:description" content="Read SAT function notation correctly: evaluate f(4), solve f(a) = 19, find a constant, and handle f(2a) and f(g(x)). Includes 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/function-notation/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAT Function Notation: Inputs, Outputs and Practice Questions">
+  <meta name="twitter:description" content="Read SAT function notation correctly: evaluate f(4), solve f(a) = 19, find a constant, and handle f(2a) and f(g(x)). Includes 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SAT Function Notation: Inputs, Outputs and Practice Questions",
+  "description": "How function notation works on the SAT: evaluating a function, solving for an input from a given output, finding a constant from a known value, substituting expressions, composing functions, and interpreting function values in context. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-14",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/function-notation/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does f(x) mean on the SAT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the output of the function f when the input is x. It does not mean f times x."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you find f(4)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Replace every x in the rule with 4, using parentheses, and evaluate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between f(19) and f(a) = 19?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In f(19), 19 is the input and you calculate the output. In f(a) = 19, 19 is the output and you solve an equation to find the input a."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "about": {
+    "@type": "Thing",
+    "name": "Function Notation"
+  },
+  "hasPart": [
+    {
+      "@type": "Question",
+      "name": "If f(x) = 3x - 5, what is f(4)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If g(x) = x^2 - 2x + 1, what is g(-3)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "16."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = 2x + 7 and f(a) = 19, what is a?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "6."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = x^2 + 4, what is f(2a)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4a^2 + 4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If h(x) = kx - 3 and h(5) = 17, what is k?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which value of x is not in the domain of f(x) = (x + 9)/(x - 3)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "x = 3."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = x^2 - 3x and g(x) = 2x + 1, what is f(g(2))?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x + 2) = 3x - 1 for all x, what is f(5)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "8."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If f(x) = ax^2 + 5 and f(2) = 17, what is f(-3)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "32."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If p(n) = 12n + 40 is the cost in dollars of printing n T-shirts, what does p(25) = 340 mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Printing 25 T-shirts costs 340 dollars."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Function Notation
+      </nav>
+
+      <h1>Function Notation on the SAT</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Where I would start</p>
+        <p>$f(x)$ is not $f$ times $x$. It is the output of the function $f$ when the input is $x$. So $f(4)$ means: put $4$ in for every $x$ and work out the result.</p>
+        <p>Read each question for which side you know. "Find $f(4)$" gives you the input and asks for the output. "$f(a) = 19$, find $a$" gives you the output and asks for the input, so you set up an equation and solve it.</p>
+      </div>
+
+      <p class="lede">Function notation shows up all over SAT Math, in algebra questions, in word problems and in graphs. The math inside is usually easy. Points are lost by mixing up inputs and outputs, or by substituting into only some of the $x$'s.</p>
+      <p class="positioning">Reading the concept isn't enough. The score comes from practicing in the real digital SAT format and finding the exact mistakes you keep making.</p>
+
+      <h2 id="tests">What the SAT tests here</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>Do this</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$f(4)$</td><td>Replace every $x$ with $4$, in parentheses, and evaluate.</td></tr>
+          <tr><td>$f(a) = 19$</td><td>Set the rule equal to $19$ and solve for $a$.</td></tr>
+          <tr><td>$f(2a)$ or $f(x + 1)$</td><td>Replace every $x$ with the whole expression, in parentheses, then simplify.</td></tr>
+          <tr><td>A constant in the rule, plus one known value</td><td>Substitute the known input and output to find the constant first.</td></tr>
+          <tr><td>$f(g(2))$</td><td>Work from the inside out: find $g(2)$, then put that number into $f$.</td></tr>
+          <tr><td>"What does $p(25) = 340$ mean?"</td><td>The input is $25$ of something and the output is $340$ of something else. Name both with their units.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="solve">How to solve one, step by step</h2>
+
+      <div class="worked">
+        <h3>Example 1: input given, find the output</h3>
+        <p>If $g(x) = x^2 - 2x + 1$, what is $g(-3)$?</p>
+        <ol>
+          <li>Put $-3$ in parentheses everywhere $x$ appears: $g(-3) = (-3)^2 - 2(-3) + 1$.</li>
+          <li>$(-3)^2 = 9$ and $-2(-3) = 6$, so $g(-3) = 9 + 6 + 1 = 16$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 2: output given, find the input</h3>
+        <p>If $f(x) = 2x + 7$ and $f(a) = 19$, what is $a$?</p>
+        <ol>
+          <li>$f(a) = 2a + 7$, so $2a + 7 = 19$.</li>
+          <li>$2a = 12$, and $a = 6$.</li>
+          <li>Check: $f(6) = 12 + 7 = 19$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 3: finding a constant</h3>
+        <p>For $f(x) = ax^2 + 5$, $f(2) = 17$. What is $f(-3)$?</p>
+        <ol>
+          <li>Use the known value: $a(2)^2 + 5 = 17$, so $4a = 12$ and $a = 3$.</li>
+          <li>Now the rule is $f(x) = 3x^2 + 5$, and $f(-3) = 3(9) + 5 = 32$.</li>
+        </ol>
+      </div>
+
+      <div class="worked">
+        <h3>Example 4: an expression as the input</h3>
+        <p>If $f(x + 2) = 3x - 1$ for all $x$, what is $f(5)$?</p>
+        <ol>
+          <li>The input here is $x + 2$, so ask: what $x$ makes $x + 2 = 5$? It is $x = 3$.</li>
+          <li>Put $x = 3$ into the right side: $3(3) - 1 = 8$. So $f(5) = 8$.</li>
+          <li>Putting $5$ straight into $3x - 1$ gives $14$, which is $f(7)$, not $f(5)$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">The mistakes that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Reading $f(x)$ as multiplication.</strong> $f(3)$ is the output for input $3$, not $3f$.</li>
+        <li><strong>Leaving out parentheses for negatives.</strong> With $f(x) = x^2$, $f(-3) = (-3)^2 = 9$. Without parentheses you get $-9$.</li>
+        <li><strong>Solving when you should evaluate, or the reverse.</strong> "Find $f(19)$" and "$f(a) = 19$" are different questions. Check whether $19$ is the input or the output.</li>
+        <li><strong>Substituting into only part of the rule.</strong> For $f(2a)$ with $f(x) = x^2 + 4$, the answer is $(2a)^2 + 4 = 4a^2 + 4$. Writing $2a^2 + 4$ squares only the $a$.</li>
+        <li><strong>Working $f(g(x))$ from the outside in.</strong> Always start with the inner function.</li>
+      </ul>
+
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Try these the way you would on test day, then open the solution to check your method.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">If $f(x) = 3x - 5$, what is the value of $f(4)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$12$</li>
+          <li><span class="lbl">B</span>$7$</li>
+          <li><span class="lbl">C</span>$17$</li>
+          <li><span class="lbl">D</span>$3$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $f(4) = 3(4) - 5 = 12 - 5 = 7$. Choice C adds $5$ instead of subtracting it, and choice D solves $f(x) = 4$ instead of finding $f(4)$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $g(x) = x^2 - 2x + 1$, what is the value of $g(-3)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $16$.</span> $g(-3) = (-3)^2 - 2(-3) + 1 = 9 + 6 + 1 = 16$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">The function $f$ is defined by $f(x) = 2x + 7$. If $f(a) = 19$, what is the value of $a$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$45$</li>
+          <li><span class="lbl">B</span>$13$</li>
+          <li><span class="lbl">C</span>$6$</li>
+          <li><span class="lbl">D</span>$\dfrac{19}{2}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $2a + 7 = 19$, so $2a = 12$ and $a = 6$. Choice A is $f(19)$, which treats $19$ as the input instead of the output.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">If $f(x) = x^2 + 4$, which expression is equal to $f(2a)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$2a^2 + 4$</li>
+          <li><span class="lbl">B</span>$4a^2 + 4$</li>
+          <li><span class="lbl">C</span>$2a^2 + 8$</li>
+          <li><span class="lbl">D</span>$4a^2 + 16$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> Replace $x$ with $2a$: $(2a)^2 + 4 = 4a^2 + 4$. Choice A squares only the $a$, and choice C is $2f(a)$, which doubles the output instead of the input.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The function $h$ is defined by $h(x) = kx - 3$, where $k$ is a constant. If $h(5) = 17$, what is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4$.</span> $h(5) = 5k - 3 = 17$, so $5k = 20$ and $k = 4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">The function $f$ is defined by $f(x) = \dfrac{x + 9}{x - 3}$. Which of the following values of $x$ is not in the domain of $f$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-9$</li>
+          <li><span class="lbl">B</span>$-3$</li>
+          <li><span class="lbl">C</span>$3$</li>
+          <li><span class="lbl">D</span>$9$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> A fraction is undefined when its denominator is $0$. $x - 3 = 0$ when $x = 3$. At $x = -9$ the numerator is $0$, which is allowed: $f(-9) = 0$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The functions $f$ and $g$ are defined by $f(x) = x^2 - 3x$ and $g(x) = 2x + 1$. What is the value of $f(g(2))$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $10$.</span> Start inside: $g(2) = 2(2) + 1 = 5$. Then $f(5) = 25 - 15 = 10$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">For the function $f$, $f(x + 2) = 3x - 1$ for all values of $x$. What is the value of $f(5)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$14$</li>
+          <li><span class="lbl">B</span>$11$</li>
+          <li><span class="lbl">C</span>$16$</li>
+          <li><span class="lbl">D</span>$8$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: D.</span> The input is $x + 2$. For the input to be $5$, $x$ must be $3$. Then $f(5) = 3(3) - 1 = 8$. Choice A puts $5$ straight into $3x - 1$, which gives $f(7)$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The function $f$ is defined by $f(x) = ax^2 + 5$, where $a$ is a constant. If $f(2) = 17$, what is the value of $f(-3)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $32$.</span> $4a + 5 = 17$, so $a = 3$. Then $f(-3) = 3(-3)^2 + 5 = 27 + 5 = 32$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A print shop uses the function $p(n) = 12n + 40$ to find the cost, in dollars, of printing $n$ T-shirts. What is the best interpretation of $p(25) = 340$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>Printing $340$ T-shirts costs \$25.</li>
+          <li><span class="lbl">B</span>Printing $25$ T-shirts costs \$340.</li>
+          <li><span class="lbl">C</span>Each T-shirt costs \$25 to print.</li>
+          <li><span class="lbl">D</span>Printing $25$ more T-shirts adds \$340 to the cost.</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> The input $n = 25$ is the number of T-shirts and the output $340$ is the cost in dollars. So printing $25$ T-shirts costs \$340. Choice A swaps the input and the output.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find your exact gaps</h2>
+        <p>Take a free, full-length practice test and see precisely which question types trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#tests">What the SAT tests here</a></li>
+          <li><a href="#solve">How to solve one</a></li>
+          <li><a href="#mistakes">Mistakes that cost points</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/function-composition/">Function composition</a></li>
+          <li><a href="/sat-math/linear-models-from-context/">Linear models from context</a></li>
+          <li><a href="/sat-math/quadratic-models/">Quadratic models</a></li>
+          <li><a href="/sat-math/exponential-growth-and-decay/">Exponential growth and decay</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>
