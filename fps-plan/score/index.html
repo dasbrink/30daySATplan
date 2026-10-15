@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Your SAT Math Score | Free Practice SAT</title>
+<meta name="robots" content="noindex">
+<style>
+:root { --navy: #1a3a5c; --gold: #c9902a; --paper: #f5f5f0; --ink: #1a1a1a; --green: #1a7a4c; --red: #c65d4e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.55; }
+.card { max-width: 480px; margin: 48px auto; background: #fff; border-top: 5px solid var(--gold); border-radius: 12px; padding: 26px 26px 24px;
+  margin-left: max(16px, env(safe-area-inset-left, 0px)); margin-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 540px) { .card { margin-left: auto; margin-right: auto; } }
+h1 { font-family: Georgia, serif; color: var(--navy); font-size: 1.5rem; margin: 0 0 8px; }
+label { display: block; font-weight: 700; color: var(--navy); margin: 16px 0 6px; }
+select { font-size: 1.1rem; padding: 9px 12px; border: 1.5px solid #cfd6dd; border-radius: 8px; width: 100%; max-width: 220px; }
+button { margin-top: 16px; background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 13px 24px; font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+button:disabled { opacity: 0.6; }
+.msg { margin-top: 12px; min-height: 1.2em; }
+.msg.ok { color: var(--green); } .msg.err { color: var(--red); }
+.sig { margin-top: 20px; font-family: Georgia, serif; color: #555; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<main class="card" id="card">
+  <h1>How did your SAT go?</h1>
+  <p>If your scores are out, I'd love to know your math score. It helps me make the practice tests on this site more accurate for everyone.</p>
+  <label for="score">Your SAT math score, out of 800</label>
+  <select id="score"><option value="">Choose</option></select>
+  <br><button type="button" id="send">Send my score</button>
+  <div class="msg" id="msg" role="status"></div>
+  <p class="sig">Dr. Brink</p>
+</main>
+<script>
+(function () {
+  var sb = window.supabase.createClient('https://undhvypblihwzojqkgsd.supabase.co', 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq');
+  var sel = document.getElementById('score');
+  for (var v = 800; v >= 200; v -= 10) sel.insertAdjacentHTML('beforeend', '<option value="' + v + '">' + v + '</option>');
+  var key = new URLSearchParams(location.search).get('k') || '';
+  var msg = document.getElementById('msg');
+  if (!/^[0-9a-f-]{36}$/i.test(key)) { msg.className = 'msg err'; msg.textContent = 'This link is incomplete. Please use the link in your email, or just reply to the email with your score.'; }
+  document.getElementById('send').onclick = function () {
+    var v = parseInt(sel.value, 10);
+    if (!v) { msg.className = 'msg err'; msg.textContent = 'Choose your score first.'; return; }
+    var b = this; b.disabled = true;
+    sb.rpc('submit_official_score', { p_key: key, p_score: v }).then(function (r) {
+      var res = r.data;
+      if (res === 'ok' || res === 'already') {
+        document.getElementById('card').innerHTML = '<h1>Thank you</h1><p>' + (res === 'already' ? 'I already have your score. ' : 'Got it: ' + v + '. ') +
+          'Booked another SAT? Your next plan is waiting on <a href="/">freepracticesat.com</a>.</p><p class="sig">Dr. Brink</p>';
+      } else {
+        b.disabled = false; msg.className = 'msg err';
+        msg.textContent = res === 'not_found' ? 'I could not match this link. Please just reply to the email with your score.' : 'That did not save. Please try again, or reply to the email.';
+      }
+    });
+  };
+})();
+</script>
+</body>
+</html>
