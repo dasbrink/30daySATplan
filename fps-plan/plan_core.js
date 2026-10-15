@@ -128,17 +128,40 @@
   };
 
   // ── Airtable reads (through the relay) ───────────────────────
-  function atGet(path) {
-    return fetch(AT + path).then(function (r) {
-      if (!r.ok) throw new Error('Airtable read failed (' + r.status + ')');
-      return r.json();
+  // Airtable allows about 5 requests a second, so every read goes through a
+  // small queue (3 at a time, spaced out) and a 429 is retried after a pause.
+  var inFlight = 0, waiting = [], lastStart = 0;
+  function pump() {
+    while (inFlight < 3 && waiting.length) {
+      var gap = 260 - (Date.now() - lastStart);
+      if (gap > 0) { setTimeout(pump, gap); return; }
+      lastStart = Date.now();
+      inFlight++;
+      waiting.shift()();
+    }
+  }
+  function atGet(path, attempt) {
+    attempt = attempt || 0;
+    return new Promise(function (resolve, reject) {
+      waiting.push(function () {
+        fetch(AT + path).then(function (r) {
+          inFlight--; pump();
+          if (r.status === 429 && attempt < 5) {
+            setTimeout(function () { atGet(path, attempt + 1).then(resolve, reject); }, 1200 * (attempt + 1));
+            return;
+          }
+          if (!r.ok) { reject(new Error('Airtable read failed (' + r.status + ')')); return; }
+          r.json().then(resolve, reject);
+        }, function (e) { inFlight--; pump(); reject(e); });
+      });
+      pump();
     });
   }
   function byIds(table, ids, fields) {
     ids = Array.from(new Set((ids || []).filter(Boolean)));
     if (!ids.length) return Promise.resolve([]);
     var chunks = [];
-    for (var i = 0; i < ids.length; i += 40) chunks.push(ids.slice(i, i + 40));
+    for (var i = 0; i < ids.length; i += 50) chunks.push(ids.slice(i, i + 50));
     var fq = (fields || []).map(function (f) { return '&fields%5B%5D=' + encodeURIComponent(f); }).join('');
     return Promise.all(chunks.map(function (ch) {
       var formula = 'OR(' + ch.map(function (id) { return "RECORD_ID()='" + id + "'"; }).join(',') + ')';
@@ -181,7 +204,20 @@
 
   // Ranks mistakes (misconceptions actually committed) and basics
   // (prerequisites under missed questions). Worst first.
-  function rank(sb, userId) {
+  function rank(sb, userId, fresh) {
+    var key = 'fps_rank_' + userId;
+    if (!fresh) {
+      try {
+        var c = JSON.parse(sessionStorage.getItem(key) || 'null');
+        if (c && Date.now() - c.t < 10 * 60 * 1000) return Promise.resolve(c.v);
+      } catch (e) {}
+    }
+    return rankFresh(sb, userId).then(function (v) {
+      try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: v })); } catch (e) {}
+      return v;
+    });
+  }
+  function rankFresh(sb, userId) {
     return missedHistory(sb, userId).then(function (miss) {
       var qids = Array.from(new Set(miss.map(function (m) { return m.question_id; }).filter(Boolean)));
       return byIds('Questions', qids, ['Distractors', 'Prerequisites', 'Critical Prerequisite', 'Skill']).then(function (qs) {

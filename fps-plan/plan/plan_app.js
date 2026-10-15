@@ -681,7 +681,7 @@
               });
             }).then(function () {
               // The answers went into questions_seen, so re-rank to bring this mistake forward.
-              return PC.rank(sb, S.user.id).then(function (rk) { S.ranked = rk; rebuildDays(); });
+              return PC.rank(sb, S.user.id, true).then(function (rk) { S.ranked = rk; rebuildDays(); });
             }).then(function () { document.getElementById('day-end').innerHTML = doneCard(d.n, ''); typeset(app); });
           } });
         }).catch(fail);

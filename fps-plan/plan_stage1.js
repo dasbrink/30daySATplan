@@ -476,7 +476,7 @@
     var kinds = PC.schedule(win.days, { capped: win.capped });
     // Draw the shape at once, then add the first topics when the ranking arrives.
     cal.innerHTML = calendarHTML(win, kinds.map(function (k) { return { kind: k }; }), 0);
-    PC.rank(sb(), user().id).then(function (ranked) {
+    PC.rank(sb(), user().id, true).then(function (ranked) {
       var days = PC.assign(kinds, ranked, []);
       cal.innerHTML = calendarHTML(win, days, 3);
     }).catch(function (e) { console.warn('[plan] ranking failed', e); });
