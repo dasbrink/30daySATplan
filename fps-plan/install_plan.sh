@@ -15,5 +15,9 @@ if ! grep -q 'plan_stage1.js' index.html; then
 else
   echo "index.html: plan script tags already there"
 fi
+# Version stamps so browsers fetch the newest files
+sed -i "s#src=\"plan_core.js[^\"]*\"#src=\"plan_core.js?v=$STAMP\"#; s#src=\"plan_stage1.js[^\"]*\"#src=\"plan_stage1.js?v=$STAMP\"#" index.html
+sed -i "s#__V__#$STAMP#g" plan/index.html
+grep -o 'plan_[a-z0-9]*\.js?v=[0-9_]*' index.html plan/index.html | sed 's/^/version: /'
 grep -c 'plan_stage1.js' index.html | sed 's/^/plan_stage1 tag count: /'
 grep -c '</body>' index.html | sed 's/^/body close count: /'
