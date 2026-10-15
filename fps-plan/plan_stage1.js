@@ -123,7 +123,7 @@
       '.pl-day{min-height:62px;border:1px solid #e4e6e9;border-radius:6px;padding:5px 6px;background:#fafbfc;font-family:-apple-system,Segoe UI,Roboto,sans-serif;position:relative;min-width:0;}',
       '.pl-day.blank{border:none;background:none;}',
       '.pl-dn{font-size:0.68rem;color:#888;font-variant-numeric:tabular-nums;}',
-      '.pl-k{font-size:0.72rem;font-weight:700;color:#1a3a5c;line-height:1.25;margin-top:2px;overflow-wrap:anywhere;}',
+      '.pl-k{font-size:0.72rem;font-weight:700;color:#1a3a5c;line-height:1.25;margin-top:2px;overflow-wrap:normal;word-break:normal;hyphens:none;}',
       '.pl-t{font-size:0.68rem;color:#444;line-height:1.3;margin-top:2px;overflow-wrap:anywhere;}',
       '.pl-lock{position:absolute;right:5px;top:4px;font-size:0.65rem;color:#aab;}',
       '.pl-day.open{background:#fff;border-color:#c9902a;}',
@@ -160,7 +160,7 @@
       '.pl-cut b{color:#1a3a5c;}',
       // welcome + official score card
       '.pl-wpanel{font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;}',
-      '.pl-wpanel h3{font-family:Georgia,serif;margin:0 0 8px;font-size:1.3rem;}',
+      '.pl-wpanel h3, .wo-panel .pl-wpanel h3{font-family:Georgia,serif;margin:0 0 8px;font-size:1.3rem;color:#fff !important;text-transform:none;letter-spacing:0;}',
       '.pl-wpanel a.pl-open{display:inline-block;margin-top:10px;background:#d4a04a;color:#1a1a1a;padding:11px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-family:Georgia,serif;}',
       '.pl-official{max-width:640px;margin:16px auto;background:#fff;border:1.5px solid #c9902a;border-radius:10px;padding:16px 18px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:#1a1a1a;}',
       '.pl-official h4{font-family:Georgia,serif;color:#1a3a5c;margin:0 0 6px;font-size:1.1rem;}',
