@@ -19,7 +19,7 @@
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   var app = document.getElementById('app');
 
-  var S = { user: null, plan: null, profile: null, progress: [], ranked: null, days: [], win: null, seen: new Set(), todayN: 1 };
+  var S = { user: null, plan: null, profile: null, progress: [], ranked: null, days: [], win: null, seen: new Set(), todayN: 1, openN: 1 };
 
   // ── small helpers ────────────────────────────────────────────
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -296,14 +296,21 @@
   function rebuildDays() {
     var kinds = PC.schedule(S.win.days, { capped: S.win.capped });
     S.days = PC.assign(kinds, S.ranked, S.progress);
+    // Students may work ahead: finishing every day so far opens the next one.
+    var first = S.days.findIndex(function (d) { return d.status !== 'done'; });
+    var firstUndone = first < 0 ? S.days.length : first + 1;
+    S.openN = Math.min(S.days.length, Math.max(S.todayN, firstUndone));
   }
   function nextDayLine(n) {
     var nx = S.days[n];
     if (!nx) return 'That was the last day of your plan. Good luck on test day.';
-    return 'Tomorrow: ' + (PC.KIND_LABEL[nx.kind] || nx.kind) + (nx.target ? ', ' + nx.target.name : '') + '.';
+    return 'Next: ' + (PC.KIND_LABEL[nx.kind] || nx.kind) + (nx.target ? ', ' + nx.target.name : '') + '.';
   }
   function doneCard(n, extra) {
-    return '<div class="done-card"><h2>Done for today</h2><p>' + esc(extra || '') + ' ' + esc(nextDayLine(n)) + '</p><a class="btn gold" href="#">Back to my plan</a></div>';
+    var nx = S.days[n];
+    var go = nx ? '<a class="btn gold" href="#day-' + nx.n + '">Start day ' + nx.n + ' now</a> <a class="btn ghost" href="#">Back to my plan</a>'
+      : '<a class="btn gold" href="#">Back to my plan</a>';
+    return '<div class="done-card"><h2>Day ' + n + ' done</h2><p>' + esc(extra || '') + ' ' + esc(nextDayLine(n)) + (nx ? ' You can start it now or come back later.' : '') + '</p><div class="qactions">' + go + '</div></div>';
   }
 
   // ── overview ─────────────────────────────────────────────────
@@ -312,6 +319,8 @@
     var doneCount = S.days.filter(function (d) { return d.status === 'done'; }).length;
     var pct = Math.round(100 * doneCount / S.days.length);
     var t = S.days[Math.min(S.todayN, S.days.length) - 1];
+    var ahead = false;
+    if (t && t.status === 'done' && S.openN > t.n && S.days[S.openN - 1] && S.days[S.openN - 1].status !== 'done') { t = S.days[S.openN - 1]; ahead = true; }
     var title = S.win.capped ? 'Your plan through ' + PC.longDate(S.win.endISO) : 'Your plan to ' + PC.longDate(S.plan.test_date);
     var expires = S.plan.expires_at.slice(0, 10);
     var html = '<div class="ph"><div><h1>' + esc(title) + '</h1><div class="meta">Open until ' + esc(PC.longDate(expires)) + '.' +
@@ -322,8 +331,8 @@
       html += '<div class="today"><div class="what"><div class="lbl">Your plan has ended</div><h2>Booked another SAT? Build a new plan for $29.</h2></div><a class="btn gold" href="/">Take a test</a></div>';
     } else if (t) {
       var tDone = t.status === 'done';
-      html += '<div class="today"><div class="what"><div class="lbl">Today, day ' + t.n + '</div><h2>' + esc(PC.KIND_LABEL[t.kind] || t.kind) + (t.target ? ': ' + esc(t.target.name) : '') + '</h2></div>' +
-        '<a class="btn ' + (tDone ? 'ghost' : 'gold') + '" href="#day-' + t.n + '">' + (tDone ? 'Done. Open again' : 'Start today') + '</a></div>';
+      html += '<div class="today"><div class="what"><div class="lbl">' + (ahead ? 'Working ahead, day ' : 'Today, day ') + t.n + '</div><h2>' + esc(PC.KIND_LABEL[t.kind] || t.kind) + (t.target ? ': ' + esc(t.target.name) : '') + '</h2></div>' +
+        '<a class="btn ' + (tDone ? 'ghost' : 'gold') + '" href="#day-' + t.n + '">' + (tDone ? 'Done. Open again' : (ahead ? 'Start day ' + t.n : 'Start today')) + '</a></div>';
     }
     if (S.win.capped) html += '<p class="bbline">Your test is in ' + esc(PC.longDateYear(S.plan.test_date).split(' ')[0]) + '. This plan builds your SAT math skills through ' + esc(PC.longDate(S.win.endISO)) + '. By then you\'ll have worked through the gaps your tests showed. If you\'d like to take it further before test day, you can build a final plan from ' + esc(PC.longDate(S.win.endISO).split(' ')[0]) + ' to your test.</p>';
     // calendar
@@ -334,10 +343,10 @@
     var list = '';
     S.days.forEach(function (d) {
       var iso = dayDate(d.n);
-      var cls = d.status === 'done' ? 'done' : (d.n === S.todayN ? 'today-d' : (d.n > S.todayN ? 'future' : 'missed'));
+      var cls = d.status === 'done' ? 'done' : (d.n === S.todayN ? 'today-d' : (d.n > S.openN ? 'future' : (d.n > S.todayN ? 'ahead' : 'missed')));
       if (d.n === S.todayN && d.status === 'done') cls += ' today-d';
       var st = d.status === 'done' ? (d.passed === false ? 'done, comes back' : 'done') : (d.n < S.todayN ? 'to catch up' : '');
-      var open = d.n <= S.todayN;
+      var open = d.n <= S.openN;
       var inner = '<div class="dn"><span>' + PC.parseISO(iso).getDate() + '</span><span class="st">' + esc(st) + '</span></div>' +
         '<div class="k">' + esc(PC.KIND_LABEL[d.kind] || d.kind) + '</div>' + (d.target ? '<div class="t">' + esc(d.target.name) + '</div>' : '');
       cells += open ? '<a class="d ' + cls + '" href="#day-' + d.n + '" aria-label="Day ' + d.n + ', ' + esc(PC.shortDay(iso)) + '">' + inner + '</a>'
@@ -398,7 +407,7 @@
     var d = S.days[n - 1];
     if (!d) { location.hash = ''; return; }
     var ownerPeek = S.user && S.user.email === 'dasbrink@gmail.com' && /[?&]peek=1/.test(location.search);
-    if (n > S.todayN && !ownerPeek) { setHTML('<div class="notice"><h1>Day ' + n + ' opens on ' + esc(PC.fullDate(dayDate(n))) + '</h1><p>Work on today first.</p><a class="btn" href="#">Back to my plan</a></div>'); return; }
+    if (n > S.openN && !ownerPeek) { setHTML('<div class="notice"><h1>Day ' + n + ' opens on ' + esc(PC.fullDate(dayDate(n))) + '</h1><p>Or sooner: finish the days before it and it opens straight away.</p><a class="btn" href="#">Back to my plan</a></div>'); return; }
     var fn = { mistake: mistakeDay, basic: basicDay, desmos: desmosDay, test: testDay, halftest: halfTestDay, review: reviewDay,
       bluebook: bluebookDay, bbreview: bbReviewDay, pacing: pacingDay, light: lightDay, catchup: catchupDay, mixed: mixedDay }[d.kind] || mixedDay;
     fn(d);
@@ -582,7 +591,7 @@
   // Full test day: taken on the main site. Marked done when a new result appears.
   function testDay(d) {
     showCalcButton(false);
-    var since = dayDate(d.n);
+    var since = dayDate(d.n); if (PC.todayISO() < since) since = PC.todayISO(); // working ahead
     sb.from('test_results').select('id, created_at, score').eq('user_id', S.user.id).gte('created_at', since + 'T00:00:00').order('created_at', { ascending: false }).limit(1).then(function (r) {
       var took = r.data && r.data[0];
       if (took && d.status !== 'done') saveProgress(d.n, { status: 'done', passed: null, detail: { score: took.score } });
@@ -614,7 +623,7 @@
           var mins = Math.round((Date.now() - start) / 60000);
           saveProgress(d.n, { status: 'done', passed: null, detail: { score: right, of: res.length, minutes: mins } }).then(function () {
             document.getElementById('htq').innerHTML = '<div class="result pass"><h2>' + right + ' of ' + res.length + ' right, in ' + mins + ' minutes</h2><p>' +
-              (mins > 35 ? 'That ran over 35 minutes, so pacing is worth watching on test day.' : 'Inside the 35 minutes.') + ' Tomorrow you go through the misses.</p></div>' + reviewHTML(res);
+              (mins > 35 ? 'That ran over 35 minutes, so pacing is worth watching on test day.' : 'Inside the 35 minutes.') + ' Next you go through the misses.</p></div>' + reviewHTML(res);
             document.getElementById('day-end').innerHTML = doneCard(d.n, '');
             typeset(app);
           });
@@ -662,7 +671,7 @@
     showCalcButton(false);
     var html = '<div class="step"><h2><span class="num">1</span>Take an official practice test in Bluebook</h2>' +
       '<p class="lead">Bluebook is College Board\'s free testing app. Open it, choose Practice and Prepare, then Full-Length Practice, and pick a test you have not taken.</p>' +
-      '<ul class="tips"><li>Sit it in one go, timed, the way you will on test day.</li><li>When you finish, sign in to My Practice on College Board\'s site to see your score.</li><li>Enter your math score below. Tomorrow\'s plan uses it.</li></ul></div>' +
+      '<ul class="tips"><li>Sit it in one go, timed, the way you will on test day.</li><li>When you finish, sign in to My Practice on College Board\'s site to see your score.</li><li>Enter your math score below. The rest of your plan uses it.</li></ul></div>' +
       '<div class="step"><h2><span class="num">2</span>Your math score</h2><div class="qactions"><button type="button" class="btn gold" id="bb-enter">Add my Bluebook score</button>' +
       '<button type="button" class="linkbtn" id="bb-skip">I couldn\'t take it today</button></div><div id="day-end"></div></div>';
     setHTML(dayShell(d, html)); wireBBLink();
