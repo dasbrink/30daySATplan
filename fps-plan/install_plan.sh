@@ -2,7 +2,7 @@
 # Installs the custom plan files into the freepracticesat Replit project.
 # Safe to run more than once. Backs up index.html first.
 set -e
-RAW="https://raw.githubusercontent.com/dasbrink/30daySATplan/fps-transfer-plan/fps-plan"
+RAW="https://raw.githubusercontent.com/dasbrink/30daySATplan/${REF:-fps-transfer-plan}/fps-plan"
 STAMP=$(date +%Y%m%d_%H%M%S)
 mkdir -p plan score
 for f in plan_core.js plan_stage1.js plan/index.html plan/plan_app.js score/index.html; do
