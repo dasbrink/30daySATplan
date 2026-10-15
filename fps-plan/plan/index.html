@@ -13,7 +13,7 @@
   --green: #1a7a4c; --green-bg: #eef8f1; --red: #c65d4e; --red-bg: #fbecea;
   --serif: Georgia, "Times New Roman", serif;
   --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --calc-w: 440px;
+  --calc-w: 480px;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -178,8 +178,17 @@ body.calc-open .calc-btn { display: none; }
 .calc-h { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--navy); color: #fff; font-weight: 700; font-size: 0.92rem; }
 .calc-h button { background: none; border: 1px solid #8fa3b8; color: #fff; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
 #calc-mount { flex: 1 1 auto; min-height: 0; }
+/* Drag handle: left edge on a computer, top edge on a phone. */
+.calc-grip { position: absolute; left: -7px; top: 0; bottom: 0; width: 14px; cursor: ew-resize; z-index: 2; touch-action: none; }
+.calc-grip::after { content: ""; position: absolute; left: 4px; top: 50%; width: 6px; height: 54px; margin-top: -27px; border-radius: 3px; background: #9aa9b8; }
+.calc-grip:hover::after, .calc.dragging .calc-grip::after { background: var(--gold); }
+.calc.dragging #calc-mount { pointer-events: none; }
+body.calc-dragging { user-select: none; cursor: ew-resize; }
 @media (max-width: 900px) {
-  .calc { top: auto; bottom: 0; width: 100%; height: 62%; border-left: none; border-top: 1px solid #cfd6dd; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .calc { top: auto; bottom: 0; width: 100%; height: var(--calc-h, 62%); border-left: none; border-top: 1px solid #cfd6dd; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .calc-grip { left: 0; right: 0; top: -9px; bottom: auto; width: auto; height: 18px; cursor: ns-resize; }
+  .calc-grip::after { left: 50%; top: 6px; width: 54px; height: 6px; margin: 0 0 0 -27px; }
+  body.calc-dragging { cursor: ns-resize; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
@@ -209,6 +218,7 @@ window.MathJax = {
 
 <button type="button" class="calc-btn" id="calc-btn" hidden>Calculator</button>
 <aside class="calc" id="calc" hidden aria-label="Desmos calculator">
+  <div class="calc-grip" id="calc-grip" title="Drag to resize"></div>
   <div class="calc-h"><span>Desmos calculator</span><button type="button" id="calc-close">Close</button></div>
   <div id="calc-mount"></div>
 </aside>

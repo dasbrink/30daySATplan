@@ -61,7 +61,42 @@
   function closeCalc() { document.getElementById('calc').hidden = true; document.body.classList.remove('calc-open'); }
   document.getElementById('calc-btn').onclick = openCalc;
   document.getElementById('calc-close').onclick = closeCalc;
-  window.addEventListener('resize', function () { if (calc) try { calc.resize(); } catch (e) {} });
+  function calcResize() { if (calc) try { calc.resize(); } catch (e) {} }
+  // Drag to resize. Width on a computer, height on a phone. Remembered on this device.
+  (function () {
+    var root = document.documentElement, panel = document.getElementById('calc'), grip = document.getElementById('calc-grip');
+    function phone() { return window.matchMedia('(max-width: 900px)').matches; }
+    function clampW(w) { return Math.round(Math.max(340, Math.min(w, window.innerWidth * 0.75))); }
+    function clampH(h) { return Math.round(Math.max(220, Math.min(h, window.innerHeight * 0.9))); }
+    function apply(saved) {
+      if (saved.w) root.style.setProperty('--calc-w', clampW(saved.w) + 'px');
+      if (saved.h) root.style.setProperty('--calc-h', clampH(saved.h) + 'px');
+    }
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('fps_calc_size') || '{}') || {}; } catch (e) {}
+    apply(saved);
+    var dragging = false;
+    grip.addEventListener('pointerdown', function (e) {
+      dragging = true; e.preventDefault();
+      try { grip.setPointerCapture(e.pointerId); } catch (x) {}
+      panel.classList.add('dragging'); document.body.classList.add('calc-dragging');
+    });
+    grip.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      if (phone()) { saved.h = clampH(window.innerHeight - e.clientY); root.style.setProperty('--calc-h', saved.h + 'px'); }
+      else { saved.w = clampW(window.innerWidth - e.clientX); root.style.setProperty('--calc-w', saved.w + 'px'); }
+      calcResize();
+    });
+    function stop() {
+      if (!dragging) return; dragging = false;
+      panel.classList.remove('dragging'); document.body.classList.remove('calc-dragging');
+      try { localStorage.setItem('fps_calc_size', JSON.stringify(saved)); } catch (e) {}
+      calcResize();
+    }
+    grip.addEventListener('pointerup', stop);
+    grip.addEventListener('pointercancel', stop);
+    window.addEventListener('resize', function () { apply(saved); calcResize(); });
+  })();
   function showCalcButton(on) { document.getElementById('calc-btn').hidden = !on; if (!on) closeCalc(); }
 
   // ── Bluebook score form (every page) ─────────────────────────
