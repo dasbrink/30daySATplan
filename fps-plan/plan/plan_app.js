@@ -202,7 +202,7 @@
     function show() {
       if (i >= qs.length) { clearInterval(timer); opts.onDone(results); return; }
       var q = qs[i];
-      container.innerHTML = questionHTML(q, i, (opts.label || 'Question') + ' ' + (i + 1) + ' of ' + qs.length);
+      container.innerHTML = questionHTML(q, i, opts.fullLabel || ((opts.label || 'Question') + ' ' + (i + 1) + ' of ' + qs.length));
       typeset(container);
       started = Date.now(); clearInterval(timer); if (opts.pace) { clockTick(); timer = setInterval(clockTick, 1000); }
       container.querySelectorAll('.c').forEach(function (b) {
@@ -521,14 +521,14 @@
       function one() {
         if (i >= qs.length) {
           saveProgress(d.n, { status: 'done', passed: null, detail: { qids: qs.map(function (q) { return q.id; }) } }).then(function () {
-            document.getElementById('dq').innerHTML = '<div class="fb ok"><b class="v">All six done.</b></div>';
+            document.getElementById('dq').innerHTML = '<div class="fb ok"><b class="v">All done.</b></div>';
             document.getElementById('day-end').innerHTML = doneCard(d.n, '');
           });
           return;
         }
         var q = qs[i];
         var box = document.getElementById('dq');
-        runSet(box, [q], { mode: 'learn', label: 'Desmos question ' + (i + 1) + ' of ' + qs.length + ',', onDone: function () {} });
+        runSet(box, [q], { mode: 'learn', fullLabel: 'Desmos question ' + (i + 1) + ' of ' + qs.length, onDone: function () {} });
         // add the video under the feedback once answered
         var obs = new MutationObserver(function () {
           var nb = box.querySelector('[id^="next-"]');
@@ -593,7 +593,10 @@
     showCalcButton(true);
     sb.from('test_results').select('created_at, score, snapshot').eq('user_id', S.user.id).order('created_at', { ascending: false }).limit(1).then(function (r) {
       var row = r.data && r.data[0];
+      // Only a test taken since the plan started counts.
+      if (row && row.created_at.slice(0, 10) < S.plan.start_date) row = null;
       var prev = S.progress.filter(function (p) { return p.kind === 'halftest' && p.detail; }).sort(function (a, b) { return b.day_number - a.day_number; })[0];
+      var testDay = S.days.slice(0, d.n - 1).filter(function (x) { return x.kind === 'test' || x.kind === 'halftest'; }).pop();
       var html = PAPER;
       if (prev && (!row || prev.updated_at > row.created_at)) {
         html += '<div class="step"><h2><span class="num">1</span>Your half test</h2><p class="lead">You scored ' + prev.detail.score + ' of ' + prev.detail.of + '. The questions and worked solutions are on that day\'s page. Go through every miss and redo it on paper before reading the working.</p>' +
@@ -608,7 +611,10 @@
               (m.q.solution ? '<div class="sol-l">Worked solution</div><div>' + rich(m.q.solution) + '</div>' : '') + '</div></div>';
           }).join('') + '</div>';
       } else {
-        html += '<div class="step"><p>No test found yet. Take the test from yesterday first, then come back.</p><a class="btn gold" href="/">Take a test</a></div>';
+        html += '<div class="step"><p>There is no test to review yet. Take the test from Day ' + (testDay ? testDay.n : d.n - 1) + ' first, then come back.</p>' +
+          '<a class="btn gold" href="' + (testDay ? '#day-' + testDay.n : '/') + '">Go to the test</a></div>';
+        setHTML(dayShell(d, html)); wireBBLink();
+        return;
       }
       html += '<div class="qactions"><button type="button" class="btn" id="rv-done">I\'ve gone through them</button></div><div id="day-end"></div>';
       setHTML(dayShell(d, html)); wireBBLink();
