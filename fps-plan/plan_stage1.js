@@ -196,7 +196,7 @@
       ov.innerHTML =
         '<div class="pq-card">' +
           '<h2 id="pq-title">One last thing before your score</h2>' +
-          '<p class="pq-lede">I\'m building you a study plan from this test. Two quick questions so it fits your calendar.</p>' +
+          '<p class="pq-lede">I\'m building you a study plan from this test. Three quick questions so it fits your calendar.</p>' +
           '<div class="pq-q"><span class="pq-qt" id="pq-l1">When is your next SAT?</span>' +
             '<div class="pq-opts" role="radiogroup" aria-labelledby="pq-l1">' + dateOpts +
               '<label class="pq-opt"><input type="radio" name="pq-date" value="school"> An SAT at my school on a weekday</label>' +
