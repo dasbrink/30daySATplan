@@ -111,7 +111,7 @@ a.d:hover { border-color: var(--navy); }
 .step .lead { color: #444; margin: 0 0 12px; }
 .mistake-name { color: var(--red); font-weight: 700; margin: 0 0 10px; }
 .tut-l { font-weight: 700; color: var(--green); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 14px 0 4px; }
-.tut { line-height: 1.65; overflow-x: auto; }
+.tut { line-height: 1.65; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
 .tut table { border-collapse: collapse; }
 .tut td, .tut th { border: 1px solid var(--line); padding: 4px 8px; }
 
@@ -121,19 +121,19 @@ a.d:hover { border-color: var(--navy); }
 .q .qh { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.78rem; color: #8a939c; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
 .pill { font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; border: 1px solid currentColor; }
 .pill.Easy { color: #2f7d5b; } .pill.Medium { color: #8a6514; } .pill.Hard { color: #a33a3a; }
-.qt { font-size: 1.02rem; margin-bottom: 10px; overflow-x: auto; }
+.qt { font-size: 1.02rem; margin-bottom: 10px; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
 .qt svg { max-width: 100%; height: auto; }
 .qfig { margin: 6px 0 10px; } .qfig svg { max-width: 300px; height: auto; }
 .ch { display: grid; gap: 7px; margin-bottom: 10px; }
 .c { display: flex; gap: 10px; align-items: baseline; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; text-align: left; width: 100%; color: var(--ink); min-width: 0; }
 .c:hover:not(:disabled) { border-color: var(--navy); }
 .c .L { font-weight: 700; color: var(--navy); min-width: 1.2em; }
-.c .tx { flex: 1; min-width: 0; overflow-x: auto; }
+.c .tx { flex: 1; min-width: 0; overflow-x: auto; overflow-y: hidden; }
 .c.sel { border-color: var(--navy); background: #f1f5f9; }
 .c.ok { border-color: var(--green); background: var(--green-bg); }
 .c.no { border-color: var(--red); background: var(--red-bg); }
 .c:disabled { cursor: default; }
-.fb { border-radius: 8px; padding: 10px 12px; margin: 6px 0 4px; line-height: 1.55; overflow-x: auto; }
+.fb { border-radius: 8px; padding: 10px 12px; margin: 6px 0 4px; line-height: 1.55; overflow-x: auto; overflow-y: hidden; }
 .fb.ok { background: var(--green-bg); }
 .fb.no { background: var(--red-bg); }
 .fb b.v { display: block; margin-bottom: 4px; }

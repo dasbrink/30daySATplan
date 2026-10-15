@@ -362,7 +362,8 @@
   function openDay(n) {
     var d = S.days[n - 1];
     if (!d) { location.hash = ''; return; }
-    if (n > S.todayN) { setHTML('<div class="notice"><h1>Day ' + n + ' opens on ' + esc(PC.fullDate(dayDate(n))) + '</h1><p>Work on today first.</p><a class="btn" href="#">Back to my plan</a></div>'); return; }
+    var ownerPeek = S.user && S.user.email === 'dasbrink@gmail.com' && /[?&]peek=1/.test(location.search);
+    if (n > S.todayN && !ownerPeek) { setHTML('<div class="notice"><h1>Day ' + n + ' opens on ' + esc(PC.fullDate(dayDate(n))) + '</h1><p>Work on today first.</p><a class="btn" href="#">Back to my plan</a></div>'); return; }
     var fn = { mistake: mistakeDay, basic: basicDay, desmos: desmosDay, test: testDay, halftest: halfTestDay, review: reviewDay,
       bluebook: bluebookDay, bbreview: bbReviewDay, pacing: pacingDay, light: lightDay, catchup: catchupDay, mixed: mixedDay }[d.kind] || mixedDay;
     fn(d);
@@ -463,6 +464,7 @@
         var m = t.match(/(^|[\s>])(Answer|Solution)\s*[A-D]?\s*:/);
         var cut = m ? m.index + m[1].length : -1;
         var q = cut > -1 ? t.slice(0, cut) : t, a = cut > -1 ? t.slice(cut) : '';
+        if (/(^|\s)A\)\s/.test(q)) q = q.replace(/[ \t]+([B-D])\)\s/g, '\n$1) ').replace(/([^\n])\s*(^|\s)A\)\s/, '$1\n\nA) ');
         return '<div class="q"><div class="qh"><span>Practice</span><span class="pill ' + label + '">' + label + '</span></div><div class="qt">' + rich(q) + '</div>' +
           (a ? '<div class="reveal"><button type="button" class="btn ghost" data-r="' + k + '">Show answer and working</button><div class="ans" id="ans-' + k + '">' + rich(a) + '</div></div>' : '') + '</div>';
       }
