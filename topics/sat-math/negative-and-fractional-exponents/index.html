@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Negative and Fractional Exponents: Rules and Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/negative-and-fractional-exponents/">
+
+  <meta name="description" content="What a negative exponent and a fractional exponent mean on the SAT, how to rewrite roots as powers, and how to simplify fast. With 10 practice questions.">
+
+  <meta property="og:title" content="Negative and Fractional Exponents on the SAT: Rules, Examples and Practice">
+  <meta property="og:description" content="What a negative exponent and a fractional exponent mean on the SAT, how to rewrite roots as powers, and how to simplify fast. With 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/negative-and-fractional-exponents/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Negative and Fractional Exponents on the SAT: Rules, Examples and Practice">
+  <meta name="twitter:description" content="What a negative exponent and a fractional exponent mean on the SAT, how to rewrite roots as powers, and how to simplify fast. With 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Negative and Fractional Exponents on the SAT: Rules, Examples and Practice",
+  "description": "Negative and fractional exponents on the SAT: reciprocals, roots as fractional powers, the order of root and power, rewriting radicals, and the slips that cost points. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-27",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/negative-and-fractional-exponents/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does a negative exponent mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means take the reciprocal. a to the power negative n equals 1 divided by a to the power n. The value stays positive when a is positive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a fractional exponent mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The denominator is a root and the numerator is a power. a to the power m over n equals the nth root of a, raised to the power m."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I take the root or the power first?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Either gives the same answer, but taking the root first keeps the numbers small."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Negative and fractional exponents
+      </nav>
+
+      <h1>Negative and Fractional Exponents</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Two facts carry the whole topic</p>
+        <p>A negative exponent means take the reciprocal: $a^{-n} = \dfrac{1}{a^n}$. It never makes the number negative.</p>
+        <p>A fractional exponent is a root: $a^{\frac{m}{n}} = \left(\sqrt[n]{a}\right)^m$. The bottom of the fraction is the root and the top is the power.</p>
+      </div>
+
+      <p class="lede">These questions reward students who know two definitions cold. Everything else is the ordinary exponent rules you already use. When I see a student miss one, it is almost always because $2^{-3}$ became $-8$ or because they took the power before the root and got stuck with a huge number.</p>
+
+      <h2 id="why">Why the definitions make sense</h2>
+      <p>I never ask students to memorize these as rules from nowhere. Write the powers of $2$ in a column: $2^3 = 8$, $2^2 = 4$, $2^1 = 2$. Each step down the exponent drops by $1$ and the value is cut in half. Keep going and the pattern has no choice: $2^0 = 1$, $2^{-1} = \dfrac{1}{2}$, $2^{-2} = \dfrac{1}{4}$. A negative exponent is just the pattern continuing.</p>
+      <p>Fractional exponents come from the power rule. Since $\left(9^{\frac{1}{2}}\right)^2 = 9^1 = 9$, the number $9^{\frac{1}{2}}$ must be something that squares to $9$, which is $3$. So $a^{\frac{1}{2}}$ is the square root, $a^{\frac{1}{3}}$ is the cube root, and so on. Once that clicks, a question like $8^{\frac{2}{3}}$ stops looking strange.</p>
+
+      <h2 id="rules">Quick reference</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You see</th><th>It means</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$a^{-n}$</td><td>$\dfrac{1}{a^n}$</td><td>$5^{-2} = \dfrac{1}{25}$</td></tr>
+          <tr><td>$\dfrac{1}{a^{-n}}$</td><td>$a^n$</td><td>$\dfrac{1}{2^{-3}} = 8$</td></tr>
+          <tr><td>$a^{\frac{1}{n}}$</td><td>$\sqrt[n]{a}$</td><td>$64^{\frac{1}{3}} = 4$</td></tr>
+          <tr><td>$a^{\frac{m}{n}}$</td><td>$\left(\sqrt[n]{a}\right)^m$</td><td>$8^{\frac{2}{3}} = 2^2 = 4$</td></tr>
+          <tr><td>$\left(\dfrac{a}{b}\right)^{-n}$</td><td>$\left(\dfrac{b}{a}\right)^n$</td><td>$\left(\dfrac{2}{3}\right)^{-2} = \dfrac{9}{4}$</td></tr>
+          <tr><td>$a^m \cdot a^n$, $\dfrac{a^m}{a^n}$, $(a^m)^n$</td><td>$a^{m+n}$, $a^{m-n}$, $a^{mn}$</td><td>Work for any exponents, fractions and negatives included</td></tr>
+        </tbody>
+      </table>
+      <p>Take the root first. $27^{\frac{2}{3}}$ is $3^2 = 9$. Squaring first gives $729$, and you still have to find its cube root.</p>
+
+      <h2 id="examples">Examples</h2>
+      <div class="worked">
+        <h3>A negative and a fractional exponent together</h3>
+        <p>Evaluate $16^{-\frac{3}{4}}$.</p>
+        <ol>
+          <li>Deal with the negative first: $16^{-\frac{3}{4}} = \dfrac{1}{16^{\frac{3}{4}}}$.</li>
+          <li>The fourth root of $16$ is $2$, and $2^3 = 8$.</li>
+          <li>So the value is $\dfrac{1}{8}$.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>Rewriting a radical as a power</h3>
+        <p>Which expression is equivalent to $\sqrt[3]{x^2} \cdot \sqrt{x}$ for $x > 0$?</p>
+        <ol>
+          <li>Write each root as a power: $x^{\frac{2}{3}} \cdot x^{\frac{1}{2}}$.</li>
+          <li>Multiplying means adding exponents: $\dfrac{2}{3} + \dfrac{1}{2} = \dfrac{7}{6}$.</li>
+          <li>The answer is $x^{\frac{7}{6}}$. Multiplying the exponents, which gives $x^{\frac{1}{3}}$, is the trap.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>Solving with a fractional exponent</h3>
+        <p>If $a^{-\frac{1}{2}} = \dfrac{1}{5}$, what is $a$?</p>
+        <ol>
+          <li>Flip both sides: $a^{\frac{1}{2}} = 5$.</li>
+          <li>Square both sides: $a = 25$.</li>
+        </ol>
+      </div>
+
+      <h2 id="types">What you will see</h2>
+      <ul class="plain">
+        <li><strong>Evaluate a number.</strong> Something like $32^{\frac{3}{5}}$ or $\left(\dfrac{1}{9}\right)^{-\frac{1}{2}}$. Root first, then power, then flip if negative.</li>
+        <li><strong>Match an equivalent expression.</strong> Rewrite every root as a fractional power, combine with the exponent rules, and compare.</li>
+        <li><strong>Solve for a base or an exponent.</strong> Rewrite both sides with the same base when you can, then set the exponents equal.</li>
+        <li><strong>Simplify a fraction of powers.</strong> Move negative exponents across the fraction bar and they turn positive.</li>
+      </ul>
+
+      <h2 id="mistakes">Mistakes I see often</h2>
+      <ul class="plain">
+        <li><strong>Making the number negative.</strong> $3^{-2}$ is $\dfrac{1}{9}$, a small positive number. The negative is about position, not sign.</li>
+        <li><strong>Root and power swapped.</strong> In $a^{\frac{m}{n}}$ the bottom number is the root. $8^{\frac{2}{3}}$ is the cube root squared, not the square root cubed.</li>
+        <li><strong>Multiplying exponents that should be added.</strong> $x^{\frac{1}{2}} \cdot x^{\frac{1}{3}} = x^{\frac{5}{6}}$. You only multiply exponents for a power of a power.</li>
+        <li><strong>Flipping the exponent instead of the base.</strong> $4^{-\frac{1}{2}}$ is $\dfrac{1}{2}$, not $4^2$.</li>
+      </ul>
+
+      <h2 id="practice">Try these</h2>
+      <p>Rewrite every root as a power before you combine anything.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">What is the value of $2^{-3}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-8$</li>
+          <li><span class="lbl">B</span>$-6$</li>
+          <li><span class="lbl">C</span>$\dfrac{1}{8}$</li>
+          <li><span class="lbl">D</span>$\dfrac{1}{6}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $2^{-3} = \dfrac{1}{2^3} = \dfrac{1}{8}$. Choice A makes the value negative, which a negative exponent never does.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the value of $27^{\frac{2}{3}}$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $9$.</span> The cube root of $27$ is $3$, and $3^2 = 9$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">For $x > 0$, which expression is equivalent to $x^{\frac{3}{4}}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\sqrt[4]{x^3}$</li>
+          <li><span class="lbl">B</span>$\sqrt[3]{x^4}$</li>
+          <li><span class="lbl">C</span>$\dfrac{x^3}{4}$</li>
+          <li><span class="lbl">D</span>$\dfrac{1}{\sqrt[3]{x^4}}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The denominator of the exponent is the root: $x^{\frac{3}{4}} = \sqrt[4]{x^3}$. Choice B swaps the root and the power.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">What is the value of $\left(\dfrac{1}{16}\right)^{-\frac{1}{2}}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-4$</li>
+          <li><span class="lbl">B</span>$\dfrac{1}{4}$</li>
+          <li><span class="lbl">C</span>$4$</li>
+          <li><span class="lbl">D</span>$8$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> Flip the base for the negative exponent: $16^{\frac{1}{2}} = 4$. Choice B forgets to flip, and choice D halves $16$ instead of taking its square root.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $8^{x} = 2^{x + 4}$, what is the value of $x$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $2$.</span> Write $8$ as $2^3$: $2^{3x} = 2^{x+4}$. So $3x = x + 4$ and $x = 2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">For $x > 0$ and $y > 0$, which expression is equivalent to $\left(x^{-2}y^{3}\right)^{-2}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$\dfrac{x^4}{y^6}$</li>
+          <li><span class="lbl">B</span>$\dfrac{y^6}{x^4}$</li>
+          <li><span class="lbl">C</span>$x^{-4}y^{-6}$</li>
+          <li><span class="lbl">D</span>$\dfrac{x^4}{y}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> Multiply each exponent by $-2$: $x^{4}y^{-6} = \dfrac{x^4}{y^6}$. Choice C forgets that $(-2)(-2)$ is positive.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">For $x > 0$, which expression is equivalent to $\dfrac{x^{\frac{1}{2}} \cdot x^{\frac{3}{2}}}{x^{-1}}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x$</li>
+          <li><span class="lbl">B</span>$x^{3}$</li>
+          <li><span class="lbl">C</span>$x^{-3}$</li>
+          <li><span class="lbl">D</span>$x^{\frac{3}{4}}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> The top is $x^{\frac{1}{2} + \frac{3}{2}} = x^2$. Dividing by $x^{-1}$ subtracts $-1$: $x^{2 - (-1)} = x^3$. Choice A subtracts $1$ instead of $-1$, and choice D multiplies the exponents on top.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">If $a > 0$ and $a^{-\frac{1}{2}} = \dfrac{1}{5}$, what is the value of $a$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $25$.</span> $a^{-\frac{1}{2}} = \dfrac{1}{\sqrt{a}}$, so $\sqrt{a} = 5$ and $a = 25$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">For $x > 0$, which expression is equivalent to $\sqrt[3]{x^2} \cdot \sqrt{x}$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x^{\frac{1}{3}}$</li>
+          <li><span class="lbl">B</span>$x^{\frac{3}{5}}$</li>
+          <li><span class="lbl">C</span>$x^{\frac{7}{6}}$</li>
+          <li><span class="lbl">D</span>$x^{\frac{2}{5}}$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $x^{\frac{2}{3}} \cdot x^{\frac{1}{2}} = x^{\frac{7}{6}}$. Choice A multiplies the exponents, and choice B adds tops and bottoms separately.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the value of $4^{\frac{3}{2}} - 9^{\frac{1}{2}} + 16^{-\frac{1}{2}}$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $5.25$ (or $\dfrac{21}{4}$).</span> $4^{\frac{3}{2}} = 2^3 = 8$, $9^{\frac{1}{2}} = 3$ and $16^{-\frac{1}{2}} = \dfrac{1}{4}$. So $8 - 3 + \dfrac{1}{4} = 5.25$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Is Advanced Math where your points go?</h2>
+        <p>A free practice test shows which exponent and function questions you miss.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#why">Why the definitions make sense</a></li>
+          <li><a href="#rules">Quick reference</a></li>
+          <li><a href="#examples">Examples</a></li>
+          <li><a href="#types">What you will see</a></li>
+          <li><a href="#mistakes">Mistakes I see often</a></li>
+          <li><a href="#practice">Try these</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/exponent-rules/">Exponent rules</a></li>
+          <li><a href="/sat-math/radical-equations/">Radical equations</a></li>
+          <li><a href="/sat-math/exponential-growth-and-decay/">Exponential growth and decay</a></li>
+          <li><a href="/sat-math/function-notation/">Function notation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

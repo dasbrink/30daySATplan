@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Word Problems: Turning Words into Equations</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/translating-word-problems/">
+
+  <meta name="description" content="How to turn SAT word problems into equations: what each phrase means, naming the unknown, and checking the answer against the story. 10 practice questions.">
+
+  <meta property="og:title" content="Translating Word Problems into Equations on the SAT, with Practice">
+  <meta property="og:description" content="How to turn SAT word problems into equations: what each phrase means, naming the unknown, and checking the answer against the story. 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/translating-word-problems/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Translating Word Problems into Equations on the SAT, with Practice">
+  <meta name="twitter:description" content="How to turn SAT word problems into equations: what each phrase means, naming the unknown, and checking the answer against the story. 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Translating Word Problems into Equations on the SAT, with Practice",
+  "description": "Translating SAT word problems into algebra: phrases such as less than, of and per, choosing the variable, two-variable setups, consecutive integers, age and ticket problems, and checking answers. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-27",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/translating-word-problems/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you translate \"less than\" in a word problem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It reverses the order. Five less than a number n is n minus 5, not 5 minus n."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you set up a word problem with two unknowns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use one equation for each fact in the story, for example one that counts the items and one that counts the money."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check a word problem answer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Put the answer back into the story, not just into your equation, and make sure it answers the question that was asked."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Translating word problems
+      </nav>
+
+      <h1>Translating Word Problems into Equations</h1>
+      <p class="meta-line">SAT Math &middot; Algebra &middot; Updated October 2026</p>
+
+      <p class="lede">Students who are good at algebra still lose points on word problems, because the algebra is the easy half. The hard half is writing the right equation from a paragraph. I teach this the same way every year: decide what the letter stands for, translate one phrase at a time, and check the answer against the story, not just the equation.</p>
+
+      <div class="answer-box">
+        <p class="answer-head">Before you write anything</p>
+        <p>Write down in words what your variable means, including its units. "Let $h$ be the number of hours worked" saves you from solving for the wrong thing.</p>
+        <p>Then translate phrase by phrase. "Less than" reverses the order: $5$ less than $2n$ is $2n - 5$. "Of" with a percent or fraction means multiply. "Per" means divide, or a rate that multiplies.</p>
+      </div>
+
+      <h2 id="phrases">Phrase by phrase</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>The words</th><th>The algebra</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$5$ more than a number</td><td>$n + 5$</td></tr>
+          <tr><td>$5$ less than a number</td><td>$n - 5$ (not $5 - n$)</td></tr>
+          <tr><td>twice a number, decreased by $3$</td><td>$2n - 3$</td></tr>
+          <tr><td>twice the sum of a number and $3$</td><td>$2(n + 3)$</td></tr>
+          <tr><td>$30\%$ of $y$</td><td>$0.3y$</td></tr>
+          <tr><td>$x$ is $4$ times as large as $y$</td><td>$x = 4y$</td></tr>
+          <tr><td>a fee of $\$45$ plus $\$30$ per hour</td><td>$45 + 30h$</td></tr>
+          <tr><td>three consecutive integers</td><td>$n$, $n + 1$, $n + 2$</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="examples">Three examples</h2>
+      <div class="worked">
+        <h3>A fixed fee and a rate</h3>
+        <p>A plumber charges $\$45$ for a visit plus $\$30$ per hour. A bill comes to $\$165$. How many hours did the plumber work?</p>
+        <ol>
+          <li>Let $h$ be the number of hours.</li>
+          <li>$45 + 30h = 165$.</li>
+          <li>$30h = 120$, so $h = 4$ hours.</li>
+          <li>Check against the story: $45 + 120 = 165$.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>Two unknowns, two facts</h3>
+        <p>A school sold $200$ tickets to a play. Adult tickets cost $\$12$ and student tickets cost $\$7$. The school collected $\$2{,}000$. How many student tickets were sold?</p>
+        <ol>
+          <li>Let $a$ be adult tickets and $s$ be student tickets.</li>
+          <li>Count of tickets: $a + s = 200$. Money: $12a + 7s = 2{,}000$.</li>
+          <li>Replace $a$ with $200 - s$: $2{,}400 - 12s + 7s = 2{,}000$, so $5s = 400$ and $s = 80$.</li>
+          <li>The question asks for student tickets, so the answer is $80$, not the $120$ adult tickets.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>An age problem</h3>
+        <p>A mother is $4$ times as old as her son. In $20$ years she will be twice as old as he is. How old is the son now?</p>
+        <ol>
+          <li>Let $s$ be the son's age now. The mother is $4s$.</li>
+          <li>In $20$ years: $4s + 20 = 2(s + 20)$.</li>
+          <li>$4s + 20 = 2s + 40$, so $s = 10$.</li>
+          <li>Check: $40$ and $10$ now, $60$ and $30$ later. Twice as old.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">Small slips that cost points</h2>
+      <ul class="mistakes">
+        <li><strong>Reversing "less than".</strong> "$7$ less than $x$" is $x - 7$. Students write $7 - x$ because the words come in that order.</li>
+        <li><strong>Solving for the wrong quantity.</strong> If you let $a$ be adult tickets and the question asks for student tickets, finish the job.</li>
+        <li><strong>Forgetting parentheses.</strong> "Twice the sum of $n$ and $3$" is $2(n + 3)$, not $2n + 3$.</li>
+        <li><strong>Adding the years to only one person.</strong> In age problems, both people get older.</li>
+        <li><strong>Mixing units.</strong> If a rate is per minute and the time is in hours, convert before you write the equation.</li>
+      </ul>
+
+      <h2 id="types">What you will see</h2>
+      <ul class="plain">
+        <li><strong>Write the equation or expression.</strong> Several choices look alike. Test each against one number from the story.</li>
+        <li><strong>Solve a one-variable story.</strong> A fee plus a rate, a total split into parts, consecutive integers.</li>
+        <li><strong>Solve a two-variable story.</strong> Tickets, coins, mixtures. One equation counts things, the other counts money or weight.</li>
+        <li><strong>Interpret a number.</strong> What does the $30$ in $45 + 30h$ mean? It is the cost per hour.</li>
+      </ul>
+
+      <h2 id="practice">Practice questions</h2>
+      <p>Write what your variable stands for before you start each one.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Five less than twice a number is $17$. What is the number?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$6$</li>
+          <li><span class="lbl">B</span>$11$</li>
+          <li><span class="lbl">C</span>$12$</li>
+          <li><span class="lbl">D</span>$22$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $2n - 5 = 17$, so $2n = 22$ and $n = 11$. Choice D stops at $2n$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">A plumber charges $\$45$ for a visit plus $\$30$ per hour of work. A customer's bill is $\$165$. For how many hours did the plumber work?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $4$.</span> $45 + 30h = 165$, so $30h = 120$ and $h = 4$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A phone plan costs $\$20$ per month plus $\$0.10$ for each text message. Which expression gives the total cost, in dollars, for $m$ months in which a total of $t$ text messages are sent?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$20m + 0.1t$</li>
+          <li><span class="lbl">B</span>$20 + 0.1t$</li>
+          <li><span class="lbl">C</span>$0.1m + 20t$</li>
+          <li><span class="lbl">D</span>$20.1mt$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> The monthly fee is paid $m$ times, and each of the $t$ texts costs $\$0.10$: $20m + 0.1t$. Choice B charges the monthly fee only once.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The sum of three consecutive integers is $141$. What is the smallest of the three integers?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $46$.</span> $n + (n + 1) + (n + 2) = 141$, so $3n + 3 = 141$ and $n = 46$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">A school sold $200$ tickets to a play. Adult tickets cost $\$12$ and student tickets cost $\$7$. The school collected $\$2{,}000$ in all. How many student tickets were sold?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$80$</li>
+          <li><span class="lbl">B</span>$100$</li>
+          <li><span class="lbl">C</span>$120$</li>
+          <li><span class="lbl">D</span>$160$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $a + s = 200$ and $12a + 7s = 2{,}000$. Then $12(200 - s) + 7s = 2{,}000$, so $s = 80$. Choice C is the number of adult tickets.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">The number $x$ is $30\%$ of the number $y$. Which equation shows $x$ in terms of $y$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x = \dfrac{y}{0.3}$</li>
+          <li><span class="lbl">B</span>$x = 0.3y$</li>
+          <li><span class="lbl">C</span>$x = 30y$</li>
+          <li><span class="lbl">D</span>$x = y + 0.3$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> "Of" means multiply, and $30\%$ is $0.3$: $x = 0.3y$. Choice A gives $y$ in terms of $x$ by mistake.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The sum of a positive number and its reciprocal is $\dfrac{10}{3}$. If the number is greater than $1$, what is the number?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $3$.</span> $n + \dfrac{1}{n} = \dfrac{10}{3}$. Multiply by $3n$: $3n^2 - 10n + 3 = 0$, so $(3n - 1)(n - 3) = 0$. The solutions are $\dfrac{1}{3}$ and $3$, and the one greater than $1$ is $3$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">A mother is $4$ times as old as her son. In $20$ years, she will be twice as old as her son. How old is the son now?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$10$</li>
+          <li><span class="lbl">B</span>$5$</li>
+          <li><span class="lbl">C</span>$20$</li>
+          <li><span class="lbl">D</span>$40$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: A.</span> $4s + 20 = 2(s + 20)$ gives $s = 10$. Choice D is the mother's age now.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">The length of a rectangle is $3$ more than twice its width. The perimeter of the rectangle is $54$. What is the area of the rectangle?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$112$</li>
+          <li><span class="lbl">B</span>$128$</li>
+          <li><span class="lbl">C</span>$152$</li>
+          <li><span class="lbl">D</span>$171$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $2(w + 2w + 3) = 54$, so $6w + 6 = 54$ and $w = 8$. The length is $19$ and the area is $8 \cdot 19 = 152$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">Tank A holds $500$ liters of water and drains at $12$ liters per minute. Tank B holds $200$ liters and fills at $18$ liters per minute. After how many minutes will the two tanks hold the same amount of water?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $10$.</span> $500 - 12t = 200 + 18t$, so $300 = 30t$ and $t = 10$. Check: both tanks hold $380$ liters.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Find the slips you keep making</h2>
+        <p>A free practice test shows which word problems trip you up.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#phrases">Phrase by phrase</a></li>
+          <li><a href="#examples">Three examples</a></li>
+          <li><a href="#mistakes">Small slips that cost points</a></li>
+          <li><a href="#types">What you will see</a></li>
+          <li><a href="#practice">Practice questions</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/linear-word-problems/">Linear word problems</a></li>
+          <li><a href="/sat-math/systems-of-equations/">Systems of equations</a></li>
+          <li><a href="/sat-math/linear-equations/">Linear equations</a></li>
+          <li><a href="/sat-math/ratios/">Ratios and proportions</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SAT Polynomial Zeros and Factors: Rules and Practice</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://freepracticesat.com/sat-math/polynomial-factors-and-zeros/">
+
+  <meta name="description" content="How zeros, factors and x-intercepts connect on the SAT, the remainder theorem, finding a missing coefficient, and multiplicity. 10 practice questions.">
+
+  <meta property="og:title" content="Polynomial Factors and Zeros on the SAT: The Factor Theorem, Remainders and Practice">
+  <meta property="og:description" content="How zeros, factors and x-intercepts connect on the SAT, the remainder theorem, finding a missing coefficient, and multiplicity. 10 practice questions.">
+  <meta property="og:image" content="https://i.imgur.com/FvejysF.png">
+  <meta property="og:url" content="https://freepracticesat.com/sat-math/polynomial-factors-and-zeros/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Free Practice SAT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Polynomial Factors and Zeros on the SAT: The Factor Theorem, Remainders and Practice">
+  <meta name="twitter:description" content="How zeros, factors and x-intercepts connect on the SAT, the remainder theorem, finding a missing coefficient, and multiplicity. 10 practice questions.">
+  <meta name="twitter:image" content="https://i.imgur.com/FvejysF.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Polynomial Factors and Zeros on the SAT: The Factor Theorem, Remainders and Practice",
+  "description": "Polynomial factors and zeros on the SAT: the link between zeros, factors and x-intercepts, the factor and remainder theorems, finding a missing coefficient, building a polynomial from its zeros, and multiplicity. Worked examples and 10 practice questions with solutions.",
+  "datePublished": "2026-06-03",
+  "dateModified": "2026-10-27",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Brink",
+    "url": "https://freepracticesat.com/about/",
+    "sameAs": [
+      "https://www.teacherspayteachers.com/store/real-life-mathematics",
+      "https://www.udemy.com/user/danie-brink/"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Free Practice SAT",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://i.imgur.com/FvejysF.png"
+    }
+  },
+  "mainEntityOfPage": "https://freepracticesat.com/sat-math/polynomial-factors-and-zeros/"
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the factor theorem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If p(a) equals 0, then (x minus a) is a factor of p(x), and the reverse is also true."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you find a remainder without long division?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The remainder when p(x) is divided by (x minus a) is p(a). Substitute a."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does multiplicity mean on a graph?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An even multiplicity zero makes the graph touch the x-axis and turn back. An odd multiplicity zero makes it cross."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.7; }
+
+    .topbar { background: #1a3a5c; }
+    .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar a.logo-link { display: inline-flex; align-items: center; }
+    .topbar img.logo { height: 34px; width: auto; display: block; }
+    .topbar .logo-fallback { color: #fff; font-size: 1.15rem; font-weight: 700; }
+    .topbar .topbar-cta { background: #c9902a; color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 9px 18px; border-radius: 4px; transition: background 0.2s; white-space: nowrap; }
+    .topbar .topbar-cta:hover { background: #a8751f; }
+
+    .page { display: grid; grid-template-columns: minmax(0, 720px) 280px; gap: 48px; justify-content: center; max-width: 1140px; margin: 0 auto; padding: 40px 24px 64px; align-items: start; }
+    .content { min-width: 0; }
+
+    .breadcrumb { font-size: 0.85rem; color: #777; margin-bottom: 18px; }
+    .breadcrumb a { color: #1a3a5c; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    h1 { font-size: 2.2rem; line-height: 1.25; color: #1a1a1a; margin-bottom: 10px; }
+    .meta-line { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 24px; }
+    .answer-box { background: #f4f7fb; border-left: 4px solid #c9902a; padding: 16px 22px; border-radius: 6px; margin-bottom: 22px; }
+    .answer-box .answer-head { margin: 0 0 6px; font-weight: bold; color: #1a3a5c; }
+    .answer-box p { margin: 0; line-height: 1.7; }
+    .answer-box p + p { margin-top: 6px; }
+    .lede { font-size: 1.2rem; color: #444; line-height: 1.7; margin-bottom: 8px; }
+    .positioning { font-size: 1.05rem; color: #1a3a5c; font-style: italic; margin-bottom: 32px; }
+
+    h2 { font-size: 1.5rem; color: #1a3a5c; margin: 38px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; scroll-margin-top: 20px; }
+    h3 { font-size: 1.15rem; color: #1a1a1a; margin: 22px 0 8px; }
+    p { margin-bottom: 16px; font-size: 1.08rem; }
+    ul.plain { margin: 0 0 16px 22px; }
+    ul.plain li { margin-bottom: 8px; font-size: 1.05rem; }
+
+    .rules { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; margin: 6px 0 18px; font-size: 1rem; }
+    .rules th { background: #1a3a5c; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+    .rules td { padding: 10px 14px; border-top: 1px solid #eee; vertical-align: top; }
+    .rules tr:nth-child(even) td { background: #fafaf7; }
+
+    .worked { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #1a3a5c; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .worked h3 { margin-top: 0; }
+    .worked ol { margin: 8px 0 0 22px; }
+    .worked li { margin-bottom: 10px; font-size: 1.05rem; }
+
+    .figure { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px 16px 10px; margin: 8px 0 18px; }
+    .figure > svg { width: 100%; height: auto; display: block; }
+    .figure .caption { font-size: 0.92rem; color: #666; text-align: center; margin: 6px 0 0; }
+
+    .mistakes { list-style: none; padding: 0; margin: 4px 0 8px; display: flex; flex-direction: column; gap: 12px; }
+    .mistakes li { background: #fff; border: 1px solid #e0e0e0; border-left: 4px solid #c65d4e; border-radius: 8px; padding: 14px 18px; font-size: 1.02rem; }
+    .mistakes strong { color: #c65d4e; }
+
+    .qcard { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 22px 24px; margin-bottom: 18px; }
+    .qbadge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .qbadge.easy { background: #e8f5e9; color: #2e7d32; }
+    .qbadge.medium { background: #fff3e0; color: #e65100; }
+    .qbadge.hard { background: #ffebee; color: #c62828; }
+    .qtype { display: inline-block; margin-left: 8px; font-size: 0.78rem; color: #777; letter-spacing: 0.04em; text-transform: uppercase; }
+    .qtext { font-size: 1.12rem; margin-bottom: 14px; }
+    .qchoices { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+    .qchoices li { border: 1.5px solid #d0d0d0; border-radius: 6px; padding: 11px 16px; font-size: 1rem; }
+    .qchoices li .lbl { font-weight: 700; color: #1a3a5c; margin-right: 8px; }
+    .spr-box { border: 1.5px dashed #c9c9c9; border-radius: 6px; padding: 11px 16px; font-size: 0.98rem; color: #777; margin: 0 0 14px; }
+
+    details.reveal { border-top: 1px solid #eee; padding-top: 12px; }
+    details.reveal summary { cursor: pointer; color: #1a3a5c; font-weight: 700; font-size: 0.98rem; list-style: none; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+    details.reveal summary::before { content: "\25B8  "; }
+    details.reveal[open] summary::before { content: "\25BE  "; }
+    details.reveal .answer { margin-top: 12px; background: #e8f5e9; border-left: 4px solid #2e7d32; border-radius: 0 6px 6px 0; padding: 14px 18px; font-size: 1rem; color: #1b5e20; }
+    details.reveal .answer .correct { font-weight: 700; }
+
+    .cta-block { background: #1a3a5c; border-radius: 10px; padding: 32px 28px; text-align: center; margin: 40px 0 8px; }
+    .cta-block h2 { color: #fff; border: none; margin: 0 0 10px; padding: 0; font-size: 1.5rem; }
+    .cta-block p { color: #cdd8e4; font-size: 1.05rem; margin-bottom: 22px; }
+    .cta-btn { display: inline-block; background: #c9902a; color: #fff; text-decoration: none; font-size: 1.08rem; font-weight: 700; padding: 15px 38px; border-radius: 5px; transition: background 0.2s; }
+    .cta-btn:hover { background: #a8751f; }
+    .cta-sub { color: #9fb2c6; font-size: 0.9rem; margin-top: 14px; }
+
+    .sidebar { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px 18px; }
+    .side-cta { background: #1a3a5c; border-color: #1a3a5c; text-align: center; }
+    .side-cta .side-cta-head { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .side-cta .side-cta-sub { color: #cdd8e4; font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px; }
+    .side-cta .cta-btn { font-size: 0.98rem; padding: 12px 20px; display: block; }
+    .side-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a3a5c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #d4a04a; }
+    .side-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+    .side-list a { color: #1a3a5c; text-decoration: none; font-size: 0.96rem; line-height: 1.4; }
+    .side-list a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid #d8d8d0; background: #efeee8; }
+    .footer-inner { max-width: 1140px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.92rem; color: #777; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: #1a3a5c; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 980px) { .page { grid-template-columns: 1fr; gap: 0; max-width: 760px; } .sidebar { position: static; margin-top: 44px; } }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; } h2 { font-size: 1.3rem; } .lede { font-size: 1.08rem; }
+      .page { padding: 28px 16px 48px; } .topbar-inner { padding: 12px 16px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .rules { font-size: 0.94rem; } .rules th, .rules td { padding: 8px 10px; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="logo-link" href="/">
+        <img class="logo" src="/Logo2.png" alt="Free Practice SAT"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'logo-fallback\'>Free Practice SAT</span>')">
+      </a>
+      <a class="topbar-cta" href="/">Start a free test</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <main class="content">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <a href="/sat-math/">SAT Math</a> &rsaquo; Polynomial factors and zeros
+      </nav>
+
+      <h1>Polynomial Factors and Zeros</h1>
+      <p class="meta-line">SAT Math &middot; Advanced Math &middot; Updated October 2026</p>
+
+      <p class="lede">These questions use a handful of words, zero, root, factor, $x$-intercept, solution, that all point at the same idea. Students who see that they are one idea answer quickly. Students who treat them as four different topics spend a long time, and that is time the second module does not give you.</p>
+
+      <div class="answer-box">
+        <p class="answer-head">The one idea to hold onto</p>
+        <p>If $p(a) = 0$, then $a$ is a zero of $p$, $x = a$ is an $x$-intercept of its graph, and $(x - a)$ is a factor of $p(x)$. Each of these says the same thing.</p>
+        <p>When you divide $p(x)$ by $(x - a)$, the remainder is $p(a)$. So to test a factor, or find a remainder, just substitute.</p>
+      </div>
+
+      <h2 id="reference">Quick reference</h2>
+      <table class="rules">
+        <thead>
+          <tr><th>You are told</th><th>It means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$p(3) = 0$</td><td>$(x - 3)$ is a factor, and the graph crosses or touches the $x$-axis at $3$</td></tr>
+          <tr><td>$(x + 2)$ is a factor</td><td>$p(-2) = 0$. Note the sign change</td></tr>
+          <tr><td>$p(x)$ divided by $(x - 1)$ leaves remainder $5$</td><td>$p(1) = 5$</td></tr>
+          <tr><td>zeros $-1$, $2$ and $4$</td><td>$p(x) = a(x + 1)(x - 2)(x - 4)$ for some number $a$</td></tr>
+          <tr><td>a factor $(x - 1)^2$</td><td>the zero $1$ has multiplicity $2$, and the graph touches the axis there without crossing</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="examples">Examples, step by step</h2>
+      <div class="worked">
+        <h3>Finding a missing coefficient</h3>
+        <p>$p(x) = x^3 - 2x^2 + kx - 6$, and $(x - 3)$ is a factor of $p(x)$. What is $k$?</p>
+        <ol>
+          <li>A factor of $(x - 3)$ means $p(3) = 0$.</li>
+          <li>$27 - 18 + 3k - 6 = 0$, so $3 + 3k = 0$.</li>
+          <li>$k = -1$.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>A remainder without dividing</h3>
+        <p>What is the remainder when $x^3 + 2x - 5$ is divided by $x - 1$?</p>
+        <ol>
+          <li>The remainder is $p(1)$.</li>
+          <li>$1 + 2 - 5 = -2$.</li>
+          <li>No long division needed.</li>
+        </ol>
+      </div>
+      <div class="worked">
+        <h3>Building from zeros</h3>
+        <p>A polynomial has zeros $-3$, $1$ and $5$, and $p(0) = 30$. What is $p(2)$?</p>
+        <ol>
+          <li>Write $p(x) = a(x + 3)(x - 1)(x - 5)$.</li>
+          <li>$p(0) = a(3)(-1)(-5) = 15a = 30$, so $a = 2$.</li>
+          <li>$p(2) = 2(5)(1)(-3) = -30$.</li>
+        </ol>
+      </div>
+
+      <h2 id="mistakes">What goes wrong</h2>
+      <ul class="mistakes">
+        <li><strong>The sign of the zero.</strong> The factor $(x + 2)$ gives the zero $-2$, not $2$.</li>
+        <li><strong>Forgetting the leading coefficient.</strong> Zeros alone do not fix a polynomial. $2(x - 1)(x - 3)$ and $(x - 1)(x - 3)$ have the same zeros.</li>
+        <li><strong>Long division when substitution would do.</strong> The remainder theorem turns a long calculation into one substitution.</li>
+        <li><strong>Missing a zero at $0$.</strong> In $x^3 - 4x = x(x - 2)(x + 2)$, the factor $x$ gives the zero $0$.</li>
+      </ul>
+
+      <h2 id="types">Where you will see it</h2>
+      <ul class="plain">
+        <li><strong>Which is a factor?</strong> Substitute the zero each choice implies.</li>
+        <li><strong>Find the constant.</strong> Set $p(a) = 0$ or $p(a) = $ the remainder, and solve.</li>
+        <li><strong>Read zeros from a graph.</strong> Where the graph meets the $x$-axis. A bounce means even multiplicity.</li>
+        <li><strong>Count the solutions.</strong> Factor completely, then count distinct real zeros.</li>
+      </ul>
+
+      <h2 id="practice">Your turn</h2>
+      <p>Turn every statement about factors into a statement about $p$ of a number.</p>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span>
+        <div class="qtext">Which of the following is a zero of $p(x) = (x - 3)(x + 5)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-3$</li>
+          <li><span class="lbl">B</span>$3$</li>
+          <li><span class="lbl">C</span>$5$</li>
+          <li><span class="lbl">D</span>$15$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> $p(3) = 0 \cdot 8 = 0$. The other zero is $-5$, not $5$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge easy">Easy</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">How many distinct real zeros does $p(x) = x^3 - 4x$ have?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $3$.</span> $x^3 - 4x = x(x - 2)(x + 2)$, so the zeros are $0$, $2$ and $-2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">For a polynomial $p$, $p(2) = 0$. Which of the following must be a factor of $p(x)$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$x + 2$</li>
+          <li><span class="lbl">B</span>$x - 2$</li>
+          <li><span class="lbl">C</span>$2x$</li>
+          <li><span class="lbl">D</span>$x^2 - 2$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> A zero at $2$ means $(x - 2)$ is a factor.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">$p(x) = x^3 - 2x^2 + kx - 6$, where $k$ is a constant. If $x - 3$ is a factor of $p(x)$, what is the value of $k$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-1$.</span> $p(3) = 27 - 18 + 3k - 6 = 3 + 3k = 0$, so $k = -1$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span>
+        <div class="qtext">What is the remainder when $x^3 + 2x - 5$ is divided by $x - 1$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-5$</li>
+          <li><span class="lbl">B</span>$-2$</li>
+          <li><span class="lbl">C</span>$2$</li>
+          <li><span class="lbl">D</span>$4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: B.</span> The remainder is $p(1) = 1 + 2 - 5 = -2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge medium">Medium</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The polynomial $p(x)$ has leading coefficient $1$, degree $3$, and zeros $-1$, $2$ and $4$. What is $p(0)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $8$.</span> $p(x) = (x + 1)(x - 2)(x - 4)$, so $p(0) = (1)(-2)(-4) = 8$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">$p(x) = x^3 + ax^2 - x - 2$, where $a$ is a constant. If $x + 2$ is a factor of $p(x)$, what is $a$?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-2$</li>
+          <li><span class="lbl">B</span>$1$</li>
+          <li><span class="lbl">C</span>$2$</li>
+          <li><span class="lbl">D</span>$4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> $p(-2) = -8 + 4a + 2 - 2 = 4a - 8 = 0$, so $a = 2$. Choice A substitutes $2$ instead of $-2$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">The graph of $y = p(x)$ crosses the $x$-axis at $x = -3$, $x = 1$ and $x = 5$, and $p(x) = a(x + 3)(x - 1)(x - 5)$ for a constant $a$. If $p(0) = 30$, what is $p(2)$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $-30$.</span> $p(0) = 15a = 30$, so $a = 2$. Then $p(2) = 2(5)(1)(-3) = -30$.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span>
+        <div class="qtext">The graph of $y = (x - 1)^2(x + 4)$ touches the $x$-axis at one point without crossing it. What is the $x$-coordinate of that point?</div>
+        <ul class="qchoices">
+          <li><span class="lbl">A</span>$-4$</li>
+          <li><span class="lbl">B</span>$-1$</li>
+          <li><span class="lbl">C</span>$1$</li>
+          <li><span class="lbl">D</span>$4$</li>
+        </ul>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: C.</span> The factor $(x - 1)^2$ has even multiplicity, so the graph bounces at $x = 1$. At $x = -4$ it crosses.</div>
+        </details>
+      </div>
+
+      <div class="qcard">
+        <span class="qbadge hard">Hard</span><span class="qtype">Student-produced response</span>
+        <div class="qtext">What is the greatest zero of $p(x) = x^3 - 6x^2 + 11x - 6$?</div>
+        <div class="spr-box">Enter your answer.</div>
+        <details class="reveal">
+          <summary>Show solution</summary>
+          <div class="answer"><span class="correct">Answer: $3$.</span> $p(1) = 0$, so $(x - 1)$ is a factor: $p(x) = (x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3)$. The greatest zero is $3$.</div>
+        </details>
+      </div>
+
+      <div class="cta-block">
+        <h2>Is Advanced Math where your points go?</h2>
+        <p>A free practice test shows which polynomial questions you miss.</p>
+        <a class="cta-btn" href="/">Practice this for free</a>
+        <div class="cta-sub">No credit card. Register once, take as many tests as you like.</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-card side-cta">
+        <div class="side-cta-head">Find your exact gaps</div>
+        <div class="side-cta-sub">Free, full-length SAT math practice. No credit card.</div>
+        <a class="cta-btn" href="/">Start a free test</a>
+      </div>
+      <div class="side-card">
+        <div class="side-title">On this page</div>
+        <ul class="side-list">
+          <li><a href="#reference">Quick reference</a></li>
+          <li><a href="#examples">Examples, step by step</a></li>
+          <li><a href="#mistakes">What goes wrong</a></li>
+          <li><a href="#types">Where you will see it</a></li>
+          <li><a href="#practice">Your turn</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Related SAT Math skills</div>
+        <ul class="side-list">
+          <li><a href="/sat-math/zeros-of-quadratics/">Zeros of quadratics</a></li>
+          <li><a href="/sat-math/polynomial-end-behavior/">Polynomial end behavior</a></li>
+          <li><a href="/sat-math/factoring-quadratics/">Factoring quadratics</a></li>
+          <li><a href="/sat-math/solving-quadratics-by-factoring/">Solving quadratics by factoring</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/sat-math/">SAT Math topics</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+      <div>Free Practice SAT: free, unlimited SAT math practice.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      try {
+        fetch('https://undhvypblihwzojqkgsd.supabase.co/rest/v1/page_views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq',
+            'Authorization': 'Bearer sb_publishable_R49zB0bIjxMtlzx0qUasxw_Wmz92coq'
+          },
+          body: JSON.stringify({
+            page: window.location.pathname,
+            referrer: document.referrer || null,
+            gclid: new URLSearchParams(window.location.search).get('gclid'),
+            user_agent: navigator.userAgent
+          })
+        }).catch(function(){});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+
+</html>
