@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /success/
+
+Sitemap: https://30daysatplan.com/sitemap.xml
