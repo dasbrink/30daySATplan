@@ -1,0 +1,135 @@
+{
+ "files": {
+  "/blog/freepracticesat-vs-khan-academy.html": {
+   "disk": "blog/freepracticesat-vs-khan-academy.html",
+   "edits": [
+    {
+     "old": "<strong>The short answer:</strong> use both, but for different jobs.",
+     "new": "<strong>Use both, but for different jobs.</strong>",
+     "count": 1
+    },
+    {
+     "old": "precisely what keeps going wrong.</p>",
+     "new": "precisely what keeps going wrong.</p>\n\n  <p>If you are also weighing a paid option, I compared two more: <a href=\"/blog/freepracticesat-vs-uworld.html\">freepracticeSAT.com vs UWorld</a>, and <a href=\"/blog/sat-math-plan-vs-private-tutor.html\">a $29 SAT math plan or a private tutor</a>.</p>",
+     "count": 1
+    },
+    {
+     "old": "</head>",
+     "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"freepracticeSAT.com vs Khan Academy: Which One Should You Use for SAT Math?\",\n  \"description\": \"Khan Academy teaches SAT math skill by skill. freepracticeSAT.com gives you full timed tests and names your exact mistakes. Here is how to use both.\",\n  \"datePublished\": \"2026-10-08\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/freepracticesat-vs-khan-academy.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
+     "count": 1
+    }
+   ]
+  },
+  "/blog/best-free-sat-math-practice-sites.html": {
+   "disk": "blog/best-free-sat-math-practice-sites.html",
+   "edits": [
+    {
+     "old": "<p class=\"best\"><strong>Best for:</strong> strong students who have used up the official material.</p>",
+     "new": "<p class=\"best\"><strong>Best for:</strong> strong students who have used up the official material.</p>\n    <p>For a closer look at how UWorld and FreePracticeSAT differ, see <a href=\"/blog/freepracticesat-vs-uworld.html\">freepracticeSAT.com vs UWorld</a>.</p>",
+     "count": 1
+    },
+    {
+     "old": "Many students reach a strong score without paying for anything.\n  </p>",
+     "new": "Many students reach a strong score without paying for anything.\n  </p>\n  <p>\n    If you are thinking about a private tutor instead, I compared what each one costs and what each one\n    can do in <a href=\"/blog/sat-math-plan-vs-private-tutor.html\">A \\$29 SAT Math Plan or a Private Tutor?</a>\n  </p>",
+     "count": 1
+    }
+   ]
+  },
+  "/about/": {
+   "disk": "about/index.html",
+   "edits": [
+    {
+     "old": "Does Your SAT Tutor Have Mathematical Knowledge for Teaching?</a></p>",
+     "new": "Does Your SAT Tutor Have Mathematical Knowledge for Teaching?</a></p>\n\n      <p>Students and parents often ask how this site compares with the other options. I wrote comparisons with <a href=\"/blog/freepracticesat-vs-khan-academy.html\">Khan Academy</a>, <a href=\"/blog/freepracticesat-vs-uworld.html\">UWorld</a> and <a href=\"/blog/sat-math-plan-vs-private-tutor.html\">a private tutor</a>.</p>",
+     "count": 1
+    }
+   ]
+  },
+  "/sat-math/standard-deviation/": {
+   "disk": "sat-math/standard-deviation/index.html",
+   "edits": [
+    {
+     "old": "<title>SAT Standard Deviation: Rules, Examples, Practice</title>",
+     "new": "<title>SAT Standard Deviation Questions: Rules and Practice</title>",
+     "count": 1
+    },
+    {
+     "old": "Standard deviation on the SAT measures spread, not size. Learn the rules for shifts, scaling and outliers, the empirical rule, and 11 practice questions.",
+     "new": "Yes, standard deviation is on the SAT, but you will almost never calculate it. The rules for shifts, scaling and outliers, plus 11 practice questions.",
+     "count": 3
+    },
+    {
+     "old": "SAT Standard Deviation: Rules, Worked Examples and Practice Questions",
+     "new": "SAT Standard Deviation Questions: Rules, Worked Examples and Practice",
+     "count": -1
+    },
+    {
+     "old": "<h1>Interpreting Standard Deviation</h1>",
+     "new": "<h1>Standard Deviation on the SAT</h1>",
+     "count": 1
+    },
+    {
+     "old": "<p>On the SAT you will almost never have to calculate it.",
+     "new": "<p>Yes, it is on the SAT, but you will almost never have to calculate it.",
+     "count": 1
+    },
+    {
+     "old": "\"dateModified\": \"2026-10-14\"",
+     "new": "\"dateModified\": \"2026-10-27\"",
+     "count": -1
+    }
+   ]
+  },
+  "/blog/freepracticesat-vs-uworld.html": {
+   "disk": "blog/freepracticesat-vs-uworld.html",
+   "edits": [
+    {
+     "old": "</head>",
+     "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"freepracticeSAT.com vs UWorld: Which One Is Right for Your SAT Math Score?\",\n  \"description\": \"UWorld's SAT question bank starts at $99. freepracticeSAT.com tests are free and adaptive, and they name the exact mistakes behind your wrong answers.\",\n  \"datePublished\": \"2026-10-20\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/freepracticesat-vs-uworld.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
+     "count": 1
+    }
+   ]
+  },
+  "/blog/sat-math-plan-vs-private-tutor.html": {
+   "disk": "blog/sat-math-plan-vs-private-tutor.html",
+   "edits": [
+    {
+     "old": "</head>",
+     "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"A $29 SAT Math Plan or a Private Tutor? What Each One Is Good For\",\n  \"description\": \"SAT tutors often charge $50 to $200 an hour. Here is what a $29 day-by-day SAT math plan can and can't do compared with a tutor, from a math teacher.\",\n  \"datePublished\": \"2026-10-20\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/sat-math-plan-vs-private-tutor.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
+     "count": 1
+    }
+   ]
+  },
+  "/blog/dont-rush-algebra/": {
+   "disk": "blog/dont-rush-algebra/index.html",
+   "edits": [
+    {
+     "old": "</head>",
+     "new": "<link rel=\"canonical\" href=\"https://freepracticesat.com/blog/dont-rush-algebra/\">\n</head>",
+     "count": 1
+    }
+   ]
+  },
+  "/blog/sat-is-back/": {
+   "disk": "blog/sat-is-back/index.html",
+   "edits": [
+    {
+     "old": "</head>",
+     "new": "<link rel=\"canonical\" href=\"https://freepracticesat.com/blog/sat-is-back/\">\n</head>",
+     "count": 1
+    }
+   ]
+  },
+  "/foundations/": {
+   "disk": "foundations/index.html",
+   "edits": [
+    {
+     "old": "Free 4-day SAT Math foundations course by Dr. Daniel Brink, Ph.D. Fix the wobbly basics that keep your score stuck around 500. 275 quick concept checks with instant feedback.",
+     "new": "Free 4-day SAT Math foundations course by Dr. Daniel Brink, Ph.D. Fix the basics that keep your score stuck around 500, with 275 quick concept checks.",
+     "count": 1
+    }
+   ]
+  }
+ },
+ "robots": "User-agent: *\nAllow: /\n\nSitemap: https://freepracticesat.com/sitemap.xml\n"
+}
