@@ -18,7 +18,9 @@
      "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"freepracticeSAT.com vs Khan Academy: Which One Should You Use for SAT Math?\",\n  \"description\": \"Khan Academy teaches SAT math skill by skill. freepracticeSAT.com gives you full timed tests and names your exact mistakes. Here is how to use both.\",\n  \"datePublished\": \"2026-10-08\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/freepracticesat-vs-khan-academy.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
      "count": 1
     }
-   ]
+   ],
+   "before": "2197c6d081d5ae05089998d49295a73c13f9a5cd123f533306a3e3eaf135269a",
+   "after": "4209a8b430ddcbc0295e96b733ba77cee9fedab917b6b1e9234fb74fa8d0fe24"
   },
   "/blog/best-free-sat-math-practice-sites.html": {
    "disk": "blog/best-free-sat-math-practice-sites.html",
@@ -33,7 +35,9 @@
      "new": "Many students reach a strong score without paying for anything.\n  </p>\n  <p>\n    If you are thinking about a private tutor instead, I compared what each one costs and what each one\n    can do in <a href=\"/blog/sat-math-plan-vs-private-tutor.html\">A \\$29 SAT Math Plan or a Private Tutor?</a>\n  </p>",
      "count": 1
     }
-   ]
+   ],
+   "before": "91a73c99cc67f3c385289ebf23bc4b9fc934bafa5551152054607a6d84cf983b",
+   "after": "2f0c5442bcc640f72a1c5ac0bf6063f5df4e04194c9e8e553f418060a7b6c2f9"
   },
   "/about/": {
    "disk": "about/index.html",
@@ -43,7 +47,9 @@
      "new": "Does Your SAT Tutor Have Mathematical Knowledge for Teaching?</a></p>\n\n      <p>Students and parents often ask how this site compares with the other options. I wrote comparisons with <a href=\"/blog/freepracticesat-vs-khan-academy.html\">Khan Academy</a>, <a href=\"/blog/freepracticesat-vs-uworld.html\">UWorld</a> and <a href=\"/blog/sat-math-plan-vs-private-tutor.html\">a private tutor</a>.</p>",
      "count": 1
     }
-   ]
+   ],
+   "before": "92c05692c57e09d73953e8c4d22b42d7ab7ef6ad26c594fc5529d2779af5a93f",
+   "after": "8a4748737ee7c5c5cad192fcfef657a510441dfa05dea5bcf861cdaa01f404b6"
   },
   "/sat-math/standard-deviation/": {
    "disk": "sat-math/standard-deviation/index.html",
@@ -61,7 +67,7 @@
     {
      "old": "SAT Standard Deviation: Rules, Worked Examples and Practice Questions",
      "new": "SAT Standard Deviation Questions: Rules, Worked Examples and Practice",
-     "count": -1
+     "count": 3
     },
     {
      "old": "<h1>Interpreting Standard Deviation</h1>",
@@ -76,9 +82,11 @@
     {
      "old": "\"dateModified\": \"2026-10-14\"",
      "new": "\"dateModified\": \"2026-10-27\"",
-     "count": -1
+     "count": 1
     }
-   ]
+   ],
+   "before": "ca31091a37bdf3c6f863ebbaea5946eb9c0f2e727d8010b3b85a492828860080",
+   "after": "7f4ef2794e6f6aaaab819eeb3da7ce2e542007914a47a2fb247b27066bcbc2eb"
   },
   "/blog/freepracticesat-vs-uworld.html": {
    "disk": "blog/freepracticesat-vs-uworld.html",
@@ -88,7 +96,9 @@
      "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"freepracticeSAT.com vs UWorld: Which One Is Right for Your SAT Math Score?\",\n  \"description\": \"UWorld's SAT question bank starts at $99. freepracticeSAT.com tests are free and adaptive, and they name the exact mistakes behind your wrong answers.\",\n  \"datePublished\": \"2026-10-20\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/freepracticesat-vs-uworld.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
      "count": 1
     }
-   ]
+   ],
+   "before": "f56ae90fcdd31b3e0794e3d4cb21bbf32d0ba93814b67a36beade27a0ca3854f",
+   "after": "2093ff620b16e1d28930a222cf5eba049671f3b3ccf757c75553c6c2969d2593"
   },
   "/blog/sat-math-plan-vs-private-tutor.html": {
    "disk": "blog/sat-math-plan-vs-private-tutor.html",
@@ -98,7 +108,9 @@
      "new": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"A $29 SAT Math Plan or a Private Tutor? What Each One Is Good For\",\n  \"description\": \"SAT tutors often charge $50 to $200 an hour. Here is what a $29 day-by-day SAT math plan can and can't do compared with a tutor, from a math teacher.\",\n  \"datePublished\": \"2026-10-20\",\n  \"dateModified\": \"2026-10-27\",\n  \"mainEntityOfPage\": \"https://freepracticesat.com/blog/sat-math-plan-vs-private-tutor.html\",\n  \"image\": \"https://freepracticesat.com/daniel-brink.jpg\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Daniel Brink\",\n    \"honorificPrefix\": \"Dr.\",\n    \"url\": \"https://freepracticesat.com/about/\",\n    \"jobTitle\": \"Mathematics Educator\"\n  },\n  \"publisher\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Dr. Brink SAT Math\",\n    \"url\": \"https://freepracticesat.com/\"\n  }\n}\n</script>\n</head>",
      "count": 1
     }
-   ]
+   ],
+   "before": "5ccaa617c1c6bab2a570ee534878287e86cd2fac64e8a2f81081779ce35ac963",
+   "after": "4f33e45fb1485bee885c0830956b7eb8e0343ae38401e3834bc8c10e425d23fe"
   },
   "/blog/dont-rush-algebra/": {
    "disk": "blog/dont-rush-algebra/index.html",
@@ -108,7 +120,9 @@
      "new": "<link rel=\"canonical\" href=\"https://freepracticesat.com/blog/dont-rush-algebra/\">\n</head>",
      "count": 1
     }
-   ]
+   ],
+   "before": "895438be44476b1533b77b593e0d6f8e51eee87adc79d4a6e038f65361c6e4be",
+   "after": "cecb376f0965a9cff690d5e9169276170afb2bd5bdc370bc032ea4986f31d839"
   },
   "/blog/sat-is-back/": {
    "disk": "blog/sat-is-back/index.html",
@@ -118,7 +132,9 @@
      "new": "<link rel=\"canonical\" href=\"https://freepracticesat.com/blog/sat-is-back/\">\n</head>",
      "count": 1
     }
-   ]
+   ],
+   "before": "1858639cdc34b15ecf3e4283029ae1e8a20d124282ab7dfd10e080425696212b",
+   "after": "a454c582528761f4772ea473f1fb1784e1bb15a20bf8a7c6d1c8ab9c8a27f311"
   },
   "/foundations/": {
    "disk": "foundations/index.html",
@@ -128,7 +144,9 @@
      "new": "Free 4-day SAT Math foundations course by Dr. Daniel Brink, Ph.D. Fix the basics that keep your score stuck around 500, with 275 quick concept checks.",
      "count": 1
     }
-   ]
+   ],
+   "before": "f4db0212b742d92748f3f1dac6acc3297e0fe37f3c56123c1bcfcedbec10fccc",
+   "after": "3670c2a2a51453ed592891b90f13571b86d07677016fe483cca64a630f86b830"
   }
  },
  "robots": "User-agent: *\nAllow: /\n\nSitemap: https://freepracticesat.com/sitemap.xml\n"
