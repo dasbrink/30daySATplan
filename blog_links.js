@@ -28,6 +28,11 @@
 
       var posts = [
         {
+          href: '/blog/sacrifices-for-a-good-sat-score/',
+          title: 'My Concerned Observation About Sacrifices for a Good SAT Score',
+          blurb: 'Why work, activities, parties and social media should take a back seat in the month before the SAT.'
+        },
+        {
           href: '/blog/is-30-days-enough-for-sat-math/',
           title: 'Is 30 Days Enough Time to Study for SAT Math?',
           blurb: 'What a month can do for a math score, what real practice scores show, and how to spend the 30 days.'
