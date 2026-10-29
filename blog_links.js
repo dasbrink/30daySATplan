@@ -28,6 +28,11 @@
 
       var posts = [
         {
+          href: '/blog/is-30-days-enough-for-sat-math/',
+          title: 'Is 30 Days Enough Time to Study for SAT Math?',
+          blurb: 'What a month can do for a math score, what real practice scores show, and how to spend the 30 days.'
+        },
+        {
           href: 'https://freepracticesat.com/blog/how-to-choose-an-sat-math-tutor.html',
           title: 'Does Your SAT Tutor Have Mathematical Knowledge for Teaching?',
           blurb: 'For parents: what a good SAT math tutor needs to know beyond a high score, and three questions to ask before you hire one.'
